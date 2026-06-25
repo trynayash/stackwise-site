@@ -2,15 +2,21 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { LiquidMetalButton } from "@/components/ui/liquid-metal";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { Logo } from "@/components/ui/logo";
+import { useInquiry } from "@/components/providers/inquiry-context";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+    const pathname = usePathname();
+    const router = useRouter();
+    const { openInquiry } = useInquiry();
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 80);
@@ -18,10 +24,10 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const scrollToContact = useCallback((e: React.MouseEvent) => {
+    const handleStartProject = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
-        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-    }, []);
+        openInquiry();
+    }, [openInquiry]);
 
     return (
         <>
@@ -39,14 +45,9 @@ export function Navbar() {
                 aria-label="Main navigation"
             >
                 <div className="container mx-auto px-6 h-full flex items-center justify-between">
-                    {/* Text Logo */}
+                    {/* Reusable Logo */}
                     <Link href="/" className="z-50 group py-2" aria-label="StackWise Home">
-                        <span
-                            className="text-lg md:text-2xl tracking-tight text-white group-hover:text-[#C8FF00] transition-colors duration-300"
-                            style={{ fontFamily: "'Oughter', sans-serif" }}
-                        >
-                            STACK<span className="text-[#C8FF00] group-hover:text-white transition-colors duration-300">WISE</span>
-                        </span>
+                        <Logo size="md" />
                     </Link>
 
                     <div className="flex items-center gap-4">
@@ -61,7 +62,7 @@ export function Navbar() {
                                 distortion: 0.15,
                                 speed: 0.4,
                             }}
-                            onClick={scrollToContact}
+                            onClick={handleStartProject}
                         >
                             Start Project
                         </LiquidMetalButton>

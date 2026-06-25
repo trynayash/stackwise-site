@@ -1,11 +1,21 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Code2, ShoppingCart, Smartphone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useInquiry } from "@/components/providers/inquiry-context";
 
-
+// Parallax Mountain Vista Layers Config
+const layersData = [
+  { className: 'layer-6', speed: '120s', size: '480px', zIndex: 1, image: '6', bottom: '-80px' },
+  { className: 'layer-5', speed: '95s',  size: '620px', zIndex: 1, image: '5', bottom: '-100px' },
+  { className: 'layer-4', speed: '75s',  size: '850px', zIndex: 1, image: '4', bottom: '-120px' },
+  { className: 'bike-1',  speed: '10s',  size: '130px', zIndex: 2, image: 'bike', animation: 'parallax_bike', bottom: '60px', noRepeat: true },
+  { className: 'bike-2',  speed: '15s',  size: '130px', zIndex: 2, image: 'bike', animation: 'parallax_bike', bottom: '60px', noRepeat: true },
+  { className: 'layer-3', speed: '55s',  size: '320px', zIndex: 3, image: '3', bottom: '-50px' },
+  { className: 'layer-2', speed: '30s',  size: '300px', zIndex: 4, image: '2', bottom: '-40px' },
+  { className: 'layer-1', speed: '20s',  size: '280px', zIndex: 5, image: '1', bottom: '-30px' },
+];
 
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -18,199 +28,214 @@ export function Hero() {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     };
 
+    const { openInquiry } = useInquiry();
+
+    // Generate dynamic CSS for each parallax layer
+    const dynamicStyles = useMemo(() => {
+        return layersData
+            .map(layer => {
+                const url = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/24650/${layer.image}.png`;
+                return `
+                    .${layer.className} {
+                        background-image: url(${url});
+                        animation-duration: ${layer.speed};
+                        background-size: auto ${layer.size};
+                        z-index: ${layer.zIndex};
+                        ${layer.animation ? `animation-name: ${layer.animation};` : ''}
+                        ${layer.bottom ? `bottom: ${layer.bottom};` : ''}
+                        ${layer.noRepeat ? 'background-repeat: no-repeat;' : ''}
+                    }
+                `;
+            })
+            .join('\n');
+    }, []);
+
     return (
         <section
             ref={containerRef}
             id="hero"
-            className="relative min-h-screen flex flex-col overflow-hidden"
+            className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden pt-28 pb-10 px-6"
             aria-label="Hero"
             style={{ background: "#060606" }}
         >
-            {/* ═══════════════════════════════════════════
-                BACKGROUND LAYER 1: Base dark gradient
-                Subtle radial gradient from near-black center
-            ═══════════════════════════════════════════ */}
+            {/* Inject dynamic layer styles */}
+            <style>{dynamicStyles}</style>
+
+            <style>{`
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                .animate-fade-in {
+                    animation: fadeIn 0.8s ease-out forwards;
+                }
+                .parallax-layer {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-position: 0 bottom;
+                    background-repeat: repeat-x;
+                    animation-name: parallax_scroll;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
+                    pointer-events: none;
+                }
+                .bike-1, .bike-2 {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-repeat: no-repeat;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
+                    pointer-events: none;
+                }
+                @keyframes parallax_scroll {
+                    from { background-position: 0 bottom; }
+                    to { background-position: -2000px bottom; }
+                }
+                @keyframes parallax_bike {
+                    0% { background-position: -100px bottom; }
+                    100% { background-position: 2000px bottom; }
+                }
+            `}</style>
+
+            {/* Background Layer 1: Base radial grid aura */}
             <div
                 className="absolute inset-0 z-0 pointer-events-none"
                 style={{
-                    background: "radial-gradient(ellipse 80% 60% at 50% 30%, #0d1a0a 0%, #080808 40%, #060606 100%)",
+                    background: "radial-gradient(ellipse 80% 60% at 50% 30%, #081008 0%, #070707 50%, #060606 100%)",
                 }}
             />
 
-            {/* ═══════════════════════════════════════════
-                BACKGROUND LAYER 2: Green/Teal Aurora Glow
-                Multiple overlapping blurred orbs — the key
-                visual anchor from the DevCore reference.
-                Like a diffused northern lights effect.
-            ═══════════════════════════════════════════ */}
-            {/* Primary lime-green glow — large, centered-top */}
-            <div
-                className="absolute z-0 pointer-events-none"
-                style={{
-                    top: "-12%",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "900px",
-                    height: "500px",
-                    background: "radial-gradient(ellipse at center, rgba(200,255,0,0.12) 0%, rgba(200,255,0,0.04) 40%, transparent 70%)",
-                    filter: "blur(60px)",
-                }}
-            />
-            {/* Secondary teal/cyan glow — left side, adds depth */}
-            <div
-                className="absolute z-0 pointer-events-none"
-                style={{
-                    top: "-8%",
-                    left: "25%",
-                    width: "500px",
-                    height: "450px",
-                    background: "radial-gradient(ellipse at center, rgba(0,255,200,0.08) 0%, rgba(0,255,200,0.02) 50%, transparent 70%)",
-                    filter: "blur(80px)",
-                }}
-            />
-            {/* Tertiary green glow — right side, balances */}
-            <div
-                className="absolute z-0 pointer-events-none"
-                style={{
-                    top: "-5%",
-                    right: "20%",
-                    width: "400px",
-                    height: "350px",
-                    background: "radial-gradient(ellipse at center, rgba(180,255,50,0.07) 0%, transparent 60%)",
-                    filter: "blur(70px)",
-                }}
-            />
-            {/* Focused bright hotspot — small intense glow behind icons */}
-            <div
-                className="absolute z-0 pointer-events-none"
-                style={{
-                    top: "18%",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "300px",
-                    height: "200px",
-                    background: "radial-gradient(ellipse at center, rgba(200,255,0,0.15) 0%, transparent 60%)",
-                    filter: "blur(40px)",
-                }}
-            />
-
-            {/* ═══════════════════════════════════════════
-                BACKGROUND LAYER 3: Square Grid Lines
-                Clear visible grid lines like DevCore —
-                not dots, actual intersecting lines
-                forming a square grid.
-            ═══════════════════════════════════════════ */}
+            {/* Background Layer 2: Grid Lines */}
             <div
                 className="absolute inset-0 z-[1] pointer-events-none"
                 style={{
                     backgroundImage: `
-                        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)
+                        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
                     `,
                     backgroundSize: "64px 64px",
-                    maskImage: "radial-gradient(ellipse 65% 55% at 50% 35%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 80%)",
-                    WebkitMaskImage: "radial-gradient(ellipse 65% 55% at 50% 35%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 80%)",
+                    maskImage: "radial-gradient(ellipse 65% 55% at 50% 35%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 80%)",
+                    WebkitMaskImage: "radial-gradient(ellipse 65% 55% at 50% 35%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 80%)",
                 }}
             />
 
-            {/* ═══════════════════════════════════════════
-                BACKGROUND LAYER 4: Bottom/Edge Fade
-                Clean transition into the next section
-            ═══════════════════════════════════════════ */}
+            {/* Mountain Parallax Layers Background */}
+            <div className="absolute inset-0 overflow-hidden z-[2] select-none pointer-events-none">
+                {layersData.map(layer => (
+                    <div
+                        key={layer.className}
+                        className={`parallax-layer ${layer.className}`}
+                    />
+                ))}
+            </div>
+
+            {/* Parallax Content Wrapper */}
+            <motion.div
+                style={{ y, opacity }}
+                className="relative z-10 flex flex-col items-center justify-start text-center max-w-7xl w-full animate-fade-in"
+            >
+                {/* Aside Announcement Badge */}
+                <aside className="mb-6 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm max-w-full">
+                    <span className="text-xs text-center whitespace-nowrap text-white/50">
+                        StackWise V2: Software Engineering & Labs is Live
+                    </span>
+                    <a
+                        href="#portfolio"
+                        onClick={scrollToSection("portfolio")}
+                        className="flex items-center gap-1 text-xs hover:text-white transition-all active:scale-95 whitespace-nowrap text-[#C8FF00] font-mono font-medium"
+                        aria-label="Read our engineering labs"
+                    >
+                        Explore Labs
+                        <ArrowRight size={12} className="text-[#C8FF00]" />
+                    </a>
+                </aside>
+
+                {/* Main Headline */}
+                <h1
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5.2rem] font-bold tracking-tight text-center max-w-5xl px-6 leading-[1.05] mb-5"
+                    style={{
+                        background: "linear-gradient(to bottom, #ffffff, #ffffff, rgba(255, 255, 255, 0.45))",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        letterSpacing: "-0.04em"
+                    }}
+                >
+                    <span className="block whitespace-nowrap">Give your custom software</span>
+                    <span className="block">the codebase it deserves.</span>
+                </h1>
+
+                {/* Subtitle */}
+                <p className="text-sm md:text-base text-center max-w-xl px-6 mb-8 text-white/50 leading-relaxed font-light">
+                    Premium software engineering studio designing and building production-grade SaaS, custom software systems, and AI-powered products with zero technical debt.
+                </p>
+
+                {/* Call To Actions */}
+                <div className="flex items-center gap-4 relative z-10 mb-12">
+                    <button
+                        onClick={openInquiry}
+                        className="inline-flex items-center justify-center gap-2 rounded-lg font-bold transition-all hover:scale-105 active:scale-95 bg-gradient-to-b from-[#C8FF00] via-[#C8FF00]/95 to-[#9EFF00]/80 text-black px-8 h-13 text-base shadow-[0_0_30px_rgba(200,255,0,0.2)] hover:shadow-[0_0_50px_rgba(200,255,0,0.4)] cursor-pointer"
+                        aria-label="Start Your Project"
+                    >
+                        Start Your Project
+                    </button>
+                    <button
+                        onClick={scrollToSection("services")}
+                        className="inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all hover:bg-white/5 text-white/80 hover:text-white px-8 h-13 text-base border border-white/10 cursor-pointer"
+                        aria-label="Explore our Services"
+                    >
+                        Explore Services
+                    </button>
+                </div>
+
+                {/* Dashboard Showcase Frame */}
+                <div className="w-full max-w-4xl relative pb-10 px-6">
+                    <div
+                        className="absolute left-1/2 w-[90%] pointer-events-none z-0"
+                        style={{
+                            top: "-23%",
+                            transform: "translateX(-50%)"
+                        }}
+                        aria-hidden="true"
+                    >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src="https://i.postimg.cc/Ss6yShGy/glows.png"
+                            alt=""
+                            className="w-full h-auto"
+                            loading="eager"
+                        />
+                    </div>
+                    
+                    <div className="relative z-10 border border-white/10 rounded-xl overflow-hidden bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-10px_rgba(0,0,0,0.8)] p-1.5">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src="/hero_Product_img.png"
+                            alt="Product Image"
+                            className="w-full h-auto rounded-lg shadow-2xl border border-white/[0.04]"
+                            loading="eager"
+                        />
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Edge fade gradient transition */}
             <div
-                className="absolute bottom-0 left-0 right-0 h-52 z-[2] pointer-events-none"
+                className="absolute bottom-0 left-0 right-0 h-40 z-[2] pointer-events-none"
                 style={{
                     background: "linear-gradient(to top, #060606 0%, transparent 100%)",
                 }}
             />
-            {/* Side vignette for extra depth */}
-            <div
-                className="absolute inset-0 z-[2] pointer-events-none"
-                style={{
-                    background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(6,6,6,0.6) 100%)",
-                }}
-            />
-
-            {/* ═══════════════════════════════════════════
-                CONTENT
-            ═══════════════════════════════════════════ */}
-            <motion.div
-                style={{ y, opacity }}
-                className="relative z-10 flex flex-col items-center justify-center text-center flex-1 px-6 pt-24 pb-8"
-            >
-                {/* Service Icon Badges — 3 glowing floating icons */}
-                <motion.div
-                    className="flex items-center gap-5 mb-10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.1 }}
-                >
-                    {[
-                        { icon: Code2, color: "#C8FF00", shadow: "rgba(200,255,0,0.3)" },
-                        { icon: ShoppingCart, color: "#00FFC8", shadow: "rgba(0,255,200,0.3)" },
-                        { icon: Smartphone, color: "#C8FF00", shadow: "rgba(200,255,0,0.3)" },
-                    ].map((item, i) => (
-                        <motion.div
-                            key={i}
-                            className="w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-md"
-                            style={{
-                                background: `radial-gradient(circle at 30% 30%, ${item.color}18, ${item.color}08)`,
-                                border: `1px solid ${item.color}30`,
-                                boxShadow: `0 0 25px ${item.shadow}, 0 0 80px ${item.color}10, inset 0 1px 0 ${item.color}15`,
-                            }}
-                            animate={{ y: [0, -6, 0] }}
-                            transition={{ duration: 3.5, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }}
-                        >
-                            <item.icon size={22} style={{ color: item.color }} />
-                        </motion.div>
-                    ))}
-                </motion.div>
-
-                {/* Headline — Single powerful line */}
-                <motion.h1
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-[-0.03em] text-white leading-[1.1] mb-7 max-w-5xl"
-                    initial={{ opacity: 0, y: 25 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.3 }}
-                >
-                    Design, Build <span className="text-[#C8FF00]">&amp;</span> Scale
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                    className="text-white/40 text-base sm:text-lg md:text-xl font-light max-w-2xl leading-[1.7] mb-12 tracking-[0.01em]"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.5 }}
-                >
-                    From crafting stunning interfaces to building robust software and
-                    deploying it seamlessly — we&apos;re here to help your business shine.
-                </motion.p>
-
-                {/* CTAs */}
-                <motion.div
-                    className="flex flex-col sm:flex-row items-center gap-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                    <Button
-                        variant="primary"
-                        className="h-13 px-10 text-base rounded-full"
-                        onClick={scrollToSection("contact")}
-                    >
-                        Contact Us
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        className="h-13 px-10 text-base rounded-full"
-                        onClick={scrollToSection("services")}
-                    >
-                        Explore Our Services
-                    </Button>
-                </motion.div>
-            </motion.div>
-
         </section>
     );
 }

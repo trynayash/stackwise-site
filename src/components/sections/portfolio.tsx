@@ -7,15 +7,23 @@ import { projects } from "@/lib/data";
 import { ArrowUpRight, ChevronDown, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const categories = ["All", "Web Apps", "E-Commerce", "Mobile", "Design & SEO"] as const;
+const categories = ["All", "Web Apps", "Design & SEO"] as const;
 const INITIAL_SHOW = 9;
 
 const stats = [
-    { value: "50+", label: "Projects Shipped" },
-    { value: "40+", label: "Happy Clients" },
-    { value: "₹10Cr+", label: "Revenue Generated" },
-    { value: "99.9%", label: "Client Satisfaction" },
+    { value: "5 Shipped", label: "Production Labs" },
+    { value: "TypeScript/Go", label: "Primary Architecture" },
+    { value: "100%", label: "Code Ownership" },
+    { value: "Zero Debt", label: "Technical Standard" },
 ];
+
+const projectDomains: Record<string, string> = {
+    "limityourapis": "limityourapi.tech",
+    "startupdeck-ai": "startupdeck.in",
+    "codefusionai": "codefusion.vercel.app",
+    "promptp": "promptp.vercel.app",
+    "stackwise-platform": "stackwise.dev",
+};
 
 export function Portfolio() {
     const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -72,7 +80,7 @@ export function Portfolio() {
                             </h2>
                         </div>
                         <p className="text-white/25 text-sm max-w-sm leading-relaxed font-light">
-                            Every project is a case study in driving real business outcomes. Not templates — engineered solutions.
+                            Every project is an engineering lab in custom development. Not templates — production software.
                         </p>
                     </div>
                 </motion.div>
@@ -139,7 +147,7 @@ export function Portfolio() {
                 >
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C8FF00]/[0.04] border border-[#C8FF00]/10 text-[#C8FF00]/50 text-[11px] font-mono">
                         <Zap size={11} className="text-[#C8FF00]/60" />
-                        SAMPLE CONCEPTS — Real case studies & live demos available upon request
+                        ENGINEERING LABS — Production source code & dynamic environments
                     </span>
                 </motion.div>
 
@@ -150,52 +158,60 @@ export function Portfolio() {
                     <AnimatePresence mode="popLayout">
                         {visibleProjects.map((project, index) => {
                             const cardContent = (
-                                <div className="portfolio-card group h-full flex flex-col overflow-hidden rounded-2xl bg-[#111111]/60 backdrop-blur-sm border border-white/[0.06] cursor-pointer transition-all duration-500 hover:border-[#C8FF00]/25 hover:shadow-[0_0_40px_-10px_rgba(200,255,0,0.12)]">
-                                    {/* Image */}
-                                    <div className="relative h-56 md:h-64 overflow-hidden">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-black/30 to-transparent z-10 opacity-70 group-hover:opacity-50 transition-opacity duration-500" />
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img
-                                            src={project.image}
-                                            alt={`${project.title} — ${project.summary}`}
-                                            className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
-                                            loading="lazy"
-                                        />
-                                        {/* Arrow Badge */}
-                                        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                            <div className="w-10 h-10 rounded-full bg-[#C8FF00]/15 backdrop-blur-md flex items-center justify-center text-[#C8FF00] border border-[#C8FF00]/30 shadow-[0_0_15px_-3px_rgba(200,255,0,0.3)]">
-                                                <ArrowUpRight size={18} className="transform group-hover:rotate-45 transition-transform duration-300" />
+                                <div className="portfolio-card group h-full flex flex-col overflow-hidden rounded-2xl bg-[#0d0d0d]/80 backdrop-blur-md border border-white/[0.05] cursor-pointer transition-all duration-500 hover:border-[#C8FF00]/25 hover:shadow-[0_0_50px_-15px_rgba(200,255,0,0.15)] hover:scale-[1.01] active:scale-[0.99]">
+                                    {/* Browser Window Header Mockup */}
+                                    <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#080808] border-b border-white/[0.04] flex flex-col">
+                                        {/* Browser Header Bar */}
+                                        <div className="flex items-center justify-between px-4 py-2.5 bg-white/[0.02] border-b border-white/[0.03]">
+                                            <div className="flex gap-1.5">
+                                                <span className="w-2 h-2 rounded-full bg-[#ef4444]/60" />
+                                                <span className="w-2 h-2 rounded-full bg-[#f59e0b]/60" />
+                                                <span className="w-2 h-2 rounded-full bg-[#10b981]/60" />
                                             </div>
-                                        </div>
-                                        {/* Category Badge */}
-                                        <div className="absolute bottom-4 left-4 z-20">
-                                            <span className="inline-block py-1 px-3 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-[10px] font-mono text-white/70 uppercase tracking-wider">
-                                                {project.category}
-                                            </span>
-                                        </div>
-                                        {/* Featured Badge */}
-                                        {project.featured && (
-                                            <div className="absolute top-4 left-4 z-20">
-                                                <span className="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-[#C8FF00]/10 backdrop-blur-sm border border-[#C8FF00]/20 text-[10px] font-mono text-[#C8FF00]/80 uppercase tracking-wider">
-                                                    <Sparkles size={9} /> Featured
-                                                </span>
+                                            <div className="flex-1 max-w-[200px] mx-auto bg-white/[0.02] text-[9px] font-mono text-white/20 px-3 py-0.5 rounded border border-white/[0.02] text-center truncate">
+                                                {projectDomains[project.id] || `${project.id}.dev`}
                                             </div>
-                                        )}
+                                            <div className="w-10" />
+                                        </div>
+
+                                        {/* Browser Body with screenshot */}
+                                        <div className="relative flex-grow overflow-hidden bg-[#060606] flex items-start justify-center">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
+                                                src={project.image}
+                                                alt={`${project.title} — ${project.summary}`}
+                                                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                                                loading="lazy"
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Content */}
                                     <div className="p-6 flex flex-col flex-grow">
-                                        <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-[#C8FF00] transition-colors duration-300 leading-tight">
-                                            {project.title}
+                                        {/* Badges Row — Prevents washed-out/overlap issues on white screenshots */}
+                                        <div className="flex flex-wrap items-center gap-2 mb-3">
+                                            <span className="inline-block py-0.5 px-2.5 rounded bg-[#C8FF00]/10 border border-[#C8FF00]/25 text-[9px] font-mono text-[#C8FF00] uppercase tracking-wider">
+                                                {project.category}
+                                            </span>
+                                            {project.featured && (
+                                                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded bg-white/[0.04] border border-white/[0.08] text-[9px] font-mono text-white/50 uppercase tracking-wider">
+                                                    <Sparkles size={8} /> Featured
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-[#C8FF00] transition-colors duration-300 leading-tight flex items-center justify-between gap-3">
+                                            <span>{project.title}</span>
+                                            <ArrowUpRight size={18} className="text-white/25 group-hover:text-[#C8FF00] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 flex-shrink-0" />
                                         </h3>
-                                        <p className="text-white/35 text-sm leading-relaxed mb-5 line-clamp-2">
+                                        <p className="text-white/50 text-sm leading-relaxed mb-5 line-clamp-2 font-light">
                                             {project.summary}
                                         </p>
 
                                         {/* Tech Stack Pills */}
                                         <div className="flex flex-wrap gap-1.5 mb-5">
                                             {project.tech.slice(0, 4).map(t => (
-                                                <span key={t} className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.06] text-[10px] font-mono text-white/30 transition-colors group-hover:text-white/50 group-hover:border-white/10">
+                                                <span key={t} className="px-2.5 py-1 rounded-md bg-white/[0.03] border border-white/[0.05] text-[10px] font-mono text-white/40 transition-colors group-hover:text-white/60 group-hover:border-white/10">
                                                     {t}
                                                 </span>
                                             ))}
@@ -206,14 +222,14 @@ export function Portfolio() {
                                             <div className="flex items-center gap-4">
                                                 {project.metrics.map(m => (
                                                     <div key={m.label} className="flex items-baseline gap-1.5">
-                                                        <span className="text-[#C8FF00] text-sm font-bold">{m.value}</span>
-                                                        <span className="text-white/20 text-[10px] font-mono uppercase">{m.label}</span>
+                                                        <span className="text-[#C8FF00] text-sm font-bold tracking-tight">{m.value}</span>
+                                                        <span className="text-white/30 text-[9px] font-mono uppercase tracking-wider">{m.label}</span>
                                                     </div>
                                                 ))}
                                             </div>
                                             {project.caseStudy && (
-                                                <span className="text-[#C8FF00]/0 group-hover:text-[#C8FF00]/60 text-[10px] font-mono tracking-wider transition-all duration-300 whitespace-nowrap">
-                                                    View Case Study →
+                                                <span className="text-[#C8FF00]/0 group-hover:text-[#C8FF00]/70 text-[10px] font-mono tracking-wider transition-all duration-300 whitespace-nowrap">
+                                                    Case Study →
                                                 </span>
                                             )}
                                         </div>

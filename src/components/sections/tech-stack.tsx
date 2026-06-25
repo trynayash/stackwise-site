@@ -4,56 +4,55 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Zap, Gauge } from "lucide-react";
 
-const techStack = [
+import { technologies } from "@/lib/data";
+
+const coreStack = [
     {
         name: "Next.js",
         tagline: "React framework for production",
         logo: "/logos/nextjs.svg",
-        color: "#ffffff",
     },
     {
         name: "TypeScript",
         tagline: "Type-safe JavaScript",
         logo: "/logos/typescript.svg",
-        color: "#3178C6",
     },
     {
         name: "React",
         tagline: "Component architecture",
         logo: "/logos/react.svg",
-        color: "#61DAFB",
     },
     {
         name: "TailwindCSS",
         tagline: "Utility-first CSS",
         logo: "/logos/tailwindcss.svg",
-        color: "#06B6D4",
     },
     {
         name: "Node.js",
         tagline: "Server-side runtime",
         logo: "/logos/nodejs.svg",
-        color: "#339933",
     },
     {
         name: "PostgreSQL",
         tagline: "Scalable SQL database",
         logo: "/logos/postgresql.svg",
-        color: "#4169E1",
     },
     {
         name: "AWS",
         tagline: "Cloud infrastructure",
         logo: "/logos/aws.svg",
-        color: "#FF9900",
-    },
-    {
-        name: "Vercel",
-        tagline: "Edge deployment",
-        logo: "/logos/nextjs.svg",
-        color: "#ffffff",
     },
 ];
+
+const techStack = [
+    ...coreStack,
+    ...technologies.map((tech) => ({
+        name: tech.name,
+        tagline: tech.description,
+        logo: tech.icon,
+    })),
+];
+
 
 const lighthouseScores = [
     { label: "Performance", score: 100, color: "#0CCE6B" },
@@ -103,7 +102,7 @@ export function TechStack() {
                                     className="group p-4 rounded-xl bg-[#0d0d0d]/80 border border-white/[0.06] hover:border-white/[0.15] transition-all duration-500 text-center hover:bg-[#111] cursor-default"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
+                                    transition={{ duration: 0.4, delay: 0.05 + index * 0.03 }}
                                     whileHover={{ y: -4 }}
                                 >
                                     <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">

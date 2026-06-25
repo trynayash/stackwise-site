@@ -1,36 +1,100 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { z } from "zod";
+
+// Zod Schema to validate contact form submissions
+const contactSchema = z.object({
+    name: z.string().min(1, "Name is required").max(100),
+    email: z.string().email("Please enter a valid email address"),
+    phone: z.string().optional(),
+    projectType: z.string().min(1, "Project type is required"),
+    timeline: z.string().min(1, "Timeline is required"),
+    budget: z.string().min(1, "Budget qualification is required"),
+    details: z.string().min(10, "Tell us more details (at least 10 characters)").max(5000),
+    botField: z.string().optional(),
+});
+
+// Simple in-memory rate limiter map
+const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
+const LIMIT = 5; // 5 inquiries per hour
+const WINDOW = 60 * 60 * 1000; // 1 hour
+
+function isRateLimited(ip: string): boolean {
+    const now = Date.now();
+    const clientLimit = rateLimitMap.get(ip);
+    
+    if (!clientLimit) {
+        rateLimitMap.set(ip, { count: 1, lastReset: now });
+        return false;
+    }
+    
+    if (now - clientLimit.lastReset > WINDOW) {
+        rateLimitMap.set(ip, { count: 1, lastReset: now });
+        return false;
+    }
+    
+    if (clientLimit.count >= LIMIT) {
+        return true;
+    }
+    
+    clientLimit.count += 1;
+    return false;
+}
 
 export async function POST(request: Request) {
     try {
+        // Read client IP for rate limiting
+        const ip = request.headers.get("x-forwarded-for")?.split(",")[0] || 
+                   request.headers.get("x-real-ip") || 
+                   "127.0.0.1";
+
+        if (isRateLimited(ip)) {
+            return NextResponse.json(
+                { error: "Too many inquiries sent. Please wait an hour or email hello@stackwise.agency directly." },
+                { status: 429 }
+            );
+        }
+
         const body = await request.json();
-        const { name, email, phone, budget, details } = body;
 
-        // Validate required fields
-        if (!name || !email || !details) {
+        // 1. Honeypot Check (Silently drop bot spam)
+        if (body.botField) {
+            console.warn(`[SYSTEM] Honeypot triggered. Silent success returned. IP: ${ip}`);
             return NextResponse.json(
-                { error: "Name, email, and project details are required." },
+                { success: true, message: "Message sent successfully" },
+                { status: 200 }
+            );
+        }
+
+        // 2. Schema Validation using Zod
+        const result = contactSchema.safeParse(body);
+        if (!result.success) {
+            const firstError = result.error.issues[0]?.message || "Invalid form data";
+            return NextResponse.json(
+                { error: firstError },
                 { status: 400 }
             );
         }
 
-        // Basic email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
+        const { name, email, phone, projectType, timeline, budget, details } = result.data;
+
+        // 3. SMTP Production Credentials Check
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+            console.error("❌ STACKWISE SMTP SERVICE: Missing GMAIL_USER or GMAIL_APP_PASSWORD environment variables.");
             return NextResponse.json(
-                { error: "Please enter a valid email address." },
-                { status: 400 }
+                { error: "Inquiry system currently offline. Please email hello@stackwise.agency directly." },
+                { status: 503 }
             );
         }
 
-        // Build the email HTML
+        // Build premium styled email HTML
         const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEW PROJECT INQUIRY // STACKWISE</title>
+    <title>NEW INQUIRY // STACKWISE</title>
     <style>
         body { margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background-color: #000000; color: #ffffff; -webkit-font-smoothing: antialiased; }
         .wrapper { width: 100%; table-layout: fixed; background-color: #000000; padding: 40px 20px; box-sizing: border-box; }
@@ -40,7 +104,7 @@ export async function POST(request: Request) {
         .logo span { color: #C8FF00; }
         .tagline { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 11px; color: #C8FF00; letter-spacing: 2px; text-transform: uppercase; margin: 0; }
         .content { padding: 40px; }
-        .row { margin-bottom: 30px; border-left: 2px solid #222222; padding-left: 16px; transition: border-color 0.2s ease; }
+        .row { margin-bottom: 30px; border-left: 2px solid #222222; padding-left: 16px; transition: border-left-color 0.2s ease; }
         .row:hover { border-left-color: #C8FF00; }
         .row:last-child { margin-bottom: 0; }
         .label { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 11px; font-weight: 600; color: #888888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
@@ -88,13 +152,21 @@ export async function POST(request: Request) {
                     <div class="value">${phone}</div>
                 </div>
                 ` : ''}
-                
-                ${budget ? `
+
                 <div class="row">
-                    <div class="label">BUDGET_ESTIMATE</div>
+                    <div class="label">PROJECT_TYPE</div>
+                    <div class="value">${projectType}</div>
+                </div>
+
+                <div class="row">
+                    <div class="label">TIMELINE_EXPECTATION</div>
+                    <div class="value">${timeline}</div>
+                </div>
+                
+                <div class="row">
+                    <div class="label">BUDGET_QUALIFICATION</div>
                     <div class="value">${budget}</div>
                 </div>
-                ` : ''}
                 
                 <div class="row">
                     <div class="label">PROJECT_SPECIFICATIONS</div>
@@ -109,7 +181,7 @@ export async function POST(request: Request) {
 
             <div class="footer">
                 TRANSMISSION TIMESTAMP // ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'long' }).toUpperCase()}<br>
-                SECURE LEAD SYSTEM
+                SECURE LEAD SYSTEM // IP: ${ip}
             </div>
         </div>
     </div>
@@ -130,11 +202,11 @@ export async function POST(request: Request) {
             from: `"StackWise Leads" <${process.env.GMAIL_USER}>`,
             to: "yashrsuthar90@gmail.com",
             replyTo: email,
-            subject: `[INQUIRY] ${name.toUpperCase()} — StackWise`,
+            subject: `[INQUIRY] ${name.toUpperCase()} — ${projectType}`,
             html: emailHtml,
         });
 
-        console.log(`[SYSTEM] Internal email dispatched successfully. Target: ${email}`);
+        console.log(`[SYSTEM] Secure Lead Dispatched. Target: ${email}`);
 
         return NextResponse.json(
             { success: true, message: "Message sent successfully" },

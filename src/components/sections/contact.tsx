@@ -7,18 +7,47 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, AlertCircle, MessageSquare, Mail, Phone, Clock, Shield } from "lucide-react";
 
-type FormErrors = { name?: string; email?: string; details?: string };
+type FormErrors = {
+    name?: string;
+    email?: string;
+    projectType?: string;
+    timeline?: string;
+    budget?: string;
+    details?: string;
+};
 
 const budgetOptions = [
-    "Under ₹10,000",
-    "₹10,000 – ₹25,000",
-    "₹25,000 – ₹50,000",
-    "₹50,000+",
-    "Not sure yet",
+    "Starter Build (₹49,999 - ₹1,49,999)",
+    "Product Build (₹1,49,999 - ₹3,00,000)",
+    "Scale / Custom (₹3,00,000+)",
+    "Custom Quote / Enterprise",
+];
+
+const projectTypes = [
+    "SaaS Development",
+    "AI Development",
+    "Custom Software",
+    "Web Development",
+    "MVP Development",
+];
+
+const timelines = [
+    "Rapid (< 1 Month)",
+    "Standard (1-3 Months)",
+    "Enterprise (3+ Months)",
 ];
 
 export function Contact() {
-    const [formData, setFormData] = useState({ name: "", email: "", phone: "", budget: "", details: "" });
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        projectType: "",
+        timeline: "",
+        budget: "",
+        details: "",
+        botField: "",
+    });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -29,6 +58,9 @@ export function Contact() {
         if (!formData.name.trim()) newErrors.name = "Name is required";
         if (!formData.email.trim()) newErrors.email = "Email is required";
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Enter a valid email";
+        if (!formData.projectType) newErrors.projectType = "Project type is required";
+        if (!formData.timeline) newErrors.timeline = "Timeline is required";
+        if (!formData.budget) newErrors.budget = "Budget qualification is required";
         if (!formData.details.trim()) newErrors.details = "Tell us about your project";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -47,8 +79,11 @@ export function Contact() {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone || undefined,
-                    budget: formData.budget || undefined,
+                    projectType: formData.projectType,
+                    timeline: formData.timeline,
+                    budget: formData.budget,
                     details: formData.details,
+                    botField: formData.botField,
                 }),
             });
             if (!res.ok) {
@@ -56,7 +91,16 @@ export function Contact() {
                 throw new Error(data?.error || "Failed to send");
             }
             setSubmitted(true);
-            setFormData({ name: "", email: "", phone: "", budget: "", details: "" });
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                projectType: "",
+                timeline: "",
+                budget: "",
+                details: "",
+                botField: "",
+            });
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : "Something went wrong";
             setError(message + ". You can also email us directly at hello@stackwise.agency");
@@ -165,6 +209,18 @@ export function Contact() {
                                             initial={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
                                         >
+                                            {/* Honeypot hidden input */}
+                                            <div style={{ display: "none" }} aria-hidden="true">
+                                                <input
+                                                    type="text"
+                                                    name="website_url"
+                                                    value={formData.botField}
+                                                    onChange={(e) => setFormData({ ...formData, botField: e.target.value })}
+                                                    tabIndex={-1}
+                                                    autoComplete="off"
+                                                />
+                                            </div>
+
                                             {/* Name + Email Row */}
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div className="space-y-2">
@@ -194,7 +250,7 @@ export function Contact() {
                                                 </div>
                                             </div>
 
-                                            {/* Phone + Budget Row */}
+                                            {/* Phone + Project Type Row */}
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div className="space-y-2">
                                                     <label htmlFor="contact-phone" className="text-sm font-medium text-[#888] pl-1">Phone / WhatsApp <span className="text-white/20">(optional)</span></label>
@@ -208,19 +264,56 @@ export function Contact() {
                                                     />
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <label htmlFor="contact-budget" className="text-sm font-medium text-[#888] pl-1">Budget Range <span className="text-white/20">(optional)</span></label>
+                                                    <label htmlFor="contact-project-type" className="text-sm font-medium text-[#888] pl-1">Project Type *</label>
+                                                    <select
+                                                        id="contact-project-type"
+                                                        value={formData.projectType}
+                                                        onChange={(e) => { setFormData({ ...formData, projectType: e.target.value }); setErrors({ ...errors, projectType: undefined }); }}
+                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all appearance-none cursor-pointer"
+                                                        style={{ backgroundColor: "#0e140e", borderColor: errors.projectType ? "#ef4444" : "#1c2a1c", color: formData.projectType ? "#ddd" : "#444" }}
+                                                    >
+                                                        <option value="" disabled>Select project type</option>
+                                                        {projectTypes.map(type => (
+                                                            <option key={type} value={type} style={{ backgroundColor: "#0e140e", color: "#ddd" }}>{type}</option>
+                                                        ))}
+                                                    </select>
+                                                    {errors.projectType && <p className="text-red-400 text-xs pl-1">{errors.projectType}</p>}
+                                                </div>
+                                            </div>
+
+                                            {/* Timeline + Budget Row */}
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <div className="space-y-2">
+                                                    <label htmlFor="contact-timeline" className="text-sm font-medium text-[#888] pl-1">Expected Timeline *</label>
+                                                    <select
+                                                        id="contact-timeline"
+                                                        value={formData.timeline}
+                                                        onChange={(e) => { setFormData({ ...formData, timeline: e.target.value }); setErrors({ ...errors, timeline: undefined }); }}
+                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all appearance-none cursor-pointer"
+                                                        style={{ backgroundColor: "#0e140e", borderColor: errors.timeline ? "#ef4444" : "#1c2a1c", color: formData.timeline ? "#ddd" : "#444" }}
+                                                    >
+                                                        <option value="" disabled>Select timeline</option>
+                                                        {timelines.map(time => (
+                                                            <option key={time} value={time} style={{ backgroundColor: "#0e140e", color: "#ddd" }}>{time}</option>
+                                                        ))}
+                                                    </select>
+                                                    {errors.timeline && <p className="text-red-400 text-xs pl-1">{errors.timeline}</p>}
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label htmlFor="contact-budget" className="text-sm font-medium text-[#888] pl-1">Budget Range *</label>
                                                     <select
                                                         id="contact-budget"
                                                         value={formData.budget}
-                                                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                                                        onChange={(e) => { setFormData({ ...formData, budget: e.target.value }); setErrors({ ...errors, budget: undefined }); }}
                                                         className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all appearance-none cursor-pointer"
-                                                        style={{ backgroundColor: "#0e140e", borderColor: "#1c2a1c", color: formData.budget ? "#ddd" : "#444" }}
+                                                        style={{ backgroundColor: "#0e140e", borderColor: errors.budget ? "#ef4444" : "#1c2a1c", color: formData.budget ? "#ddd" : "#444" }}
                                                     >
-                                                        <option value="" disabled>Select budget</option>
+                                                        <option value="" disabled>Select budget range</option>
                                                         {budgetOptions.map(opt => (
                                                             <option key={opt} value={opt} style={{ backgroundColor: "#0e140e", color: "#ddd" }}>{opt}</option>
                                                         ))}
                                                     </select>
+                                                    {errors.budget && <p className="text-red-400 text-xs pl-1">{errors.budget}</p>}
                                                 </div>
                                             </div>
 
@@ -229,7 +322,7 @@ export function Contact() {
                                                 <label htmlFor="contact-details" className="text-sm font-medium text-[#888] pl-1">Tell us about your project *</label>
                                                 <Textarea
                                                     id="contact-details"
-                                                    placeholder="I need a website for my business / I want to build an app / I need help with SEO..."
+                                                    placeholder="Provide requirements, objectives, integration details, or any custom specifications..."
                                                     value={formData.details}
                                                     onChange={(e) => { setFormData({ ...formData, details: e.target.value }); setErrors({ ...errors, details: undefined }); }}
                                                     style={{ backgroundColor: "#0e140e", borderColor: errors.details ? "#ef4444" : "#1c2a1c", color: "#ddd" }}

@@ -2,13 +2,23 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { motion } from "framer-motion";
+import { siteConfig } from "@/config/site";
 
 export function Footer() {
+    const pathname = usePathname();
+    const router = useRouter();
+
     const scrollTo = (id: string) => (e: React.MouseEvent) => {
         e.preventDefault();
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+        if (pathname === "/") {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else {
+            router.push("/#" + id);
+        }
     };
 
     const [email, setEmail] = React.useState("");
@@ -134,7 +144,7 @@ export function Footer() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 mt-16 text-xs text-white/30 font-mono uppercase tracking-wider">
-                            <p>&copy; {new Date().getFullYear()} STACKWISE</p>
+                            <p>&copy; {new Date().getFullYear()} {siteConfig.name.toUpperCase()}</p>
                             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
                         </div>
@@ -186,9 +196,9 @@ export function Footer() {
                             <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Connect</h3>
                             <ul className="space-y-4">
                                 {[
-                                    { name: "Twitter", href: "https://twitter.com/stackwise" },
-                                    { name: "LinkedIn", href: "https://linkedin.com/company/stackwise" },
-                                    { name: "GitHub", href: "https://github.com/trynayash/Stackwise" }
+                                    { name: "Twitter", href: siteConfig.links.twitter },
+                                    { name: "LinkedIn", href: siteConfig.links.linkedin },
+                                    { name: "GitHub", href: siteConfig.links.github }
                                 ].map((item) => (
                                     <li key={item.name}>
                                         <Link

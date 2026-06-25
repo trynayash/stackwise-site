@@ -5,9 +5,9 @@ import { motion, useInView } from "framer-motion";
 import { Code2, Linkedin, Mail, Award, Briefcase, Clock } from "lucide-react";
 
 const stats = [
-    { icon: Briefcase, value: "50+", label: "Projects Shipped" },
-    { icon: Clock, value: "3+", label: "Years Building" },
-    { icon: Award, value: "100%", label: "Client Satisfaction" },
+    { icon: Briefcase, value: "IP Transfer", label: "Full Code Ownership" },
+    { icon: Clock, value: "TypeScript/Go", label: "Modern Architecture" },
+    { icon: Award, value: "SLA Support", label: "Post Launch Support" },
 ];
 
 export function Founder() {
@@ -84,7 +84,7 @@ export function Founder() {
                             </div>
 
                             <blockquote className="text-white/70 text-lg md:text-xl leading-[1.8] font-light border-l-2 border-[#C8FF00]/30 pl-6">
-                                &quot;I believe every line of code should serve a purpose — to make your business faster, your users happier, and your revenue higher. I don&apos;t write code to impress other developers. I write code that prints money for my clients.&quot;
+                                &quot;I believe every line of code should serve a clear business outcome — to make your systems faster, your users happier, and your operational efficiency higher. We design software architectures that function as highly scalable assets for our clients.&quot;
                             </blockquote>
 
                             <p className="text-white/40 text-sm leading-[1.8]">

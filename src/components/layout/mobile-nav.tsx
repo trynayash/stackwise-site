@@ -1,20 +1,14 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    Home,
-    Briefcase,
-    FolderOpen,
-    CreditCard,
-    Users,
-    Mail,
     X,
     ArrowRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { LiquidMetalButton } from "@/components/ui/liquid-metal";
+import { useInquiry } from "@/components/providers/inquiry-context";
 
 const navItems = [
     { title: "Home", href: "#hero", index: "01" },
@@ -31,19 +25,27 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+    const pathname = usePathname();
+    const router = useRouter();
+    const { openInquiry } = useInquiry();
+
     const handleNavClick = (href: string) => {
         onClose();
-        const id = href.replace("#", "");
-        setTimeout(() => {
-            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-        }, 600);
+        if (pathname === "/") {
+            const id = href.replace("#", "");
+            setTimeout(() => {
+                document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+            }, 600);
+        } else {
+            router.push("/" + href);
+        }
     };
 
     const handleStartProject = () => {
         onClose();
         setTimeout(() => {
-            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-        }, 600);
+            openInquiry();
+        }, 500);
     };
 
     return (

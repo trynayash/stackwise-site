@@ -31,7 +31,7 @@ export function Button({
     ...props
 }: ButtonProps) {
     const baseStyles =
-        "relative inline-flex items-center justify-center font-semibold focus:outline-none focus:ring-0 disabled:opacity-50 disabled:pointer-events-none cursor-pointer overflow-hidden";
+        "relative inline-flex items-center justify-center font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8FF00] focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:opacity-50 disabled:pointer-events-none cursor-pointer overflow-hidden";
 
     const variants = {
         primary: cn(
@@ -78,9 +78,9 @@ export function Button({
                         "linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))",
                     maskImage:
                         "linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))",
-                }}
-                initial={{ "--mask-x": "100%" } as any}
-                animate={{ "--mask-x": "-100%" } as any}
+                } as any}
+                initial={{ "--mask-x": "100%" } as Record<string, string>}
+                animate={{ "--mask-x": "-100%" } as Record<string, string>}
                 transition={{ repeat: Infinity, duration: 1, ease: "linear", repeatDelay: 1 }}
             >
                 {children}
@@ -100,7 +100,7 @@ export function Button({
                     WebkitMask:
                         "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
                     WebkitMaskComposite: "xor",
-                }}
+                } as React.CSSProperties}
                 initial={{ backgroundPosition: "100% 0", opacity: 0 }}
                 animate={{
                     backgroundPosition: ["100% 0", "0% 0"],

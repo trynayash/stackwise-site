@@ -3,13 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import React, { useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Anton } from "next/font/google";
 
-const anton = Anton({
-    weight: "400",
-    subsets: ["latin"],
-    display: "swap",
-});
 
 gsap.registerPlugin(useGSAP);
 
@@ -134,13 +128,13 @@ const RevealLoader = ({
                 <div className="overflow-hidden">
                     <p
                         className={cn(
-                            "name-text flex leading-none tracking-tighter",
-                            anton.className
+                            "name-text flex leading-none tracking-tighter"
                         )}
                         style={{
+                            fontFamily: "'Oughter', sans-serif",
                             fontSize: textSize,
                             color: textColor,
-                            fontWeight: "400",
+                            fontWeight: "normal",
                             fontFeatureSettings: "normal",
                             fontVariationSettings: "normal",
                             textTransform: "uppercase",
