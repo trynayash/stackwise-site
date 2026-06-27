@@ -117,6 +117,9 @@ export function VideoTestimonials() {
                                     {testimonial.name}
                                 </h4>
                                 <p className="text-white/40 text-sm">{testimonial.role}</p>
+                                <p className="text-white/60 text-xs mt-3 leading-relaxed md:hidden line-clamp-3">
+                                    &quot;{testimonial.quote}&quot;
+                                </p>
                             </div>
                         </motion.div>
                     ))}

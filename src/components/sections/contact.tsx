@@ -121,7 +121,7 @@ export function Contact() {
                 className="absolute pointer-events-none"
                 style={{
                     top: "50%", left: "50%", width: "140%", height: "600px",
-                    background: "radial-gradient(ellipse at center, rgba(182, 255, 0, 0.15) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse at center, rgba(200, 255, 0, 0.15) 0%, transparent 70%)",
                     transform: "translate(-20%, -50%) rotate(-15deg)", filter: "blur(100px)", zIndex: 0
                 }}
             />
@@ -129,15 +129,15 @@ export function Contact() {
                 className="absolute pointer-events-none"
                 style={{
                     top: "40%", right: "-10%", width: "120%", height: "300px",
-                    background: "linear-gradient(120deg, transparent 0%, rgba(182, 255, 0, 0.4) 40%, rgba(182, 255, 0, 0.6) 50%, rgba(182, 255, 0, 0.3) 60%, transparent 100%)",
+                    background: "linear-gradient(120deg, transparent 0%, rgba(200, 255, 0, 0.4) 40%, rgba(200, 255, 0, 0.6) 50%, rgba(200, 255, 0, 0.3) 60%, transparent 100%)",
                     transform: "rotate(-10deg)", filter: "blur(60px)", opacity: 0.5, zIndex: 0
                 }}
             />
             <div className="absolute bottom-0 left-0 pointer-events-none opacity-5 z-0">
                 <svg width="400" height="400" viewBox="0 0 400 400" fill="none">
-                    <circle cx="0" cy="400" r="100" stroke="#b6ff00" strokeWidth="1" />
-                    <circle cx="0" cy="400" r="200" stroke="#b6ff00" strokeWidth="1" />
-                    <circle cx="0" cy="400" r="300" stroke="#b6ff00" strokeWidth="1" />
+                    <circle cx="0" cy="400" r="100" stroke="#C8FF00" strokeWidth="1" />
+                    <circle cx="0" cy="400" r="200" stroke="#C8FF00" strokeWidth="1" />
+                    <circle cx="0" cy="400" r="300" stroke="#C8FF00" strokeWidth="1" />
                 </svg>
             </div>
 
@@ -155,11 +155,11 @@ export function Contact() {
                             <h2 className="text-[48px] md:text-[56px] font-bold text-white leading-[1.1] tracking-tight mb-8">
                                 Let&apos;s Build<br />
                                 Something
-                                <span className="inline-block align-top ml-3 mt-2 bg-[#0e140e] p-2.5 rounded-full border border-[#b6ff00]/30 relative overflow-hidden shadow-[0_0_15px_rgba(182,255,0,0.2)]">
-                                    <MessageSquare size={28} className="text-[#b6ff00] relative z-10" fill="currentColor" />
+                                <span className="inline-block align-top ml-3 mt-2 bg-[#0e140e] p-2.5 rounded-full border border-[#C8FF00]/30 relative overflow-hidden shadow-[0_0_15px_rgba(200,255,0,0.2)]">
+                                    <MessageSquare size={28} className="text-[#C8FF00] relative z-10" fill="currentColor" />
                                 </span>
                                 <br />
-                                <span className="text-[#b6ff00]">Great.</span>
+                                <span className="text-[#C8FF00]">Great.</span>
                             </h2>
                         </motion.div>
 
@@ -172,20 +172,20 @@ export function Contact() {
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             <div className="flex items-center gap-3 text-white/40 text-sm">
-                                <Clock size={16} className="text-[#b6ff00]/60 flex-shrink-0" />
+                                <Clock size={16} className="text-[#C8FF00]/60 flex-shrink-0" />
                                 <span>We respond within <strong className="text-white/60">24 hours</strong></span>
                             </div>
                             <div className="flex items-center gap-3 text-white/40 text-sm">
-                                <Shield size={16} className="text-[#b6ff00]/60 flex-shrink-0" />
+                                <Shield size={16} className="text-[#C8FF00]/60 flex-shrink-0" />
                                 <span>Your data stays confidential — <strong className="text-white/60">no spam, ever</strong></span>
                             </div>
                             <div className="flex items-center gap-3 text-white/40 text-sm">
-                                <Mail size={16} className="text-[#b6ff00]/60 flex-shrink-0" />
-                                <span>Or email directly: <a href="mailto:yashrsuthar90@gmail.com" className="text-[#b6ff00]/70 hover:text-[#b6ff00] transition-colors">yashrsuthar90@gmail.com</a></span>
+                                <Mail size={16} className="text-[#C8FF00]/60 flex-shrink-0" />
+                                <span>Or email directly: <a href="mailto:yashrsuthar90@gmail.com" className="text-[#C8FF00]/70 hover:text-[#C8FF00] transition-colors">yashrsuthar90@gmail.com</a></span>
                             </div>
                             <div className="flex items-center gap-3 text-white/40 text-sm">
-                                <Phone size={16} className="text-[#b6ff00]/60 flex-shrink-0" />
-                                <span>WhatsApp: <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="text-[#b6ff00]/70 hover:text-[#b6ff00] transition-colors">+91 99999 99999</a></span>
+                                <Phone size={16} className="text-[#C8FF00]/60 flex-shrink-0" />
+                                <span>WhatsApp: <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="text-[#C8FF00]/70 hover:text-[#C8FF00] transition-colors">+91 99999 99999</a></span>
                             </div>
                         </motion.div>
                     </div>
@@ -231,7 +231,7 @@ export function Contact() {
                                                         value={formData.name}
                                                         onChange={(e) => { setFormData({ ...formData, name: e.target.value }); setErrors({ ...errors, name: undefined }); }}
                                                         style={{ backgroundColor: "#0e140e", borderColor: errors.name ? "#ef4444" : "#1c2a1c", color: "#ddd" }}
-                                                        className="h-13 border rounded-lg px-4 focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all placeholder:text-[#444]"
+                                                        className="h-13 border rounded-lg px-4 focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all placeholder:text-[#444]"
                                                     />
                                                     {errors.name && <p className="text-red-400 text-xs pl-1">{errors.name}</p>}
                                                 </div>
@@ -244,7 +244,7 @@ export function Contact() {
                                                         value={formData.email}
                                                         onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setErrors({ ...errors, email: undefined }); }}
                                                         style={{ backgroundColor: "#0e140e", borderColor: errors.email ? "#ef4444" : "#1c2a1c", color: "#ddd" }}
-                                                        className="h-13 border rounded-lg px-4 focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all placeholder:text-[#444]"
+                                                        className="h-13 border rounded-lg px-4 focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all placeholder:text-[#444]"
                                                     />
                                                     {errors.email && <p className="text-red-400 text-xs pl-1">{errors.email}</p>}
                                                 </div>
@@ -260,7 +260,7 @@ export function Contact() {
                                                         value={formData.phone}
                                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                         style={{ backgroundColor: "#0e140e", borderColor: "#1c2a1c", color: "#ddd" }}
-                                                        className="h-13 border rounded-lg px-4 focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all placeholder:text-[#444]"
+                                                        className="h-13 border rounded-lg px-4 focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all placeholder:text-[#444]"
                                                     />
                                                 </div>
                                                 <div className="space-y-2">
@@ -269,7 +269,7 @@ export function Contact() {
                                                         id="contact-project-type"
                                                         value={formData.projectType}
                                                         onChange={(e) => { setFormData({ ...formData, projectType: e.target.value }); setErrors({ ...errors, projectType: undefined }); }}
-                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all appearance-none cursor-pointer"
+                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all appearance-none cursor-pointer"
                                                         style={{ backgroundColor: "#0e140e", borderColor: errors.projectType ? "#ef4444" : "#1c2a1c", color: formData.projectType ? "#ddd" : "#444" }}
                                                     >
                                                         <option value="" disabled>Select project type</option>
@@ -289,7 +289,7 @@ export function Contact() {
                                                         id="contact-timeline"
                                                         value={formData.timeline}
                                                         onChange={(e) => { setFormData({ ...formData, timeline: e.target.value }); setErrors({ ...errors, timeline: undefined }); }}
-                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all appearance-none cursor-pointer"
+                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all appearance-none cursor-pointer"
                                                         style={{ backgroundColor: "#0e140e", borderColor: errors.timeline ? "#ef4444" : "#1c2a1c", color: formData.timeline ? "#ddd" : "#444" }}
                                                     >
                                                         <option value="" disabled>Select timeline</option>
@@ -305,7 +305,7 @@ export function Contact() {
                                                         id="contact-budget"
                                                         value={formData.budget}
                                                         onChange={(e) => { setFormData({ ...formData, budget: e.target.value }); setErrors({ ...errors, budget: undefined }); }}
-                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all appearance-none cursor-pointer"
+                                                        className="w-full h-13 border rounded-lg px-4 text-sm focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all appearance-none cursor-pointer"
                                                         style={{ backgroundColor: "#0e140e", borderColor: errors.budget ? "#ef4444" : "#1c2a1c", color: formData.budget ? "#ddd" : "#444" }}
                                                     >
                                                         <option value="" disabled>Select budget range</option>
@@ -326,7 +326,7 @@ export function Contact() {
                                                     value={formData.details}
                                                     onChange={(e) => { setFormData({ ...formData, details: e.target.value }); setErrors({ ...errors, details: undefined }); }}
                                                     style={{ backgroundColor: "#0e140e", borderColor: errors.details ? "#ef4444" : "#1c2a1c", color: "#ddd" }}
-                                                    className="min-h-[140px] border rounded-lg px-4 py-4 focus:ring-1 focus:ring-[#b6ff00] focus:border-[#b6ff00] focus:shadow-[0_0_10px_rgba(182,255,0,0.1)] transition-all resize-none placeholder:text-[#444]"
+                                                    className="min-h-[140px] border rounded-lg px-4 py-4 focus:ring-1 focus:ring-[#C8FF00] focus:border-[#C8FF00] focus:shadow-[0_0_10px_rgba(200,255,0,0.1)] transition-all resize-none placeholder:text-[#444]"
                                                 />
                                                 {errors.details && <p className="text-red-400 text-xs pl-1">{errors.details}</p>}
                                             </div>
@@ -341,8 +341,8 @@ export function Contact() {
                                             <div className="pt-3">
                                                 <Button
                                                     type="submit"
-                                                    className="w-full h-14 text-base font-bold rounded-lg border-none transition-all hover:brightness-105 hover:shadow-[0_0_20px_rgba(182,255,0,0.3)]"
-                                                    style={{ backgroundColor: "#b6ff00", color: "#000000" }}
+                                                    className="w-full h-14 text-base font-bold rounded-lg border-none transition-all hover:brightness-105 hover:shadow-[0_0_20px_rgba(200,255,0,0.3)]"
+                                                    style={{ backgroundColor: "#C8FF00", color: "#000000" }}
                                                     disabled={isSubmitting}
                                                 >
                                                     {isSubmitting ? (
@@ -366,7 +366,7 @@ export function Contact() {
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ type: "spring" }}
                                         >
-                                            <div className="w-20 h-20 rounded-full bg-[#b6ff00]/10 text-[#b6ff00] border border-[#b6ff00]/30 flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(182,255,0,0.15)]">
+                                            <div className="w-20 h-20 rounded-full bg-[#C8FF00]/10 text-[#C8FF00] border border-[#C8FF00]/30 flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(200,255,0,0.15)]">
                                                 <CheckCircle size={36} />
                                             </div>
                                             <h3 className="text-2xl font-bold text-white mb-3">We&apos;ve Got Your Message! 🎉</h3>
@@ -374,11 +374,11 @@ export function Contact() {
                                                 Our team will review your project and get back to you within <strong className="text-white/70">24 hours</strong> with a free consultation and estimate.
                                             </p>
                                             <p className="text-white/30 text-sm mb-8">
-                                                Check your inbox at <span className="text-[#b6ff00]/60">{formData.email || "your email"}</span> for updates.
+                                                Check your inbox at <span className="text-[#C8FF00]/60">{formData.email || "your email"}</span> for updates.
                                             </p>
                                             <Button
                                                 variant="outline"
-                                                className="border-[#1c2a1c] text-[#ddd] hover:bg-[#0e140e] hover:text-white hover:border-[#b6ff00]/50 transition-colors"
+                                                className="border-[#1c2a1c] text-[#ddd] hover:bg-[#0e140e] hover:text-white hover:border-[#C8FF00]/50 transition-colors"
                                                 onClick={() => setSubmitted(false)}
                                             >
                                                 Send Another Message

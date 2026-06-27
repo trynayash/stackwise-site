@@ -126,7 +126,7 @@ export function InquiryModal() {
                         className="
                             relative z-10 w-full
                             md:max-w-[900px] md:h-[80vh] md:max-h-[80vh] md:rounded-2xl
-                            max-md:h-full max-md:max-h-full
+                            max-md:h-[100dvh] max-md:max-h-[100dvh]
                             bg-[#0a0a0a]/95 backdrop-blur-2xl
                             border border-white/[0.06]
                             shadow-[0_0_80px_-20px_rgba(0,0,0,0.8)]

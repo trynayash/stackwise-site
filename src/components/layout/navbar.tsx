@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { LiquidMetalButton } from "@/components/ui/liquid-metal";
@@ -14,8 +13,6 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-    const pathname = usePathname();
-    const router = useRouter();
     const { openInquiry } = useInquiry();
 
     useEffect(() => {

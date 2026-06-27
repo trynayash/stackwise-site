@@ -8,10 +8,10 @@ import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
     return (
-        <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505] text-white selection:bg-[#b6ff00]/30">
+        <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505] text-white selection:bg-[#C8FF00]/30">
             {/* Background Effects */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-[#b6ff00]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-[#C8FF00]/5 rounded-full blur-[150px]" />
                 <div className="absolute bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-white/5 rounded-full blur-[120px]" />
 
                 {/* Scanline Grid */}

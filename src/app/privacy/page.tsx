@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
     return (
         <main className="min-h-screen bg-[#050505] pt-32 pb-24">
             <div className="container mx-auto px-6 max-w-4xl">
-                <Link href="/" className="inline-flex items-center text-white/40 hover:text-[#b6ff00] transition-colors mb-12 group">
+                <Link href="/" className="inline-flex items-center text-white/40 hover:text-[#C8FF00] transition-colors mb-12 group">
                     <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                     Back to Home
                 </Link>
@@ -35,7 +35,7 @@ export default function PrivacyPolicy() {
                         <p className="mb-6">
                             We may collect personal information that you voluntarily provide to us when you:
                         </p>
-                        <ul className="list-disc pl-6 space-y-2 mb-8 marker:text-[#b6ff00]">
+                        <ul className="list-disc pl-6 space-y-2 mb-8 marker:text-[#C8FF00]">
                             <li>Fill out a contact form or request a quote.</li>
                             <li>Subscribe to our newsletter.</li>
                             <li>Interact with our services or customer support.</li>
@@ -48,7 +48,7 @@ export default function PrivacyPolicy() {
                         <p className="mb-8">
                             We use the information we collect to:
                         </p>
-                        <ul className="list-disc pl-6 space-y-2 mb-8 marker:text-[#b6ff00]">
+                        <ul className="list-disc pl-6 space-y-2 mb-8 marker:text-[#C8FF00]">
                             <li>Provide, operate, and maintain our website and services.</li>
                             <li>Communicate with you voluntarily regarding your inquiries.</li>
                             <li>Send you updates, marketing communications, and promotional materials (only if you opted in).</li>
@@ -65,7 +65,7 @@ export default function PrivacyPolicy() {
                             If you have any questions about this Privacy Policy, please contact us at:
                         </p>
                         <p className="text-white text-lg">
-                            <a href="mailto:hello@stackwise.agency" className="text-[#b6ff00] hover:underline underline-offset-4">hello@stackwise.agency</a>
+                            <a href="mailto:hello@stackwise.agency" className="text-[#C8FF00] hover:underline underline-offset-4">hello@stackwise.agency</a>
                         </p>
                     </div>
                 </motion.div>

@@ -40,7 +40,7 @@ export function Testimonials() {
 
 function PrincipleCard({ principle }: { principle: typeof siteConfig.engineeringPrinciples[0] }) {
     return (
-        <Card variant="glass" className="w-[320px] sm:w-[400px] md:w-[460px] p-6 sm:p-8 flex-shrink-0 whitespace-normal bg-white/[0.02] border-white/[0.06] hover:border-[#C8FF00]/20 transition-all duration-300">
+        <Card variant="glass" className="w-[85vw] sm:w-[400px] md:w-[460px] p-6 sm:p-8 flex-shrink-0 whitespace-normal bg-white/[0.02] border-white/[0.06] hover:border-[#C8FF00]/20 transition-all duration-300">
             <div className="flex items-center gap-4 mb-4">
                 <div className="w-10 h-10 rounded-full bg-[#C8FF00]/10 border border-[#C8FF00]/20 flex items-center justify-center">
                     <Cpu size={18} className="text-[#C8FF00]" />

@@ -97,7 +97,7 @@ export function Portfolio() {
                     {stats.map((stat, i) => (
                         <div key={stat.label} className="bg-[#0a0a0a] px-6 py-6 md:py-8 text-center group hover:bg-[#0f0f0f] transition-colors duration-500">
                             <motion.p
-                                className="text-2xl md:text-3xl font-bold text-white mb-1"
+                                className="text-xl xs:text-2xl md:text-3xl font-bold text-white mb-1"
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                                 transition={{ duration: 0.5, delay: 0.2 + i * 0.08, type: "spring" }}
@@ -218,8 +218,8 @@ export function Portfolio() {
                                         </div>
 
                                         {/* Metrics — Bottom */}
-                                        <div className="mt-auto pt-4 border-t border-white/[0.05] flex items-center justify-between">
-                                            <div className="flex items-center gap-4">
+                                        <div className="mt-auto pt-4 border-t border-white/[0.05] flex flex-wrap items-center justify-between gap-2">
+                                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                                                 {project.metrics.map(m => (
                                                     <div key={m.label} className="flex items-baseline gap-1.5">
                                                         <span className="text-[#C8FF00] text-sm font-bold tracking-tight">{m.value}</span>
@@ -228,7 +228,7 @@ export function Portfolio() {
                                                 ))}
                                             </div>
                                             {project.caseStudy && (
-                                                <span className="text-[#C8FF00]/0 group-hover:text-[#C8FF00]/70 text-[10px] font-mono tracking-wider transition-all duration-300 whitespace-nowrap">
+                                                <span className="max-md:text-[#C8FF00]/70 text-[#C8FF00]/0 group-hover:text-[#C8FF00]/70 text-[10px] font-mono tracking-wider transition-all duration-300 whitespace-nowrap">
                                                     Case Study →
                                                 </span>
                                             )}

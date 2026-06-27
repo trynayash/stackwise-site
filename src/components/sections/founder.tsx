@@ -97,7 +97,7 @@ export function Founder() {
                             </p>
 
                             {/* Stats */}
-                            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/[0.06]">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 pt-6 border-t border-white/[0.06]">
                                 {stats.map((stat, i) => (
                                     <motion.div
                                         key={stat.label}
@@ -106,7 +106,7 @@ export function Founder() {
                                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                                         transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
                                     >
-                                        <p className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</p>
+                                        <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</p>
                                         <p className="text-white/20 text-[10px] font-mono tracking-wider uppercase">{stat.label}</p>
                                     </motion.div>
                                 ))}

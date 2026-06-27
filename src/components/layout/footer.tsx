@@ -118,7 +118,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-24 border-b border-white/10">
 
                     {/* Left Column: Subscribe (4 cols) */}
-                    <div className="lg:col-span-5 flex flex-col justify-between h-full border-r border-white/5 pr-8 md:pr-12 lg:border-r lg:border-white/10">
+                    <div className="lg:col-span-5 flex flex-col justify-between h-full border-r-0 lg:border-r border-white/10 pr-0 lg:pr-12">
                         <div className="max-w-md">
                             <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Subscribe</h3>
                             <p className="text-white/60 text-lg mb-8 font-light">
@@ -131,11 +131,11 @@ export function Footer() {
                                         placeholder="Enter your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg placeholder:text-white/20 focus:outline-none focus:border-[#b6ff00] transition-colors"
+                                        className="w-full bg-transparent border-b border-white/20 py-4 pr-32 text-white text-lg placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00] transition-colors"
                                     />
                                     <button
                                         type="submit"
-                                        className="absolute right-0 top-1/2 -translate-y-1/2 px-6 py-2 bg-transparent text-xs font-bold text-[#b6ff00] border border-[#b6ff00]/30 rounded-full hover:bg-[#b6ff00] hover:text-black transition-all uppercase tracking-wider"
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 px-6 py-2 bg-transparent text-xs font-bold text-[#C8FF00] border border-[#C8FF00]/30 rounded-full hover:bg-[#C8FF00] hover:text-black transition-all uppercase tracking-wider"
                                     >
                                         Subscribe
                                     </button>
@@ -157,12 +157,12 @@ export function Footer() {
                             <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Explore</h3>
                             <ul className="space-y-4">
                                 <li>
-                                    <Link href="#services" className="text-white/60 hover:text-[#b6ff00] text-sm transition-colors block py-1" onClick={scrollTo("services")}>
+                                    <Link href="#services" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("services")}>
                                         Services
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="#portfolio" className="text-white/60 hover:text-[#b6ff00] text-sm transition-colors block py-1" onClick={scrollTo("portfolio")}>
+                                    <Link href="#portfolio" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("portfolio")}>
                                         Work
                                     </Link>
                                 </li>
@@ -174,17 +174,17 @@ export function Footer() {
                             <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Company</h3>
                             <ul className="space-y-4">
                                 <li>
-                                    <Link href="#why-stackwise" className="text-white/60 hover:text-[#b6ff00] text-sm transition-colors block py-1" onClick={scrollTo("why-stackwise")}>
+                                    <Link href="#why-stackwise" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("why-stackwise")}>
                                         About
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="#pricing" className="text-white/60 hover:text-[#b6ff00] text-sm transition-colors block py-1" onClick={scrollTo("pricing")}>
+                                    <Link href="#pricing" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("pricing")}>
                                         Pricing
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="#contact" className="text-white/60 hover:text-[#b6ff00] text-sm transition-colors block py-1" onClick={scrollTo("contact")}>
+                                    <Link href="#contact" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("contact")}>
                                         Contact
                                     </Link>
                                 </li>
@@ -205,7 +205,7 @@ export function Footer() {
                                             href={item.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-white/60 hover:text-[#b6ff00] text-sm transition-colors block py-1"
+                                            className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1"
                                         >
                                             {item.name}
                                         </Link>

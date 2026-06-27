@@ -9,7 +9,7 @@ export default function TermsOfService() {
     return (
         <main className="min-h-screen bg-[#050505] pt-32 pb-24">
             <div className="container mx-auto px-6 max-w-4xl">
-                <Link href="/" className="inline-flex items-center text-white/40 hover:text-[#b6ff00] transition-colors mb-12 group">
+                <Link href="/" className="inline-flex items-center text-white/40 hover:text-[#C8FF00] transition-colors mb-12 group">
                     <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                     Back to Home
                 </Link>
@@ -61,7 +61,7 @@ export default function TermsOfService() {
                             For any legal inquiries, please contact us at:
                         </p>
                         <p className="text-white text-lg">
-                            <a href="mailto:hello@stackwise.agency" className="text-[#b6ff00] hover:underline underline-offset-4">hello@stackwise.agency</a>
+                            <a href="mailto:hello@stackwise.agency" className="text-[#C8FF00] hover:underline underline-offset-4">hello@stackwise.agency</a>
                         </p>
                     </div>
                 </motion.div>

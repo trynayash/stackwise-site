@@ -171,7 +171,7 @@ export function Hero() {
                         letterSpacing: "-0.04em"
                     }}
                 >
-                    <span className="block whitespace-nowrap">Give your custom software</span>
+                    <span className="block sm:whitespace-nowrap">Give your custom software</span>
                     <span className="block">the codebase it deserves.</span>
                 </h1>
 

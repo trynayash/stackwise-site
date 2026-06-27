@@ -78,7 +78,7 @@ export function Button({
                         "linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))",
                     maskImage:
                         "linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))",
-                } as any}
+                } as React.CSSProperties}
                 initial={{ "--mask-x": "100%" } as Record<string, string>}
                 animate={{ "--mask-x": "-100%" } as Record<string, string>}
                 transition={{ repeat: Infinity, duration: 1, ease: "linear", repeatDelay: 1 }}

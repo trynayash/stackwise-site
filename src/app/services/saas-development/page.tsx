@@ -52,7 +52,7 @@ export default function SaasDevelopmentPage() {
             <div className="absolute top-[-10%] left-[50%] -translate-x-1/2 w-[80vw] h-[400px] bg-[#C8FF00]/5 blur-[120px] rounded-full pointer-events-none" />
             
             <div className="container mx-auto px-6 max-w-5xl relative z-10">
-                <Link href="/#services" className="inline-flex items-center text-white/40 hover:text-[#b6ff00] transition-colors mb-12 group">
+                <Link href="/#services" className="inline-flex items-center text-white/40 hover:text-[#C8FF00] transition-colors mb-12 group">
                     <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                     Back to Services
                 </Link>
