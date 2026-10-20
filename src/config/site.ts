@@ -10,8 +10,6 @@ export const siteConfig = {
     },
     links: {
         twitter: "https://twitter.com/stackwise",
-        linkedin: "https://linkedin.com/in/yashsuthar",
-        companyLinkedin: "https://linkedin.com/company/stackwise",
         github: "https://github.com/trynayash/Stackwise",
     },
     navItems: [

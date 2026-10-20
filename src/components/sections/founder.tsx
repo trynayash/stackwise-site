@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Code2, Linkedin, Mail, Award, Briefcase, Clock } from "lucide-react";
+import { Code2, Mail, Award, Briefcase, Clock } from "lucide-react";
 
 const stats = [
     { icon: Briefcase, value: "IP Transfer", label: "Full Code Ownership" },
@@ -114,15 +114,6 @@ export function Founder() {
 
                             {/* Links */}
                             <div className="flex items-center gap-4 pt-4">
-                                <a
-                                    href="https://linkedin.com/in/yashsuthar"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/50 text-sm hover:text-[#C8FF00] hover:border-[#C8FF00]/20 transition-all duration-300"
-                                >
-                                    <Linkedin size={16} />
-                                    LinkedIn
-                                </a>
                                 <a
                                     href="mailto:yashrsuthar90@gmail.com"
                                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/50 text-sm hover:text-[#C8FF00] hover:border-[#C8FF00]/20 transition-all duration-300"

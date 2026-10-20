@@ -77,7 +77,6 @@ const orgSchema = {
   "logo": `${siteConfig.url}/stackwise-icon-square.svg`,
   "sameAs": [
     siteConfig.links.twitter,
-    siteConfig.links.companyLinkedin,
     siteConfig.links.github,
   ],
 };

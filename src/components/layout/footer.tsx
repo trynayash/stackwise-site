@@ -197,7 +197,6 @@ export function Footer() {
                             <ul className="space-y-4">
                                 {[
                                     { name: "Twitter", href: siteConfig.links.twitter },
-                                    { name: "LinkedIn", href: siteConfig.links.linkedin },
                                     { name: "GitHub", href: siteConfig.links.github }
                                 ].map((item) => (
                                     <li key={item.name}>
