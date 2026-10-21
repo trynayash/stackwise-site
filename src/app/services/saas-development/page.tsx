@@ -21,7 +21,7 @@ const features = [
     {
         icon: Shield,
         title: "Secure Authentication & RBAC",
-        description: "MFA support, session tracking, and role-based permissions systems configured to bank-grade standards."
+        description: "MFA support, session tracking, and role-based permissions."
     },
     {
         icon: CreditCard,

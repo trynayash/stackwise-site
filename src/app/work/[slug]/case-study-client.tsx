@@ -203,7 +203,7 @@ export function CaseStudyClient({ project }: CaseStudyClientProps) {
                         <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
                             <TrendingUp size={18} className="text-emerald-400" />
                         </div>
-                        <span className="text-emerald-400/80 text-[11px] font-mono tracking-[0.2em] uppercase">The Results</span>
+                        <span className="text-emerald-400/80 text-[11px] font-mono tracking-[0.2em] uppercase">What It Includes</span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {cs.results.map((r, i) => (
@@ -232,10 +232,10 @@ export function CaseStudyClient({ project }: CaseStudyClientProps) {
                     transition={{ duration: 0.6 }}
                 >
                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                        Ready for results like these?
+                        Have a project in mind?
                     </h3>
                     <p className="text-white/30 text-sm mb-8 max-w-md mx-auto">
-                        Let&apos;s discuss your project and engineer a solution that drives real business outcomes.
+                        Tell me what you want to build and I will reply with next steps.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link href="/#contact">

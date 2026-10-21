@@ -19,11 +19,11 @@ const faqs = [
     },
     {
         q: "What's the typical project timeline?",
-        a: "Most projects take 4-8 weeks from kickoff to launch. Simple websites: 2-3 weeks. E-commerce stores: 4-6 weeks. Complex web apps and SaaS: 8-12 weeks. We provide a detailed timeline during our free consultation call, and we stick to it — we've delivered 94% of projects on or ahead of schedule.",
+        a: "Most projects take 4-8 weeks from kickoff to launch. Simple websites: 2-3 weeks. E-commerce stores: 4-6 weeks. Complex web apps and SaaS: 8-12 weeks. We provide a detailed timeline during our free consultation call.",
     },
     {
         q: "How do you communicate during the project?",
-        a: "You'll have a dedicated project manager and direct access to the developers via Slack/Discord. We send daily Loom video updates showing progress, weekly standup calls, and you'll have 24/7 access to a live staging URL to see your project come to life in real-time.",
+        a: "You talk directly with the developer on Slack, Discord or email. You get regular progress updates, a weekly call, and a staging URL where you can see the work as it is built.",
     },
     {
         q: "What if the project scope changes mid-way?",
@@ -35,7 +35,7 @@ const faqs = [
     },
     {
         q: "Can I see real case studies before committing?",
-        a: "Yes! We have detailed case studies for every major project we've shipped. During our free consultation, we'll share case studies specifically relevant to your industry and project type. You can also browse our portfolio section for project overviews right now.",
+        a: "Yes. The portfolio section has write-ups of products we have built, with what each one does and how it is built. We can walk through any of them on a call.",
     },
 ];
 

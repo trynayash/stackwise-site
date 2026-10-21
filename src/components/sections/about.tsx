@@ -2,33 +2,27 @@
 
 import React from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap, Shield, HeartHandshake, Code2, Clock, Users } from "lucide-react";
+import { Zap, Shield, HeartHandshake } from "lucide-react";
 
 const values = [
     {
         icon: Zap,
         title: "Performance-First",
-        description: "Sub-second load times. Lighthouse scores that Google rewards. Every line of code is optimized.",
+        description: "Fast pages and lean code. Performance is checked with Lighthouse before launch.",
         num: "01",
     },
     {
         icon: Shield,
-        title: "Enterprise Security",
-        description: "Bank-level security baked in. Your data and your customers' data stays protected at every layer.",
+        title: "Secure Defaults",
+        description: "Input validation, security headers and proper authentication are part of every build.",
         num: "02",
     },
     {
         icon: HeartHandshake,
         title: "True Partnership",
-        description: "We don't disappear after launch. Your success is our reputation — we're invested in your long-term growth.",
+        description: "Support continues after launch, so fixes and changes do not stop once the site is live.",
         num: "03",
     },
-];
-
-const metrics = [
-    { icon: Code2, value: "50+", label: "Projects Shipped" },
-    { icon: Users, value: "40+", label: "Happy Clients" },
-    { icon: Clock, value: "3+", label: "Years of Excellence" },
 ];
 
 export function About() {
@@ -44,17 +38,17 @@ export function About() {
                     <div className="max-w-3xl">
                         <span className="text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-4 block">Why Us</span>
                         <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-                            Why Teams<br />
-                            Choose <span className="text-[#C8FF00]">StackWise.</span>
+                            How<br />
+                            <span className="text-[#C8FF00]">StackWise</span> Works.
                         </h2>
                     </div>
                     <p className="text-white/30 text-sm max-w-sm mt-6 md:mt-0 leading-relaxed">
-                        Engineers and designers at the intersection of beautiful interfaces and bulletproof architecture.
+                        Clean interfaces on top of solid, well-typed code.
                     </p>
                 </div>
 
                 {/* Value Cards — minimal, clean */}
-                <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden mb-24">
+                <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
                     {values.map((value, i) => (
                         <motion.div
                             key={value.title}
@@ -72,30 +66,6 @@ export function About() {
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Metrics — Large, prominent */}
-                <motion.div
-                    className="flex flex-col md:flex-row items-center justify-center gap-0 divide-y md:divide-y-0 md:divide-x divide-white/5"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    {metrics.map((metric, i) => (
-                        <div key={metric.label} className="px-12 py-8 md:py-4 text-center">
-                            <motion.p
-                                className="text-4xl md:text-5xl font-bold text-white"
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1, type: "spring" }}
-                            >
-                                {metric.value}
-                            </motion.p>
-                            <p className="text-white/25 text-xs font-mono tracking-wider mt-2">{metric.label}</p>
-                        </div>
-                    ))}
-                </motion.div>
 
             </div>
         </section>

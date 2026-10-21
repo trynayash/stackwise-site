@@ -7,7 +7,7 @@ import { Code2, Mail, Award, Briefcase, Clock } from "lucide-react";
 const stats = [
     { icon: Briefcase, value: "IP Transfer", label: "Full Code Ownership" },
     { icon: Clock, value: "TypeScript/Go", label: "Modern Architecture" },
-    { icon: Award, value: "SLA Support", label: "Post Launch Support" },
+    { icon: Award, value: "Support", label: "After Launch" },
 ];
 
 export function Founder() {
@@ -84,16 +84,15 @@ export function Founder() {
                             </div>
 
                             <blockquote className="text-white/70 text-lg md:text-xl leading-[1.8] font-light border-l-2 border-[#C8FF00]/30 pl-6">
-                                &quot;I believe every line of code should serve a clear business outcome — to make your systems faster, your users happier, and your operational efficiency higher. We design software architectures that function as highly scalable assets for our clients.&quot;
+                                &quot;I believe every line of code should serve a clear business outcome — faster systems, happier users and less manual work.&quot;
                             </blockquote>
 
                             <p className="text-white/40 text-sm leading-[1.8]">
-                                I started StackWise with a simple obsession: build digital products so fast, so beautiful, and so technically superior that clients never have to worry about their tech again. Every project gets my personal attention — from the architecture blueprint to the final Lighthouse score.
+                                I started StackWise to build fast, well-made web products. I work on each project myself, from the architecture plan to the final performance check.
                             </p>
 
                             <p className="text-white/40 text-sm leading-[1.8]">
-                                My stack is hyper-modern by choice: Next.js, TypeScript, Tailwind, and cloud-native infrastructure. I don&apos;t use WordPress templates. I don&apos;t cut corners.
-                                I engineer digital perfection — and my clients&apos; results speak louder than any pitch deck ever could.
+                                My main stack is Next.js, TypeScript and Tailwind. I write custom code instead of using WordPress templates.
                             </p>
 
                             {/* Stats */}

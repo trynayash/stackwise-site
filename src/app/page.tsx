@@ -10,7 +10,6 @@ import { Portfolio } from "@/components/sections/portfolio";
 import { Pricing } from "@/components/sections/pricing";
 import { FAQ } from "@/components/sections/faq";
 import { Testimonials } from "@/components/sections/testimonials";
-import { VideoTestimonials } from "@/components/sections/video-testimonials";
 import { Founder } from "@/components/sections/founder";
 import { About } from "@/components/sections/about";
 import { TechStack } from "@/components/sections/tech-stack";
@@ -58,7 +57,6 @@ export default function Home() {
             <Pricing />
             <FAQ />
             <Testimonials />
-            <VideoTestimonials />
             <Founder />
             <About />
             <TechStack />

@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap, Gauge } from "lucide-react";
+import { Zap } from "lucide-react";
 
 import { technologies } from "@/lib/data";
 
@@ -54,13 +54,6 @@ const techStack = [
 ];
 
 
-const lighthouseScores = [
-    { label: "Performance", score: 100, color: "#0CCE6B" },
-    { label: "Accessibility", score: 100, color: "#0CCE6B" },
-    { label: "Best Practices", score: 100, color: "#0CCE6B" },
-    { label: "SEO", score: 100, color: "#0CCE6B" },
-];
-
 export function TechStack() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -87,15 +80,15 @@ export function TechStack() {
                         </h2>
                     </div>
                     <p className="text-white/30 text-sm max-w-sm mt-6 md:mt-0 leading-relaxed">
-                        No WordPress templates. No drag-and-drop builders. We write elite, hand-crafted code with a hyper-modern stack.
+                        Custom code with a modern TypeScript stack, without page builders or templates.
                     </p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
 
                     {/* Left: Tech Grid */}
-                    <div className="lg:col-span-7">
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="lg:col-span-12">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
                             {techStack.map((tech, index) => (
                                 <motion.div
                                     key={tech.name}
@@ -123,70 +116,6 @@ export function TechStack() {
                         </div>
                     </div>
 
-                    {/* Right: Lighthouse Scores */}
-                    <motion.div
-                        className="lg:col-span-5"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.7, delay: 0.3 }}
-                    >
-                        <div className="p-6 md:p-8 rounded-2xl bg-[#0d0d0d] border border-white/[0.06] relative overflow-hidden">
-                            {/* Subtle glow */}
-                            <div className="absolute top-0 right-0 w-40 h-40 bg-[#0CCE6B]/10 blur-[60px] rounded-full pointer-events-none" />
-
-                            <div className="relative z-10">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <Gauge size={20} className="text-[#0CCE6B]" />
-                                    <div>
-                                        <h3 className="text-white font-bold text-lg">Lighthouse Scores</h3>
-                                        <p className="text-white/30 text-xs font-mono">Google PageSpeed Insights</p>
-                                    </div>
-                                </div>
-
-                                {/* Score Circles */}
-                                <div className="grid grid-cols-2 gap-6 mb-6">
-                                    {lighthouseScores.map((item, i) => (
-                                        <motion.div
-                                            key={item.label}
-                                            className="text-center"
-                                            initial={{ opacity: 0, scale: 0.5 }}
-                                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                                            transition={{ duration: 0.5, delay: 0.5 + i * 0.1, type: "spring" }}
-                                        >
-                                            <div className="relative w-20 h-20 mx-auto mb-3">
-                                                {/* Background circle */}
-                                                <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
-                                                    <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="6" />
-                                                    <motion.circle
-                                                        cx="40" cy="40" r="34" fill="none"
-                                                        stroke={item.color}
-                                                        strokeWidth="6"
-                                                        strokeLinecap="round"
-                                                        strokeDasharray={`${2 * Math.PI * 34}`}
-                                                        initial={{ strokeDashoffset: 2 * Math.PI * 34 }}
-                                                        animate={isInView ? { strokeDashoffset: 0 } : {}}
-                                                        transition={{ duration: 1.5, delay: 0.6 + i * 0.15, ease: "easeOut" }}
-                                                        style={{ filter: `drop-shadow(0 0 6px ${item.color}40)` }}
-                                                    />
-                                                </svg>
-                                                <div className="absolute inset-0 flex items-center justify-center">
-                                                    <span className="text-xl font-bold text-white">{item.score}</span>
-                                                </div>
-                                            </div>
-                                            <p className="text-white/30 text-[10px] font-mono uppercase tracking-wider">{item.label}</p>
-                                        </motion.div>
-                                    ))}
-                                </div>
-
-                                {/* Proof banner */}
-                                <div className="p-4 rounded-xl bg-[#0CCE6B]/5 border border-[#0CCE6B]/10 text-center">
-                                    <p className="text-[#0CCE6B]/80 text-xs font-mono tracking-wider">
-                                        100 / 100 / 100 / 100 — EVERY. SINGLE. PROJECT.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
                 </div>
             </div>
         </section>

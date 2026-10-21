@@ -4,33 +4,22 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Play, Video, Quote } from "lucide-react";
 
-const videoTestimonials = [
-    {
-        name: "Rajesh K.",
-        role: "Founder & CEO, VaultEdge",
-        quote: "Yash and the StackWise team delivered our trading platform 2 weeks early. The performance is insane — sub-50ms latency under peak load. Absolute beasts.",
-        thumbnail: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop",
-        duration: "0:45",
-    },
-    {
-        name: "Priya M.",
-        role: "Co-founder, Luxe & Co",
-        quote: "Our revenue went from ₹80L to ₹5Cr per month after StackWise rebuilt our e-commerce store. The AR try-on feature alone increased conversions by 200%.",
-        thumbnail: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop",
-        duration: "1:02",
-    },
-    {
-        name: "Arjun S.",
-        role: "CTO, InsightsAI",
-        quote: "We went from 45-second report loads to 200ms. Our enterprise clients stopped churning overnight. StackWise didn't just build software — they saved our company.",
-        thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop",
-        duration: "0:55",
-    },
-];
+type VideoTestimonial = {
+    name: string;
+    role: string;
+    quote: string;
+    thumbnail: string;
+    duration: string;
+};
+
+// Add real client videos here. The section is hidden while this list is empty.
+const videoTestimonials: VideoTestimonial[] = [];
 
 export function VideoTestimonials() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
+
+    if (videoTestimonials.length === 0) return null;
 
     return (
         <section id="video-testimonials" className="py-20 md:py-32 relative z-10" aria-label="Video testimonials" ref={sectionRef}>
@@ -55,7 +44,7 @@ export function VideoTestimonials() {
                         <span className="text-white/25">Word For It.</span>
                     </h2>
                     <p className="text-white/30 text-sm">
-                        Real founders. Real results. Straight from the people whose businesses we helped build.
+                        Short videos from clients.
                     </p>
                 </motion.div>
 

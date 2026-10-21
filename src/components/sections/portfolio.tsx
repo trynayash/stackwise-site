@@ -11,10 +11,9 @@ const categories = ["All", "Web Apps", "Design & SEO"] as const;
 const INITIAL_SHOW = 9;
 
 const stats = [
-    { value: "5 Shipped", label: "Production Labs" },
-    { value: "TypeScript/Go", label: "Primary Architecture" },
+    { value: "5", label: "Projects Shown" },
+    { value: "TypeScript/Go", label: "Main Languages" },
     { value: "100%", label: "Code Ownership" },
-    { value: "Zero Debt", label: "Technical Standard" },
 ];
 
 const projectDomains: Record<string, string> = {
@@ -75,12 +74,12 @@ export function Portfolio() {
                                 Portfolio
                             </span>
                             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-[-0.03em] text-white leading-[1.05]">
-                                Results That<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8FF00] to-[#9EFF00]">Speak.</span>
+                                Selected<br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8FF00] to-[#9EFF00]">Work.</span>
                             </h2>
                         </div>
                         <p className="text-white/25 text-sm max-w-sm leading-relaxed font-light">
-                            Every project is an engineering lab in custom development. Not templates — production software.
+                            Products I have built. Each one has a short write-up of what it does and how it is built.
                         </p>
                     </div>
                 </motion.div>
@@ -89,7 +88,7 @@ export function Portfolio() {
                     STATS BAR — Social Proof Numbers
                 ═══════════════════════════════════════ */}
                 <motion.div
-                    className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.03] border border-white/[0.06] rounded-2xl overflow-hidden mb-12"
+                    className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/[0.03] border border-white/[0.06] rounded-2xl overflow-hidden mb-12"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.15 }}

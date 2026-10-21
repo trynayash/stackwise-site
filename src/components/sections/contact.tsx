@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, AlertCircle, MessageSquare, Mail, Phone, Clock, Shield } from "lucide-react";
+import { CheckCircle, AlertCircle, MessageSquare, Mail, Clock, Shield } from "lucide-react";
 
 type FormErrors = {
     name?: string;
@@ -182,10 +182,6 @@ export function Contact() {
                             <div className="flex items-center gap-3 text-white/40 text-sm">
                                 <Mail size={16} className="text-[#C8FF00]/60 flex-shrink-0" />
                                 <span>Or email directly: <a href="mailto:yashrsuthar90@gmail.com" className="text-[#C8FF00]/70 hover:text-[#C8FF00] transition-colors">yashrsuthar90@gmail.com</a></span>
-                            </div>
-                            <div className="flex items-center gap-3 text-white/40 text-sm">
-                                <Phone size={16} className="text-[#C8FF00]/60 flex-shrink-0" />
-                                <span>WhatsApp: <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="text-[#C8FF00]/70 hover:text-[#C8FF00] transition-colors">+91 99999 99999</a></span>
                             </div>
                         </motion.div>
                     </div>

@@ -23,141 +23,141 @@ export type Project = {
 export const projects: Project[] = [
     {
         id: "limityourapis",
-        title: "LimitYourAPI — API Revenue & Usage Infrastructure",
+        title: "LimitYourAPI — API Usage Limits and Quotas",
         category: "Web Apps",
-        summary: "The usage infrastructure layer for modern APIs. Meter usage, enforce customer quotas, sync billing, and protect AI costs with one SDK.",
+        summary: "A service for metering API usage and enforcing per-customer quotas, with SDKs for JavaScript, Go and Python.",
         image: "/projects/limityourapi.png",
         coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2670&auto=format&fit=crop",
-        tech: ["Go", "Redis", "PostgreSQL", "Docker", "Kafka", "Kubernetes", "AWS"],
-        metrics: [{ label: "Hop Latency", value: "<10ms" }, { label: "Uptime", value: "99.999%" }],
+        tech: ["Go", "Redis", "PostgreSQL", "React", "Cloudflare Workers", "Docker"],
+        metrics: [{ label: "Backend", value: "Go" }, { label: "Quota Store", value: "Redis" }],
         featured: true,
         caseStudy: {
-            problem: "Building usage-based billing and API quota controls in-house is deceptively complex. Custom Redis scripts suffer from race conditions, database rollups hammer PostgreSQL, and syncing subscription events from Stripe in the request path adds hundreds of milliseconds of latency.",
-            strategy: "LimitYourAPI is purpose-built API Revenue Infrastructure. It acts as an ultra-fast evaluation layer that checks entitlements, tracks consumption in real-time Redis structures, batches analytics asynchronously to PostgreSQL, and connects seamlessly to payment gates.",
+            problem: "Teams that sell API access need to count usage, stop customers at their plan limits and keep those limits in sync with billing. Building this inside every API is repetitive and easy to get wrong under concurrent requests.",
+            strategy: "LimitYourAPI puts quota checks in one Go service. Usage counters live in Redis and are updated with Lua scripts so each check is atomic. Plans and customers are stored in PostgreSQL, and payment webhooks update a customer's limits.",
             blueprint: [
-                "Architected atomic Redis Lua evaluation scripts to verify customer quotas and traffic controls without lock contention",
-                "Constructed high-performance SDK layers with out-of-the-box fail-open fallbacks and automatic exponential backoffs",
-                "Designed synchronous webhook integration handlers to update customer entitlements instantly upon payment gate events",
-                "Built asynchronous memory-buffered analytics batch loggers to decimate database write latency spikes",
-                "Implemented multi-tenant tenant-isolation boundaries across customer lookups and rate limits"
+                "Go backend that checks quotas and rate limits with atomic Redis Lua scripts",
+                "PostgreSQL schema and migrations for organizations, API keys and plans",
+                "Billing sync service that updates customer limits from Stripe and Razorpay events",
+                "React dashboard for configuring rules and viewing usage",
+                "Cloudflare Workers edge router and client SDKs for JavaScript, Go and Python"
             ],
             results: [
-                { metric: "Decision Latency", value: "<10ms", description: "Median decision latency across standard API client entitlement requests" },
-                { metric: "Verification", value: "Sub-1ms", description: "Time to verify user AI token counts or computational cost budget states" },
-                { metric: "Database Writes", value: "Batch", description: "Decoupled logs from SQL writes to protect API route response speed" },
-                { metric: "Quotas Sync", value: "Real-Time", description: "Entitlements profile sync automatically triggered on Stripe or Razorpay hook events" }
+                { metric: "Backend", value: "Go", description: "API server for quota checks, API keys and billing webhooks" },
+                { metric: "Counters", value: "Redis", description: "Atomic usage counters updated with Lua scripts" },
+                { metric: "Data", value: "Postgres", description: "Customers, plans and keys stored in PostgreSQL" },
+                { metric: "SDKs", value: "3", description: "Client libraries for JavaScript, Go and Python" }
             ]
         }
     },
     {
         id: "startupdeck-ai",
-        title: "StartupDeckAI — VC-Grade Startup Validation Platform",
+        title: "StartupDeckAI — Startup Idea Validation",
         category: "Web Apps",
-        summary: "The gold standard for AI-driven startup validation. Empowering founders with clinical-grade market intelligence and investor-ready financial modeling.",
+        summary: "A tool that helps founders check a startup idea: it scores the idea, sizes the market with stated assumptions and finds competitors.",
         image: "/projects/startupdeck.png",
         coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
-        tech: ["Node.js", "PostgreSQL", "Redis", "Next.js", "GraphQL", "gRPC"],
-        metrics: [{ label: "Analysis Speed", value: "3.5s" }, { label: "Cache Nodes", value: "1.2M" }],
+        tech: ["React", "Node.js", "Express", "PostgreSQL", "Redis", "pgvector"],
+        metrics: [{ label: "Frontend", value: "React" }, { label: "API", value: "Express" }],
         featured: true,
         caseStudy: {
-            problem: "Founders and analysts waste weeks compiling market data, mapping competitors, and modeling cash flows. Generic AI validation tools offer shallow text essays, lacking VC-grade financial frames, and TAM/SAM/SOM market metrics.",
-            strategy: "We built StartupDeckAI as an institutional-grade validation engine. We engineered a composable pipeline that evaluates ventures across 50+ parameters, runs 5-year cash flow projections, maps competitor matrices via vector search, and decouples heavy enrichment tasks to Redis-backed queues.",
+            problem: "Founders spend a lot of time collecting market data, listing competitors and writing investor material. General chat tools give long text answers without a clear structure or stated assumptions.",
+            strategy: "StartupDeckAI runs an idea through a structured validation engine and keeps the results together, so the score, the market sizing and the investor outputs use the same evidence.",
             blueprint: [
-                "Engineered a composable scoring pipeline running 50+ signal checks across market, financial, and founder vectors",
-                "Designed 5-year cash flow models and automated TAM/SAM/SOM sizing engines using dynamic financial projections",
-                "Built real-time competitor discovery vectors using pgvector semantic database indexing",
-                "Orchestrated background enrichment processes via Redis queue workers to isolate latency from the request path",
-                "Developed 1-click investor pitch deck exports and PDF report generation systems"
+                "Validation engine that scores an idea from 0 to 100 across problem, market, competition, willingness to pay and execution risk",
+                "TAM, SAM and SOM sizing with the assumptions shown",
+                "Retrieval with pgvector in PostgreSQL",
+                "Redis for caching and background work",
+                "Pitch deck and memo outputs built from the same data"
             ],
             results: [
-                { metric: "Report Gen Time", value: "3.5s", description: "Average duration to parse a PRD and generate a competitor matrix" },
-                { metric: "Vector Indices", value: "1.2M", description: "Indexed company records scanned during semantic competitor lookups" },
-                { metric: "Client Conversion", value: "4.8%", description: "Visitor conversion rate from sandbox validation inputs to paid pro tiers" },
-                { metric: "LLM Costs", value: "-40%", description: "Saved API cost overhead by implementing semantic lookup caching in Redis" }
+                { metric: "Score", value: "0-100", description: "One verdict scale across five areas of the idea" },
+                { metric: "Market", value: "TAM/SAM/SOM", description: "Market sizing with stated assumptions" },
+                { metric: "Search", value: "pgvector", description: "Vector search in PostgreSQL" },
+                { metric: "Stack", value: "React + Express", description: "React client with an Express and PostgreSQL backend" }
             ]
         }
     },
     {
         id: "codefusionai",
-        title: "CodeFusionAI — Multi-User Collaborative Coding Environment",
+        title: "CodeFusionAI — Browser Code Editor and Course Catalog",
         category: "Web Apps",
-        summary: "Collaborative coding environment with OT synchronization, isolated execution containers, and realtime presence systems.",
+        summary: "A learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.",
         image: "/projects/codefusionai.png",
         coverImage: "https://images.unsplash.com/photo-1618401471353-b98aedd07871?q=80&w=2670&auto=format&fit=crop",
-        tech: ["Go", "Docker", "WebSockets", "React"],
-        metrics: [{ label: "Sync Latency", value: "<15ms" }, { label: "Build Speed", value: "1.4s" }],
+        tech: ["React", "TypeScript", "Supabase", "Monaco Editor"],
+        metrics: [{ label: "Editor", value: "Monaco" }, { label: "Backend", value: "Supabase" }],
         featured: true,
         caseStudy: {
-            problem: "Collaborative coding environments require low-latency synchronization and secure user-submitted code compilation. Heavy conflict resolution layers degrade performance, and executing untrusted code poses high sandbox breakout security risks.",
-            strategy: "We developed CodeFusionAI. We implemented a lightweight operational transformation (OT) layer prioritizing strict correctness over feature surface. Sandboxed execution workspaces were configured inside isolated Docker containers using strict cgroup resource constraints.",
+            problem: "Beginners often need an editor, short explanations and a list of good free lessons in one place, without installing anything.",
+            strategy: "CodeFusionAI is a React and Supabase app. It puts a Monaco editor next to rule-based tip panels and links each course lesson to a free video or article. Code runs are simulated for now; there is no server-side execution yet.",
             blueprint: [
-                "Designed a lightweight, high-performance operational transformation (OT) sync engine focusing on strict correctness",
-                "Constructed per-session sandboxed execution environments inside Docker containers using strict cgroup limits",
-                "Separated user presence, cursor locations, and document edit traffic over dedicated WebSocket communication channels",
-                "Built a responsive multi-tab code editor frontend in React supporting file-tree manipulation",
-                "Configured Go-based file watcher sync processes between user browsers and sandboxed virtual workspace containers"
+                "Monaco editor with a picker for 13 languages and snippets saved to Supabase",
+                "Rule-based tip panels that use pattern checks to explain code and point out common mistakes",
+                "Supabase Auth with email, magic links, Google and GitHub, plus a session timeout warning",
+                "Course catalog with lesson progress and certificates stored in Supabase",
+                "Row level security policies on the Supabase tables"
             ],
             results: [
-                { metric: "Sync Latency", value: "<15ms", description: "Average text cursor and edit synchronization latency over WebSocket connections" },
-                { metric: "Build Speed", value: "1.4s", description: "Safe isolated environment spin-up and project compilation execution time" },
-                { metric: "Client Uptime", value: "99.98%", description: "Sustained multi-user session connectivity during production scaling" },
-                { metric: "Code Gen Accuracy", value: "96.2%", description: "Successful compilations of AI-generated edits inside sandbox test blocks" }
+                { metric: "Editor", value: "Monaco", description: "Browser code editor with a 13-language picker" },
+                { metric: "Auth", value: "Supabase", description: "Email, magic link, Google and GitHub sign-in" },
+                { metric: "Code Tips", value: "Rule-based", description: "Pattern checks written in TypeScript, no AI model calls" },
+                { metric: "Courses", value: "Progress", description: "Lesson progress and certificates saved per user" }
             ]
         }
     },
     {
         id: "promptp",
-        title: "PromptP — Real-Time Event-Driven Platform",
+        title: "PromptP — Prompt Enhancer",
         category: "Web Apps",
-        summary: "Event-driven realtime platform using Redis Streams, WebSockets, and reconnect-safe synchronization systems.",
+        summary: "A web app that turns a short prompt into a longer, structured prompt using role-based templates for writers, designers, developers and marketers.",
         image: "/projects/promptp-square.png",
         coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2670&auto=format&fit=crop",
-        tech: ["Node.js", "WebSockets", "Redis Streams", "React"],
-        metrics: [{ label: "Stream Speed", value: "<2ms" }, { label: "Sync SLA", value: "99.9%" }],
+        tech: ["React", "TypeScript", "Express", "Clerk"],
+        metrics: [{ label: "Engine", value: "Rule-based" }, { label: "Auth", value: "Clerk" }],
         featured: true,
         caseStudy: {
-            problem: "Real-time synchronization systems often drop state updates during client network reconnects or crash when slow clients stall standard fanout channels, leading to mismatched application views and data loss.",
-            strategy: "We engineered PromptP. We configured a single source of truth via an append-only event log built on Redis Streams, deriving views dynamically on read. We implemented socket-level backpressure handling to isolate slow clients and designed a reconnect protocol with cursor-resume capabilities.",
+            problem: "Short prompts often give weak results from AI tools. Many people do not know what context, structure and detail to add.",
+            strategy: "PromptP adds that structure with templates and keyword checks written in TypeScript. It does not call an AI model, so results are instant and free to run.",
             blueprint: [
-                "Architected a single source of truth utilizing append-only event logs in Redis Streams, deriving views on read",
-                "Configured WebSocket socket-layer backpressure logic to prevent slow clients from stalling fanout systems",
-                "Implemented custom client reconnect protocols with cursor resume to guarantee no lost events across drops",
-                "Built an interactive real-time dashboard using React and TailwindCSS showing system event streams",
-                "Optimized memory footprints on WebSocket worker nodes to support thousands of concurrent active connections"
+                "Rule-based enhancement engine with role-specific templates",
+                "Prompt quality checker and a prompt block builder on an Express API",
+                "Public demo page with template, tone, role and industry options",
+                "Clerk sign-in, role onboarding and a usage dashboard with Recharts",
+                "Free-tier daily limit enforced on the server"
             ],
             results: [
-                { metric: "Stream Speed", value: "<2ms", description: "Average event propagation delay from stream ingress to WebSocket client" },
-                { metric: "Sync SLA", value: "99.9%", description: "Data delivery consistency maintained across simulated client network drop sequences" },
-                { metric: "Latency", value: "<15ms", description: "Average document update broadcast delay over WebSocket connections" },
-                { metric: "Cost Reduced", value: "-35%", description: "Token optimization via caching and prompt pruning rules" }
+                { metric: "Engine", value: "Rule-based", description: "Templates and keyword checks, no AI model calls" },
+                { metric: "Roles", value: "4", description: "Writer, designer, developer and marketer templates" },
+                { metric: "Auth", value: "Clerk", description: "Sign-in and user onboarding" },
+                { metric: "API", value: "Express", description: "Endpoints for enhancement, templates and analytics" }
             ]
         }
     },
     {
         id: "stackwise-platform",
-        title: "StackWise — Editorial Web Infrastructure",
+        title: "StackWise — Studio Website",
         category: "Design & SEO",
-        summary: "The custom architectural optimization details behind the StackWise V2 studio site itself.",
+        summary: "How this studio site is built.",
         image: "/projects/stackwise-platform.png",
         coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop",
         tech: ["Next.js", "TypeScript", "TailwindCSS v4", "Framer Motion", "GSAP"],
-        metrics: [{ label: "Lighthouse", value: "100/100" }, { label: "Security Grade", value: "A+" }],
+        metrics: [{ label: "Framework", value: "Next.js" }, { label: "Forms", value: "Zod" }],
         featured: true,
         caseStudy: {
-            problem: "Most digital agency websites are built on generic content management systems, heavy page builders, or client-heavy React apps. This blocks search crawler indexing, exhibits low contrast accessibility violations, and relies on unoptimized assets that delay LCP indicators.",
-            strategy: "We rebuilt StackWise. We migrated layout routes to Next.js Server Components, rendering all markup pre-compiled in static HTML. We resolved complex custom CSS typography type errors under React 19, purged 8MB of unreferenced images, and secured API contact points with Zod schemas.",
+            problem: "A studio site needs to load fast, be easy for search engines to read and handle contact requests safely.",
+            strategy: "The site uses the Next.js App Router with static pages where possible, security headers set in middleware, and a contact API that validates input with Zod.",
             blueprint: [
-                "Migrated root and slug route layouts from Client wrappers to Next.js Server Components",
-                "Created static HTML metadata interfaces and structured sitemap generators",
-                "Implemented secure response headers middleware (Strict CSP, HSTS, frame options)",
-                "Sanitized contact form inputs using Zod objects and in-memory rate limits",
-                "Restored focus indicator visibility and enhanced contrast styles to comply with WCAG AA guidelines"
+                "Next.js App Router pages with generated metadata and a sitemap",
+                "Security headers in middleware (CSP, HSTS, frame options)",
+                "Contact form input validated with Zod and limited by a simple in-memory rate limiter",
+                "Motion design with Framer Motion and GSAP",
+                "Custom Oughter display font"
             ],
             results: [
-                { metric: "Lighthouse Score", value: "100/100", description: "Performance, Accessibility, Best Practices, and SEO scores on Google PageSpeed Insights" },
-                { metric: "Type Safety", value: "Pass", description: "Successfully compiled and built codebase with zero TypeScript warnings" },
-                { metric: "Observatory Score", value: "A+", description: "Security headers grade on Mozilla Observatory analyzer" },
-                { metric: "DOM Load Speed", value: "0.4s", description: "Initial paint speed on local and Vercel edge networks" }
+                { metric: "Framework", value: "Next.js", description: "App Router with static pages and generated metadata" },
+                { metric: "Headers", value: "CSP + HSTS", description: "Security headers set in middleware" },
+                { metric: "Forms", value: "Zod", description: "Validated contact API with a rate limit" },
+                { metric: "Motion", value: "GSAP", description: "Animations with GSAP and Framer Motion" }
             ]
         }
     }
@@ -176,13 +176,8 @@ export const technologies = [
   },
   {
     name: "Docker",
-    description: "Container execution sandboxes",
+    description: "Containers for local services",
     icon: "https://cdn.simpleicons.org/docker/2496ED"
-  },
-  {
-    name: "Kubernetes",
-    description: "Cloud-native scheduling",
-    icon: "https://cdn.simpleicons.org/kubernetes/326CE5"
   },
   {
     name: "Python",
@@ -190,24 +185,9 @@ export const technologies = [
     icon: "https://cdn.simpleicons.org/python/3776AB"
   },
   {
-    name: "Kafka",
-    description: "Distributed event streaming",
-    icon: "https://cdn.simpleicons.org/apachekafka/231F20"
-  },
-  {
     name: "GraphQL",
     description: "Declarative client API querying",
     icon: "https://cdn.simpleicons.org/graphql/E10098"
-  },
-  {
-    name: "gRPC",
-    description: "Ultra-fast RPC communication",
-    icon: "https://cdn.simpleicons.org/grpc/244C5A"
-  },
-  {
-    name: "OpenTelemetry",
-    description: "Observability & tracing hooks",
-    icon: "https://cdn.simpleicons.org/opentelemetry/000000"
   },
   {
     name: "Nginx",
@@ -216,7 +196,7 @@ export const technologies = [
   },
   {
     name: "Linux",
-    description: "Enterprise operating systems",
+    description: "Servers and development",
     icon: "https://cdn.simpleicons.org/linux/FCC624"
   },
   {

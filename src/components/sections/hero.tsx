@@ -177,7 +177,7 @@ export function Hero() {
 
                 {/* Subtitle */}
                 <p className="text-sm md:text-base text-center max-w-xl px-6 mb-8 text-white/50 leading-relaxed font-light">
-                    Premium software engineering studio designing and building production-grade SaaS, custom software systems, and AI-powered products with zero technical debt.
+                    A software studio by Yash Suthar that designs and builds SaaS products, custom software and AI features.
                 </p>
 
                 {/* Call To Actions */}

@@ -20,7 +20,7 @@ export function Pricing() {
                 <div className="text-center max-w-2xl mx-auto mb-16">
                     <span className="text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-4 block">Pricing</span>
                     <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05] mb-4">Invest in<br /><span className="text-white/25">Excellence.</span></h2>
-                    <p className="text-white/30 text-sm">Transparent pricing for world-class engineering solutions.</p>
+                    <p className="text-white/30 text-sm">Starting prices for each type of project.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">

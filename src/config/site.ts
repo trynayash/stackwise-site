@@ -1,7 +1,7 @@
 export const siteConfig = {
     name: "StackWise",
     tagline: "Engineering Digital Growth",
-    description: "Premium software engineering studio designing and building production-grade SaaS, custom software systems, and AI-powered products.",
+    description: "A software studio by Yash Suthar that designs and builds SaaS products, custom software and AI features.",
     url: "https://stackwise.agency",
     author: "Yash Suthar",
     emails: {
@@ -26,10 +26,10 @@ export const siteConfig = {
             price: "₹49,999+",
             description: "Perfect for premium business presence, marketing websites, and landing systems.",
             features: [
-                "Production-Grade Next.js Site",
+                "Custom Next.js Site",
                 "Editorial Custom Typography",
                 "Mobile Responsive & Fluid Motion",
-                "100/100 Lighthouse SEO & Performance",
+                "Lighthouse Performance & SEO Tuning",
                 "1 Month Post-Launch Support",
             ],
             highlight: false,
@@ -57,8 +57,8 @@ export const siteConfig = {
                 "Custom AI Workflows & LLM Integrations",
                 "High-Performance API Infrastructures",
                 "Cloud Orchestration & Dedicated DevOps (AWS)",
-                "Security Hardening & Penetration Testing Ready",
-                "SLA-Backed Long-Term Support",
+                "Security Hardening",
+                "Long-Term Support Options",
             ],
             highlight: false,
             gradient: "from-white/10 to-white/5",
@@ -67,13 +67,13 @@ export const siteConfig = {
     engineeringPrinciples: [
         {
             title: "Zero-Debt Codebase",
-            description: "We write clean, strictly-typed TypeScript and Go code. No shortcuts, no legacy hacks, full scaling readiness.",
+            description: "We write clean, strictly-typed TypeScript and Go code, with no shortcuts or legacy hacks.",
             metric: "Clean Code",
         },
         {
             title: "Deterministic Performance",
-            description: "We optimize for sub-second page loads and 100/100 Lighthouse scores. Speed directly impacts conversion rates.",
-            metric: "<1s Load",
+            description: "We aim for fast page loads and high Lighthouse scores, because speed affects conversion rates.",
+            metric: "Fast Loads",
         },
         {
             title: "100% Code Ownership",
@@ -83,7 +83,7 @@ export const siteConfig = {
         {
             title: "Production Security",
             description: "We build secure systems with input validation, sanitization, strict CSP headers, and secure auth layers by default.",
-            metric: "Bank-Grade",
+            metric: "Secure Defaults",
         },
         {
             title: "CI/CD & Edge Deploy",
@@ -91,9 +91,9 @@ export const siteConfig = {
             metric: "Edge Cached",
         },
         {
-            title: "SLA Post-Launch Support",
-            description: "We stand by our code. Every product deployment includes dedicated support SLAs to monitor uptime and health.",
-            metric: "24/7 Monitoring",
+            title: "Post-Launch Support",
+            description: "We stand by our code. Every project includes a support period after launch.",
+            metric: "Support Period",
         },
     ],
     services: [
