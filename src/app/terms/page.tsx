@@ -46,7 +46,7 @@ export default function TermsOfService() {
 
             <h2>6. Contact</h2>
             <p>
-                For any legal inquiries, please contact us at <a href={`mailto:${siteConfig.emails.primary}`}>{siteConfig.emails.primary}</a>.
+                For any legal inquiries, please contact us at <a href={`mailto:${siteConfig.emails.inbound}`}>{siteConfig.emails.inbound}</a>.
             </p>
         </LegalPage>
     );

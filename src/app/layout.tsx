@@ -97,7 +97,7 @@ const orgSchema = {
   "name": siteConfig.name,
   "url": siteConfig.url,
   "logo": `${siteConfig.url}/web-app-manifest-512x512.png`,
-  "email": siteConfig.emails.primary,
+  "email": siteConfig.emails.inbound,
   "description": siteConfig.description,
   "founder": { "@type": "Person", "name": siteConfig.author },
   "sameAs": [
@@ -113,7 +113,7 @@ const serviceSchema = {
   "name": `${siteConfig.name} Software Studio`,
   "image": `${siteConfig.url}/web-app-manifest-512x512.png`,
   "url": siteConfig.url,
-  "email": siteConfig.emails.primary,
+  "email": siteConfig.emails.inbound,
   "priceRange": "₹₹₹",
   "parentOrganization": { "@id": `${siteConfig.url}/#organization` },
   "areaServed": "Worldwide",

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
+import { siteConfig } from "@/config/site";
 
 // Zod Schema to validate contact form submissions
 const contactSchema = z.object({
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
 
         if (isRateLimited(ip)) {
             return NextResponse.json(
-                { error: "Too many inquiries sent. Please wait an hour or email hello@stackwise.agency directly." },
+                { error: `Too many inquiries sent. Please wait an hour or email ${siteConfig.emails.inbound} directly.` },
                 { status: 429 }
             );
         }
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
         if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
             console.error("❌ STACKWISE SMTP SERVICE: Missing GMAIL_USER or GMAIL_APP_PASSWORD environment variables.");
             return NextResponse.json(
-                { error: "Inquiry system currently offline. Please email hello@stackwise.agency directly." },
+                { error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.` },
                 { status: 503 }
             );
         }

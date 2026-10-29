@@ -42,7 +42,7 @@ export default function PrivacyPolicy() {
             <h2>4. Contact us</h2>
             <p>
                 If you have any questions about this Privacy Policy, please contact us at{" "}
-                <a href={`mailto:${siteConfig.emails.primary}`}>{siteConfig.emails.primary}</a>.
+                <a href={`mailto:${siteConfig.emails.inbound}`}>{siteConfig.emails.inbound}</a>.
             </p>
         </LegalPage>
     );
