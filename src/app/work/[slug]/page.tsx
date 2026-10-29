@@ -69,7 +69,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 data={[
                     breadcrumbSchema([
                         { name: "Home", path: "/" },
-                        { name: "Work", path: "/#portfolio" },
+                        { name: "Work", path: "/work" },
                         { name: study.name, path: `/work/${study.slug}` },
                     ]),
                     {
@@ -91,7 +91,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <section className="relative overflow-hidden pt-28 pb-12 md:pt-36 md:pb-16">
                 <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
-                    <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Work", href: "/#portfolio" }, { name: study.name }]} />
+                    <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Work", href: "/work" }, { name: study.name }]} />
                     <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
                         <div className="lg:col-span-8">
                             <Reveal y={12} className="flex flex-wrap items-center gap-3">

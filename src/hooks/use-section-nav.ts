@@ -25,3 +25,17 @@ export function useSectionNav() {
         [pathname, router]
     );
 }
+
+type NavItem = { title: string; id?: string; href?: string };
+
+/** Link props for a nav item: page links navigate normally, section links scroll on the home page. */
+export function useNavLink() {
+    const goToSection = useSectionNav();
+    return useCallback(
+        (item: NavItem, after?: () => void) =>
+            item.id
+                ? { href: `/#${item.id}`, onClick: goToSection(item.id, after) }
+                : { href: item.href ?? "/", onClick: after },
+        [goToSection]
+    );
+}

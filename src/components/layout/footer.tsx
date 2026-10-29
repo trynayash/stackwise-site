@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ArrowUp01Icon, Github01Icon, Mail01Icon, NewTwitterIcon } from "@hugeicons/core-free-icons";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
-import { useSectionNav } from "@/hooks/use-section-nav";
-import { servicePages, solutionPages } from "@/lib/marketing-pages";
+import { useNavLink } from "@/hooks/use-section-nav";
+import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
 import { siteConfig } from "@/config/site";
 
 const linkClass = "link-draw text-sm text-white/55 hover:text-white";
@@ -23,7 +23,7 @@ function Column({ title, href, children }: { title: string; href?: string; child
 }
 
 export function Footer() {
-    const goToSection = useSectionNav();
+    const navLink = useNavLink();
 
     return (
         <footer className="relative overflow-hidden border-t border-line bg-canvas" role="contentinfo">
@@ -67,9 +67,16 @@ export function Footer() {
                         </Column>
                     </div>
 
-                    <div className="lg:col-span-3">
+                    <div className="space-y-10 lg:col-span-3">
                         <Column title="Solutions" href="/solutions">
                             {solutionPages.map((p) => (
+                                <li key={p.path}>
+                                    <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
+                                </li>
+                            ))}
+                        </Column>
+                        <Column title="Technologies" href="/technologies">
+                            {technologyPages.map((p) => (
                                 <li key={p.path}>
                                     <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
                                 </li>
@@ -80,8 +87,8 @@ export function Footer() {
                     <div className="lg:col-span-2">
                         <Column title="Company">
                             {[...siteConfig.navItems, { title: "Contact", id: "contact" }].map((item) => (
-                                <li key={item.id}>
-                                    <Link href={`/#${item.id}`} onClick={goToSection(item.id)} className={linkClass}>
+                                <li key={item.title}>
+                                    <Link {...navLink(item)} className={linkClass}>
                                         {item.title}
                                     </Link>
                                 </li>

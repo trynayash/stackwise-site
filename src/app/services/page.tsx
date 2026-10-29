@@ -14,7 +14,7 @@ export default function ServicesPage() {
             kind="Services"
             title="Software development"
             accent="services."
-            intro="Four core services, one standard: production-grade code, clear communication and a product you fully own when we're done."
+            intro="From SaaS and AI to mobile, design and DevOps — one standard throughout: production-grade code, clear communication and a product you fully own when we're done."
         />
     );
 }

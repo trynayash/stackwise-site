@@ -8,8 +8,8 @@ import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { useSectionNav } from "@/hooks/use-section-nav";
-import { servicePages, solutionPages } from "@/lib/marketing-pages";
+import { useNavLink } from "@/hooks/use-section-nav";
+import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -21,7 +21,7 @@ interface MobileNavProps {
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     const [servicesOpen, setServicesOpen] = useState(false);
     const { openInquiry } = useInquiry();
-    const goToSection = useSectionNav();
+    const navLink = useNavLink();
 
     useEffect(() => {
         if (!isOpen) return;
@@ -86,6 +86,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                             {[
                                                 { label: "Services", href: "/services", pages: servicePages },
                                                 { label: "Solutions", href: "/solutions", pages: solutionPages },
+                                                { label: "Technologies", href: "/technologies", pages: technologyPages },
                                             ].map((group) => (
                                                 <div key={group.label} className="pb-5">
                                                     <Link href={group.href} onClick={onClose} className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-white/40">
@@ -110,10 +111,9 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                 </AnimatePresence>
                             </li>
                             {[...siteConfig.navItems, { title: "Contact", id: "contact" }].map((item) => (
-                                <li key={item.id}>
+                                <li key={item.title}>
                                     <Link
-                                        href={`/#${item.id}`}
-                                        onClick={goToSection(item.id, onClose)}
+                                        {...navLink(item, onClose)}
                                         className="block py-5 text-2xl font-semibold tracking-tight text-white"
                                     >
                                         {item.title}

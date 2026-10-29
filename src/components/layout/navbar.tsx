@@ -10,24 +10,31 @@ import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { useSectionNav } from "@/hooks/use-section-nav";
-import { servicePages, solutionPages, type MarketingPageData } from "@/lib/marketing-pages";
+import { useNavLink, useSectionNav } from "@/hooks/use-section-nav";
+import { servicePages, solutionPages, technologyPages, type MarketingPageData } from "@/lib/marketing-pages";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
+function MenuHeading({ title, href, linkLabel, onNavigate }: { title: string; href: string; linkLabel: string; onNavigate: () => void }) {
+    return (
+        <div className="mb-3 flex items-center justify-between">
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">{title}</span>
+            <Link href={href} onClick={onNavigate} className="text-xs text-white/50 hover:text-white">
+                {linkLabel}
+            </Link>
+        </div>
+    );
+}
+
 function MenuLink({ page, onNavigate }: { page: MarketingPageData; onNavigate: () => void }) {
     return (
-        <Link
-            href={page.path}
-            onClick={onNavigate}
-            className="group flex items-start gap-3.5 rounded-xl p-3 -mx-3 transition-colors hover:bg-white/[0.04]"
-        >
-            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-line bg-surface-2 text-white/80 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
-                <Icon icon={page.icon} size={18} />
+        <Link href={page.path} onClick={onNavigate} className="group -mx-2.5 flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-white/[0.04]">
+            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-line bg-surface-2 text-white/80 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
+                <Icon icon={page.icon} size={17} />
             </span>
             <span className="min-w-0">
                 <span className="block text-sm font-semibold text-white">{page.navLabel}</span>
-                <span className="mt-0.5 block text-[13px] leading-snug text-white/50">{page.summary}</span>
+                <span className="mt-0.5 block line-clamp-2 text-[13px] leading-snug text-white/50">{page.summary}</span>
             </span>
         </Link>
     );
@@ -43,6 +50,7 @@ export function Navbar() {
     const pathname = usePathname();
     const { openInquiry } = useInquiry();
     const goToSection = useSectionNav();
+    const navLink = useNavLink();
 
     useEffect(() => {
         let lastY = window.scrollY;
@@ -127,10 +135,9 @@ export function Navbar() {
                                 </button>
                             </li>
                             {siteConfig.navItems.map((item) => (
-                                <li key={item.id}>
+                                <li key={item.title}>
                                     <Link
-                                        href={`/#${item.id}`}
-                                        onClick={goToSection(item.id)}
+                                        {...navLink(item)}
                                         onMouseEnter={scheduleClose}
                                         className="inline-flex h-10 items-center rounded-full px-4 text-sm font-medium text-white/70 transition-colors hover:text-white"
                                     >
@@ -173,32 +180,38 @@ export function Navbar() {
                                 onMouseEnter={openMenu}
                                 className="absolute inset-x-0 top-full hidden lg:block border-b border-line bg-canvas"
                             >
-                                <div className="container mx-auto grid grid-cols-12 gap-10 px-6 py-10">
-                                    <div className="col-span-5">
-                                        <div className="mb-4 flex items-center justify-between">
-                                            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">Services</span>
-                                            <Link href="/services" onClick={closeMenu} className="text-xs text-white/50 hover:text-white">
-                                                All services
-                                            </Link>
-                                        </div>
-                                        <div className="grid grid-cols-1 gap-1">
+                                <div className="container mx-auto grid grid-cols-12 gap-10 px-6 py-9">
+                                    <div className="col-span-6">
+                                        <MenuHeading title="Services" href="/services" linkLabel="All services" onNavigate={closeMenu} />
+                                        <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
                                             {servicePages.map((p) => (
                                                 <MenuLink key={p.path} page={p} onNavigate={closeMenu} />
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="col-span-4">
-                                        <div className="mb-4 flex items-center justify-between">
-                                            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">Solutions</span>
-                                            <Link href="/solutions" onClick={closeMenu} className="text-xs text-white/50 hover:text-white">
-                                                All solutions
-                                            </Link>
-                                        </div>
-                                        <div className="grid grid-cols-1 gap-1">
-                                            {solutionPages.map((p) => (
-                                                <MenuLink key={p.path} page={p} onNavigate={closeMenu} />
-                                            ))}
-                                        </div>
+                                    <div className="col-span-3 space-y-8">
+                                        {[
+                                            { title: "Solutions", href: "/solutions", pages: solutionPages },
+                                            { title: "Technologies", href: "/technologies", pages: technologyPages },
+                                        ].map((group) => (
+                                            <div key={group.title}>
+                                                <MenuHeading title={group.title} href={group.href} linkLabel="All" onNavigate={closeMenu} />
+                                                <ul className="space-y-0.5">
+                                                    {group.pages.map((p) => (
+                                                        <li key={p.path}>
+                                                            <Link
+                                                                href={p.path}
+                                                                onClick={closeMenu}
+                                                                className="group flex items-center gap-3 rounded-lg px-2 py-2 -mx-2 text-sm text-white/75 transition-colors hover:bg-white/[0.04] hover:text-white"
+                                                            >
+                                                                <Icon icon={p.icon} size={16} className="text-white/50 group-hover:text-accent" />
+                                                                {p.navLabel}
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))}
                                     </div>
                                     <div className="col-span-3">
                                         <div className="flex h-full flex-col justify-between rounded-2xl border border-line bg-surface p-6">

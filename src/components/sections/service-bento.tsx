@@ -5,7 +5,7 @@ import { Card, IconTile } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
-import { marketingPages, solutionPages } from "@/lib/marketing-pages";
+import { marketingPages, servicePages, solutionPages } from "@/lib/marketing-pages";
 import { cn } from "@/lib/utils";
 
 /* ─── Mini animated visuals, one per service ───────────────────────── */
@@ -205,6 +205,23 @@ export function ServiceBento() {
                         </StaggerItem>
                     ))}
                 </Stagger>
+
+                {/* The rest of the catalogue */}
+                <div className="mt-8 flex flex-wrap items-center gap-2">
+                    <span className="mr-2 text-sm text-white/45">Also:</span>
+                    {servicePages
+                        .filter((p) => !services.some((core) => core.page.path === p.path))
+                        .map((p) => (
+                            <Link
+                                key={p.path}
+                                href={p.path}
+                                className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-white/70 transition-colors hover:border-line-strong hover:text-white"
+                            >
+                                <Icon icon={p.icon} size={16} />
+                                {p.navLabel}
+                            </Link>
+                        ))}
+                </div>
 
                 {/* Solutions by goal */}
                 <div className="mt-14">

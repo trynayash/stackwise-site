@@ -71,7 +71,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
 }
 
 /** One full-width case study panel (horizontal track on desktop, stacked on phones). */
-function ShowcasePanel({ study, index, total }: { study: CaseStudy; index: number; total: number }) {
+export function ShowcasePanel({ study, index, total }: { study: CaseStudy; index: number; total: number }) {
     return (
         <article className="group grid h-full grid-cols-1 gap-8 rounded-3xl border border-line bg-surface p-5 md:p-7 lg:grid-cols-12 lg:gap-10">
             <WipeReveal className="rounded-xl lg:col-span-7">
@@ -209,6 +209,11 @@ export function Portfolio() {
                         title="Products we've designed"
                         muted="and engineered."
                         description="Real products, live or in development — each with a write-up of the problem, the architecture and the trade-offs, so you can judge the engineering, not just the screenshots."
+                        action={
+                            <ButtonLink href="/work" variant="secondary" arrow="right">
+                                All case studies
+                            </ButtonLink>
+                        }
                         className="mb-0 md:mb-0"
                     />
                 </div>

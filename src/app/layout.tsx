@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { ogImageUrl } from "@/lib/seo";
+import { servicePages } from "@/lib/marketing-pages";
 import { LayoutShell } from "@/components/layout/layout-shell";
 import Script from "next/script";
 
@@ -119,9 +120,9 @@ const serviceSchema = {
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Software development services",
-    "itemListElement": siteConfig.services.map((s) => ({
+    "itemListElement": servicePages.map((p) => ({
       "@type": "Offer",
-      "itemOffered": { "@type": "Service", "name": s.title, "url": `${siteConfig.url}/services/${s.slug}` },
+      "itemOffered": { "@type": "Service", "name": p.navLabel, "url": `${siteConfig.url}${p.path}` },
     })),
   },
   "address": {

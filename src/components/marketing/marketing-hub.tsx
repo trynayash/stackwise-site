@@ -11,10 +11,18 @@ import { marketingPageList, type MarketingPageData } from "@/lib/marketing-pages
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { siteConfig } from "@/config/site";
 
-/** Index page listing every service or solution page. */
-export function MarketingHub({ kind, title, accent, intro }: { kind: MarketingPageData["kind"]; title: string; accent: string; intro: string }) {
+type Kind = MarketingPageData["kind"];
+
+const kindLabels: Record<Kind, string> = {
+    Services: "Browse by service",
+    Solutions: "Or start from your goal",
+    Technologies: "Browse by technology",
+};
+
+/** Index page listing every service, solution or technology page. */
+export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title: string; accent: string; intro: string }) {
     const pages = marketingPageList.filter((p) => p.kind === kind);
-    const others = marketingPageList.filter((p) => p.kind !== kind);
+    const otherKinds = (Object.keys(kindLabels) as Kind[]).filter((k) => k !== kind);
     const path = `/${kind.toLowerCase()}`;
 
     return (
@@ -81,21 +89,25 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: MarketingPa
                         ))}
                     </Stagger>
 
-                    <Reveal className="mt-14">
-                        <p className="mb-4 text-sm text-white/45">{kind === "Services" ? "Or start from your goal" : "Or browse by service"}</p>
-                        <div className="flex flex-wrap gap-2">
-                            {others.map((p) => (
-                                <Link
-                                    key={p.path}
-                                    href={p.path}
-                                    className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-white/70 transition-colors hover:border-line-strong hover:text-white"
-                                >
-                                    <Icon icon={p.icon} size={16} />
-                                    {p.navLabel}
-                                </Link>
-                            ))}
-                        </div>
-                    </Reveal>
+                    {otherKinds.map((other) => (
+                        <Reveal key={other} className="mt-12">
+                            <p className="mb-4 text-sm text-white/45">{kindLabels[other]}</p>
+                            <div className="flex flex-wrap gap-2">
+                                {marketingPageList
+                                    .filter((p) => p.kind === other)
+                                    .map((p) => (
+                                        <Link
+                                            key={p.path}
+                                            href={p.path}
+                                            className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-white/70 transition-colors hover:border-line-strong hover:text-white"
+                                        >
+                                            <Icon icon={p.icon} size={16} />
+                                            {p.navLabel}
+                                        </Link>
+                                    ))}
+                            </div>
+                        </Reveal>
+                    ))}
                 </div>
             </section>
 

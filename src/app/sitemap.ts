@@ -1,41 +1,25 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { caseStudies } from "@/lib/case-studies";
+import { marketingPageList } from "@/lib/marketing-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const siteUrl = siteConfig.url;
+    const lastModified = new Date();
 
-    // Core static routes
-    const coreRoutes = ["", "/services", "/solutions", "/privacy", "/terms"].map((route) => ({
-        url: `${siteUrl}${route}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: route === "" ? 1.0 : route === "/services" || route === "/solutions" ? 0.9 : 0.3,
-    }));
+    const entry = (path: string, priority: number, changeFrequency: "weekly" | "monthly" | "yearly" = "weekly") => ({
+        url: `${siteUrl}${path}`,
+        lastModified,
+        changeFrequency,
+        priority,
+    });
 
-    // Service landing pages
-    const serviceRoutes = siteConfig.services.map((s) => ({
-        url: `${siteUrl}/services/${s.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-    }));
-
-    // Solution landing pages
-    const solutionRoutes = siteConfig.solutions.map((sol) => ({
-        url: `${siteUrl}/solutions/${sol.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-    }));
-
-    // Case studies pages
-    const caseStudyRoutes = caseStudies.map((s) => ({
-            url: `${siteUrl}/work/${s.slug}`,
-            lastModified: new Date(),
-            changeFrequency: "monthly" as const,
-            priority: 0.7,
-        }));
-
-    return [...coreRoutes, ...serviceRoutes, ...solutionRoutes, ...caseStudyRoutes];
+    return [
+        entry("", 1.0),
+        ...["/services", "/solutions", "/technologies", "/work"].map((p) => entry(p, 0.9)),
+        // Every service, solution and technology page
+        ...marketingPageList.map((p) => entry(p.path, 0.8)),
+        ...caseStudies.map((s) => entry(`/work/${s.slug}`, 0.7, "monthly")),
+        ...["/privacy", "/terms"].map((p) => entry(p, 0.3, "yearly")),
+    ];
 }

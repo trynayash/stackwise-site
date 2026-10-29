@@ -1,13 +1,32 @@
 "use client";
 
 import React from "react";
-import { Key01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, Compass01Icon, Key01Icon, PackageIcon, Tick02Icon, Wrench01Icon } from "@hugeicons/core-free-icons";
 import { siteConfig } from "@/config/site";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
+
+/** How a client can engage, beyond the build plans above. */
+const engagementModels = [
+    {
+        icon: PackageIcon,
+        title: "Project build",
+        text: "A defined scope, timeline and written quote. Best for new products, MVPs and websites.",
+    },
+    {
+        icon: Wrench01Icon,
+        title: "Ongoing partnership",
+        text: "A monthly retainer after launch for fixes, security updates and new features.",
+    },
+    {
+        icon: Compass01Icon,
+        title: "Technical consulting",
+        text: "Architecture reviews, stack selection and scaling advice before big decisions.",
+    },
+];
 
 export function Pricing() {
     const { openInquiry } = useInquiry();
@@ -66,6 +85,32 @@ export function Pricing() {
                         </StaggerItem>
                     ))}
                 </Stagger>
+
+                {/* Ways to work together */}
+                <div className="mt-16">
+                    <Reveal>
+                        <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">Ways to work together</h3>
+                    </Reveal>
+                    <Stagger className="mt-6 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
+                        {engagementModels.map((m) => (
+                            <StaggerItem key={m.title} className="bg-canvas">
+                                <button
+                                    type="button"
+                                    onClick={openInquiry}
+                                    className="group flex h-full w-full flex-col items-start p-7 text-left transition-colors hover:bg-surface cursor-pointer"
+                                >
+                                    <Icon icon={m.icon} size={24} className="text-white" />
+                                    <span className="mt-6 text-lg font-semibold text-white">{m.title}</span>
+                                    <span className="mt-2 text-sm leading-relaxed text-white/55">{m.text}</span>
+                                    <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-white/80 group-hover:text-white">
+                                        <span className="link-draw">Discuss this</span>
+                                        <Icon icon={ArrowRight01Icon} size={16} className="transition-transform group-hover:translate-x-0.5" />
+                                    </span>
+                                </button>
+                            </StaggerItem>
+                        ))}
+                    </Stagger>
+                </div>
 
                 <Reveal className="mt-8 flex flex-col items-start gap-4 rounded-2xl border border-line p-6 text-sm sm:flex-row sm:items-center sm:justify-between">
                     <span className="flex items-center gap-3 text-white/60">

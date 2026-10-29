@@ -5,6 +5,7 @@ import { ServiceBento } from "@/components/sections/service-bento";
 import { Services } from "@/components/sections/services";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { Portfolio } from "@/components/sections/portfolio";
+import { Proof } from "@/components/sections/proof";
 import { Comparison } from "@/components/sections/comparison";
 import { Pricing } from "@/components/sections/pricing";
 import { FAQ } from "@/components/sections/faq";
@@ -26,6 +27,7 @@ export default function Home() {
             <Manifesto />
             <ServiceBento />
             <Portfolio />
+            <Proof />
             <Services />
             <ProcessTimeline />
             <Comparison />
