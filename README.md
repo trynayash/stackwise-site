@@ -2,7 +2,7 @@
 
 The website for StackWise, Yash Suthar's software studio in Mumbai. It is a single-page marketing site with service pages, a portfolio with project write-ups, pricing, an FAQ and a contact form.
 
-Live site: https://stackwise-gamma.vercel.app
+Live site: https://stackwise-site.vercel.app (Vercel project `stackwise-site`; every push to `main` deploys to production)
 
 ## What is in it
 
