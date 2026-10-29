@@ -17,7 +17,7 @@ export function Trusted() {
     return (
         <section className="relative py-16 md:py-20" aria-label="Technologies we build with">
             <div className="container mx-auto px-5 sm:px-6">
-                <p className="mb-8 text-center text-sm text-white/45">Built on modern, proven technology</p>
+                <p className="mb-8 text-center text-sm text-white/55">Built on modern, proven technology</p>
                 <div
                     className="relative overflow-hidden"
                     style={{ maskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)" }}

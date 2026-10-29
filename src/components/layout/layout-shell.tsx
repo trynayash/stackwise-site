@@ -7,8 +7,19 @@ import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
-import { InquiryModal } from "@/components/project-inquiry/inquiry-modal";
+import dynamic from "next/dynamic";
+import { useInquiry } from "@/components/providers/inquiry-context";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+
+// The multi-step inquiry form is large; load it the first time someone opens it, not on every page.
+const InquiryModal = dynamic(() => import("@/components/project-inquiry/inquiry-modal").then((m) => m.InquiryModal), { ssr: false });
+
+function LazyInquiryModal() {
+    const { isOpen } = useInquiry();
+    const [requested, setRequested] = React.useState(false);
+    if (isOpen && !requested) setRequested(true);
+    return requested ? <InquiryModal /> : null;
+}
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
     const footerRef = React.useRef<HTMLDivElement>(null);
@@ -45,7 +56,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                     </div>
 
                     <MobileCtaBar hidden={footerVisible} />
-                    <InquiryModal />
+                    <LazyInquiryModal />
                 </SmoothScroll>
             </MotionConfig>
         </InquiryProvider>

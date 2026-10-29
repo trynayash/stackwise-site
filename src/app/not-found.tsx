@@ -9,6 +9,8 @@ import { marketingPageList } from "@/lib/marketing-pages";
 export const metadata: Metadata = {
     title: "Page not found",
     robots: { index: false, follow: true },
+    // Drop the homepage canonical inherited from the root layout.
+    alternates: { canonical: null },
 };
 
 export default function NotFound() {
@@ -37,7 +39,7 @@ export default function NotFound() {
                                 <Icon icon={p.icon} size={18} className="text-white/50" />
                                 {p.navLabel}
                             </span>
-                            <Icon icon={ArrowRight01Icon} size={18} className="text-white/35 transition-transform group-hover:translate-x-1 group-hover:text-white" />
+                            <Icon icon={ArrowRight01Icon} size={18} className="text-white/50 transition-transform group-hover:translate-x-1 group-hover:text-white" />
                         </Link>
                     ))}
                 </div>

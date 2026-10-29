@@ -69,9 +69,29 @@ export function WordReveal({
     immediate?: boolean;
 }) {
     const words = text.split(" ");
+
+    // On-load headlines animate in CSS so they paint before JavaScript runs (keeps LCP fast).
+    if (immediate) {
+        return (
+            <span className={cn("inline", className)} aria-label={text} role="text">
+                {words.map((word, i) => (
+                    <span key={`${word}-${i}`} aria-hidden="true" className="inline-block overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]">
+                        <span
+                            className={cn("enter-word", wordClassName)}
+                            style={{ ["--d" as string]: `${Math.round((delay + i * 0.05) * 1000)}ms` } as React.CSSProperties}
+                        >
+                            {word}
+                            {i < words.length - 1 ? "\u00A0" : ""}
+                        </span>
+                    </span>
+                ))}
+            </span>
+        );
+    }
+
     // The in-view trigger lives on the outer span: each word starts clipped by its mask,
     // so observing the words themselves would never report them as visible.
-    const trigger = immediate ? { animate: "show" } : { whileInView: "show", viewport: { once: true, margin: "-40px" } };
+    const trigger = { whileInView: "show", viewport: { once: true, margin: "-40px" } };
 
     return (
         <motion.span

@@ -68,7 +68,7 @@ export function ProcessTimeline() {
                                 <div className="relative h-px flex-1 bg-line">
                                     <motion.div className="absolute inset-y-0 left-0 w-full origin-left bg-accent" style={{ scaleX: progress }} />
                                 </div>
-                                <span className="font-mono text-xs text-white/45">4 weeks</span>
+                                <span className="font-mono text-xs text-white/55">4 weeks</span>
                             </div>
                             <div className="mt-10 rounded-2xl border border-line p-6">
                                 <p className="text-base font-semibold text-white">Bigger product? Same steps.</p>
@@ -89,7 +89,7 @@ export function ProcessTimeline() {
                                         <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-line-strong bg-canvas text-white">
                                             <Icon icon={step.icon} size={22} />
                                         </span>
-                                        <span className="font-mono text-xs text-white/45">
+                                        <span className="font-mono text-xs text-white/55">
                                             {String(i + 1).padStart(2, "0")} · {step.week}
                                         </span>
                                     </div>

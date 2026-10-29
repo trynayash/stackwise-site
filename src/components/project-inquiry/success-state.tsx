@@ -46,7 +46,7 @@ export function SuccessState({ onClose }: SuccessStateProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45, duration: 0.4 }}
-                className="text-white/40 text-sm sm:text-base leading-relaxed max-w-md mb-10 font-light"
+                className="text-white/55 text-sm sm:text-base leading-relaxed max-w-md mb-10 font-light"
             >
                 Thanks for sharing your vision. We&apos;ll review your requirements and get back with the best technical approach.
             </motion.p>

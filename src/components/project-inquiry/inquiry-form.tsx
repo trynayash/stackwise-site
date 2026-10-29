@@ -349,7 +349,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                             <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                                 What are you looking to build?
                             </h3>
-                            <p className="text-white/40 text-sm mb-8 font-light">Select all that apply.</p>
+                            <p className="text-white/55 text-sm mb-8 font-light">Select all that apply.</p>
 
                             {errors.projectTypes && (
                                 <p className="text-red-400 text-xs mb-4 font-mono">{errors.projectTypes}</p>
@@ -389,7 +389,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                     <span className={`text-sm font-semibold block transition-colors text-white`}>
                                                         {opt.value}
                                                     </span>
-                                                    <span className="text-white/30 text-xs font-light mt-0.5 block">
+                                                    <span className="text-white/50 text-xs font-light mt-0.5 block">
                                                         {opt.description}
                                                     </span>
                                                 </div>
@@ -406,7 +406,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                             <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                                 Tell us about your project.
                             </h3>
-                            <p className="text-white/40 text-sm mb-8 font-light">Help us understand what you need.</p>
+                            <p className="text-white/55 text-sm mb-8 font-light">Help us understand what you need.</p>
 
                             <div className="space-y-6">
                                 {/* Project Name */}
@@ -499,7 +499,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                             <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                                 Business Information
                             </h3>
-                            <p className="text-white/40 text-sm mb-8 font-light">Help us tailor the right approach.</p>
+                            <p className="text-white/55 text-sm mb-8 font-light">Help us tailor the right approach.</p>
 
                             <div className="space-y-6">
                                 {/* Company */}
@@ -613,7 +613,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                             <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                                 How do we reach you?
                             </h3>
-                            <p className="text-white/40 text-sm mb-8 font-light">We respond within 24–48 hours.</p>
+                            <p className="text-white/55 text-sm mb-8 font-light">We respond within 24–48 hours.</p>
 
                             <div className="space-y-5">
                                 {/* Name */}
@@ -729,7 +729,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                     <button
                         type="button"
                         onClick={prevStep}
-                        className="group inline-flex items-center gap-2 text-white/40 text-sm hover:text-white transition-colors duration-300 cursor-pointer"
+                        className="group inline-flex items-center gap-2 text-white/55 text-sm hover:text-white transition-colors duration-300 cursor-pointer"
                     >
                         <Icon icon={ArrowLeft01Icon} size={16} className="group-hover:-translate-x-0.5 transition-transform duration-300" />
                         Back

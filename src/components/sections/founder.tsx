@@ -56,7 +56,7 @@ export function Founder() {
                         <dl className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
                             {facts.map((f) => (
                                 <div key={f.label} className="bg-canvas p-5">
-                                    <dt className="text-xs uppercase tracking-[0.16em] text-white/40">{f.label}</dt>
+                                    <dt className="text-xs uppercase tracking-[0.16em] text-white/55">{f.label}</dt>
                                     <dd className="mt-2 text-[15px] font-medium text-white">{f.value}</dd>
                                 </div>
                             ))}

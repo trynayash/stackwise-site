@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { ogImageUrl } from "@/lib/seo";
+import { JsonLd, siteGraph } from "@/lib/schema";
 import { servicePages } from "@/lib/marketing-pages";
 import { LayoutShell } from "@/components/layout/layout-shell";
 import Script from "next/script";
@@ -23,52 +25,49 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
+// Wordmark font: next/font preloads it, so the logo paints in its final face without a late swap.
+const oughter = localFont({
+  src: "../fonts/Oughter.otf",
+  variable: "--font-oughter",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} | ${siteConfig.tagline}`,
+    default: siteConfig.homeTitle,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "SaaS development company",
-    "custom software development",
-    "AI development services",
-    "MVP development",
-    "Next.js development agency",
-    "web development studio India",
-    "business automation software",
-    "product engineering for startups",
-  ],
   applicationName: siteConfig.name,
   creator: siteConfig.author,
   publisher: siteConfig.name,
   category: "technology",
-  authors: [{ name: siteConfig.author }],
+  authors: [{ name: siteConfig.author, url: siteConfig.links.portfolio }],
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    title: siteConfig.homeTitle,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
     images: [
       {
-        url: ogImageUrl(siteConfig.tagline, "Software Studio"),
+        url: ogImageUrl("SaaS, AI & Custom Software Development", "Software Studio · Mumbai"),
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — ${siteConfig.tagline}`,
+        alt: siteConfig.homeTitle,
       },
     ],
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    title: siteConfig.homeTitle,
     description: siteConfig.description,
-    images: [ogImageUrl(siteConfig.tagline, "Software Studio")],
+    images: [ogImageUrl("SaaS, AI & Custom Software Development", "Software Studio · Mumbai")],
     creator: "@YashVibes1",
   },
   robots: {
@@ -76,9 +75,11 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
-  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  // Search console ownership tags, set as environment variables in Vercel.
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } } : {}),
+  },
 };
 
 export const viewport: Viewport = {
@@ -89,49 +90,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-// JSON-LD Schemas
-const orgSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${siteConfig.url}/#organization`,
-  "name": siteConfig.name,
-  "url": siteConfig.url,
-  "logo": `${siteConfig.url}/web-app-manifest-512x512.png`,
-  "email": siteConfig.emails.inbound,
-  "description": siteConfig.description,
-  "founder": { "@type": "Person", "name": siteConfig.author },
-  "sameAs": [
-    siteConfig.links.twitter,
-    siteConfig.links.github,
-  ],
-};
-
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": `${siteConfig.url}/#service`,
-  "name": `${siteConfig.name} Software Studio`,
-  "image": `${siteConfig.url}/web-app-manifest-512x512.png`,
-  "url": siteConfig.url,
-  "email": siteConfig.emails.inbound,
-  "priceRange": "₹₹₹",
-  "parentOrganization": { "@id": `${siteConfig.url}/#organization` },
-  "areaServed": "Worldwide",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Software development services",
-    "itemListElement": servicePages.map((p) => ({
-      "@type": "Offer",
-      "itemOffered": { "@type": "Service", "name": p.navLabel, "url": `${siteConfig.url}${p.path}` },
-    })),
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": siteConfig.location.city,
-    "addressRegion": siteConfig.location.region,
-    "addressCountry": siteConfig.location.countryCode,
-  },
-};
+const siteSchema = siteGraph({ services: servicePages.map((p) => ({ name: p.navLabel, path: p.path })) });
 
 export default function RootLayout({
   children,
@@ -161,18 +120,11 @@ export default function RootLayout({
           </>
         )}
         
-        {/* Structured Schema Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-        />
+        {/* Site-wide structured data: studio, founder, website and services as one linked graph */}
+        <JsonLd data={siteSchema} />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-canvas text-foreground`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${oughter.variable} font-sans antialiased bg-canvas text-foreground`}
         suppressHydrationWarning
       >
         <LayoutShell>{children}</LayoutShell>

@@ -106,7 +106,7 @@ function CodeVisual() {
                 <span className="h-2 w-2 rounded-full bg-white/15" />
                 <span className="h-2 w-2 rounded-full bg-white/15" />
                 <span className="h-2 w-2 rounded-full bg-white/15" />
-                <span className="ml-2 text-[10px] font-mono text-white/35">page.tsx</span>
+                <span className="ml-2 text-[10px] font-mono text-white/50">page.tsx</span>
             </div>
             <div className="space-y-2.5 p-3">
                 {lines.map((l, i) => (
@@ -208,7 +208,7 @@ export function ServiceBento() {
 
                 {/* The rest of the catalogue */}
                 <div className="mt-8 flex flex-wrap items-center gap-2">
-                    <span className="mr-2 text-sm text-white/45">Also:</span>
+                    <span className="mr-2 text-sm text-white/55">Also:</span>
                     {servicePages
                         .filter((p) => !services.some((core) => core.page.path === p.path))
                         .map((p) => (
@@ -225,7 +225,7 @@ export function ServiceBento() {
 
                 {/* Solutions by goal */}
                 <div className="mt-14">
-                    <p className="mb-5 text-sm text-white/45">Or start from your goal</p>
+                    <p className="mb-5 text-sm text-white/55">Or start from your goal</p>
                     <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
                         {solutionPages.map((p) => (
                             <StaggerItem key={p.path}>
@@ -238,7 +238,7 @@ export function ServiceBento() {
                                             <h3 className="text-base font-semibold text-white">{p.navLabel}</h3>
                                             <p className="mt-0.5 text-sm leading-snug text-white/50">{p.summary}</p>
                                         </div>
-                                        <Icon icon={ArrowRight01Icon} size={18} className="flex-shrink-0 text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-white" />
+                                        <Icon icon={ArrowRight01Icon} size={18} className="flex-shrink-0 text-white/55 transition-transform group-hover:translate-x-1 group-hover:text-white" />
                                     </Card>
                                 </Link>
                             </StaggerItem>

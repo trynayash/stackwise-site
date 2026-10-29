@@ -14,7 +14,7 @@ const linkClass = "link-draw text-sm text-white/55 hover:text-white";
 function Column({ title, href, children }: { title: string; href?: string; children: React.ReactNode }) {
     return (
         <div>
-            <h3 className="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-white/35">
+            <h3 className="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-white/50">
                 {href ? <Link href={href} className="hover:text-white transition-colors">{title}</Link> : title}
             </h3>
             <ul className="space-y-3">{children}</ul>
@@ -98,7 +98,7 @@ export function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="flex flex-col gap-4 border-t border-line py-6 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-4 border-t border-line py-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">
                     <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
                     <div className="flex items-center gap-6">
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
@@ -114,15 +114,8 @@ export function Footer() {
                 </div>
             </div>
 
-            {/* Oversized wordmark */}
-            <div aria-hidden className="pointer-events-none select-none overflow-hidden">
-                <p
-                    className="whitespace-nowrap text-center leading-[0.75] text-white/[0.04] translate-y-[18%]"
-                    style={{ fontFamily: "'Oughter', sans-serif", fontSize: "clamp(3rem, 13.5vw, 16rem)" }}
-                >
-                    STACKWISE
-                </p>
-            </div>
+            {/* Oversized wordmark: drawn via CSS (see .footer-wordmark) because it's decoration, not text */}
+            <div aria-hidden className="footer-wordmark pointer-events-none select-none overflow-hidden" />
         </footer>
     );
 }

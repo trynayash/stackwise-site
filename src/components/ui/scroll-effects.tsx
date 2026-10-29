@@ -34,7 +34,8 @@ export function CountUp({ value, className, duration = 1.4 }: { value: string; c
     }, [inView, target, reduced, duration]);
 
     return (
-        <span ref={ref} className={cn("tabular-nums", className)} aria-label={value}>
+        <span ref={ref} className={cn("tabular-nums", className)}>
+            <span className="sr-only">{value}</span>
             <span aria-hidden>
                 {display}
                 {match ? match[2] : ""}
@@ -66,7 +67,7 @@ export function WipeReveal({ children, className, delay = 0 }: { children: React
 }
 
 function LitWord({ word, progress, range, still }: { word: string; progress: MotionValue<number>; range: [number, number]; still: boolean }) {
-    const opacity = useTransform(progress, range, [0.18, 1]);
+    const opacity = useTransform(progress, range, [0.4, 1]);
     return (
         <motion.span style={{ opacity: still ? 1 : opacity }} className="inline">
             {word}{" "}

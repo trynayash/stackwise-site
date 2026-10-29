@@ -6,6 +6,7 @@ import { CustomerSupportIcon, FileSecurityIcon, Key01Icon, SourceCodeIcon } from
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { HeroVisual } from "@/components/three/hero-visual";
 import { WordReveal } from "@/components/ui/motion-primitives";
+import { Enter } from "@/components/ui/enter";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { useSectionNav } from "@/hooks/use-section-nav";
@@ -16,16 +17,6 @@ const trustPoints = [
     { icon: CustomerSupportIcon, title: "Support after launch", text: "1–3 months included in every plan" },
     { icon: FileSecurityIcon, title: "NDA on request", text: "Signed before any sensitive discovery" },
 ];
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function fadeUp(delay: number) {
-    return {
-        initial: { opacity: 0, y: 14 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.7, delay, ease: EASE },
-    };
-}
 
 export function Hero() {
     const { openInquiry } = useInquiry();
@@ -44,52 +35,48 @@ export function Hero() {
                 <div className="grid min-h-[calc(100svh-9rem)] grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-6">
                     {/* Copy */}
                     <motion.div style={{ y: copyY, opacity: copyOpacity }} className="flex flex-col items-start lg:col-span-7">
-                        <motion.div {...fadeUp(0)} className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13px] text-white/70">
+                        <Enter className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13px] text-white/70">
                             <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
                             Booking new projects
-                        </motion.div>
+                        </Enter>
 
                         <h1 className="mb-6 text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.25rem] font-semibold tracking-[-0.045em] text-white text-balance">
                             <WordReveal text="Give your custom software" immediate />{" "}
-                            <WordReveal text="the codebase it deserves." immediate delay={0.2} className="text-white/40" />
+                            <WordReveal text="the codebase it deserves." immediate delay={0.15} className="text-white/45" />
                         </h1>
 
-                        <motion.p {...fadeUp(0.45)} className="mb-10 max-w-xl text-lg leading-relaxed text-white/60 text-pretty">
-                            StackWise is a software studio by Yash Suthar. We design and build SaaS products, custom software and AI features — clean,
-                            typed code that you fully own.
-                        </motion.p>
+                        <Enter as="p" delay={0.3} className="mb-10 max-w-xl text-lg leading-relaxed text-white/65 text-pretty">
+                            StackWise is a Mumbai software studio by Yash Suthar. We design and build SaaS products, custom software and AI features —
+                            clean, typed code that you fully own.
+                        </Enter>
 
-                        <motion.div {...fadeUp(0.55)} className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+                        <Enter delay={0.4} className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                             <Button size="lg" arrow="right" onClick={openInquiry}>
                                 Get a free quote
                             </Button>
                             <ButtonLink href="/#portfolio" onClick={goToSection("portfolio")} variant="secondary" size="lg">
                                 See our work
                             </ButtonLink>
-                        </motion.div>
+                        </Enter>
 
-                        <motion.p {...fadeUp(0.65)} className="mt-5 text-sm text-white/40">
+                        <Enter as="p" delay={0.5} className="mt-5 text-sm text-white/55">
                             Free consultation · We reply within 24–48 hours
-                        </motion.p>
+                        </Enter>
                     </motion.div>
 
                     {/* 3D model */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className="relative -mx-5 h-[320px] sm:mx-0 sm:h-[420px] lg:col-span-5 lg:h-[580px]"
-                    >
+                    <Enter delay={0.15} className="relative -mx-5 h-[320px] sm:mx-0 sm:h-[420px] lg:col-span-5 lg:h-[580px]">
                         <HeroVisual className="absolute inset-0" />
                         <FloatingTag className="left-[2%] top-[16%]" label="Frontend" sub="Next.js · React" />
                         <FloatingTag className="right-[0%] top-[44%]" label="API & data" sub="Node · Go · Postgres" />
                         <FloatingTag className="left-[8%] bottom-[12%]" label="AI layer" sub="LLMs · RAG · Agents" />
-                    </motion.div>
+                    </Enter>
                 </div>
 
                 {/* Trust strip */}
-                <motion.ul
-                    {...fadeUp(0.75)}
+                <Enter
+                    as="ul"
+                    delay={0.55}
                     className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
                 >
                     {trustPoints.map((t) => (
@@ -101,7 +88,7 @@ export function Hero() {
                             </div>
                         </li>
                     ))}
-                </motion.ul>
+                </Enter>
 
             </div>
         </section>
@@ -116,7 +103,7 @@ function FloatingTag({ className, label, sub }: { className: string; label: stri
                     <span className="h-1.5 w-1.5 rounded-[2px] bg-accent" />
                     <span className="text-xs font-semibold text-white">{label}</span>
                 </div>
-                <span className="mt-0.5 block pl-3.5 text-[11px] font-mono text-white/45">{sub}</span>
+                <span className="mt-0.5 block pl-3.5 text-[11px] font-mono text-white/55">{sub}</span>
             </div>
         </div>
     );

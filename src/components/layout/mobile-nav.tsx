@@ -89,7 +89,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                                 { label: "Technologies", href: "/technologies", pages: technologyPages },
                                             ].map((group) => (
                                                 <div key={group.label} className="pb-5">
-                                                    <Link href={group.href} onClick={onClose} className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-white/40">
+                                                    <Link href={group.href} onClick={onClose} className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-white/55">
                                                         {group.label}
                                                     </Link>
                                                     <ul>

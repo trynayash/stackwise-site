@@ -10,7 +10,8 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { Icon } from "@/components/ui/icon";
 import { Card } from "@/components/ui/card";
 import { Eyebrow, Reveal, WordReveal } from "@/components/ui/motion-primitives";
-import { CountUp, WipeReveal } from "@/components/ui/scroll-effects";
+import { Enter } from "@/components/ui/enter";
+import { CountUp } from "@/components/ui/scroll-effects";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const study = workBySlug[slug];
     if (!study) return {};
     return constructMetadata({
-        title: `${study.name} — Case Study`,
+        title: `${study.name} Case Study — ${study.kind}`,
         description: study.metaDescription,
         canonical: `/work/${study.slug}`,
         ogKicker: "Case study",
@@ -98,15 +99,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Work", href: "/work" }, { name: study.name }]} />
                     <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
                         <div className="lg:col-span-8">
-                            <Reveal y={12} className="flex flex-wrap items-center gap-3">
+                            <Enter className="flex flex-wrap items-center gap-3">
                                 <Eyebrow>Case study · {study.kind}</Eyebrow>
                                 <StatusBadge status={study.status} />
-                            </Reveal>
+                            </Enter>
                             <h1 className="mt-6 text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
                                 <WordReveal text={study.name} immediate /> <WordReveal text={study.tagline} immediate delay={0.1} className="text-white/40" />
                             </h1>
                         </div>
-                        <Reveal delay={0.2} className="lg:col-span-4">
+                        <Enter delay={0.2} className="lg:col-span-4">
                             <dl className="divide-y divide-line rounded-2xl border border-line bg-surface">
                                 <div className="flex items-baseline justify-between gap-4 px-5 py-4">
                                     <dt className="text-sm text-white/50">Status</dt>
@@ -117,22 +118,23 @@ export default async function CaseStudyPage({ params }: PageProps) {
                                     <dd className="text-right text-[15px] font-medium text-white">{study.stack.slice(0, 3).join(", ")}</dd>
                                 </div>
                                 {study.extraLinks.map((l) => (
-                                    <a
-                                        key={l.href}
-                                        href={l.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-surface-2"
-                                    >
-                                        <span className="text-sm text-white/50">{l.label}</span>
-                                        <span className="flex items-center gap-1.5 text-[15px] font-medium text-white">
-                                            {shortUrl(l.href)}
-                                            <Icon icon={ArrowUpRight01Icon} size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                                        </span>
-                                    </a>
+                                    <div key={l.href} className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-surface-2">
+                                        <dt className="text-sm text-white/55">{l.label}</dt>
+                                        <dd>
+                                            <a
+                                                href={l.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-1.5 text-[15px] font-medium text-white"
+                                            >
+                                                {shortUrl(l.href)}
+                                                <Icon icon={ArrowUpRight01Icon} size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                            </a>
+                                        </dd>
+                                    </div>
                                 ))}
                             </dl>
-                        </Reveal>
+                        </Enter>
                     </div>
                 </div>
             </section>
@@ -140,9 +142,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
             {/* Screenshot */}
             <section className="pb-12 md:pb-16" aria-label={`${study.name} on ${displayDomain(study)}`}>
                 <div className="container mx-auto px-5 sm:px-6">
-                    <WipeReveal className="mx-auto max-w-6xl rounded-xl">
+                    <Enter delay={0.2} className="mx-auto max-w-6xl rounded-xl">
                         <Screenshot study={study} priority />
-                    </WipeReveal>
+                    </Enter>
                 </div>
             </section>
 
@@ -152,7 +154,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
                         {study.metrics.map((m) => (
                             <div key={m.label} className="bg-canvas p-7">
-                                <dt className="text-sm text-white/45">{m.label}</dt>
+                                <dt className="text-sm text-white/55">{m.label}</dt>
                                 <dd className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
                                     <CountUp value={m.value} />
                                 </dd>
@@ -223,7 +225,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     <Link href={`/work/${next.slug}`} className="group block">
                         <Card interactive className="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between md:p-8">
                             <div>
-                                <p className="text-sm text-white/45">Next case study</p>
+                                <p className="text-sm text-white/55">Next case study</p>
                                 <p className="mt-2 text-2xl font-semibold tracking-tight text-white md:text-3xl">
                                     {next.name} <span className="text-white/40">{next.tagline}</span>
                                 </p>

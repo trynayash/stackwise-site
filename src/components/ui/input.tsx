@@ -34,7 +34,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({ classN
             ref={ref}
             value={value}
             aria-invalid={invalid || undefined}
-            className={cn(fieldBase, borderFor(invalid), "h-12 cursor-pointer appearance-none pr-10", !value && "text-white/30", className)}
+            className={cn(fieldBase, borderFor(invalid), "h-12 cursor-pointer appearance-none pr-10", !value && "text-white/50", className)}
             {...props}
         >
             {placeholder && (
@@ -44,7 +44,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({ classN
             )}
             {children}
         </select>
-        <Icon icon={ArrowDown01Icon} size={18} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-white/40" />
+        <Icon icon={ArrowDown01Icon} size={18} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-white/55" />
     </div>
 ));
 Select.displayName = "Select";
@@ -69,7 +69,7 @@ export function Field({
         <div className={cn("space-y-2", className)}>
             <label htmlFor={id} className="block text-sm font-medium text-white/75">
                 {label}
-                {optional && <span className="ml-1 font-normal text-white/35">(optional)</span>}
+                {optional && <span className="ml-1 font-normal text-white/50">(optional)</span>}
             </label>
             {children}
             {error && (

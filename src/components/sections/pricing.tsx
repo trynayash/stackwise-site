@@ -60,7 +60,7 @@ export function Pricing() {
                                 <p className="mt-3 min-h-[3rem] text-sm leading-relaxed text-white/55">{plan.description}</p>
 
                                 <div className="mt-6 flex items-baseline gap-2">
-                                    {plan.price !== "Custom" && <span className="text-sm text-white/45">from</span>}
+                                    {plan.price !== "Custom" && <span className="text-sm text-white/55">from</span>}
                                     <span className="text-4xl font-semibold tracking-tight text-white md:text-5xl">{plan.price}</span>
                                 </div>
 

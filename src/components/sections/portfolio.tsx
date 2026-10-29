@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { caseStudies, displayDomain, type CaseStudy } from "@/lib/case-studies";
@@ -30,17 +31,18 @@ export function Screenshot({ study, className, priority = false }: { study: Case
                 <span className="h-2 w-2 rounded-full bg-white/15" />
                 <span className="h-2 w-2 rounded-full bg-white/15" />
                 <span className="h-2 w-2 rounded-full bg-white/15" />
-                <span className="ml-2 truncate font-mono text-[10px] text-white/35">{displayDomain(study)}</span>
+                <span className="ml-2 truncate font-mono text-[10px] text-white/50">{displayDomain(study)}</span>
             </div>
             <div className="relative aspect-[16/10] overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                {/* next/image serves responsive AVIF/WebP sizes, which keeps pages fast on phones */}
+                <Image
                     src={study.preview}
                     alt={`${study.name} — ${study.tagline}`}
                     width={1600}
                     height={1000}
+                    sizes="(min-width: 1280px) 1100px, (min-width: 1024px) 60vw, 100vw"
                     className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    loading={priority ? "eager" : "lazy"}
+                    preload={priority}
                 />
             </div>
         </div>
@@ -55,7 +57,7 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
                 <Screenshot study={study} />
                 <div className="flex flex-1 flex-col">
                     <div className="flex items-center justify-between gap-4">
-                        <span className="text-xs uppercase tracking-[0.16em] text-white/40">{study.kind}</span>
+                        <span className="text-xs uppercase tracking-[0.16em] text-white/55">{study.kind}</span>
                         <StatusBadge status={study.status} />
                     </div>
                     <h3 className="mt-3 text-xl font-semibold tracking-tight text-white md:text-2xl">{study.name}</h3>
@@ -77,7 +79,7 @@ export function MoreWork({ className }: { className?: string }) {
         <div className={className}>
             <div className="mb-6 flex items-end justify-between gap-6">
                 <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">More work</h3>
-                <span className="text-sm text-white/45">{moreWork.length} more projects</span>
+                <span className="text-sm text-white/55">{moreWork.length} more projects</span>
             </div>
             <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
                 {moreWork.map((s) => (
@@ -101,19 +103,19 @@ export function ShowcasePanel({ study, index, total }: { study: CaseStudy; index
             </WipeReveal>
             <div className="flex flex-col lg:col-span-5 lg:py-2">
                 <div className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-xs text-white/40">
+                    <span className="font-mono text-xs text-white/55">
                         {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                     </span>
                     <StatusBadge status={study.status} />
                 </div>
-                <p className="mt-6 text-xs uppercase tracking-[0.16em] text-white/40">{study.kind}</p>
+                <p className="mt-6 text-xs uppercase tracking-[0.16em] text-white/55">{study.kind}</p>
                 <h3 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-white md:text-4xl">{study.name}</h3>
                 <p className="mt-2 text-lg text-white/55">{study.tagline}</p>
 
                 <dl className="mt-7 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
                     {study.metrics.map((m) => (
                         <div key={m.label} className="bg-canvas p-3.5">
-                            <dt className="text-[11px] uppercase tracking-[0.12em] text-white/40">{m.label}</dt>
+                            <dt className="text-[11px] uppercase tracking-[0.12em] text-white/55">{m.label}</dt>
                             <dd className="mt-1.5 text-[15px] font-semibold leading-snug text-white">
                                 <CountUp value={m.value} />
                             </dd>

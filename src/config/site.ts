@@ -1,7 +1,10 @@
 export const siteConfig = {
     name: "StackWise",
     tagline: "Engineering Digital Growth",
-    description: "A software studio by Yash Suthar that designs and builds SaaS products, custom software and AI features.",
+    description:
+        "StackWise is a Mumbai software studio building SaaS products, AI features, custom software and fast Next.js websites — clean, typed code you fully own.",
+    /** Home page <title>; every other page uses "Page title | StackWise". */
+    homeTitle: "StackWise — SaaS, AI & Custom Software Studio in Mumbai",
     /**
      * Canonical site URL: the Vercel production address. If a custom domain is ever connected,
      * set NEXT_PUBLIC_SITE_URL to it and canonical links and share images follow.
@@ -18,6 +21,9 @@ export const siteConfig = {
     links: {
         twitter: "https://x.com/YashVibes1",
         github: "https://github.com/trynayash",
+        portfolio: "https://yashsuthar.dev",
+        orcid: "https://orcid.org/0009-0004-6775-1113",
+        devto: "https://dev.to/trynayash",
     },
     /** Primary navigation. `id` scrolls to a home-page section; `href` links to a page. */
     navItems: [

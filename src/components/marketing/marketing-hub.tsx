@@ -4,6 +4,7 @@ import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { IconTile } from "@/components/ui/card";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -45,16 +46,16 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                 <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
                     <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: kind }]} />
-                    <Reveal y={12}>
+                    <Enter>
                         <Eyebrow>{kind}</Eyebrow>
-                    </Reveal>
+                    </Enter>
                     <h1 className="mt-6 max-w-4xl text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
                         <WordReveal text={title} immediate /> <WordReveal text={accent} immediate delay={0.15} className="text-white/40" />
                     </h1>
-                    <Reveal delay={0.25} className="mt-7 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+                    <Enter delay={0.25} className="mt-7 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
                         <p className="max-w-2xl text-lg leading-relaxed text-white/60">{intro}</p>
                         <QuoteButton />
-                    </Reveal>
+                    </Enter>
                 </div>
             </section>
 
@@ -65,7 +66,7 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                             <StaggerItem key={p.path}>
                                 <Link href={p.path} className="group grid grid-cols-1 gap-6 border-b border-line py-8 transition-colors md:grid-cols-12 md:items-center md:py-10">
                                     <div className="flex items-center gap-5 md:col-span-5">
-                                        <span className="w-8 font-mono text-sm text-white/35">{String(i + 1).padStart(2, "0")}</span>
+                                        <span className="w-8 font-mono text-sm text-white/50">{String(i + 1).padStart(2, "0")}</span>
                                         <IconTile className="transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
                                             <Icon icon={p.icon} size={20} />
                                         </IconTile>
@@ -91,7 +92,7 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
 
                     {otherKinds.map((other) => (
                         <Reveal key={other} className="mt-12">
-                            <p className="mb-4 text-sm text-white/45">{kindLabels[other]}</p>
+                            <p className="mb-4 text-sm text-white/55">{kindLabels[other]}</p>
                             <div className="flex flex-wrap gap-2">
                                 {marketingPageList
                                     .filter((p) => p.kind === other)

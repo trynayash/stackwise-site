@@ -11,6 +11,16 @@ interface MetadataProps {
     ogKicker?: string;
 }
 
+/** Google shows roughly the first 155 characters of a description. */
+const MAX_DESCRIPTION = 155;
+
+/** Trim a description to fit search results, ending at a word boundary. */
+export function clampDescription(text: string, max = MAX_DESCRIPTION) {
+    if (text.length <= max) return text;
+    const cut = text.slice(0, max - 1);
+    return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,;:—-]+$/, "")}…`;
+}
+
 /** URL of the generated social-share image for a page (see src/app/og/route.tsx). */
 export function ogImageUrl(title: string, kicker?: string) {
     const params = new URLSearchParams({ title });
@@ -27,12 +37,14 @@ export function constructMetadata({
     ogKicker,
 }: MetadataProps): Metadata {
     const siteUrl = siteConfig.url;
+    description = clampDescription(description);
     const finalCanonical = canonical ? `${siteUrl}${canonical}` : undefined;
     const imagePath = image ?? ogImageUrl(title, ogKicker);
     const imageUrl = imagePath.startsWith("http") ? imagePath : `${siteUrl}${imagePath}`;
 
     return {
-        title: `${title} | ${siteConfig.name}`,
+        // The root layout's title template appends " | StackWise".
+        title,
         description,
         alternates: {
             canonical: finalCanonical,
@@ -44,7 +56,7 @@ export function constructMetadata({
             siteName: siteConfig.name,
             images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
             type: "website",
-            locale: "en_US",
+            locale: "en_IN",
         },
         twitter: {
             card: "summary_large_image",

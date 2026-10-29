@@ -24,7 +24,7 @@ export function CaseStudyToc({ items }: { items: { id: string; title: string }[]
 
     return (
         <nav aria-label="On this page" className="lg:sticky lg:top-28">
-            <p className="mb-4 text-xs uppercase tracking-[0.16em] text-white/40">On this page</p>
+            <p className="mb-4 text-xs uppercase tracking-[0.16em] text-white/55">On this page</p>
             <ol className="space-y-1 border-l border-line">
                 {items.map((item, i) => (
                     <li key={item.id}>
@@ -36,10 +36,10 @@ export function CaseStudyToc({ items }: { items: { id: string; title: string }[]
                             }}
                             className={cn(
                                 "-ml-px flex items-center gap-3 border-l py-1.5 pl-4 text-sm transition-colors",
-                                active === item.id ? "border-accent text-white" : "border-transparent text-white/45 hover:text-white/80"
+                                active === item.id ? "border-accent text-white" : "border-transparent text-white/55 hover:text-white/80"
                             )}
                         >
-                            <span className="font-mono text-xs text-white/30">{String(i + 1).padStart(2, "0")}</span>
+                            <span className="font-mono text-xs text-white/50">{String(i + 1).padStart(2, "0")}</span>
                             {item.title}
                         </a>
                     </li>

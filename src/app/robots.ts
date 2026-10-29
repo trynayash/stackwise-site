@@ -6,8 +6,11 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: "*",
             allow: "/",
-            disallow: ["/api/", "/_next/", "/static/"],
+            // Only the form endpoint is off-limits. /_next must stay crawlable:
+            // search engines need its JavaScript, CSS and images to render pages.
+            disallow: ["/api/"],
         },
         sitemap: `${siteConfig.url}/sitemap.xml`,
+        host: siteConfig.url,
     };
 }

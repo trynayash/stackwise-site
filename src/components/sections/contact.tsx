@@ -100,7 +100,7 @@ export function Contact() {
                                 <Icon icon={Mail01Icon} size={20} />
                             </span>
                             <span className="min-w-0">
-                                <span className="block text-xs uppercase tracking-[0.16em] text-white/40">Email</span>
+                                <span className="block text-xs uppercase tracking-[0.16em] text-white/55">Email</span>
                                 <span className="block truncate text-[15px] font-medium text-white group-hover:underline underline-offset-4">{siteConfig.emails.inbound}</span>
                             </span>
                         </a>
@@ -173,7 +173,7 @@ export function Contact() {
                                         )}
 
                                         <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                                            <p className="text-sm text-white/40">Free consultation · No commitment</p>
+                                            <p className="text-sm text-white/55">Free consultation · No commitment</p>
                                             <Button type="submit" size="lg" arrow={isSubmitting ? false : "right"} disabled={isSubmitting} className="w-full sm:w-auto">
                                                 {isSubmitting ? "Sending…" : "Send project details"}
                                             </Button>

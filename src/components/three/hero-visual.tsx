@@ -51,11 +51,14 @@ export function HeroVisual({ className }: { className?: string }) {
 
     useEffect(() => {
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-        const lowPower = memory !== undefined && memory < 2;
+        const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+        const lowPower = (nav.deviceMemory !== undefined && nav.deviceMemory < 2) || nav.connection?.saveData === true;
+        // Phones get the CSS stack: three.js costs real CPU and battery on small devices,
+        // and the WebGL scene adds little at that size.
+        const small = window.matchMedia("(max-width: 767px)").matches;
         // Deciding after mount keeps the server HTML identical for every visitor.
         // Load the WebGL scene once the browser is idle so it never competes with first paint.
-        const decide = () => setMode(!reduced && !lowPower && supportsWebGL() ? "3d" : "fallback");
+        const decide = () => setMode(!reduced && !lowPower && !small && supportsWebGL() ? "3d" : "fallback");
         if ("requestIdleCallback" in window) {
             const id = window.requestIdleCallback(decide, { timeout: 1500 });
             return () => window.cancelIdleCallback(id);

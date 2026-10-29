@@ -54,7 +54,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         summary: "Subscription products with auth, billing and dashboards.",
         seo: {
             title: "SaaS Development Services",
-            description: "Custom SaaS development: multi-tenant architecture, authentication, Stripe and Razorpay subscriptions, dashboards and cloud deployment. Clean, typed code you fully own.",
+            description: "Custom SaaS development: multi-tenant architecture, auth, Stripe and Razorpay subscriptions, dashboards and cloud deployment. Code you fully own.",
         },
         badge: "SaaS Engineering",
         titleTop: "SaaS products,",
@@ -91,7 +91,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         summary: "LLM features, RAG over your data and AI agents.",
         seo: {
             title: "AI Development Services",
-            description: "Custom AI development: LLM integrations, RAG over your documents, agentic workflows and AI automation built into your product with OpenAI, Anthropic or open-source models.",
+            description: "AI development services: LLM features, RAG over your own documents and AI agents built into your product with OpenAI, Anthropic or open-source models.",
         },
         badge: "AI Engineering",
         titleTop: "AI features that",
@@ -388,7 +388,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         summary: "CI/CD, containers and infrastructure you can trust.",
         seo: {
             title: "Cloud & DevOps Services",
-            description: "Cloud and DevOps engineering: CI/CD pipelines in GitHub Actions, Docker deployments, infrastructure as code with Terraform, and monitoring on AWS, Vercel and Render.",
+            description: "Cloud and DevOps: CI/CD in GitHub Actions, Docker deployments, Terraform infrastructure and monitoring on AWS, Vercel and Render.",
         },
         badge: "Cloud & DevOps",
         titleTop: "Deploys you can trust,",
@@ -425,7 +425,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         summary: "Upgrade legacy code into faster, safer systems.",
         seo: {
             title: "Software Modernization Services",
-            description: "Software modernization: refactor or rebuild legacy applications into faster, safer, maintainable systems on a modern TypeScript stack — step by step, without a risky big-bang rewrite.",
+            description: "Modernize legacy software step by step: refactoring, migrations, security upgrades and performance work on a modern TypeScript stack, no big rewrite.",
         },
         badge: "Modernization",
         titleTop: "Modernize your software",
@@ -575,7 +575,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         summary: "APIs, background jobs and integrations in Node.js.",
         seo: {
             title: "Node.js Development Services",
-            description: "Node.js and TypeScript backend development: REST and GraphQL APIs, background jobs with BullMQ, webhooks, GitHub and payment integrations on PostgreSQL and Redis.",
+            description: "Node.js and TypeScript backends: REST and GraphQL APIs, BullMQ background jobs, webhooks and integrations on PostgreSQL and Redis.",
         },
         badge: "Node.js",
         titleTop: "Node.js backends,",
@@ -608,11 +608,11 @@ export const marketingPages: Record<string, MarketingPageData> = {
         path: "/technologies/go",
         kind: "Technologies",
         serviceType: "Go development",
-        navLabel: "Go",
+        navLabel: "Go (Golang)",
         summary: "High-concurrency services and APIs in Go.",
         seo: {
             title: "Go (Golang) Development Services",
-            description: "Go development for high-concurrency APIs and services: rate limiting, metering and real-time backends on Redis and PostgreSQL, tested with the race detector in CI.",
+            description: "Go development for high-concurrency APIs: rate limiting, metering and real-time services on Redis and PostgreSQL, tested with the race detector.",
         },
         badge: "Go",
         titleTop: "Go services for",

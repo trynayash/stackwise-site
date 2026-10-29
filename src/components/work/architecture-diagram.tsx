@@ -10,7 +10,7 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
             <div className="space-y-6">
                 {diagram.lanes.map((lane) => (
                     <div key={lane.label}>
-                        <p className="mb-3 text-xs uppercase tracking-[0.16em] text-white/40">{lane.label}</p>
+                        <p className="mb-3 text-xs uppercase tracking-[0.16em] text-white/55">{lane.label}</p>
                         <ol className="flex flex-col gap-2 md:flex-row md:items-stretch md:gap-0">
                             {lane.nodes.map((node, i) => (
                                 <li key={node.name} className="flex flex-col md:flex-1 md:flex-row md:items-center">
@@ -19,7 +19,7 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
                                         {node.detail && <p className="mt-1 text-xs leading-relaxed text-white/50">{node.detail}</p>}
                                     </div>
                                     {i < lane.nodes.length - 1 && (
-                                        <span className="flex justify-center py-1 text-white/30 md:px-2 md:py-0" aria-hidden>
+                                        <span className="flex justify-center py-1 text-white/50 md:px-2 md:py-0" aria-hidden>
                                             <Icon icon={ArrowRight01Icon} size={16} className="rotate-90 md:rotate-0" />
                                         </span>
                                     )}

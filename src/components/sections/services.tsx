@@ -229,10 +229,10 @@ export function Services() {
                         {/* Story */}
                         <div className="flex flex-col justify-between rounded-2xl border border-line bg-surface p-7 md:p-9 lg:col-span-4">
                             <div>
-                                <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">{current.label}</span>
+                                <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/55">{current.label}</span>
                                 <h3 className="mt-4 text-2xl font-semibold leading-snug tracking-tight text-white md:text-3xl">{current.hook}</h3>
                                 <p className="mt-4 text-base leading-relaxed text-white/60">{current.storyLine1}</p>
-                                <p className="mt-2 text-sm leading-relaxed text-white/45">{current.storyLine2}</p>
+                                <p className="mt-2 text-sm leading-relaxed text-white/55">{current.storyLine2}</p>
                             </div>
                             <Button onClick={openInquiry} arrow="right" className="mt-8 self-start">
                                 Discuss your project

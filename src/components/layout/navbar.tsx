@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 function MenuHeading({ title, href, linkLabel, onNavigate }: { title: string; href: string; linkLabel: string; onNavigate: () => void }) {
     return (
         <div className="mb-3 flex items-center justify-between">
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/40">{title}</span>
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/55">{title}</span>
             <Link href={href} onClick={onNavigate} className="text-xs text-white/50 hover:text-white">
                 {linkLabel}
             </Link>

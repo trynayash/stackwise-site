@@ -7,13 +7,14 @@ import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { FaqList } from "@/components/ui/faq-list";
 import { Eyebrow, Reveal, SectionHeader, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { Enter } from "@/components/ui/enter";
 import { CtaBand } from "@/components/sections/cta-band";
 import { ProjectCard } from "@/components/sections/portfolio";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { marketingPages, marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
 import { workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
-import { JsonLd, breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, faqSchema, rupees, serviceSchema } from "@/lib/schema";
 
 export function marketingMetadata(page: MarketingPageData): Metadata {
     return constructMetadata({
@@ -27,10 +28,10 @@ export function marketingMetadata(page: MarketingPageData): Metadata {
 export function Breadcrumbs({ items }: { items: { name: string; href?: string }[] }) {
     return (
         <nav aria-label="Breadcrumb" className="mb-10">
-            <ol className="flex flex-wrap items-center gap-2 text-sm text-white/45">
+            <ol className="flex flex-wrap items-center gap-2 text-sm text-white/55">
                 {items.map((item, i) => (
                     <li key={item.name} className="flex items-center gap-2">
-                        {i > 0 && <Icon icon={ArrowRight01Icon} size={14} className="text-white/25" />}
+                        {i > 0 && <Icon icon={ArrowRight01Icon} size={14} className="text-white/50" />}
                         {item.href ? (
                             <Link href={item.href} className="transition-colors hover:text-white">{item.name}</Link>
                         ) : (
@@ -52,7 +53,13 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
         <div className="relative">
             <JsonLd
                 data={[
-                    serviceSchema({ name: page.seo.title, description: page.seo.description, path: page.path, serviceType: page.serviceType }),
+                    serviceSchema({
+                        name: page.seo.title,
+                        description: page.seo.description,
+                        path: page.path,
+                        serviceType: page.serviceType,
+                        startingPrice: rupees(page.facts.find((f) => f.label === "Starting at")?.value),
+                    }),
                     breadcrumbSchema([
                         { name: "Home", path: "/" },
                         { name: page.kind, path: hubPath },
@@ -70,31 +77,31 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
 
                     <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-7">
-                            <Reveal y={12} className="flex items-center gap-3">
+                            <Enter className="flex items-center gap-3">
                                 <IconTile size="sm">
                                     <Icon icon={page.icon} size={18} />
                                 </IconTile>
                                 <Eyebrow>{page.badge}</Eyebrow>
-                            </Reveal>
+                            </Enter>
                             <h1 className="mt-7 text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
                                 <WordReveal text={page.titleTop} immediate />{" "}
                                 <WordReveal text={page.titleAccent} immediate delay={0.15} className="text-white/40" />
                             </h1>
-                            <Reveal delay={0.25}>
+                            <Enter delay={0.25}>
                                 <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/60 text-pretty">{page.intro}</p>
-                            </Reveal>
-                            <Reveal delay={0.35} className="mt-10 flex flex-col gap-3 sm:flex-row">
+                            </Enter>
+                            <Enter delay={0.35} className="mt-10 flex flex-col gap-3 sm:flex-row">
                                 <QuoteButton />
                                 <ButtonLink href="/#pricing" variant="secondary" size="lg">
                                     See pricing
                                 </ButtonLink>
-                            </Reveal>
+                            </Enter>
                         </div>
 
                         {/* At a glance */}
-                        <Reveal delay={0.3} className="lg:col-span-5">
+                        <Enter delay={0.3} className="lg:col-span-5">
                             <div className="rounded-2xl border border-line bg-surface">
-                                <p className="border-b border-line px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white/45">At a glance</p>
+                                <p className="border-b border-line px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white/55">At a glance</p>
                                 <dl className="divide-y divide-line">
                                     {page.facts.map((f) => (
                                         <div key={f.label} className="flex items-baseline justify-between gap-6 px-6 py-4">
@@ -103,9 +110,9 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                         </div>
                                     ))}
                                 </dl>
-                                <p className="border-t border-line px-6 py-4 text-sm text-white/45">Free consultation · We reply within 24–48 hours</p>
+                                <p className="border-t border-line px-6 py-4 text-sm text-white/55">Free consultation · We reply within 24–48 hours</p>
                             </div>
-                        </Reveal>
+                        </Enter>
                     </div>
                 </div>
             </section>
@@ -158,7 +165,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                 ))}
                             </ul>
                             <div className="mt-8 border-t border-line pt-6">
-                                <p className="text-sm text-white/45">Typical stack</p>
+                                <p className="text-sm text-white/55">Typical stack</p>
                                 <div className="mt-3 flex flex-wrap gap-1.5">
                                     {page.stack.map((s) => (
                                         <span key={s} className="rounded-full border border-line px-3 py-1 text-xs text-white/60">{s}</span>

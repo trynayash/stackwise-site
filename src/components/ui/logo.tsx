@@ -21,7 +21,7 @@ export function Logo({ className, size = "md" }: LogoProps) {
                 sizeClasses[size],
                 className
             )}
-            style={{ fontFamily: "'Oughter', sans-serif" }}
+            style={{ fontFamily: "var(--font-oughter), sans-serif" }}
         >
             STACK
             <span className="text-[#C8FF00] group-hover:text-white transition-colors duration-300">

@@ -46,7 +46,7 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
                             </span>
                             <span
                                 className={`text-[11px] font-medium tracking-wide transition-colors duration-400 ${
-                                    isActive ? "text-white" : isCompleted ? "text-white/40" : "text-white/20"
+                                    isActive ? "text-white" : isCompleted ? "text-white/55" : "text-white/20"
                                 }`}
                             >
                                 {label}
@@ -58,7 +58,7 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
 
             {/* Mobile: show current step only */}
             <div className="sm:hidden flex items-center justify-between">
-                <span className="text-white/40 text-xs font-mono">
+                <span className="text-white/55 text-xs font-mono">
                     Step {currentStep + 1} of {totalSteps}
                 </span>
                 <span className="text-white text-xs font-medium">{labels[currentStep]}</span>

@@ -76,7 +76,7 @@ export function TechStack() {
                                 />
                                 <div className="min-w-0">
                                     <p className="truncate text-sm font-semibold text-white">{tech.name}</p>
-                                    <p className="truncate text-xs text-white/45">{tech.tagline}</p>
+                                    <p className="truncate text-xs text-white/55">{tech.tagline}</p>
                                 </div>
                             </div>
                         </StaggerItem>

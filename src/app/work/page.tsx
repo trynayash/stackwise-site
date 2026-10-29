@@ -4,15 +4,16 @@ import { allWork } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { siteConfig } from "@/config/site";
-import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { Eyebrow, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
 import { MoreWork, ShowcasePanel } from "@/components/sections/portfolio";
 import { Proof } from "@/components/sections/proof";
 import { CtaBand } from "@/components/sections/cta-band";
 
 export const metadata = constructMetadata({
-    title: "Our Work — Case Studies",
-    description: "Case studies of SaaS, AI and web products designed and engineered by StackWise — LimitYourAPI, ScopeCI, StartupDeckAI, CodeFusionAI, PromptP and this website — with architecture, trade-offs and lessons.",
+    title: "Case Studies — SaaS, AI & Web Projects",
+    description: "Case studies of SaaS, AI and web products built by StackWise: LimitYourAPI, ScopeCI, StartupDeckAI, CodeFusionAI, PromptP and more.",
     canonical: "/work",
     ogKicker: "Work",
 });
@@ -43,18 +44,18 @@ export default function WorkPage() {
                 <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
                     <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Work" }]} />
-                    <Reveal y={12}>
+                    <Enter>
                         <Eyebrow>Work</Eyebrow>
-                    </Reveal>
+                    </Enter>
                     <h1 className="mt-6 max-w-4xl text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
                         <WordReveal text="Products we've designed" immediate /> <WordReveal text="and engineered." immediate delay={0.15} className="text-white/40" />
                     </h1>
-                    <Reveal delay={0.25}>
+                    <Enter delay={0.25}>
                         <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/60">
                             Each case study covers the problem, the constraints, the architecture and the trade-offs — so you can judge the engineering, not just the
                             screenshots.
                         </p>
-                    </Reveal>
+                    </Enter>
                 </div>
             </section>
 

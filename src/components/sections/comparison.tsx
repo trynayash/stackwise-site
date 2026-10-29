@@ -23,7 +23,7 @@ function MarkIcon({ mark, highlight }: { mark: Mark; highlight?: boolean }) {
         <span
             className={cn(
                 "flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full",
-                mark === "yes" && highlight ? "bg-accent text-black" : mark === "yes" ? "bg-white/10 text-white" : "bg-white/[0.04] text-white/35"
+                mark === "yes" && highlight ? "bg-accent text-black" : mark === "yes" ? "bg-white/10 text-white" : "bg-white/[0.04] text-white/50"
             )}
         >
             <Icon icon={icon} size={14} strokeWidth={2} />
@@ -50,7 +50,7 @@ export function Comparison() {
                             <caption className="sr-only">StackWise compared with freelance marketplaces and large agencies</caption>
                             <thead>
                                 <tr className="border-b border-line">
-                                    <th scope="col" className="w-[22%] p-5 font-medium text-white/40" />
+                                    <th scope="col" className="w-[22%] p-5 font-medium text-white/55" />
                                     {columns.map((c, i) => (
                                         <th
                                             key={c}
@@ -68,7 +68,7 @@ export function Comparison() {
                                     <tr key={row.label} className="border-b border-line last:border-b-0">
                                         <th scope="row" className="p-5 font-medium text-white/70">{row.label}</th>
                                         {row.values.map((v, i) => (
-                                            <td key={i} className={cn("p-5", i === 0 ? "border-x border-line bg-surface-2 text-white" : "text-white/45")}>
+                                            <td key={i} className={cn("p-5", i === 0 ? "border-x border-line bg-surface-2 text-white" : "text-white/55")}>
                                                 <span className="flex items-center gap-3">
                                                     <MarkIcon mark={row.marks[i]} highlight={i === 0} />
                                                     <span className="leading-snug">{v}</span>
@@ -96,7 +96,7 @@ export function Comparison() {
                                         <li key={row.label} className="flex items-start gap-3">
                                             <MarkIcon mark={row.marks[i]} highlight={i === 0} />
                                             <div className="text-sm leading-snug">
-                                                <span className="block text-xs text-white/40">{row.label}</span>
+                                                <span className="block text-xs text-white/55">{row.label}</span>
                                                 <span className={i === 0 ? "text-white" : "text-white/50"}>{row.values[i]}</span>
                                             </div>
                                         </li>

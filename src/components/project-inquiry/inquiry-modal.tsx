@@ -137,7 +137,7 @@ export function InquiryModal() {
                         <div className="flex items-center justify-between px-6 sm:px-10 py-5 border-b border-line">
                             <div>
                                 <h2 className="text-white font-bold text-base sm:text-lg">Start Your Project</h2>
-                                <p className="text-white/45 text-sm mt-0.5">
+                                <p className="text-white/55 text-sm mt-0.5">
                                     Takes about 2 minutes · Your draft is saved
                                 </p>
                             </div>
@@ -174,7 +174,7 @@ export function InquiryModal() {
                                     className="bg-surface border border-line-strong rounded-2xl p-6 max-w-sm mx-4"
                                 >
                                     <h3 className="text-white font-semibold text-base mb-2">Discard progress?</h3>
-                                    <p className="text-white/40 text-sm mb-6 font-light leading-relaxed">
+                                    <p className="text-white/55 text-sm mb-6 font-light leading-relaxed">
                                         You have unsaved information in the form. Your draft will be saved for when you return.
                                     </p>
                                     <div className="flex gap-3">
