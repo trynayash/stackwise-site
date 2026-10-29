@@ -19,24 +19,24 @@ export function Founder() {
 
                 <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
                     <Reveal className="lg:col-span-5">
-                        <figure className="overflow-hidden rounded-2xl border border-line bg-surface">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src="/founder-portrait.webp"
-                                alt="Yash Suthar, founder of StackWise"
-                                className="aspect-[4/5] w-full object-cover"
-                                width={640}
-                                height={640}
-                                loading="lazy"
-                            />
-                            <figcaption className="flex items-center justify-between border-t border-line p-5">
+                        <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+                            <div className="relative flex aspect-[4/3] items-center justify-center">
+                                <div aria-hidden className="pointer-events-none absolute inset-0 grid-backdrop" />
+                                <span
+                                    aria-hidden
+                                    className="relative flex h-32 w-32 items-center justify-center rounded-3xl bg-accent text-5xl font-semibold tracking-tight text-black md:h-40 md:w-40 md:text-6xl"
+                                >
+                                    YS
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-between border-t border-line p-5">
                                 <div>
                                     <p className="text-lg font-semibold text-white">Yash Suthar</p>
                                     <p className="text-sm text-white/50">Founder, StackWise</p>
                                 </div>
                                 <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
-                            </figcaption>
-                        </figure>
+                            </div>
+                        </div>
                     </Reveal>
 
                     <Reveal delay={0.1} className="lg:col-span-7">
