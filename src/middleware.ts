@@ -30,7 +30,7 @@ export function middleware() {
         default-src 'self';
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://s3-us-west-2.amazonaws.com https://images.unsplash.com https://i.postimg.cc;
+        img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://images.unsplash.com https://cdn.simpleicons.org;
         font-src 'self' https://fonts.gstatic.com data:;
         connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com;
         frame-src 'self';

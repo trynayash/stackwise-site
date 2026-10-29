@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { LoadingProvider } from "@/components/providers/loading-context";
+import { introScript } from "@/lib/intro";
+import { ogImageUrl } from "@/lib/seo";
 import { LayoutShell } from "@/components/layout/layout-shell";
 import Script from "next/script";
 
@@ -29,13 +31,19 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "SaaS development",
-    "custom software systems",
-    "AI platform integrations",
-    "Next.js engineering studio",
-    "product engineering agency",
-    "software architectures",
+    "SaaS development company",
+    "custom software development",
+    "AI development services",
+    "MVP development",
+    "Next.js development agency",
+    "web development studio India",
+    "business automation software",
+    "product engineering for startups",
   ],
+  applicationName: siteConfig.name,
+  creator: siteConfig.author,
+  publisher: siteConfig.name,
+  category: "technology",
   authors: [{ name: siteConfig.author }],
   metadataBase: new URL(siteConfig.url),
   alternates: {
@@ -48,33 +56,51 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: "/stackwise-icon-square.svg",
-        width: 512,
-        height: 512,
-        alt: `${siteConfig.name} Logo`,
+        url: ogImageUrl(siteConfig.tagline, "Software Studio"),
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — ${siteConfig.tagline}`,
       },
     ],
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: ["/stackwise-icon-square.svg"],
+    images: [ogImageUrl(siteConfig.tagline, "Software Studio")],
     creator: "@stackwise",
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-placeholder",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
+};
+
+export const viewport: Viewport = {
+  themeColor: "#060606",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 // JSON-LD Schemas
 const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${siteConfig.url}/#organization`,
   "name": siteConfig.name,
   "url": siteConfig.url,
-  "logo": `${siteConfig.url}/stackwise-icon-square.svg`,
+  "logo": `${siteConfig.url}/web-app-manifest-512x512.png`,
+  "email": siteConfig.emails.primary,
+  "description": siteConfig.description,
+  "founder": { "@type": "Person", "name": siteConfig.author },
   "sameAs": [
     siteConfig.links.twitter,
     siteConfig.links.github,
@@ -84,12 +110,22 @@ const orgSchema = {
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
+  "@id": `${siteConfig.url}/#service`,
   "name": `${siteConfig.name} Software Studio`,
-  "image": `${siteConfig.url}/stackwise-icon-square.svg`,
-  "@id": `${siteConfig.url}/#organization`,
+  "image": `${siteConfig.url}/web-app-manifest-512x512.png`,
   "url": siteConfig.url,
-  "telephone": "+919999999999",
+  "email": siteConfig.emails.primary,
   "priceRange": "₹₹₹",
+  "parentOrganization": { "@id": `${siteConfig.url}/#organization` },
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Software development services",
+    "itemListElement": siteConfig.services.map((s) => ({
+      "@type": "Offer",
+      "itemOffered": { "@type": "Service", "name": s.title, "url": `${siteConfig.url}/services/${s.slug}` },
+    })),
+  },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Surat",
@@ -107,6 +143,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
+        {/* Decides before first paint whether the intro animation plays (see loading-context) */}
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+        <noscript>
+          <style>{`[data-intro-loader]{display:none!important}[data-intro-content]{opacity:1!important;pointer-events:auto!important}`}</style>
+        </noscript>
         {/* Google Analytics Readiness */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>

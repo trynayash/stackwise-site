@@ -7,17 +7,29 @@ interface MetadataProps {
     image?: string;
     noIndex?: boolean;
     canonical?: string;
+    /** Small label above the title on the generated social image. */
+    ogKicker?: string;
+}
+
+/** URL of the generated social-share image for a page (see src/app/og/route.tsx). */
+export function ogImageUrl(title: string, kicker?: string) {
+    const params = new URLSearchParams({ title });
+    if (kicker) params.set("kicker", kicker);
+    return `/og?${params.toString()}`;
 }
 
 export function constructMetadata({
     title,
     description = siteConfig.description,
-    image = "/stackwise-icon-square.svg",
+    image,
     noIndex = false,
     canonical,
+    ogKicker,
 }: MetadataProps): Metadata {
     const siteUrl = siteConfig.url;
     const finalCanonical = canonical ? `${siteUrl}${canonical}` : undefined;
+    const imagePath = image ?? ogImageUrl(title, ogKicker);
+    const imageUrl = imagePath.startsWith("http") ? imagePath : `${siteUrl}${imagePath}`;
 
     return {
         title: `${title} | ${siteConfig.name}`,
@@ -30,18 +42,15 @@ export function constructMetadata({
             description,
             url: finalCanonical || siteUrl,
             siteName: siteConfig.name,
-            images: [
-                {
-                    url: image.startsWith("http") ? image : `${siteUrl}${image}`,
-                },
-            ],
+            images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
             type: "website",
+            locale: "en_US",
         },
         twitter: {
             card: "summary_large_image",
             title: `${title} | ${siteConfig.name}`,
             description,
-            images: [image.startsWith("http") ? image : `${siteUrl}${image}`],
+            images: [imageUrl],
             creator: "@stackwise",
         },
         robots: noIndex

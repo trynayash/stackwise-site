@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { SectionHeader } from "@/components/ui/motion-primitives";
 import { Code2, Mail, Award, Briefcase, Clock } from "lucide-react";
 
 const stats = [
@@ -16,23 +17,13 @@ export function Founder() {
 
     return (
         <section id="founder" className="py-20 md:py-32 relative z-10" aria-label="Meet the Founder" ref={sectionRef}>
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-5 sm:px-6">
 
-                {/* Section Header */}
-                <motion.div
-                    className="mb-16"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7 }}
-                >
-                    <span className="text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-4 block">
-                        Faces Behind The Code
-                    </span>
-                    <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-                        Meet the Engineer<br />
-                        <span className="text-white/25">Behind StackWise.</span>
-                    </h2>
-                </motion.div>
+                <SectionHeader
+                    eyebrow="Faces behind the code"
+                    title="Meet the engineer"
+                    muted="behind StackWise."
+                />
 
                 {/* Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">

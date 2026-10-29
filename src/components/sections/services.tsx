@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInquiry } from "@/components/providers/inquiry-context";
+import { SectionHeader } from "@/components/ui/motion-primitives";
 import {
     ArrowRight,
     ChevronDown,
@@ -23,11 +24,12 @@ import {
     Wrench,
     Compass,
     Users,
+    type LucideIcon,
 } from "lucide-react";
 
 // ─── Types ──────────────────────────────────────────────
 type ServiceItem = {
-    icon: React.ElementType;
+    icon: LucideIcon;
     title: string;
     description: string;
     deliverables: string[];
@@ -210,60 +212,18 @@ export function Services() {
     const { openInquiry } = useInquiry();
 
     return (
-        <section id="services" className="py-20 md:py-32 relative z-10" aria-label="Our services">
-            <div className="container mx-auto px-6">
+        <section id="services-catalog" className="py-20 md:py-32 relative z-10" aria-label="Services catalog">
+            <div className="container mx-auto px-5 sm:px-6">
 
-                {/* ── Section Header ── */}
-                <div className="mb-16 md:mb-24 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-                    <div className="max-w-3xl">
-                        <span className="text-[#C8FF00] text-xs font-mono tracking-[0.2em] uppercase mb-4 block">
-                            WHAT WE DO
-                        </span>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-                            From Idea To Production,<br />
-                            <span className="text-white/20">We Engineer The Entire Journey.</span>
-                        </h2>
-                    </div>
-                    <p className="text-white/40 text-base max-w-sm leading-relaxed font-light">
-                        Whether you&apos;re validating a startup idea, scaling a SaaS platform, or improving business operations — StackWise provides the engineering expertise to design, build, launch, and evolve your software.
-                    </p>
-                </div>
-
-                {/* ── How We Think — Trust Bar ── */}
-                <div className="mb-24 md:mb-32">
-                    <span className="text-white/20 text-xs font-mono tracking-wider uppercase block mb-8">
-                        How we think
-                    </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 border-t border-white/[0.06] pt-8">
-                        <div>
-                            <span className="text-[#C8FF00] text-xs font-mono block mb-3">01 / UNDERSTAND</span>
-                            <h4 className="text-white font-semibold text-base mb-2">We study your business before writing code.</h4>
-                            <p className="text-white/40 text-xs font-light leading-relaxed">Understanding workflows and user constraints guarantees that the system builds the right features from day one.</p>
-                        </div>
-                        <div>
-                            <span className="text-[#C8FF00] text-xs font-mono block mb-3">02 / ARCHITECT</span>
-                            <h4 className="text-white font-semibold text-base mb-2">We design systems that survive growth.</h4>
-                            <p className="text-white/40 text-xs font-light leading-relaxed">Latency budgets and data schemas are modeled for additive, modular scaling without future technical debt.</p>
-                        </div>
-                        <div>
-                            <span className="text-[#C8FF00] text-xs font-mono block mb-3">03 / BUILD</span>
-                            <h4 className="text-white font-semibold text-base mb-2">Clean engineering with modern technologies.</h4>
-                            <p className="text-white/40 text-xs font-light leading-relaxed">No generic templates or drag-and-drop engines. Custom-coded logic built in production-grade backend components.</p>
-                        </div>
-                        <div>
-                            <span className="text-[#C8FF00] text-xs font-mono block mb-3">04 / IMPROVE</span>
-                            <h4 className="text-white font-semibold text-base mb-2">Long-term support after release.</h4>
-                            <p className="text-white/40 text-xs font-light leading-relaxed">We scale infrastructure, improve security, and release optimizations post-launch as your dedicated engineering partner.</p>
-                        </div>
-                    </div>
-                </div>
+                <SectionHeader
+                    eyebrow="Full services catalog"
+                    title="From idea to production,"
+                    muted="we engineer the entire journey."
+                    description="Validating a startup idea, scaling a SaaS platform or untangling operations — pick where you are and see exactly what we deliver."
+                />
 
                 {/* ── Services Catalog ── */}
                 <div>
-                    <span className="text-white/20 text-xs font-mono tracking-wider uppercase block mb-8">
-                        Services Catalog
-                    </span>
-
                     {/* ── Category Tabs ── */}
                     <div className="flex gap-2 mb-12 overflow-x-auto pb-2 scrollbar-hide -mx-1 px-1">
                         {categories.map((cat) => {
@@ -275,16 +235,20 @@ export function Services() {
                                         setActiveCategory(cat.id);
                                         setOpenAccordion(null);
                                     }}
-                                    className={`
-                                        relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-400 whitespace-nowrap cursor-pointer
-                                        ${isActive
-                                            ? "bg-[#C8FF00]/10 text-[#C8FF00] border border-[#C8FF00]/20 shadow-[0_0_20px_-6px_rgba(200,255,0,0.15)]"
-                                            : "bg-white/[0.02] text-white/40 border border-white/[0.05] hover:bg-white/[0.04] hover:text-white/60 hover:border-white/[0.08]"
-                                        }
-                                    `}
+                                    className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 whitespace-nowrap cursor-pointer border ${
+                                        isActive ? "text-black border-transparent" : "text-white/50 border-white/[0.06] hover:text-white hover:border-white/15"
+                                    }`}
+                                    aria-pressed={isActive}
                                     aria-label={`View ${cat.label} services`}
                                 >
-                                    {cat.label}
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="services-tab-pill"
+                                            className="absolute inset-0 rounded-full bg-[#C8FF00] shadow-[0_0_24px_-4px_rgba(200,255,0,0.5)]"
+                                            transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                                        />
+                                    )}
+                                    <span className="relative z-10">{cat.label}</span>
                                 </button>
                             );
                         })}

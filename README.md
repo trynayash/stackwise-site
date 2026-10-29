@@ -6,8 +6,10 @@ Live site: https://stackwise-gamma.vercel.app
 
 ## What is in it
 
-- Home page sections in `src/components/sections/` (hero, services, process, portfolio, pricing, FAQ, founder, tech stack, contact)
-- Service and solution pages under `src/app/services/` and `src/app/solutions/`
+- Home page sections in `src/components/sections/` (3D hero, services bento, portfolio, services catalog, process, comparison, pricing, principles, founder, tech stack, FAQ, CTA, contact)
+- Interactive 3D hero model in `src/components/three/` (three.js via React Three Fiber, lazy-loaded, with a CSS fallback for reduced motion or no WebGL)
+- Service and solution pages under `src/app/services/` and `src/app/solutions/`, all rendered by one template (`src/components/marketing/`) from the content in `src/lib/marketing-pages.ts`
+- Generated social-share images at `/og?title=...&kicker=...`, and JSON-LD (Organization, Service, FAQ, Breadcrumb) via `src/lib/schema.tsx`
 - Project write-ups at `/work/[slug]`, built from the data in `src/lib/data.ts`
 - A contact API at `src/app/api/contact/route.ts` that validates input with Zod and has a simple in-memory rate limit
 - Security headers (CSP, HSTS, frame options) set in `src/middleware.ts`
@@ -16,7 +18,7 @@ Live site: https://stackwise-gamma.vercel.app
 
 ## Tech stack
 
-Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion, GSAP, Lucide icons, Zod.
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion, GSAP, three.js / React Three Fiber, Lucide icons, Zod.
 
 ## Run it locally
 

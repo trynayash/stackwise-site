@@ -1,241 +1,183 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ShieldCheck, Code2, LifeBuoy, FileLock2 } from "lucide-react";
 import { useInquiry } from "@/components/providers/inquiry-context";
+import { HeroVisual } from "@/components/three/hero-visual";
+import { Magnetic, WordReveal } from "@/components/ui/motion-primitives";
 
-// Parallax Mountain Vista Layers Config
-const layersData = [
-  { className: 'layer-6', speed: '120s', size: '480px', zIndex: 1, image: '6', bottom: '-80px' },
-  { className: 'layer-5', speed: '95s',  size: '620px', zIndex: 1, image: '5', bottom: '-100px' },
-  { className: 'layer-4', speed: '75s',  size: '850px', zIndex: 1, image: '4', bottom: '-120px' },
-  { className: 'bike-1',  speed: '10s',  size: '130px', zIndex: 2, image: 'bike', animation: 'parallax_bike', bottom: '60px', noRepeat: true },
-  { className: 'bike-2',  speed: '15s',  size: '130px', zIndex: 2, image: 'bike', animation: 'parallax_bike', bottom: '60px', noRepeat: true },
-  { className: 'layer-3', speed: '55s',  size: '320px', zIndex: 3, image: '3', bottom: '-50px' },
-  { className: 'layer-2', speed: '30s',  size: '300px', zIndex: 4, image: '2', bottom: '-40px' },
-  { className: 'layer-1', speed: '20s',  size: '280px', zIndex: 5, image: '1', bottom: '-30px' },
+const trustPoints = [
+    { icon: Code2, label: "100% code & IP ownership" },
+    { icon: LifeBuoy, label: "Post-launch support included" },
+    { icon: FileLock2, label: "NDA before discovery" },
+    { icon: ShieldCheck, label: "Reply within 24–48 hours" },
 ];
 
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 export function Hero() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollY } = useScroll();
-    const y = useTransform(scrollY, [0, 600], [0, 150]);
-    const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+    const { openInquiry } = useInquiry();
+    const showcaseRef = useRef<HTMLDivElement>(null);
+
+    // Product shot starts tilted back in 3D and straightens as it scrolls into view.
+    const { scrollYProgress } = useScroll({ target: showcaseRef, offset: ["start end", "center center"] });
+    const rotateX = useTransform(scrollYProgress, [0, 1], [28, 0]);
+    const scale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
+    const showcaseOpacity = useTransform(scrollYProgress, [0, 0.4], [0.3, 1]);
 
     const scrollToSection = (id: string) => (e: React.MouseEvent) => {
         e.preventDefault();
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     };
 
-    const { openInquiry } = useInquiry();
-
-    // Generate dynamic CSS for each parallax layer
-    const dynamicStyles = useMemo(() => {
-        return layersData
-            .map(layer => {
-                const url = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/24650/${layer.image}.png`;
-                return `
-                    .${layer.className} {
-                        background-image: url(${url});
-                        animation-duration: ${layer.speed};
-                        background-size: auto ${layer.size};
-                        z-index: ${layer.zIndex};
-                        ${layer.animation ? `animation-name: ${layer.animation};` : ''}
-                        ${layer.bottom ? `bottom: ${layer.bottom};` : ''}
-                        ${layer.noRepeat ? 'background-repeat: no-repeat;' : ''}
-                    }
-                `;
-            })
-            .join('\n');
-    }, []);
-
     return (
-        <section
-            ref={containerRef}
-            id="hero"
-            className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden pt-28 pb-10 px-6"
-            aria-label="Hero"
-            style={{ background: "#060606" }}
-        >
-            {/* Inject dynamic layer styles */}
-            <style>{dynamicStyles}</style>
-
-            <style>{`
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(10px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-                .animate-fade-in {
-                    animation: fadeIn 0.8s ease-out forwards;
-                }
-                .parallax-layer {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-position: 0 bottom;
-                    background-repeat: repeat-x;
-                    animation-name: parallax_scroll;
-                    animation-iteration-count: infinite;
-                    animation-timing-function: linear;
-                    pointer-events: none;
-                }
-                .bike-1, .bike-2 {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    background-repeat: no-repeat;
-                    animation-iteration-count: infinite;
-                    animation-timing-function: linear;
-                    pointer-events: none;
-                }
-                @keyframes parallax_scroll {
-                    from { background-position: 0 bottom; }
-                    to { background-position: -2000px bottom; }
-                }
-                @keyframes parallax_bike {
-                    0% { background-position: -100px bottom; }
-                    100% { background-position: 2000px bottom; }
-                }
-            `}</style>
-
-            {/* Background Layer 1: Base radial grid aura */}
-            <div
-                className="absolute inset-0 z-0 pointer-events-none"
-                style={{
-                    background: "radial-gradient(ellipse 80% 60% at 50% 30%, #081008 0%, #070707 50%, #060606 100%)",
-                }}
-            />
-
-            {/* Background Layer 2: Grid Lines */}
-            <div
-                className="absolute inset-0 z-[1] pointer-events-none"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
-                    `,
-                    backgroundSize: "64px 64px",
-                    maskImage: "radial-gradient(ellipse 65% 55% at 50% 35%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 80%)",
-                    WebkitMaskImage: "radial-gradient(ellipse 65% 55% at 50% 35%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 80%)",
-                }}
-            />
-
-            {/* Mountain Parallax Layers Background */}
-            <div className="absolute inset-0 overflow-hidden z-[2] select-none pointer-events-none">
-                {layersData.map(layer => (
-                    <div
-                        key={layer.className}
-                        className={`parallax-layer ${layer.className}`}
-                    />
-                ))}
+        <section id="hero" className="relative overflow-hidden pt-28 md:pt-32 pb-10" aria-label="Hero">
+            {/* Backdrops */}
+            <div className="absolute inset-0 -z-0 pointer-events-none">
+                <div className="aurora" />
+                <div className="absolute inset-0 grid-backdrop" />
+                <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#060606] to-transparent" />
             </div>
 
-            {/* Parallax Content Wrapper */}
-            <motion.div
-                style={{ y, opacity }}
-                className="relative z-10 flex flex-col items-center justify-start text-center max-w-7xl w-full animate-fade-in"
-            >
-                {/* Aside Announcement Badge */}
-                <aside className="mb-6 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm max-w-full">
-                    <span className="text-xs text-center whitespace-nowrap text-white/50">
-                        StackWise V2: Software Engineering & Labs is Live
-                    </span>
-                    <a
-                        href="#portfolio"
-                        onClick={scrollToSection("portfolio")}
-                        className="flex items-center gap-1 text-xs hover:text-white transition-all active:scale-95 whitespace-nowrap text-[#C8FF00] font-mono font-medium"
-                        aria-label="Read our engineering labs"
-                    >
-                        Explore Labs
-                        <ArrowRight size={12} className="text-[#C8FF00]" />
-                    </a>
-                </aside>
+            <div className="container mx-auto px-5 sm:px-6 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center min-h-[calc(100svh-8rem)]">
+                    {/* Copy */}
+                    <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+                        <motion.a
+                            href="#portfolio"
+                            onClick={scrollToSection("portfolio")}
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: EASE }}
+                            className="group mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] pl-1.5 pr-4 py-1.5 backdrop-blur-sm hover:border-[#C8FF00]/30 transition-colors"
+                        >
+                            <span className="rounded-full bg-[#C8FF00] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-black">Open</span>
+                            <span className="text-xs text-white/60">Taking new projects this quarter</span>
+                            <ArrowRight size={12} className="text-[#C8FF00] transition-transform group-hover:translate-x-0.5" />
+                        </motion.a>
 
-                {/* Main Headline */}
-                <h1
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5.2rem] font-bold tracking-tight text-center max-w-5xl px-6 leading-[1.05] mb-5"
-                    style={{
-                        background: "linear-gradient(to bottom, #ffffff, #ffffff, rgba(255, 255, 255, 0.45))",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        letterSpacing: "-0.04em"
-                    }}
-                >
-                    <span className="block sm:whitespace-nowrap">Give your custom software</span>
-                    <span className="block">the codebase it deserves.</span>
-                </h1>
+                        <h1 className="text-[2.6rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.4rem] font-bold tracking-[-0.045em] text-white text-balance mb-6">
+                            <WordReveal text="Give your custom software" immediate />{" "}
+                            <WordReveal
+                                text="the codebase it deserves."
+                                immediate
+                                delay={0.25}
+                                wordClassName="bg-gradient-to-r from-[#C8FF00] via-[#dfff6b] to-[#9EFF00] bg-clip-text text-transparent"
+                            />
+                        </h1>
 
-                {/* Subtitle */}
-                <p className="text-sm md:text-base text-center max-w-xl px-6 mb-8 text-white/50 leading-relaxed font-light">
-                    A software studio by Yash Suthar that designs and builds SaaS products, custom software and AI features.
-                </p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
+                            className="text-base md:text-lg text-white/55 leading-relaxed font-light max-w-xl mb-9"
+                        >
+                            StackWise is a software studio by Yash Suthar. We design and build{" "}
+                            <span className="text-white/85">SaaS products</span>, <span className="text-white/85">custom software</span> and{" "}
+                            <span className="text-white/85">AI features</span> — clean, typed code you fully own.
+                        </motion.p>
 
-                {/* Call To Actions */}
-                <div className="flex items-center gap-4 relative z-10 mb-12">
-                    <button
-                        onClick={openInquiry}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg font-bold transition-all hover:scale-105 active:scale-95 bg-gradient-to-b from-[#C8FF00] via-[#C8FF00]/95 to-[#9EFF00]/80 text-black px-8 h-13 text-base shadow-[0_0_30px_rgba(200,255,0,0.2)] hover:shadow-[0_0_50px_rgba(200,255,0,0.4)] cursor-pointer"
-                        aria-label="Start Your Project"
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
+                            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto mb-10"
+                        >
+                            <Magnetic>
+                                <button
+                                    onClick={openInquiry}
+                                    className="btn-shine group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#C8FF00] px-8 h-14 text-base font-bold text-black shadow-[0_0_40px_-6px_rgba(200,255,0,0.55)] hover:shadow-[0_0_60px_-4px_rgba(200,255,0,0.7)] hover:bg-[#d4ff33] transition-all cursor-pointer"
+                                >
+                                    Get a free quote
+                                    <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                </button>
+                            </Magnetic>
+                            <button
+                                onClick={scrollToSection("services")}
+                                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-8 h-14 text-base font-semibold text-white/80 hover:text-white hover:bg-white/[0.07] hover:border-white/25 backdrop-blur-sm transition-all cursor-pointer"
+                            >
+                                Explore services
+                            </button>
+                        </motion.div>
+
+                        <motion.ul
+                            initial="hidden"
+                            animate="show"
+                            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.9 } } }}
+                            className="grid grid-cols-2 gap-x-5 gap-y-3 text-left max-w-xl"
+                        >
+                            {trustPoints.map(({ icon: Icon, label }) => (
+                                <motion.li
+                                    key={label}
+                                    variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
+                                    className="flex items-center gap-2 text-[13px] text-white/50"
+                                >
+                                    <Icon size={15} className="text-[#C8FF00] flex-shrink-0" />
+                                    {label}
+                                </motion.li>
+                            ))}
+                        </motion.ul>
+                    </div>
+
+                    {/* 3D model */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.2, delay: 0.2, ease: EASE }}
+                        className="lg:col-span-5 relative h-[340px] sm:h-[420px] lg:h-[600px] -mx-5 sm:mx-0"
                     >
-                        Start Your Project
-                    </button>
-                    <button
-                        onClick={scrollToSection("services")}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all hover:bg-white/5 text-white/80 hover:text-white px-8 h-13 text-base border border-white/10 cursor-pointer"
-                        aria-label="Explore our Services"
-                    >
-                        Explore Services
-                    </button>
+                        <HeroVisual className="absolute inset-0" />
+                        {/* Floating labels around the model */}
+                        <FloatingTag className="left-[4%] top-[18%]" delay={1.1} label="Frontend" sub="Next.js · React" />
+                        <FloatingTag className="right-[2%] top-[42%]" delay={1.3} label="API & Data" sub="Node · Go · Postgres" />
+                        <FloatingTag className="left-[10%] bottom-[14%]" delay={1.5} label="AI layer" sub="LLMs · RAG · Agents" />
+                    </motion.div>
                 </div>
 
-                {/* Dashboard Showcase Frame */}
-                <div className="w-full max-w-4xl relative pb-10 px-6">
-                    <div
-                        className="absolute left-1/2 w-[90%] pointer-events-none z-0"
-                        style={{
-                            top: "-23%",
-                            transform: "translateX(-50%)"
-                        }}
-                        aria-hidden="true"
-                    >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src="https://i.postimg.cc/Ss6yShGy/glows.png"
-                            alt=""
-                            className="w-full h-auto"
-                            loading="eager"
-                        />
-                    </div>
-                    
-                    <div className="relative z-10 border border-white/10 rounded-xl overflow-hidden bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-10px_rgba(0,0,0,0.8)] p-1.5">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src="/hero_Product_img.png"
-                            alt="Product Image"
-                            className="w-full h-auto rounded-lg shadow-2xl border border-white/[0.04]"
-                            loading="eager"
-                        />
-                    </div>
+                {/* Product showcase with scroll-driven 3D tilt */}
+                <div ref={showcaseRef} className="relative mt-6 md:mt-10" style={{ perspective: "1400px" }}>
+                    <motion.div style={{ rotateX, scale, opacity: showcaseOpacity, transformOrigin: "center top" }} className="relative mx-auto max-w-5xl">
+                        <div className="absolute -inset-x-10 -top-10 h-40 bg-[#C8FF00]/20 blur-[90px] rounded-full pointer-events-none" />
+                        <div className="relative rounded-2xl border border-white/10 bg-black/50 p-1.5 sm:p-2 backdrop-blur-sm shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]">
+                            <div className="flex items-center gap-1.5 px-3 py-2">
+                                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-[#C8FF00]/70" />
+                                <span className="ml-3 hidden sm:block text-[10px] font-mono text-white/30">app.your-product.com/dashboard</span>
+                            </div>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/hero-product.webp"
+                                alt="Example SaaS dashboard interface designed and built by StackWise"
+                                className="w-full h-auto rounded-xl border border-white/[0.05]"
+                                width={1536}
+                                height={1024}
+                                fetchPriority="high"
+                            />
+                        </div>
+                    </motion.div>
                 </div>
-            </motion.div>
-
-            {/* Edge fade gradient transition */}
-            <div
-                className="absolute bottom-0 left-0 right-0 h-40 z-[2] pointer-events-none"
-                style={{
-                    background: "linear-gradient(to top, #060606 0%, transparent 100%)",
-                }}
-            />
+            </div>
         </section>
+    );
+}
+
+function FloatingTag({ className, label, sub, delay }: { className: string; label: string; sub: string; delay: number }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay, ease: EASE }}
+            className={`absolute z-10 hidden sm:block pointer-events-none ${className}`}
+        >
+            <div className="rounded-xl border border-white/10 bg-black/60 backdrop-blur-md px-3.5 py-2.5 shadow-xl" style={{ animation: `floatY 5s ease-in-out ${delay}s infinite` }}>
+                <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] shadow-[0_0_8px_#C8FF00]" />
+                    <span className="text-xs font-semibold text-white">{label}</span>
+                </div>
+                <span className="block mt-0.5 pl-3.5 text-[10px] font-mono text-white/40">{sub}</span>
+            </div>
+        </motion.div>
     );
 }

@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useSpring } from "framer-motion";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { SectionHeader } from "@/components/ui/motion-primitives";
 import { Search, PenTool, Code2, Rocket, CheckCircle2, ArrowRight } from "lucide-react";
 
 const steps = [
@@ -42,36 +44,29 @@ const steps = [
 export function ProcessTimeline() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start 70%", "end 60%"] });
+    const lineScale = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
     return (
         <section id="process" className="py-20 md:py-32 relative z-10" aria-label="Our process" ref={sectionRef}>
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-5 sm:px-6">
 
-                {/* Section Header */}
-                <motion.div
-                    className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7 }}
-                >
-                    <div className="max-w-3xl">
-                        <span className="text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-4 block">
-                            Our Process
-                        </span>
-                        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-                            From Idea to<br />
-                            <span className="text-white/25">Launch. In 4 Weeks.</span>
-                        </h2>
-                    </div>
-                    <p className="text-white/30 text-sm max-w-sm mt-6 md:mt-0 leading-relaxed">
-                        A battle-tested, militant process that eliminates surprises. You know exactly what happens, when it happens, and who&apos;s responsible.
-                    </p>
-                </motion.div>
+                <SectionHeader
+                    eyebrow="Our process"
+                    title="From idea to launch."
+                    muted="In four clear weeks."
+                    description="A week-by-week process with no surprises. You always know what is happening, when, and what you get at the end of each step."
+                />
 
                 {/* Timeline */}
-                <div className="relative">
-                    {/* Vertical connector line — desktop only */}
-                    <div className="absolute left-[27px] top-0 bottom-0 w-px bg-gradient-to-b from-[#C8FF00]/30 via-[#C8FF00]/10 to-transparent hidden md:block" />
+                <div className="relative" ref={timelineRef}>
+                    {/* Vertical connector line — fills as you scroll (desktop only) */}
+                    <div className="absolute left-[27px] top-0 bottom-0 w-px bg-white/[0.06] hidden md:block" />
+                    <motion.div
+                        className="absolute left-[26px] top-0 bottom-0 w-[3px] rounded-full origin-top bg-gradient-to-b from-[#C8FF00] via-[#C8FF00] to-[#9EFF00] shadow-[0_0_14px_rgba(200,255,0,0.6)] hidden md:block"
+                        style={{ scaleY: lineScale }}
+                    />
 
                     <div className="space-y-8 md:space-y-12">
                         {steps.map((step, index) => (
@@ -88,7 +83,7 @@ export function ProcessTimeline() {
                                         <div
                                             className="w-14 h-14 rounded-2xl flex items-center justify-center relative z-10"
                                             style={{
-                                                background: `radial-gradient(circle at 30% 30%, ${step.color}15, ${step.color}08)`,
+                                                background: `radial-gradient(circle at 30% 30%, ${step.color}22, ${step.color}0a), #0b0b0b`,
                                                 border: `1px solid ${step.color}30`,
                                                 boxShadow: `0 0 20px ${step.color}15`,
                                             }}
@@ -101,7 +96,8 @@ export function ProcessTimeline() {
                                     </div>
 
                                     {/* Content card */}
-                                    <div className="flex-1 group p-6 md:p-8 rounded-2xl bg-[#0d0d0d]/80 border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 hover:bg-[#111]">
+                                    <div className="flex-1">
+                                    <TiltCard maxTilt={3} className="p-6 md:p-8">
                                         <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-[#C8FF00] transition-colors duration-300">
                                             {step.title}
                                         </h3>
@@ -119,6 +115,7 @@ export function ProcessTimeline() {
                                                 </div>
                                             ))}
                                         </div>
+                                    </TiltCard>
                                     </div>
                                 </div>
                             </motion.div>

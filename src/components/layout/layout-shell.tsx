@@ -10,7 +10,9 @@ import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { GlassDock, type DockItem } from "@/components/ui/glass-dock";
 import { InquiryModal } from "@/components/project-inquiry/inquiry-modal";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import RevealLoader from "@/components/ui/reveal-loader";
 import { cn } from "@/lib/utils";
 import {
@@ -27,7 +29,7 @@ const dockItems: DockItem[] = [
     { title: "Services", icon: Briefcase, href: "#services" },
     { title: "Work", icon: FolderOpen, href: "#portfolio" },
     { title: "Pricing", icon: CreditCard, href: "#pricing" },
-    { title: "About", icon: Users, href: "#why-stackwise" },
+    { title: "About", icon: Users, href: "#founder" },
     { title: "Contact", icon: Mail, href: "#contact" },
 ];
 
@@ -86,12 +88,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
     return (
         <InquiryProvider>
+        <MotionConfig reducedMotion="user">
         <SmoothScroll>
             {/* The preloader overlay - human visual block on initial entry */}
             <AnimatePresence mode="wait">
                 {isLoading && (
                     <motion.div
                         key="loader"
+                        data-intro-loader
                         className="fixed inset-0 z-[100]"
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -112,7 +116,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             </AnimatePresence>
 
             {/* We render background, navbar, footer, and children immediately for SEO indexability */}
-            <div className={cn("transition-opacity duration-700", isLoading ? "opacity-0 pointer-events-none" : "opacity-100")}>
+            <div data-intro-content className={cn("transition-opacity duration-700", isLoading ? "opacity-0 pointer-events-none" : "opacity-100")}>
+                <ScrollProgress />
                 <Background />
                 <Navbar />
 
@@ -133,11 +138,15 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 >
                     <GlassDock items={dockItemsWithClick} />
                 </div>
+
+                {/* Sticky quote bar — phones only */}
+                <MobileCtaBar hidden={hideDock} />
             </div>
 
             {/* Project Inquiry Modal */}
             <InquiryModal />
         </SmoothScroll>
+        </MotionConfig>
         </InquiryProvider>
     );
 }

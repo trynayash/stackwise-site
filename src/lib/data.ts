@@ -82,7 +82,7 @@ export const projects: Project[] = [
         title: "CodeFusionAI — Browser Code Editor and Course Catalog",
         category: "Web Apps",
         summary: "A learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.",
-        image: "/projects/codefusionai.png",
+        image: "/projects/codefusionai.webp",
         coverImage: "https://images.unsplash.com/photo-1618401471353-b98aedd07871?q=80&w=2670&auto=format&fit=crop",
         tech: ["React", "TypeScript", "Supabase", "Monaco Editor"],
         metrics: [{ label: "Editor", value: "Monaco" }, { label: "Backend", value: "Supabase" }],

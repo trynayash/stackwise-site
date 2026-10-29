@@ -5,7 +5,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { useInquiry } from "@/components/providers/inquiry-context";
+import { marketingPageList } from "@/lib/marketing-pages";
 
 export function Footer() {
     const pathname = usePathname();
@@ -21,7 +24,7 @@ export function Footer() {
         }
     };
 
-    const [email, setEmail] = React.useState("");
+    const { openInquiry } = useInquiry();
     const isMobile = useMediaQuery("(max-width: 768px)");
 
     // Animation controls for the footer logo
@@ -112,107 +115,98 @@ export function Footer() {
 
     return (
         <footer className="relative bg-[#050505] pt-20 md:pt-32 pb-10 overflow-hidden border-t border-white/5" role="contentinfo">
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-5 sm:px-6 relative z-10">
 
-                {/* Top Section: Newsletter & Links */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-24 border-b border-white/10">
+                {/* Top Section: CTA & Links */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-20 border-b border-white/10">
 
-                    {/* Left Column: Subscribe (4 cols) */}
-                    <div className="lg:col-span-5 flex flex-col justify-between h-full border-r-0 lg:border-r border-white/10 pr-0 lg:pr-12">
+                    {/* Left Column: Start a project */}
+                    <div className="lg:col-span-4 flex flex-col justify-between h-full">
                         <div className="max-w-md">
-                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Subscribe</h3>
-                            <p className="text-white/60 text-lg mb-8 font-light">
-                                Join our newsletter to stay up to date on features and releases.
+                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-6">Start a project</h3>
+                            <p className="text-white/70 text-2xl md:text-3xl mb-8 font-semibold leading-tight tracking-tight">
+                                Have an idea? Let&apos;s turn it into <span className="text-[#C8FF00]">software you own.</span>
                             </p>
-                            <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-                                <div className="relative group">
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-transparent border-b border-white/20 py-4 pr-32 text-white text-lg placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00] transition-colors"
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="absolute right-0 top-1/2 -translate-y-1/2 px-6 py-2 bg-transparent text-xs font-bold text-[#C8FF00] border border-[#C8FF00]/30 rounded-full hover:bg-[#C8FF00] hover:text-black transition-all uppercase tracking-wider"
-                                    >
-                                        Subscribe
-                                    </button>
-                                </div>
-                            </form>
+                            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
+                                <button
+                                    onClick={openInquiry}
+                                    className="btn-shine group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#C8FF00] px-6 text-sm font-bold text-black hover:bg-[#d4ff33] transition-colors cursor-pointer"
+                                >
+                                    Get a free quote
+                                    <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                </button>
+                                <a
+                                    href={`mailto:${siteConfig.emails.inbound}`}
+                                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm text-white/70 hover:text-white hover:border-white/30 transition-colors"
+                                >
+                                    <Mail size={15} />
+                                    Email us
+                                </a>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 mt-16 text-xs text-white/30 font-mono uppercase tracking-wider">
+                        <div className="flex flex-wrap gap-x-8 gap-y-3 mt-12 text-xs text-white/30 font-mono uppercase tracking-wider">
                             <p>&copy; {new Date().getFullYear()} {siteConfig.name.toUpperCase()}</p>
                             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
                         </div>
                     </div>
 
-                    {/* Right Columns: Links (8 cols) */}
-                    <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10">
-                        {/* Column 1: Explore */}
-                        <div>
-                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Explore</h3>
-                            <ul className="space-y-4">
-                                <li>
-                                    <Link href="#services" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("services")}>
-                                        Services
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#portfolio" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("portfolio")}>
-                                        Work
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                    {/* Right Columns: Links */}
+                    <nav aria-label="Footer" className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-10">
+                        {(["Services", "Solutions"] as const).map((kind) => (
+                            <div key={kind}>
+                                <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-6">
+                                    <Link href={`/${kind.toLowerCase()}`} className="hover:text-[#C8FF00] transition-colors">{kind}</Link>
+                                </h3>
+                                <ul className="space-y-3">
+                                    {marketingPageList.filter((p) => p.kind === kind).map((p) => (
+                                        <li key={p.path}>
+                                            <Link href={p.path} className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1">{p.navLabel}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
 
-                        {/* Column 2: Company */}
                         <div>
-                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Company</h3>
-                            <ul className="space-y-4">
-                                <li>
-                                    <Link href="#why-stackwise" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("why-stackwise")}>
-                                        About
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#pricing" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("pricing")}>
-                                        Pricing
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#contact" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo("contact")}>
-                                        Contact
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Column 3: Connect */}
-                        <div>
-                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-8">Connect</h3>
-                            <ul className="space-y-4">
+                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-6">Company</h3>
+                            <ul className="space-y-3">
                                 {[
-                                    { name: "Twitter", href: siteConfig.links.twitter },
-                                    { name: "GitHub", href: siteConfig.links.github }
+                                    { id: "portfolio", label: "Work" },
+                                    { id: "pricing", label: "Pricing" },
+                                    { id: "founder", label: "About" },
+                                    { id: "faq", label: "FAQ" },
+                                    { id: "contact", label: "Contact" },
                                 ].map((item) => (
-                                    <li key={item.name}>
-                                        <Link
-                                            href={item.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1"
-                                        >
-                                            {item.name}
+                                    <li key={item.id}>
+                                        <Link href={`/#${item.id}`} className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1" onClick={scrollTo(item.id)}>
+                                            {item.label}
                                         </Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                    </div>
+
+                        <div>
+                            <h3 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em] mb-6">Connect</h3>
+                            <ul className="space-y-3">
+                                {[
+                                    { name: "Twitter", href: siteConfig.links.twitter },
+                                    { name: "GitHub", href: siteConfig.links.github },
+                                ].map((item) => (
+                                    <li key={item.name}>
+                                        <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1">
+                                            {item.name}
+                                        </a>
+                                    </li>
+                                ))}
+                                <li>
+                                    <a href={`mailto:${siteConfig.emails.inbound}`} className="text-white/60 hover:text-[#C8FF00] text-sm transition-colors block py-1">Email</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
 
                 {/* Bottom Section: Massive Brand Name */}

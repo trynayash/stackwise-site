@@ -6,11 +6,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const siteUrl = siteConfig.url;
 
     // Core static routes
-    const coreRoutes = ["", "/privacy", "/terms"].map((route) => ({
+    const coreRoutes = ["", "/services", "/solutions", "/privacy", "/terms"].map((route) => ({
         url: `${siteUrl}${route}`,
         lastModified: new Date(),
         changeFrequency: "weekly" as const,
-        priority: route === "" ? 1.0 : 0.5,
+        priority: route === "" ? 1.0 : route === "/services" || route === "/solutions" ? 0.9 : 0.3,
     }));
 
     // Service landing pages

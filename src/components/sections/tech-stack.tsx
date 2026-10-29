@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap } from "lucide-react";
+import { SectionHeader } from "@/components/ui/motion-primitives";
 
 import { technologies } from "@/lib/data";
 
@@ -60,29 +60,14 @@ export function TechStack() {
 
     return (
         <section id="tech-stack" className="py-20 md:py-32 relative z-10" aria-label="Our technology stack" ref={sectionRef}>
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-5 sm:px-6">
 
-                {/* Section Header */}
-                <motion.div
-                    className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7 }}
-                >
-                    <div className="max-w-3xl">
-                        <span className="text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-4 block">
-                            <Zap size={12} className="inline mr-1.5 -mt-0.5" />
-                            Technology
-                        </span>
-                        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-                            The Tech<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C8FF00] to-[#9EFF00]">We Wield.</span>
-                        </h2>
-                    </div>
-                    <p className="text-white/30 text-sm max-w-sm mt-6 md:mt-0 leading-relaxed">
-                        Custom code with a modern TypeScript stack, without page builders or templates.
-                    </p>
-                </motion.div>
+                <SectionHeader
+                    eyebrow="Technology"
+                    title="The tech"
+                    muted="we wield."
+                    description="Custom code with a modern TypeScript stack, without page builders or templates."
+                />
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
 

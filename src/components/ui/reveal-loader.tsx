@@ -97,7 +97,7 @@ const RevealLoader = ({
             });
 
             tl.to(".preloader-item", {
-                delay: 1,
+                delay: 0.5,
                 duration: 0.5,
                 stagger: staggerConfig,
                 ...moveProps,

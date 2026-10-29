@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { SectionHeader } from "@/components/ui/motion-primitives";
 import { siteConfig } from "@/config/site";
 import { Card } from "@/components/ui/card";
 import { Cpu } from "lucide-react";
@@ -14,10 +15,14 @@ export function Testimonials() {
         <section id="testimonials" className="py-20 md:py-32 relative z-10 overflow-hidden" aria-label="Engineering principles">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#C8FF00]/3 blur-[100px] rounded-full pointer-events-none" />
 
-            <div className="container mx-auto px-6 mb-20 text-center relative z-10">
-                <span className="text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-4 block">Our Creed</span>
-                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05] mb-4">Engineering<br /><span className="text-white/25">Principles.</span></h2>
-                <p className="text-white/20 text-xs font-mono mt-4 tracking-wider">How we architect, code, and deploy software assets</p>
+            <div className="container mx-auto px-5 sm:px-6 relative z-10">
+                <SectionHeader
+                    align="center"
+                    eyebrow="Our creed"
+                    title="Engineering"
+                    muted="principles."
+                    description="How we architect, code and deploy the software we hand over to you."
+                />
             </div>
 
             <div className="relative z-10">

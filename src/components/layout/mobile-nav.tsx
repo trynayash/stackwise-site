@@ -15,7 +15,7 @@ const navItems = [
     { title: "Services", href: "#services", index: "02" },
     { title: "Work", href: "#portfolio", index: "03" },
     { title: "Pricing", href: "#pricing", index: "04" },
-    { title: "About", href: "#why-stackwise", index: "05" },
+    { title: "About", href: "#founder", index: "05" },
     { title: "Contact", href: "#contact", index: "06" },
 ];
 
