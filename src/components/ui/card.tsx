@@ -1,60 +1,33 @@
-"use client";
-
 import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface CardProps extends HTMLMotionProps<"div"> {
-    variant?: "glass" | "neon";
-    children: React.ReactNode;
-    spotlight?: boolean;
-}
+type CardProps = React.HTMLAttributes<HTMLDivElement> & {
+    /** Lift slightly and brighten the border on hover. */
+    interactive?: boolean;
+};
 
-export function Card({
-    className,
-    variant = "glass",
-    children,
-    spotlight = false,
-    ...props
-}: CardProps) {
-    const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-        });
-    };
-
-    const variants = {
-        glass: "bg-glass-card backdrop-blur-md border border-glass-border shadow-xl",
-        neon: "bg-black/40 border border-[#C8FF00]/30 shadow-[0_0_30px_-10px_rgba(200,255,0,0.2)] hover:border-[#C8FF00]/60 hover:shadow-[0_0_50px_-10px_rgba(200,255,0,0.35)]",
-    };
-
+/** Flat surface with a hairline border — the base for every card on the site. */
+export function Card({ interactive = false, className, children, ...props }: CardProps) {
     return (
-        <motion.div
+        <div
             className={cn(
-                "relative overflow-hidden rounded-2xl transition-colors duration-300",
-                variants[variant],
+                "group relative rounded-2xl border border-line bg-surface",
+                interactive && "transition-[transform,border-color,background-color] duration-300 ease-out hover:-translate-y-1 hover:border-line-strong hover:bg-surface-2",
                 className
             )}
-            onMouseMove={handleMouseMove}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={variant === "neon" ? { y: -5 } : {}}
             {...props}
         >
-            {spotlight && (
-                <div
-                    className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
-                    style={{
-                        background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.1), transparent 40%)`,
-                    }}
-                />
-            )}
-            <div className="relative z-10">{children}</div>
-        </motion.div>
+            {children}
+        </div>
+    );
+}
+
+/** Square tile that holds an icon. */
+export function IconTile({ children, className, size = "md" }: { children: React.ReactNode; className?: string; size?: "sm" | "md" | "lg" }) {
+    const sizes = { sm: "h-9 w-9 rounded-lg", md: "h-11 w-11 rounded-xl", lg: "h-14 w-14 rounded-2xl" };
+    return (
+        <div className={cn("flex flex-shrink-0 items-center justify-center border border-line bg-surface-2 text-white", sizes[size], className)}>
+            {children}
+        </div>
     );
 }

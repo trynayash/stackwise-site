@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
-import { LoadingProvider } from "@/components/providers/loading-context";
-import { introScript } from "@/lib/intro";
 import { ogImageUrl } from "@/lib/seo";
 import { LayoutShell } from "@/components/layout/layout-shell";
 import Script from "next/script";
@@ -83,7 +81,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060606",
+  themeColor: "#0a0a0a",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -143,11 +141,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* Decides before first paint whether the intro animation plays (see loading-context) */}
-        <script dangerouslySetInnerHTML={{ __html: introScript }} />
-        <noscript>
-          <style>{`[data-intro-loader]{display:none!important}[data-intro-content]{opacity:1!important;pointer-events:auto!important}`}</style>
-        </noscript>
         {/* Google Analytics Readiness */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
@@ -179,12 +172,10 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-[#060606] text-foreground selection:bg-[#C8FF00]/20 selection:text-[#C8FF00]`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-canvas text-foreground`}
         suppressHydrationWarning
       >
-        <LoadingProvider>
-          <LayoutShell>{children}</LayoutShell>
-        </LoadingProvider>
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );

@@ -2,7 +2,8 @@
 
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowRight01Icon, Mail01Icon } from "@hugeicons/core-free-icons";
+import { Icon } from "@/components/ui/icon";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { siteConfig } from "@/config/site";
 
@@ -31,20 +32,20 @@ export function MobileCtaBar({ hidden }: { hidden: boolean }) {
                     className="fixed inset-x-3 z-50 md:hidden"
                     style={{ bottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
                 >
-                    <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-black/80 p-2 backdrop-blur-xl shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9)]">
+                    <div className="flex items-center gap-2 rounded-2xl border border-line-strong bg-surface p-2">
                         <a
                             href={`mailto:${siteConfig.emails.inbound}`}
                             aria-label="Email StackWise"
-                            className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 text-white/70 active:scale-95 transition-transform"
+                            className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-line text-white/70 active:scale-95 transition-transform"
                         >
-                            <Mail size={18} />
+                            <Icon icon={Mail01Icon} size={20} />
                         </a>
                         <button
                             onClick={openInquiry}
-                            className="btn-shine flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#C8FF00] text-[15px] font-bold text-black active:scale-[0.98] transition-transform"
+                            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-accent text-[15px] font-semibold text-black active:scale-[0.98] transition-transform"
                         >
                             Get a free quote
-                            <ArrowUpRight size={17} />
+                            <Icon icon={ArrowRight01Icon} size={18} />
                         </button>
                     </div>
                 </motion.div>

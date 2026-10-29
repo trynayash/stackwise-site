@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { Icon } from "@/components/ui/icon";
 import { StepIndicator } from "./step-indicator";
 import { SuccessState } from "./success-state";
 
@@ -365,8 +366,8 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                             className={`
                                                 group text-left p-4 rounded-xl border transition-all duration-300 cursor-pointer
                                                 ${isSelected
-                                                    ? "bg-[#C8FF00]/[0.06] border-[#C8FF00]/25 shadow-[0_0_20px_-8px_rgba(200,255,0,0.1)]"
-                                                    : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1]"
+                                                    ? "bg-white/[0.05] border-white/50"
+                                                    : "bg-surface border-line hover:border-line-strong"
                                                 }
                                             `}
                                         >
@@ -374,8 +375,8 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                 <div
                                                     className={`w-4 h-4 rounded border flex-shrink-0 mt-0.5 flex items-center justify-center transition-all duration-300 ${
                                                         isSelected
-                                                            ? "bg-[#C8FF00] border-[#C8FF00]"
-                                                            : "border-white/20 bg-transparent"
+                                                            ? "bg-accent border-accent"
+                                                            : "border-white/25 bg-transparent"
                                                     }`}
                                                 >
                                                     {isSelected && (
@@ -385,7 +386,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                     )}
                                                 </div>
                                                 <div>
-                                                    <span className={`text-sm font-semibold block transition-colors ${isSelected ? "text-[#C8FF00]" : "text-white"}`}>
+                                                    <span className={`text-sm font-semibold block transition-colors text-white`}>
                                                         {opt.value}
                                                     </span>
                                                     <span className="text-white/30 text-xs font-light mt-0.5 block">
@@ -419,7 +420,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         value={formData.projectName}
                                         onChange={(e) => updateField("projectName", e.target.value)}
                                         placeholder="e.g. My SaaS Platform"
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300"
                                     />
                                 </div>
 
@@ -433,7 +434,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         onChange={(e) => updateField("description", e.target.value)}
                                         placeholder="Tell us about your business, problem, users, and what you want to achieve."
                                         rows={4}
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300 resize-none"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300 resize-none"
                                     />
                                     {errors.description && (
                                         <p className="text-red-400 text-xs mt-1 font-mono">{errors.description}</p>
@@ -453,7 +454,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                 onClick={() => updateField("currentStage", opt)}
                                                 className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-300 cursor-pointer ${
                                                     formData.currentStage === opt
-                                                        ? "bg-[#C8FF00]/10 border-[#C8FF00]/25 text-[#C8FF00]"
+                                                        ? "bg-white border-white text-black"
                                                         : "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/70"
                                                 }`}
                                             >
@@ -478,7 +479,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                     onClick={() => toggleArrayItem("features", opt)}
                                                     className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-300 cursor-pointer ${
                                                         isSelected
-                                                            ? "bg-[#C8FF00]/10 border-[#C8FF00]/25 text-[#C8FF00]"
+                                                            ? "bg-white border-white text-black"
                                                             : "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/70"
                                                     }`}
                                                 >
@@ -512,7 +513,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         value={formData.company}
                                         onChange={(e) => updateField("company", e.target.value)}
                                         placeholder="Your company name"
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300"
                                     />
                                 </div>
 
@@ -524,7 +525,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                     <select
                                         value={formData.industry}
                                         onChange={(e) => updateField("industry", e.target.value)}
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300 appearance-none cursor-pointer [&>option]:bg-[#111] [&>option]:text-white"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-white/50 transition-all duration-300 appearance-none cursor-pointer [&>option]:bg-[#111] [&>option]:text-white"
                                     >
                                         <option value="">Select industry</option>
                                         {industryOptions.map((opt) => (
@@ -546,7 +547,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                 onClick={() => updateField("businessSize", opt)}
                                                 className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-300 cursor-pointer ${
                                                     formData.businessSize === opt
-                                                        ? "bg-[#C8FF00]/10 border-[#C8FF00]/25 text-[#C8FF00]"
+                                                        ? "bg-white border-white text-black"
                                                         : "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/70"
                                                 }`}
                                             >
@@ -569,7 +570,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                 onClick={() => updateField("timeline", opt)}
                                                 className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-300 cursor-pointer ${
                                                     formData.timeline === opt
-                                                        ? "bg-[#C8FF00]/10 border-[#C8FF00]/25 text-[#C8FF00]"
+                                                        ? "bg-white border-white text-black"
                                                         : "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/70"
                                                 }`}
                                             >
@@ -593,7 +594,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                 onClick={() => updateField("budget", opt)}
                                                 className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-300 cursor-pointer ${
                                                     formData.budget === opt
-                                                        ? "bg-[#C8FF00]/10 border-[#C8FF00]/25 text-[#C8FF00]"
+                                                        ? "bg-white border-white text-black"
                                                         : "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/70"
                                                 }`}
                                             >
@@ -623,7 +624,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         value={formData.name}
                                         onChange={(e) => updateField("name", e.target.value)}
                                         placeholder="Your full name"
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300"
                                     />
                                     {errors.name && <p className="text-red-400 text-xs mt-1 font-mono">{errors.name}</p>}
                                 </div>
@@ -636,7 +637,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         value={formData.email}
                                         onChange={(e) => updateField("email", e.target.value)}
                                         placeholder="you@company.com"
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300"
                                     />
                                     {errors.email && <p className="text-red-400 text-xs mt-1 font-mono">{errors.email}</p>}
                                 </div>
@@ -649,7 +650,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         value={formData.phone}
                                         onChange={(e) => updateField("phone", e.target.value)}
                                         placeholder="+91 98765 43210"
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300"
                                     />
                                     {errors.phone && <p className="text-red-400 text-xs mt-1 font-mono">{errors.phone}</p>}
                                 </div>
@@ -665,7 +666,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         value={formData.country}
                                         onChange={(e) => updateField("country", e.target.value)}
                                         placeholder="India"
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300"
                                     />
                                 </div>
 
@@ -684,7 +685,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                                     onClick={() => toggleArrayItem("communication", opt)}
                                                     className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-300 cursor-pointer ${
                                                         isSelected
-                                                            ? "bg-[#C8FF00]/10 border-[#C8FF00]/25 text-[#C8FF00]"
+                                                            ? "bg-white border-white text-black"
                                                             : "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/70"
                                                     }`}
                                                 >
@@ -707,7 +708,7 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                                         onChange={(e) => updateField("notes", e.target.value)}
                                         placeholder="Any other context or questions..."
                                         rows={3}
-                                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#C8FF00]/30 focus:ring-1 focus:ring-[#C8FF00]/10 transition-all duration-300 resize-none"
+                                        className="w-full bg-surface border border-line-strong rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-white/50 transition-all duration-300 resize-none"
                                     />
                                 </div>
 
@@ -723,14 +724,14 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
             </div>
 
             {/* Footer nav */}
-            <div className="px-6 sm:px-10 py-5 border-t border-white/[0.06] flex items-center justify-between bg-black/40 backdrop-blur-sm">
+            <div className="px-6 sm:px-10 py-5 border-t border-white/[0.06] flex items-center justify-between bg-canvas">
                 {currentStep > 0 ? (
                     <button
                         type="button"
                         onClick={prevStep}
                         className="group inline-flex items-center gap-2 text-white/40 text-sm hover:text-white transition-colors duration-300 cursor-pointer"
                     >
-                        <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform duration-300" />
+                        <Icon icon={ArrowLeft01Icon} size={16} className="group-hover:-translate-x-0.5 transition-transform duration-300" />
                         Back
                     </button>
                 ) : (
@@ -741,20 +742,20 @@ export function InquiryForm({ onClose }: InquiryFormProps) {
                     <button
                         type="button"
                         onClick={nextStep}
-                        className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#C8FF00] text-black text-sm font-bold hover:shadow-[0_0_25px_-5px_rgba(200,255,0,0.3)] transition-all duration-300 cursor-pointer"
+                        className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-accent text-black text-sm font-semibold hover:bg-accent-hover transition-all duration-300 cursor-pointer"
                     >
                         Continue
-                        <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                        <Icon icon={ArrowRight01Icon} size={16} className="group-hover:translate-x-0.5 transition-transform duration-300" />
                     </button>
                 ) : (
                     <button
                         type="button"
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#C8FF00] text-black text-sm font-bold hover:shadow-[0_0_25px_-5px_rgba(200,255,0,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-accent text-black text-sm font-semibold hover:bg-accent-hover transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {isSubmitting ? "Submitting..." : "Request Project Review"}
-                        {!isSubmitting && <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-300" />}
+                        {!isSubmitting && <Icon icon={ArrowRight01Icon} size={16} className="group-hover:translate-x-0.5 transition-transform duration-300" />}
                     </button>
                 )}
             </div>

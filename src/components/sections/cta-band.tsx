@@ -1,16 +1,22 @@
 "use client";
 
 import React from "react";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { Mail01Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { Magnetic, Reveal, WordReveal } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion-primitives";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { siteConfig } from "@/config/site";
 
-const marqueeItems = ["SaaS Products", "AI Features", "MVPs", "Internal Tools", "Dashboards", "APIs", "Web Platforms", "Automation"];
+const nextSteps = [
+    { title: "Tell us about the project", text: "A few questions about goals, scope and timeline." },
+    { title: "We reply within 24–48 hours", text: "With questions, a rough scope and next steps." },
+    { title: "Free discovery call", text: "Then a written quote — no commitment needed." },
+];
 
 export function CtaBand({
     title = "Have a project in mind?",
-    subtitle = "Tell us what you're building. We reply within 24–48 hours with questions, a rough scope and next steps.",
+    subtitle = "Tell us what you're building. We'll help you find the simplest way to ship it — and tell you honestly if we're not the right fit.",
 }: {
     title?: string;
     subtitle?: string;
@@ -18,53 +24,41 @@ export function CtaBand({
     const { openInquiry } = useInquiry();
 
     return (
-        <section className="relative z-10 py-20 md:py-28 overflow-hidden" aria-label="Start a project">
-            {/* Scrolling words behind the card */}
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none opacity-[0.06]">
-                <div className="marquee" style={{ ["--marquee-duration" as string]: "40s" } as React.CSSProperties}>
-                    {[...marqueeItems, ...marqueeItems].map((m, i) => (
-                        <span key={i} className="mx-6 whitespace-nowrap text-[18vw] md:text-[10vw] font-bold leading-none tracking-tighter text-white">
-                            {m} <span className="text-[#C8FF00]">✦</span>
-                        </span>
-                    ))}
-                </div>
-            </div>
-
+        <section className="relative py-16 md:py-24" aria-label="Start a project">
             <div className="container mx-auto px-5 sm:px-6">
                 <Reveal>
-                    <div className="conic-border relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] bg-[#0a0a0a]/90 backdrop-blur-xl px-6 py-14 sm:px-12 md:py-20 text-center">
-                        <div className="aurora opacity-70" />
-                        <div className="absolute inset-0 grid-backdrop opacity-60" />
-
-                        <div className="relative">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-[#C8FF00]/25 bg-[#C8FF00]/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.2em] text-[#C8FF00] mb-6">
-                                <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] animate-pulse" />
-                                Free project consultation
-                            </span>
-                            <h2 className="mx-auto max-w-3xl text-[2.2rem] leading-[1.05] sm:text-5xl md:text-6xl font-bold tracking-tight text-white text-balance mb-5">
-                                <WordReveal text={title} />
-                            </h2>
-                            <p className="mx-auto max-w-xl text-white/55 text-base md:text-lg font-light leading-relaxed mb-10">{subtitle}</p>
-
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Magnetic>
-                                    <button
-                                        onClick={openInquiry}
-                                        className="btn-shine group inline-flex items-center gap-2 rounded-full bg-[#C8FF00] px-9 h-14 text-base font-bold text-black shadow-[0_0_50px_-8px_rgba(200,255,0,0.6)] hover:bg-[#d4ff33] transition-colors cursor-pointer"
-                                    >
-                                        Get your free quote
-                                        <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                    </button>
-                                </Magnetic>
+                    <div className="grid grid-cols-1 gap-10 overflow-hidden rounded-3xl bg-accent p-8 text-black sm:p-10 md:p-14 lg:grid-cols-12 lg:gap-14">
+                        <div className="lg:col-span-7">
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/60">Free project consultation</p>
+                            <h2 className="mt-4 text-[2.25rem] font-semibold leading-[1.04] tracking-[-0.04em] sm:text-5xl md:text-6xl text-balance">{title}</h2>
+                            <p className="mt-5 max-w-xl text-base leading-relaxed text-black/70 md:text-lg">{subtitle}</p>
+                            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                                <Button variant="dark" size="lg" arrow="right" onClick={openInquiry}>
+                                    Get your free quote
+                                </Button>
                                 <a
                                     href={`mailto:${siteConfig.emails.inbound}`}
-                                    className="inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors"
+                                    className="inline-flex h-14 items-center justify-center gap-2 rounded-full border border-black/20 px-7 text-base font-semibold transition-colors hover:bg-black/5"
                                 >
-                                    <Mail size={16} />
-                                    {siteConfig.emails.inbound}
+                                    <Icon icon={Mail01Icon} size={18} />
+                                    Email us
                                 </a>
                             </div>
                         </div>
+
+                        <ol className="space-y-px self-end overflow-hidden rounded-2xl border border-black/10 bg-black/10 lg:col-span-5">
+                            {nextSteps.map((s, i) => (
+                                <li key={s.title} className="flex gap-4 bg-accent p-5">
+                                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-black/20 font-mono text-xs font-semibold">
+                                        {i + 1}
+                                    </span>
+                                    <div>
+                                        <p className="font-semibold">{s.title}</p>
+                                        <p className="mt-0.5 text-sm text-black/65">{s.text}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
                     </div>
                 </Reveal>
             </div>

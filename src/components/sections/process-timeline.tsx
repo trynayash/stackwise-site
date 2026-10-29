@@ -1,145 +1,104 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView, useScroll, useSpring } from "framer-motion";
-import { TiltCard } from "@/components/ui/tilt-card";
-import { SectionHeader } from "@/components/ui/motion-primitives";
-import { Search, PenTool, Code2, Rocket, CheckCircle2, ArrowRight } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { CloudUploadIcon, CodeIcon, PenTool03Icon, Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { useInquiry } from "@/components/providers/inquiry-context";
+import { SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import { Card } from "@/components/ui/card";
+import { Icon } from "@/components/ui/icon";
+import { Button } from "@/components/ui/button";
 
 const steps = [
     {
         week: "Week 1",
-        title: "Discovery & Architecture Blueprint",
-        description: "We dive deep into your business, audience, and goals. By the end of the week, you have a detailed technical architecture, sitemap, and project roadmap — no ambiguity.",
-        deliverables: ["Stakeholder interviews & requirements doc", "Technical architecture diagram", "Detailed project timeline & milestones", "Technology stack recommendation"],
-        icon: Search,
-        color: "#C8FF00",
+        title: "Discovery & architecture",
+        description: "We dig into your business, users and goals. You leave the week with a technical architecture, sitemap and roadmap — no ambiguity.",
+        deliverables: ["Requirements document", "Architecture diagram", "Timeline & milestones", "Stack recommendation"],
+        icon: Search01Icon,
     },
     {
         week: "Week 2",
-        title: "UI/UX & High-Fidelity Prototyping",
-        description: "Our design team creates pixel-perfect Figma prototypes that you can click through. You see exactly what you're getting before a single line of code is written.",
-        deliverables: ["Wireframes for all screens", "High-fidelity Figma designs", "Interactive clickable prototype", "Design system & component library"],
-        icon: PenTool,
-        color: "#00FFC8",
+        title: "UI/UX & prototype",
+        description: "Clickable Figma prototypes, so you see exactly what you're getting before a single line of code is written.",
+        deliverables: ["Wireframes for all screens", "High-fidelity designs", "Clickable prototype", "Design system"],
+        icon: PenTool03Icon,
     },
     {
         week: "Week 3",
-        title: "Frontend & Backend Development",
-        description: "We build your application with production-grade code — Next.js frontend, robust backend APIs, database setup, and third-party integrations. Daily progress updates.",
-        deliverables: ["Next.js/React frontend build", "API & database integration", "Authentication & payment flows", "Daily Loom updates + staging URL"],
-        icon: Code2,
-        color: "#C8FF00",
+        title: "Frontend & backend build",
+        description: "Production-grade code — Next.js frontend, backend APIs, database and integrations — with regular progress updates.",
+        deliverables: ["Next.js / React frontend", "API & database", "Auth & payment flows", "Staging URL & updates"],
+        icon: CodeIcon,
     },
     {
         week: "Week 4",
-        title: "QA, Optimization & Launch",
-        description: "Rigorous testing across devices, Lighthouse performance optimization to hit 90+ scores, final client review, and a zero-downtime deployment to production.",
-        deliverables: ["Cross-browser & device testing", "Lighthouse performance optimization", "Security audit & penetration testing", "Production deployment & handoff docs"],
-        icon: Rocket,
-        color: "#FFD700",
+        title: "QA, optimization & launch",
+        description: "Testing across devices, performance tuning, a final review with you and a zero-downtime deployment to production.",
+        deliverables: ["Cross-device testing", "Performance optimization", "Security review", "Deployment & handoff docs"],
+        icon: CloudUploadIcon,
     },
 ];
 
 export function ProcessTimeline() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-    const timelineRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start 70%", "end 60%"] });
+    const { openInquiry } = useInquiry();
+    const gridRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({ target: gridRef, offset: ["start 80%", "end 70%"] });
     const lineScale = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
     return (
-        <section id="process" className="py-20 md:py-32 relative z-10" aria-label="Our process" ref={sectionRef}>
+        <section id="process" className="relative py-20 md:py-28" aria-label="Our process">
             <div className="container mx-auto px-5 sm:px-6">
-
                 <SectionHeader
-                    eyebrow="Our process"
-                    title="From idea to launch."
-                    muted="In four clear weeks."
-                    description="A week-by-week process with no surprises. You always know what is happening, when, and what you get at the end of each step."
+                    index="04"
+                    eyebrow="Process"
+                    title="From idea to launch"
+                    muted="in four clear weeks."
+                    description="A week-by-week process with no surprises. You always know what's happening, when, and what you get at the end of each step."
                 />
 
-                {/* Timeline */}
-                <div className="relative" ref={timelineRef}>
-                    {/* Vertical connector line — fills as you scroll (desktop only) */}
-                    <div className="absolute left-[27px] top-0 bottom-0 w-px bg-white/[0.06] hidden md:block" />
-                    <motion.div
-                        className="absolute left-[26px] top-0 bottom-0 w-[3px] rounded-full origin-top bg-gradient-to-b from-[#C8FF00] via-[#C8FF00] to-[#9EFF00] shadow-[0_0_14px_rgba(200,255,0,0.6)] hidden md:block"
-                        style={{ scaleY: lineScale }}
-                    />
+                <div ref={gridRef} className="relative">
+                    {/* Progress line across the step icons (wide screens) */}
+                    <div aria-hidden className="absolute left-0 right-0 top-[27px] hidden h-px bg-line xl:block" />
+                    <motion.div aria-hidden className="absolute left-0 right-0 top-[27px] hidden h-px origin-left bg-accent xl:block" style={{ scaleX: lineScale }} />
 
-                    <div className="space-y-8 md:space-y-12">
-                        {steps.map((step, index) => (
-                            <motion.div
-                                key={step.week}
-                                className="relative"
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-                            >
-                                <div className="flex flex-col md:flex-row gap-6 md:gap-10">
-                                    {/* Step indicator */}
-                                    <div className="flex items-center md:items-start gap-4 md:flex-col md:w-14 flex-shrink-0">
-                                        <div
-                                            className="w-14 h-14 rounded-2xl flex items-center justify-center relative z-10"
-                                            style={{
-                                                background: `radial-gradient(circle at 30% 30%, ${step.color}22, ${step.color}0a), #0b0b0b`,
-                                                border: `1px solid ${step.color}30`,
-                                                boxShadow: `0 0 20px ${step.color}15`,
-                                            }}
-                                        >
-                                            <step.icon size={22} style={{ color: step.color }} />
-                                        </div>
-                                        <span className="text-[#C8FF00] text-xs font-mono font-bold tracking-wider md:mt-3 md:text-center md:w-full">
-                                            {step.week}
-                                        </span>
-                                    </div>
-
-                                    {/* Content card */}
-                                    <div className="flex-1">
-                                    <TiltCard maxTilt={3} className="p-6 md:p-8">
-                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-[#C8FF00] transition-colors duration-300">
-                                            {step.title}
-                                        </h3>
-                                        <p className="text-white/35 text-sm leading-relaxed mb-6">
-                                            {step.description}
-                                        </p>
-
-                                        {/* Deliverables */}
-                                        <div className="space-y-2.5">
-                                            <span className="text-white/20 text-[10px] font-mono uppercase tracking-wider">Deliverables</span>
-                                            {step.deliverables.map((d, i) => (
-                                                <div key={i} className="flex items-center gap-2.5 text-sm text-white/50">
-                                                    <CheckCircle2 size={14} style={{ color: step.color }} className="flex-shrink-0 opacity-60" />
-                                                    {d}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </TiltCard>
-                                    </div>
+                    <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-4">
+                        {steps.map((step, i) => (
+                            <StaggerItem key={step.week} className="flex h-full flex-col">
+                                <div className="relative z-10 mb-5 flex items-center gap-3">
+                                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-line-strong bg-canvas text-white">
+                                        <Icon icon={step.icon} size={22} />
+                                    </span>
+                                    <span className="font-mono text-xs text-white/45">
+                                        {String(i + 1).padStart(2, "0")} · {step.week}
+                                    </span>
                                 </div>
-                            </motion.div>
+                                <Card className="flex-1 p-6">
+                                    <h3 className="text-xl font-semibold tracking-tight text-white">{step.title}</h3>
+                                    <p className="mt-3 text-sm leading-relaxed text-white/55">{step.description}</p>
+                                    <ul className="mt-6 space-y-2.5 border-t border-line pt-5">
+                                        {step.deliverables.map((d) => (
+                                            <li key={d} className="flex items-start gap-2.5 text-sm text-white/70">
+                                                <Icon icon={Tick02Icon} size={16} className="mt-0.5 flex-shrink-0 text-accent" />
+                                                {d}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Card>
+                            </StaggerItem>
                         ))}
-                    </div>
+                    </Stagger>
                 </div>
 
-                {/* Bottom CTA */}
-                <motion.div
-                    className="mt-16 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <p className="text-white/20 text-sm mb-5">Ready to see our process in action?</p>
-                    <button
-                        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/60 text-sm font-medium hover:bg-white/[0.08] hover:text-white hover:border-[#C8FF00]/20 transition-all duration-300 group"
-                    >
-                        Book a Discovery Call
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
-                </motion.div>
+                <div className="mt-12 flex flex-col items-start gap-4 rounded-2xl border border-line p-6 sm:flex-row sm:items-center sm:justify-between md:p-7">
+                    <div>
+                        <p className="text-base font-semibold text-white">Bigger product? Same steps.</p>
+                        <p className="mt-1 text-sm text-white/55">Larger builds follow the same process, with a weekly call and a staging URL throughout.</p>
+                    </div>
+                    <Button onClick={openInquiry} variant="secondary" arrow="right">
+                        Book a discovery call
+                    </Button>
+                </div>
             </div>
         </section>
     );

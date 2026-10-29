@@ -2,7 +2,8 @@
 
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { Icon } from "@/components/ui/icon";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { InquiryForm } from "./inquiry-form";
 
@@ -112,7 +113,7 @@ export function InquiryModal() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
                         onClick={handleAttemptClose}
                     />
 
@@ -127,30 +128,25 @@ export function InquiryModal() {
                             relative z-10 w-full
                             md:max-w-[900px] md:h-[80vh] md:max-h-[80vh] md:rounded-2xl
                             max-md:h-[100dvh] max-md:max-h-[100dvh]
-                            bg-[#0a0a0a]/95 backdrop-blur-2xl
-                            border border-white/[0.06]
-                            shadow-[0_0_80px_-20px_rgba(0,0,0,0.8)]
+                            bg-canvas
+                            md:border md:border-line-strong
                             flex flex-col overflow-hidden
                         "
                     >
-                        {/* Background accents */}
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-[#C8FF00]/[0.02] to-transparent blur-[100px] pointer-events-none rounded-full" />
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#C8FF00]/[0.01] to-transparent blur-[80px] pointer-events-none rounded-full" />
-
                         {/* Header */}
-                        <div className="flex items-center justify-between px-6 sm:px-10 py-5 border-b border-white/[0.06]">
+                        <div className="flex items-center justify-between px-6 sm:px-10 py-5 border-b border-line">
                             <div>
                                 <h2 className="text-white font-bold text-base sm:text-lg">Start Your Project</h2>
-                                <p className="text-white/30 text-xs font-mono tracking-wider uppercase mt-0.5">
-                                    Project Discovery
+                                <p className="text-white/45 text-sm mt-0.5">
+                                    Takes about 2 minutes · Your draft is saved
                                 </p>
                             </div>
                             <button
                                 onClick={handleAttemptClose}
-                                className="p-2 rounded-lg border border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white hover:border-white/[0.12] hover:bg-white/[0.05] transition-all duration-300 cursor-pointer"
+                                className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-white/60 hover:text-white hover:border-line-strong transition-colors cursor-pointer"
                                 aria-label="Close inquiry form"
                             >
-                                <X size={18} />
+                                <Icon icon={Cancel01Icon} size={18} />
                             </button>
                         </div>
 
@@ -175,7 +171,7 @@ export function InquiryModal() {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.25 }}
-                                    className="bg-[#111] border border-white/[0.08] rounded-xl p-6 max-w-sm mx-4 shadow-2xl"
+                                    className="bg-surface border border-line-strong rounded-2xl p-6 max-w-sm mx-4"
                                 >
                                     <h3 className="text-white font-semibold text-base mb-2">Discard progress?</h3>
                                     <p className="text-white/40 text-sm mb-6 font-light leading-relaxed">

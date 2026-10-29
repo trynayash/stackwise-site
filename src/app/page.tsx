@@ -16,10 +16,9 @@ import { JsonLd, faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
 
 // Sections render on the server so the full page is in the HTML for search engines and link previews.
-// The intro loader in LayoutShell only overlays it on a first visit.
 export default function Home() {
     return (
-        <div className="flex flex-col gap-0 pb-20">
+        <div className="flex flex-col">
             <JsonLd data={faqSchema(faqs)} />
             <Hero />
             <Trusted />

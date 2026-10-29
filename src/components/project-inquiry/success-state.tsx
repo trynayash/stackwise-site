@@ -2,7 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowLeft } from "lucide-react";
+import { ArrowLeft01Icon, CheckmarkCircle02Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { Icon } from "@/components/ui/icon";
 
 interface SuccessStateProps {
     onClose: () => void;
@@ -27,9 +28,9 @@ export function SuccessState({ onClose }: SuccessStateProps) {
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                className="w-16 h-16 rounded-full bg-[#C8FF00]/10 border border-[#C8FF00]/20 flex items-center justify-center mb-8"
+                className="w-16 h-16 rounded-full bg-accent text-black flex items-center justify-center mb-8"
             >
-                <CheckCircle size={28} className="text-[#C8FF00]" />
+                <Icon icon={CheckmarkCircle02Icon} size={30} />
             </motion.div>
 
             <motion.h2
@@ -65,7 +66,7 @@ export function SuccessState({ onClose }: SuccessStateProps) {
                         transition={{ delay: 0.6 + idx * 0.1, duration: 0.3 }}
                         className="flex items-center gap-3"
                     >
-                        <span className="text-[#C8FF00] text-xs">✓</span>
+                        <Icon icon={Tick02Icon} size={16} className="text-accent" />
                         <span className="text-white/60 text-sm font-light">{item}</span>
                     </motion.div>
                 ))}
@@ -77,9 +78,9 @@ export function SuccessState({ onClose }: SuccessStateProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.4 }}
                 onClick={onClose}
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white/70 text-sm font-medium hover:bg-white/[0.06] hover:text-white hover:border-white/[0.12] transition-all duration-300 cursor-pointer"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-line-strong text-white/80 text-sm font-medium hover:bg-white/[0.06] hover:text-white hover:border-white/[0.12] transition-all duration-300 cursor-pointer"
             >
-                <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform duration-300" />
+                <Icon icon={ArrowLeft01Icon} size={16} className="group-hover:-translate-x-0.5 transition-transform duration-300" />
                 Back to StackWise
             </motion.button>
         </motion.div>

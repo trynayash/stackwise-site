@@ -41,49 +41,34 @@ function useSlabGeometry() {
     }, []);
 }
 
-/** Soft radial sprite used for the glow under the stack (cheaper than a bloom pass). */
-function useGlowTexture() {
-    return useMemo(() => {
-        const size = 256;
-        const canvas = document.createElement("canvas");
-        canvas.width = canvas.height = size;
-        const ctx = canvas.getContext("2d")!;
-        const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-        g.addColorStop(0, "rgba(200,255,0,0.55)");
-        g.addColorStop(0.35, "rgba(200,255,0,0.16)");
-        g.addColorStop(1, "rgba(200,255,0,0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, size, size);
-        const tex = new THREE.CanvasTexture(canvas);
-        tex.colorSpace = THREE.SRGBColorSpace;
-        return tex;
-    }, []);
-}
-
-/** Small glowing bars on top of each slab, hinting at UI / code living on that layer. */
+/** Thin bars on top of each slab, hinting at the UI or code living on that layer. */
 function LayerDetails({ index }: { index: number }) {
-    const items = useMemo(() => {
-        const rows: { x: number; z: number; w: number; o: number }[] = [];
+    const isTop = index === LAYERS - 1;
+    const rows = useMemo(() => {
+        const out: { x: number; z: number; w: number }[] = [];
         const count = 3 + (index % 3);
         for (let i = 0; i < count; i++) {
             const w = 0.5 + ((index * 7 + i * 13) % 10) / 10;
-            rows.push({ x: -1.1 + w / 2, z: -0.65 + i * 0.32, w, o: 0.25 + (i === 0 ? 0.5 : 0) });
+            out.push({ x: -1.1 + w / 2, z: -0.65 + i * 0.32, w });
         }
-        return rows;
+        return out;
     }, [index]);
 
     return (
         <group position={[0, SLAB.h / 2 + 0.035, 0]}>
-            {items.map((it, i) => (
+            {rows.map((it, i) => (
                 <mesh key={i} position={[it.x, 0, it.z]} rotation={[-Math.PI / 2, 0, 0]}>
                     <planeGeometry args={[it.w, 0.07]} />
-                    <meshBasicMaterial color={LIME} transparent opacity={it.o} toneMapped={false} />
+                    <meshBasicMaterial
+                        color={isTop ? "#000000" : i === 0 ? LIME : "#ffffff"}
+                        transparent
+                        opacity={isTop ? 0.35 : i === 0 ? 0.85 : 0.18}
+                    />
                 </mesh>
             ))}
-            {/* a little "card" tile on the right of each layer */}
             <mesh position={[0.95, 0, 0.1]} rotation={[-Math.PI / 2, 0, 0]}>
                 <planeGeometry args={[0.8, 0.9]} />
-                <meshBasicMaterial color={index === LAYERS - 1 ? "#000000" : LIME} transparent opacity={index === LAYERS - 1 ? 0.35 : 0.07} toneMapped={false} />
+                <meshBasicMaterial color={isTop ? "#000000" : "#ffffff"} transparent opacity={isTop ? 0.2 : 0.06} />
             </mesh>
         </group>
     );
@@ -92,32 +77,11 @@ function LayerDetails({ index }: { index: number }) {
 function Stack({ progress, pointer }: { progress: React.RefObject<number>; pointer: React.RefObject<{ x: number; y: number }> }) {
     const group = useRef<THREE.Group>(null);
     const layers = useRef<(THREE.Group | null)[]>([]);
-    const glow = useRef<THREE.Mesh>(null);
     const { geo, edges } = useSlabGeometry();
-    const glowTex = useGlowTexture();
 
-    const bodyMaterial = useMemo(
-        () =>
-            new THREE.MeshStandardMaterial({
-                color: "#121410",
-                metalness: 0.65,
-                roughness: 0.28,
-                envMapIntensity: 0.6,
-            }),
-        []
-    );
-    const topMaterial = useMemo(
-        () =>
-            new THREE.MeshStandardMaterial({
-                color: "#C8FF00",
-                emissive: "#7a9c00",
-                emissiveIntensity: 0.55,
-                metalness: 0.3,
-                roughness: 0.35,
-            }),
-        []
-    );
-    const edgeMaterial = useMemo(() => new THREE.LineBasicMaterial({ color: LIME, transparent: true, opacity: 0.55 }), []);
+    const bodyMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#171717", metalness: 0.35, roughness: 0.55 }), []);
+    const topMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#C8FF00", metalness: 0.05, roughness: 0.6 }), []);
+    const edgeMaterial = useMemo(() => new THREE.LineBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.16 }), []);
 
     useFrame((state, delta) => {
         const t = state.clock.elapsedTime;
@@ -127,83 +91,29 @@ function Stack({ progress, pointer }: { progress: React.RefObject<number>; point
         if (!g) return;
 
         // Slow idle spin, steered by the cursor.
-        g.rotation.y = THREE.MathUtils.damp(g.rotation.y, -0.6 + t * 0.08 + pt.x * 0.45, 3, delta);
-        g.rotation.x = THREE.MathUtils.damp(g.rotation.x, 0.42 + pt.y * 0.18, 3, delta);
+        g.rotation.y = THREE.MathUtils.damp(g.rotation.y, -0.6 + t * 0.06 + pt.x * 0.35, 3, delta);
+        g.rotation.x = THREE.MathUtils.damp(g.rotation.x, 0.42 + pt.y * 0.12, 3, delta);
 
         // Layers breathe apart, and spread further as the page scrolls.
-        const spread = 0.42 + Math.sin(t * 0.9) * 0.04 + p * 0.9;
+        const spread = 0.42 + Math.sin(t * 0.8) * 0.03 + p * 0.9;
         layers.current.forEach((layer, i) => {
             if (!layer) return;
-            const targetY = (i - (LAYERS - 1) / 2) * spread + Math.sin(t * 1.2 + i * 0.7) * 0.035;
+            const targetY = (i - (LAYERS - 1) / 2) * spread + Math.sin(t * 1.1 + i * 0.7) * 0.03;
             layer.position.y = THREE.MathUtils.damp(layer.position.y, targetY, 4, delta);
-            layer.rotation.y = THREE.MathUtils.damp(layer.rotation.y, Math.sin(t * 0.5 + i) * 0.05 + p * (i - 2) * 0.12, 3, delta);
+            layer.rotation.y = THREE.MathUtils.damp(layer.rotation.y, Math.sin(t * 0.5 + i) * 0.04 + p * (i - 2) * 0.12, 3, delta);
         });
-
-        if (glow.current) {
-            const s = 7 + Math.sin(t * 1.4) * 0.4;
-            glow.current.scale.set(s, s, 1);
-        }
     });
 
     return (
         <group ref={group} position={[0, -0.1, 0]}>
-            {Array.from({ length: LAYERS }).map((_, i) => {
-                const isTop = i === LAYERS - 1;
-                return (
-                    <group key={i} ref={(el) => { layers.current[i] = el; }} position={[0, (i - 2) * 0.42, 0]}>
-                        <mesh geometry={geo} material={isTop ? topMaterial : bodyMaterial} castShadow />
-                        <lineSegments geometry={edges} material={edgeMaterial} />
-                        <LayerDetails index={i} />
-                    </group>
-                );
-            })}
-
-            {/* Vertical data rails at the corners, linking the layers */}
-            {[
-                [-SLAB.w / 2 + 0.25, -SLAB.d / 2 + 0.25],
-                [SLAB.w / 2 - 0.25, SLAB.d / 2 - 0.25],
-            ].map(([x, z], i) => (
-                <mesh key={i} position={[x, 0, z]}>
-                    <cylinderGeometry args={[0.012, 0.012, 4.2, 6]} />
-                    <meshBasicMaterial color={LIME} transparent opacity={0.35} toneMapped={false} />
-                </mesh>
+            {Array.from({ length: LAYERS }).map((_, i) => (
+                <group key={i} ref={(el) => { layers.current[i] = el; }} position={[0, (i - 2) * 0.42, 0]}>
+                    <mesh geometry={geo} material={i === LAYERS - 1 ? topMaterial : bodyMaterial} />
+                    <lineSegments geometry={edges} material={edgeMaterial} />
+                    <LayerDetails index={i} />
+                </group>
             ))}
-
-            <mesh ref={glow} position={[0, -1.6, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-                <planeGeometry args={[1, 1]} />
-                <meshBasicMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
-            </mesh>
         </group>
-    );
-}
-
-function Particles({ count }: { count: number }) {
-    const ref = useRef<THREE.Points>(null);
-    const positions = useMemo(() => {
-        const arr = new Float32Array(count * 3);
-        for (let i = 0; i < count; i++) {
-            // Deterministic pseudo-random so renders are stable.
-            const a = (i * 2.399963) % (Math.PI * 2);
-            const r = 2.6 + ((i * 7919) % 1000) / 1000 * 2.2;
-            const y = (((i * 104729) % 1000) / 1000 - 0.5) * 4.5;
-            arr[i * 3] = Math.cos(a) * r;
-            arr[i * 3 + 1] = y;
-            arr[i * 3 + 2] = Math.sin(a) * r;
-        }
-        return arr;
-    }, [count]);
-
-    useFrame((_, delta) => {
-        if (ref.current) ref.current.rotation.y += delta * 0.05;
-    });
-
-    return (
-        <points ref={ref}>
-            <bufferGeometry>
-                <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-            </bufferGeometry>
-            <pointsMaterial color={LIME} size={0.025} sizeAttenuation transparent opacity={0.7} depthWrite={false} toneMapped={false} />
-        </points>
     );
 }
 
@@ -264,13 +174,11 @@ export default function StackScene({ className }: { className?: string }) {
                 camera={{ fov: 35, near: 0.1, far: 100, position: [0, 1.4, 8.6] }}
             >
                 <ResponsiveCamera />
-                <ambientLight intensity={0.35} />
-                <directionalLight position={[4, 6, 5]} intensity={1.6} color="#ffffff" />
-                <directionalLight position={[-6, 2, -4]} intensity={0.8} color="#C8FF00" />
-                <pointLight position={[0, -2.5, 0]} intensity={14} distance={8} color="#C8FF00" />
-                <hemisphereLight args={["#e9ffd0", "#050505", 0.4]} />
+                <ambientLight intensity={0.55} />
+                <directionalLight position={[4, 6, 5]} intensity={1.8} color="#ffffff" />
+                <directionalLight position={[-5, 3, -4]} intensity={0.5} color="#ffffff" />
+                <hemisphereLight args={["#ffffff", "#0a0a0a", 0.35]} />
                 <Stack progress={progress} pointer={pointer} />
-                <Particles count={isSmall ? 220 : 480} />
             </Canvas>
         </div>
     );

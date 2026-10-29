@@ -13,7 +13,6 @@ export type Project = {
     category: ProjectCategory;
     summary: string;
     image: string;
-    coverImage?: string;
     tech: string[];
     metrics: { label: string; value: string }[];
     featured?: boolean;
@@ -27,7 +26,6 @@ export const projects: Project[] = [
         category: "Web Apps",
         summary: "A service for metering API usage and enforcing per-customer quotas, with SDKs for JavaScript, Go and Python.",
         image: "/projects/limityourapi.png",
-        coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2670&auto=format&fit=crop",
         tech: ["Go", "Redis", "PostgreSQL", "React", "Cloudflare Workers", "Docker"],
         metrics: [{ label: "Backend", value: "Go" }, { label: "Quota Store", value: "Redis" }],
         featured: true,
@@ -55,7 +53,6 @@ export const projects: Project[] = [
         category: "Web Apps",
         summary: "A tool that helps founders check a startup idea: it scores the idea, sizes the market with stated assumptions and finds competitors.",
         image: "/projects/startupdeck.png",
-        coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
         tech: ["React", "Node.js", "Express", "PostgreSQL", "Redis", "pgvector"],
         metrics: [{ label: "Frontend", value: "React" }, { label: "API", value: "Express" }],
         featured: true,
@@ -83,7 +80,6 @@ export const projects: Project[] = [
         category: "Web Apps",
         summary: "A learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.",
         image: "/projects/codefusionai.webp",
-        coverImage: "https://images.unsplash.com/photo-1618401471353-b98aedd07871?q=80&w=2670&auto=format&fit=crop",
         tech: ["React", "TypeScript", "Supabase", "Monaco Editor"],
         metrics: [{ label: "Editor", value: "Monaco" }, { label: "Backend", value: "Supabase" }],
         featured: true,
@@ -111,7 +107,6 @@ export const projects: Project[] = [
         category: "Web Apps",
         summary: "A web app that turns a short prompt into a longer, structured prompt using role-based templates for writers, designers, developers and marketers.",
         image: "/projects/promptp-square.png",
-        coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2670&auto=format&fit=crop",
         tech: ["React", "TypeScript", "Express", "Clerk"],
         metrics: [{ label: "Engine", value: "Rule-based" }, { label: "Auth", value: "Clerk" }],
         featured: true,
@@ -139,7 +134,6 @@ export const projects: Project[] = [
         category: "Design & SEO",
         summary: "How this studio site is built.",
         image: "/projects/stackwise-platform.png",
-        coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop",
         tech: ["Next.js", "TypeScript", "TailwindCSS v4", "Framer Motion", "GSAP"],
         metrics: [{ label: "Framework", value: "Next.js" }, { label: "Forms", value: "Zod" }],
         featured: true,
@@ -167,67 +161,67 @@ export const technologies = [
   {
     name: "Go",
     description: "High-concurrency systems",
-    icon: "https://cdn.simpleicons.org/go/00ADD8"
+    icon: "/logos/tech/go.svg"
   },
   {
     name: "Redis",
     description: "In-memory caches & queues",
-    icon: "https://cdn.simpleicons.org/redis/DC382D"
+    icon: "/logos/tech/redis.svg"
   },
   {
     name: "Docker",
     description: "Containers for local services",
-    icon: "https://cdn.simpleicons.org/docker/2496ED"
+    icon: "/logos/tech/docker.svg"
   },
   {
     name: "Python",
     description: "Machine learning & scripting",
-    icon: "https://cdn.simpleicons.org/python/3776AB"
+    icon: "/logos/tech/python.svg"
   },
   {
     name: "GraphQL",
     description: "Declarative client API querying",
-    icon: "https://cdn.simpleicons.org/graphql/E10098"
+    icon: "/logos/tech/graphql.svg"
   },
   {
     name: "Nginx",
     description: "Reverse proxy load balancing",
-    icon: "https://cdn.simpleicons.org/nginx/009639"
+    icon: "/logos/tech/nginx.svg"
   },
   {
     name: "Linux",
     description: "Servers and development",
-    icon: "https://cdn.simpleicons.org/linux/FCC624"
+    icon: "/logos/tech/linux.svg"
   },
   {
     name: "WebSockets",
     description: "Real-time state synchronization",
-    icon: "https://cdn.simpleicons.org/socketdotio/010101"
+    icon: "/logos/tech/socketdotio.svg"
   },
   {
     name: "Stripe",
     description: "Usage metrics billing gateways",
-    icon: "https://cdn.simpleicons.org/stripe/635BFF"
+    icon: "/logos/tech/stripe.svg"
   },
   {
     name: "Figma",
     description: "UI design & wireframing systems",
-    icon: "https://cdn.simpleicons.org/figma/F24E1E"
+    icon: "/logos/tech/figma.svg"
   },
   {
     name: "Vercel",
     description: "Serverless & static hosting edge",
-    icon: "https://cdn.simpleicons.org/vercel/000000"
+    icon: "/logos/tech/vercel.svg"
   },
   {
     name: "MongoDB",
     description: "Flexible document database",
-    icon: "https://cdn.simpleicons.org/mongodb/47A248"
+    icon: "/logos/tech/mongodb.svg"
   },
   {
     name: "Git",
     description: "Distributed version control",
-    icon: "https://cdn.simpleicons.org/git/F05032"
+    icon: "/logos/tech/git.svg"
   }
 ];
 

@@ -1,57 +1,36 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
-import { useMediaQuery } from "@/hooks/use-media-query";
 
 const logos = [
-    { src: "/logos/nextjs.svg", name: "Next.js" },
-    { src: "/logos/react.svg", name: "React" },
-    { src: "/logos/tailwindcss.svg", name: "TailwindCSS" },
-    { src: "/logos/typescript.svg", name: "TypeScript" },
-    { src: "/logos/nodejs.svg", name: "Node.js" },
-    { src: "/logos/mongodb.svg", name: "MongoDB" },
-    { src: "/logos/postgresql.svg", name: "PostgreSQL" },
-    { src: "/logos/aws.svg", name: "AWS" },
-    { src: "/logos/figma.svg", name: "Figma" },
-    { src: "/logos/stripe.svg", name: "Stripe" },
+    { src: "/logos/tech/nextdotjs.svg", name: "Next.js" },
+    { src: "/logos/tech/react.svg", name: "React" },
+    { src: "/logos/tech/typescript.svg", name: "TypeScript" },
+    { src: "/logos/tech/nodedotjs.svg", name: "Node.js" },
+    { src: "/logos/tech/postgresql.svg", name: "PostgreSQL" },
+    { src: "/logos/tech/mongodb.svg", name: "MongoDB" },
+    { src: "/logos/tech/aws.svg", name: "AWS" },
+    { src: "/logos/tech/stripe.svg", name: "Stripe" },
+    { src: "/logos/tech/tailwindcss.svg", name: "Tailwind CSS" },
+    { src: "/logos/tech/figma.svg", name: "Figma" },
 ];
 
 export function Trusted() {
-    const isMobile = useMediaQuery("(max-width: 768px)");
-
     return (
-        <section className="py-16 relative z-10 border-y border-white/5" aria-label="Our Technology Stack">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                    <span className="text-[10px] font-mono text-white/20 tracking-[0.2em] uppercase whitespace-nowrap flex-shrink-0">
-                        Our Stack
-                    </span>
-
-                    {/* Seamless Marquee */}
-                    <div className="relative w-full overflow-hidden">
-                        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10" />
-                        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10" />
-
-                        <motion.div
-                            className="flex items-center gap-12 md:gap-32 whitespace-nowrap"
-                            animate={{ x: ["0%", "-50%"] }}
-                            transition={{ duration: isMobile ? 10 : 20, ease: "linear", repeat: Infinity }}
-                        >
-                            {[...logos, ...logos].map((logo, i) => (
-                                <React.Fragment key={`${logo.name}-${i}`}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src={logo.src}
-                                        alt={logo.name}
-                                        className="h-10 md:h-12 w-auto object-contain opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 flex-shrink-0"
-                                        loading="lazy"
-                                        draggable={false}
-                                    />
-                                </React.Fragment>
-                            ))}
-                        </motion.div>
-                    </div>
+        <section className="relative py-16 md:py-20" aria-label="Technologies we build with">
+            <div className="container mx-auto px-5 sm:px-6">
+                <p className="mb-8 text-center text-sm text-white/45">Built on modern, proven technology</p>
+                <div
+                    className="relative overflow-hidden"
+                    style={{ maskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)" }}
+                >
+                    <ul className="marquee items-center" style={{ ["--marquee-duration" as string]: "45s" } as React.CSSProperties}>
+                        {[...logos, ...logos].map((logo, i) => (
+                            <li key={`${logo.name}-${i}`} className="flex flex-shrink-0 items-center gap-3 px-8 md:px-12" aria-hidden={i >= logos.length}>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={logo.src} alt="" className="h-6 w-6 object-contain opacity-60" loading="lazy" draggable={false} />
+                                <span className="whitespace-nowrap text-base font-medium text-white/55">{logo.name}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </section>

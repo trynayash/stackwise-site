@@ -1,119 +1,73 @@
-"use client";
+import React from "react";
+import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { Reveal, SectionHeader } from "@/components/ui/motion-primitives";
+import { ButtonLink } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
+import { siteConfig } from "@/config/site";
 
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { SectionHeader } from "@/components/ui/motion-primitives";
-import { Code2, Mail, Award, Briefcase, Clock } from "lucide-react";
-
-const stats = [
-    { icon: Briefcase, value: "IP Transfer", label: "Full Code Ownership" },
-    { icon: Clock, value: "TypeScript/Go", label: "Modern Architecture" },
-    { icon: Award, value: "Support", label: "After Launch" },
+const facts = [
+    { label: "Role", value: "Founder & lead engineer" },
+    { label: "Main stack", value: "Next.js · TypeScript · Go" },
+    { label: "Every project", value: "Full code & IP handover" },
 ];
 
 export function Founder() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
-
     return (
-        <section id="founder" className="py-20 md:py-32 relative z-10" aria-label="Meet the Founder" ref={sectionRef}>
+        <section id="founder" className="relative py-20 md:py-28" aria-label="About the founder">
             <div className="container mx-auto px-5 sm:px-6">
+                <SectionHeader index="08" eyebrow="About" title="Meet the engineer" muted="behind StackWise." />
 
-                <SectionHeader
-                    eyebrow="Faces behind the code"
-                    title="Meet the engineer"
-                    muted="behind StackWise."
-                />
-
-                {/* Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-
-                    {/* Left: Photo */}
-                    <motion.div
-                        className="lg:col-span-5"
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.7, delay: 0.15 }}
-                    >
-                        <div className="relative group">
-                            {/* Glow behind image */}
-                            <div className="absolute -inset-4 bg-gradient-to-br from-[#C8FF00]/10 via-transparent to-[#C8FF00]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-                            <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] group-hover:border-[#C8FF00]/20 transition-all duration-500">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                    src="/founder-portrait.webp"
-                                    alt="Yash Suthar — Founder of StackWise"
-                                    className="w-full h-auto object-cover aspect-[3/4] transition-transform duration-700 group-hover:scale-[1.02]"
-                                    loading="lazy"
-                                />
-                                {/* Overlay gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-transparent to-transparent opacity-60" />
-
-                                {/* Name overlay */}
-                                <div className="absolute bottom-0 left-0 right-0 p-6">
-                                    <h3 className="text-2xl font-bold text-white mb-1">Yash Suthar</h3>
-                                    <p className="text-[#C8FF00]/80 text-sm font-mono">Founder & Lead Engineer</p>
+                <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
+                    <Reveal className="lg:col-span-5">
+                        <figure className="overflow-hidden rounded-2xl border border-line bg-surface">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/founder-portrait.webp"
+                                alt="Yash Suthar, founder of StackWise"
+                                className="aspect-[4/5] w-full object-cover"
+                                width={640}
+                                height={640}
+                                loading="lazy"
+                            />
+                            <figcaption className="flex items-center justify-between border-t border-line p-5">
+                                <div>
+                                    <p className="text-lg font-semibold text-white">Yash Suthar</p>
+                                    <p className="text-sm text-white/50">Founder, StackWise</p>
                                 </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                                <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
+                            </figcaption>
+                        </figure>
+                    </Reveal>
 
-                    {/* Right: Content */}
-                    <motion.div
-                        className="lg:col-span-7"
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.7, delay: 0.3 }}
-                    >
-                        <div className="space-y-6">
-                            <div className="flex items-center gap-3 mb-2">
-                                <div className="w-10 h-10 rounded-full bg-[#C8FF00]/10 border border-[#C8FF00]/20 flex items-center justify-center">
-                                    <Code2 size={18} className="text-[#C8FF00]" />
+                    <Reveal delay={0.1} className="lg:col-span-7">
+                        <blockquote className="text-2xl font-medium leading-snug tracking-tight text-white md:text-[2rem] md:leading-[1.3] text-balance">
+                            &ldquo;Every line of code should serve a clear business outcome — faster systems, happier users and less manual work.&rdquo;
+                        </blockquote>
+
+                        <div className="mt-8 space-y-4 text-base leading-relaxed text-white/60">
+                            <p>
+                                I started StackWise to build fast, well-made web products. I work on each project myself, from the architecture plan to the
+                                final performance check.
+                            </p>
+                            <p>My main stack is Next.js, TypeScript and Tailwind. I write custom code instead of using WordPress templates.</p>
+                        </div>
+
+                        <dl className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+                            {facts.map((f) => (
+                                <div key={f.label} className="bg-canvas p-5">
+                                    <dt className="text-xs uppercase tracking-[0.16em] text-white/40">{f.label}</dt>
+                                    <dd className="mt-2 text-[15px] font-medium text-white">{f.value}</dd>
                                 </div>
-                                <span className="text-white/40 text-xs font-mono tracking-wider uppercase">Philosophy</span>
-                            </div>
+                            ))}
+                        </dl>
 
-                            <blockquote className="text-white/70 text-lg md:text-xl leading-[1.8] font-light border-l-2 border-[#C8FF00]/30 pl-6">
-                                &quot;I believe every line of code should serve a clear business outcome — faster systems, happier users and less manual work.&quot;
-                            </blockquote>
-
-                            <p className="text-white/40 text-sm leading-[1.8]">
-                                I started StackWise to build fast, well-made web products. I work on each project myself, from the architecture plan to the final performance check.
-                            </p>
-
-                            <p className="text-white/40 text-sm leading-[1.8]">
-                                My main stack is Next.js, TypeScript and Tailwind. I write custom code instead of using WordPress templates.
-                            </p>
-
-                            {/* Stats */}
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 pt-6 border-t border-white/[0.06]">
-                                {stats.map((stat, i) => (
-                                    <motion.div
-                                        key={stat.label}
-                                        className="text-center"
-                                        initial={{ opacity: 0, y: 15 }}
-                                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                        transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
-                                    >
-                                        <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</p>
-                                        <p className="text-white/20 text-[10px] font-mono tracking-wider uppercase">{stat.label}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-
-                            {/* Links */}
-                            <div className="flex items-center gap-4 pt-4">
-                                <a
-                                    href="mailto:yashrsuthar90@gmail.com"
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/50 text-sm hover:text-[#C8FF00] hover:border-[#C8FF00]/20 transition-all duration-300"
-                                >
-                                    <Mail size={16} />
-                                    Email Directly
-                                </a>
-                            </div>
+                        <div className="mt-8">
+                            <ButtonLink href={`mailto:${siteConfig.emails.inbound}`} variant="secondary">
+                                <Icon icon={Mail01Icon} size={18} />
+                                Email Yash directly
+                            </ButtonLink>
                         </div>
-                    </motion.div>
+                    </Reveal>
                 </div>
             </div>
         </section>

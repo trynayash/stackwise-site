@@ -12,13 +12,13 @@ export const siteConfig = {
         twitter: "https://twitter.com/stackwise",
         github: "https://github.com/trynayash/Stackwise",
     },
+    /** Primary navigation. `id` is the home-page section each item scrolls to. */
     navItems: [
-        { title: "Home", href: "#hero", index: "01" },
-        { title: "Services", href: "#services", index: "02" },
-        { title: "Work", href: "#portfolio", index: "03" },
-        { title: "Pricing", href: "#pricing", index: "04" },
-        { title: "About", href: "#founder", index: "05" },
-        { title: "Contact", href: "#contact", index: "06" },
+        { title: "Work", id: "portfolio" },
+        { title: "Process", id: "process" },
+        { title: "Pricing", id: "pricing" },
+        { title: "About", id: "founder" },
+        { title: "FAQ", id: "faq" },
     ],
     pricing: [
         {

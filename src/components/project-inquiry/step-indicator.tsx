@@ -17,7 +17,7 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
             {/* Progress bar */}
             <div className="h-[2px] w-full bg-white/[0.06] rounded-full overflow-hidden mb-6">
                 <motion.div
-                    className="h-full bg-[#C8FF00]"
+                    className="h-full bg-accent"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
@@ -35,9 +35,9 @@ export function StepIndicator({ currentStep, totalSteps, labels }: StepIndicator
                                 className={`
                                     w-6 h-6 rounded-full text-[10px] font-mono flex items-center justify-center transition-all duration-400
                                     ${isActive
-                                        ? "bg-[#C8FF00]/15 text-[#C8FF00] border border-[#C8FF00]/30"
+                                        ? "bg-white text-black border border-white"
                                         : isCompleted
-                                            ? "bg-[#C8FF00]/10 text-[#C8FF00]/60 border border-[#C8FF00]/10"
+                                            ? "bg-accent text-black border border-accent"
                                             : "bg-white/[0.03] text-white/20 border border-white/[0.06]"
                                     }
                                 `}

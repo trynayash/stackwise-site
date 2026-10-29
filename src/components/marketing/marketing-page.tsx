@@ -1,12 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight, Check, ChevronRight, Plus } from "lucide-react";
-import { TiltCard } from "@/components/ui/tilt-card";
-import { Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { ArrowRight01Icon, ArrowUpRight01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { Card, IconTile } from "@/components/ui/card";
+import { Icon } from "@/components/ui/icon";
+import { ButtonLink } from "@/components/ui/button";
+import { FaqList } from "@/components/ui/faq-list";
+import { Eyebrow, Reveal, SectionHeader, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { CtaBand } from "@/components/sections/cta-band";
+import { ProjectCard } from "@/components/sections/portfolio";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { marketingPages, marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
+import { projects } from "@/lib/data";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 
@@ -19,65 +24,38 @@ export function marketingMetadata(page: MarketingPageData): Metadata {
     });
 }
 
-/** Rings of the page's feature icons orbiting a glowing core — pure CSS, so it renders on the server. */
-function OrbitVisual({ page }: { page: MarketingPageData }) {
-    const CoreIcon = page.icon;
-    const rings = [
-        { size: 56, duration: "26s", items: page.features.slice(0, 3) },
-        { size: 88, duration: "38s", items: page.features.slice(3, 6) },
-    ];
-
+export function Breadcrumbs({ items }: { items: { name: string; href?: string }[] }) {
     return (
-        <div className="relative mx-auto aspect-square w-full max-w-[460px]" aria-hidden="true">
-            <div className="absolute inset-[18%] rounded-full bg-[#C8FF00]/15 blur-[70px]" />
-            <div className="orbit-scene absolute inset-0" style={{ transform: "perspective(900px) rotateX(58deg)" }}>
-                {rings.map((ring, r) => (
-                    <div
-                        key={r}
-                        className="orbit-ring absolute left-1/2 top-1/2 rounded-full border border-dashed border-[#C8FF00]/25"
-                        style={{
-                            width: `${ring.size}%`,
-                            height: `${ring.size}%`,
-                            marginLeft: `-${ring.size / 2}%`,
-                            marginTop: `-${ring.size / 2}%`,
-                            ["--orbit-duration" as string]: ring.duration,
-                        } as React.CSSProperties}
-                    >
-                        {ring.items.map((item, i) => {
-                            const angle = (i / ring.items.length) * Math.PI * 2;
-                            return (
-                                <div
-                                    key={item.title}
-                                    className="orbit-item absolute h-12 w-12 -ml-6 -mt-6"
-                                    style={{ left: `${50 + Math.cos(angle) * 50}%`, top: `${50 + Math.sin(angle) * 50}%`, ["--orbit-duration" as string]: ring.duration } as React.CSSProperties}
-                                >
-                                    <div style={{ transform: "rotateX(-58deg)" }} className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-[#0c0c0c]/90 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.9)] backdrop-blur">
-                                        <item.icon size={20} className="text-[#C8FF00]" />
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+        <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex flex-wrap items-center gap-2 text-sm text-white/45">
+                {items.map((item, i) => (
+                    <li key={item.name} className="flex items-center gap-2">
+                        {i > 0 && <Icon icon={ArrowRight01Icon} size={14} className="text-white/25" />}
+                        {item.href ? (
+                            <Link href={item.href} className="transition-colors hover:text-white">{item.name}</Link>
+                        ) : (
+                            <span className="text-white/75" aria-current="page">{item.name}</span>
+                        )}
+                    </li>
                 ))}
-            </div>
-            <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border border-[#C8FF00]/50 bg-gradient-to-br from-[#C8FF00] to-[#9EFF00] shadow-[0_0_80px_rgba(200,255,0,0.45)]" style={{ animation: "floatY 5s ease-in-out infinite" }}>
-                <CoreIcon size={40} className="text-black" strokeWidth={1.8} />
-            </div>
-        </div>
+            </ol>
+        </nav>
     );
 }
 
 export function MarketingPage({ page }: { page: MarketingPageData }) {
     const related = page.related.map((path) => Object.values(marketingPages).find((p) => p.path === path)).filter(Boolean) as MarketingPageData[];
+    const work = page.work.map((id) => projects.find((p) => p.id === id)).filter((p) => p?.caseStudy) as (typeof projects)[number][];
+    const hubPath = `/${page.kind.toLowerCase()}`;
 
     return (
-        <div className="relative overflow-hidden">
+        <div className="relative">
             <JsonLd
                 data={[
                     serviceSchema({ name: page.seo.title, description: page.seo.description, path: page.path, serviceType: page.serviceType }),
                     breadcrumbSchema([
                         { name: "Home", path: "/" },
-                        { name: page.kind, path: `/${page.kind.toLowerCase()}` },
+                        { name: page.kind, path: hubPath },
                         { name: page.navLabel, path: page.path },
                     ]),
                     faqSchema(page.faqs),
@@ -85,149 +63,150 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             />
 
             {/* ─── Hero ─── */}
-            <section className="relative pt-28 md:pt-36 pb-16 md:pb-24">
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="aurora" />
-                    <div className="absolute inset-0 grid-backdrop" />
-                </div>
-
+            <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
+                <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
-                    <nav aria-label="Breadcrumb" className="mb-10">
-                        <ol className="flex flex-wrap items-center gap-1.5 text-xs font-mono text-white/35">
-                            <li><Link href="/" className="hover:text-[#C8FF00] transition-colors">Home</Link></li>
-                            <li aria-hidden><ChevronRight size={12} /></li>
-                            <li><Link href={`/${page.kind.toLowerCase()}`} className="hover:text-[#C8FF00] transition-colors">{page.kind}</Link></li>
-                            <li aria-hidden><ChevronRight size={12} /></li>
-                            <li className="text-white/60" aria-current="page">{page.navLabel}</li>
-                        </ol>
-                    </nav>
+                    <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: page.kind, href: hubPath }, { name: page.navLabel }]} />
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-7">
-                            <Reveal>
-                                <span className="inline-flex items-center gap-2 rounded-full border border-[#C8FF00]/25 bg-[#C8FF00]/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-[#C8FF00]">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] animate-pulse" />
-                                    {page.badge}
-                                </span>
+                            <Reveal y={12} className="flex items-center gap-3">
+                                <IconTile size="sm">
+                                    <Icon icon={page.icon} size={18} />
+                                </IconTile>
+                                <Eyebrow>{page.badge}</Eyebrow>
                             </Reveal>
-                            <h1 className="mt-6 mb-7 text-[2.5rem] leading-[1.03] sm:text-6xl lg:text-7xl font-bold tracking-[-0.04em] text-white text-balance">
+                            <h1 className="mt-7 text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
                                 <WordReveal text={page.titleTop} immediate />{" "}
-                                <WordReveal
-                                    text={page.titleAccent}
-                                    immediate
-                                    delay={0.2}
-                                    wordClassName="bg-gradient-to-r from-[#C8FF00] via-[#dfff6b] to-[#9EFF00] bg-clip-text text-transparent"
-                                />
+                                <WordReveal text={page.titleAccent} immediate delay={0.15} className="text-white/40" />
                             </h1>
-                            <Reveal delay={0.3}>
-                                <p className="max-w-2xl text-base md:text-lg text-white/55 font-light leading-relaxed mb-9">{page.intro}</p>
+                            <Reveal delay={0.25}>
+                                <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/60 text-pretty">{page.intro}</p>
                             </Reveal>
-                            <Reveal delay={0.4} className="flex flex-col sm:flex-row gap-3 sm:items-center">
-                                <QuoteButton className="w-full sm:w-auto" />
-                                <Link
-                                    href="/#pricing"
-                                    className="inline-flex h-14 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-8 text-base font-semibold text-white/80 hover:text-white hover:border-white/25 transition-colors"
-                                >
+                            <Reveal delay={0.35} className="mt-10 flex flex-col gap-3 sm:flex-row">
+                                <QuoteButton />
+                                <ButtonLink href="/#pricing" variant="secondary" size="lg">
                                     See pricing
-                                </Link>
+                                </ButtonLink>
                             </Reveal>
                         </div>
-                        <div className="lg:col-span-5">
-                            <OrbitVisual page={page} />
-                        </div>
+
+                        {/* At a glance */}
+                        <Reveal delay={0.3} className="lg:col-span-5">
+                            <div className="rounded-2xl border border-line bg-surface">
+                                <p className="border-b border-line px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white/45">At a glance</p>
+                                <dl className="divide-y divide-line">
+                                    {page.facts.map((f) => (
+                                        <div key={f.label} className="flex items-baseline justify-between gap-6 px-6 py-4">
+                                            <dt className="text-sm text-white/50">{f.label}</dt>
+                                            <dd className="text-right text-[15px] font-medium text-white">{f.value}</dd>
+                                        </div>
+                                    ))}
+                                </dl>
+                                <p className="border-t border-line px-6 py-4 text-sm text-white/45">Free consultation · We reply within 24–48 hours</p>
+                            </div>
+                        </Reveal>
                     </div>
                 </div>
             </section>
 
-            {/* ─── Features ─── */}
-            <section className="relative py-16 md:py-24" aria-labelledby="features-heading">
+            {/* ─── What's included ─── */}
+            <section className="relative py-16 md:py-24" aria-labelledby="included">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <Reveal className="mb-12 max-w-2xl">
-                        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#C8FF00]">What&apos;s included</span>
-                        <h2 id="features-heading" className="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-white">
-                            Everything you need, <span className="text-white/30">built properly.</span>
-                        </h2>
-                    </Reveal>
-                    <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-                        {page.features.map((feat, i) => (
-                            <StaggerItem key={feat.title}>
-                                <TiltCard className="p-7">
-                                    <div className="flex items-start justify-between mb-8">
-                                        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#C8FF00]/20 bg-gradient-to-br from-[#C8FF00]/20 to-[#C8FF00]/5 group-hover:shadow-[0_0_30px_-5px_rgba(200,255,0,0.5)] transition-shadow">
-                                            <feat.icon size={20} className="text-[#C8FF00]" />
-                                        </div>
-                                        <span className="text-4xl font-bold text-white/[0.05] group-hover:text-[#C8FF00]/15 transition-colors">{String(i + 1).padStart(2, "0")}</span>
-                                    </div>
-                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#C8FF00] transition-colors">{feat.title}</h3>
-                                    <p className="text-sm text-white/50 leading-relaxed">{feat.description}</p>
-                                </TiltCard>
+                    <SectionHeader index="01" eyebrow="What's included" title="Everything you need," muted="built properly." />
+                    <Stagger className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+                        {page.features.map((feat) => (
+                            <StaggerItem key={feat.title} className="bg-canvas">
+                                <div className="h-full p-7 md:p-8">
+                                    <Icon icon={feat.icon} size={24} className="text-white" />
+                                    <h3 className="mt-8 text-lg font-semibold text-white">{feat.title}</h3>
+                                    <p className="mt-2 text-sm leading-relaxed text-white/55">{feat.description}</p>
+                                </div>
                             </StaggerItem>
                         ))}
                     </Stagger>
                 </div>
             </section>
 
-            {/* ─── Ideal for + Deliverables ─── */}
-            <section className="relative py-16 md:py-24">
-                <div className="container mx-auto px-5 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    <Reveal>
-                        <div className="h-full rounded-3xl border border-white/[0.07] bg-white/[0.02] p-7 md:p-10">
-                            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/35">A great fit if you are</span>
-                            <ul className="mt-7 space-y-5">
+            {/* ─── Fit + deliverables ─── */}
+            <section className="relative py-16 md:py-24" aria-label="Who it's for and what you get">
+                <div className="container mx-auto grid grid-cols-1 gap-5 px-5 sm:px-6 lg:grid-cols-12">
+                    <Reveal className="lg:col-span-5">
+                        <Card className="h-full p-7 md:p-9">
+                            <Eyebrow index="02">A great fit if you are</Eyebrow>
+                            <ul className="mt-8 space-y-5">
                                 {page.idealFor.map((item) => (
-                                    <li key={item} className="flex items-start gap-4 text-lg text-white/80 leading-snug">
-                                        <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#C8FF00] text-black">
-                                            <Check size={14} strokeWidth={3} />
+                                    <li key={item} className="flex items-start gap-4 text-lg leading-snug text-white">
+                                        <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-accent text-black">
+                                            <Icon icon={Tick02Icon} size={14} strokeWidth={2} />
                                         </span>
                                         {item}
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </Card>
                     </Reveal>
-                    <Reveal delay={0.1}>
-                        <div className="conic-border h-full rounded-3xl bg-gradient-to-br from-[#C8FF00]/[0.07] to-transparent p-7 md:p-10">
-                            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#C8FF00]">What you get</span>
-                            <ul className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                    <Reveal delay={0.08} className="lg:col-span-7">
+                        <Card className="h-full p-7 md:p-9">
+                            <Eyebrow index="03">What you get</Eyebrow>
+                            <ul className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                                 {page.deliverables.map((d) => (
-                                    <li key={d} className="flex items-start gap-3 text-sm text-white/70">
-                                        <Check size={16} className="mt-0.5 flex-shrink-0 text-[#C8FF00]" />
+                                    <li key={d} className="flex items-start gap-3 text-[15px] text-white/75">
+                                        <Icon icon={Tick02Icon} size={18} className="flex-shrink-0 text-accent" />
                                         {d}
                                     </li>
                                 ))}
                             </ul>
-                            <div className="mt-8 border-t border-white/[0.07] pt-6">
-                                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/30">Typical stack</span>
-                                <div className="mt-3 flex flex-wrap gap-2">
+                            <div className="mt-8 border-t border-line pt-6">
+                                <p className="text-sm text-white/45">Typical stack</p>
+                                <div className="mt-3 flex flex-wrap gap-1.5">
                                     {page.stack.map((s) => (
-                                        <span key={s} className="rounded-md border border-white/10 bg-black/30 px-2.5 py-1 text-xs text-white/60">{s}</span>
+                                        <span key={s} className="rounded-full border border-line px-3 py-1 text-xs text-white/60">{s}</span>
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </Card>
                     </Reveal>
                 </div>
             </section>
 
+            {/* ─── Relevant work ─── */}
+            {work.length > 0 && (
+                <section className="relative py-16 md:py-24" aria-labelledby="relevant-work">
+                    <div className="container mx-auto px-5 sm:px-6">
+                        <SectionHeader
+                            index="04"
+                            eyebrow="Relevant work"
+                            title="See how we've built"
+                            muted="similar products."
+                            action={
+                                <ButtonLink href="/#portfolio" variant="secondary" arrow="right">
+                                    All work
+                                </ButtonLink>
+                            }
+                        />
+                        <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+                            {work.map((project) => (
+                                <StaggerItem key={project.id}>
+                                    <ProjectCard project={project} />
+                                </StaggerItem>
+                            ))}
+                        </Stagger>
+                    </div>
+                </section>
+            )}
+
             {/* ─── Process ─── */}
-            <section className="relative py-16 md:py-24" aria-labelledby="process-heading">
+            <section className="relative py-16 md:py-24" aria-label="How it works">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <Reveal className="mb-12 max-w-2xl">
-                        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#C8FF00]">How it works</span>
-                        <h2 id="process-heading" className="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-white">
-                            Four steps. <span className="text-white/30">Zero guesswork.</span>
-                        </h2>
-                    </Reveal>
-                    <Stagger className="relative grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div aria-hidden className="absolute left-0 right-0 top-[38px] hidden h-px bg-gradient-to-r from-transparent via-[#C8FF00]/40 to-transparent md:block" />
+                    <SectionHeader index="05" eyebrow="How it works" title="Four steps." muted="Zero guesswork." />
+                    <Stagger className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
                         {marketingProcess.map((s) => (
-                            <StaggerItem key={s.step}>
-                                <div className="relative h-full rounded-2xl border border-white/[0.07] bg-[#0b0b0b] p-6">
-                                    <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#C8FF00]/40 bg-[#0b0b0b] text-xs font-mono font-bold text-[#C8FF00] shadow-[0_0_20px_-4px_rgba(200,255,0,0.5)]">
-                                        {s.step}
-                                    </span>
-                                    <h3 className="mt-5 mb-2 text-lg font-bold text-white">{s.title}</h3>
-                                    <p className="text-sm text-white/45 leading-relaxed">{s.text}</p>
+                            <StaggerItem key={s.step} className="bg-canvas">
+                                <div className="h-full p-7">
+                                    <span className="font-mono text-sm text-accent">{s.step}</span>
+                                    <h3 className="mt-6 text-lg font-semibold text-white">{s.title}</h3>
+                                    <p className="mt-2 text-sm leading-relaxed text-white/55">{s.text}</p>
                                 </div>
                             </StaggerItem>
                         ))}
@@ -236,55 +215,47 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             </section>
 
             {/* ─── FAQ ─── */}
-            <section className="relative py-16 md:py-24" aria-labelledby="faq-heading">
-                <div className="container mx-auto px-5 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <section className="relative py-16 md:py-24" aria-label="Frequently asked questions">
+                <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
                     <Reveal className="lg:col-span-4">
-                        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#C8FF00]">FAQ</span>
-                        <h2 id="faq-heading" className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-white">Common questions</h2>
-                        <p className="mt-4 text-sm text-white/45 leading-relaxed">
-                            Something else on your mind? <Link href="/#contact" className="text-[#C8FF00] underline underline-offset-4 decoration-[#C8FF00]/30">Ask us directly</Link>.
+                        <Eyebrow index="06">FAQ</Eyebrow>
+                        <h2 className="mt-5 text-3xl font-semibold tracking-[-0.03em] text-white md:text-4xl">Common questions</h2>
+                        <p className="mt-4 text-base leading-relaxed text-white/55">
+                            Something else on your mind?{" "}
+                            <Link href="/#contact" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-accent">
+                                Ask us directly
+                            </Link>
+                            .
                         </p>
                     </Reveal>
-                    <div className="lg:col-span-8 space-y-3">
-                        {page.faqs.map((f, i) => (
-                            <Reveal key={f.q} delay={i * 0.06}>
-                                <details className="faq-item group rounded-2xl border border-white/[0.07] bg-white/[0.02] open:border-[#C8FF00]/20 open:bg-[#C8FF00]/[0.03] transition-colors">
-                                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 md:p-6 text-left font-medium text-white/85 hover:text-white">
-                                        {f.q}
-                                        <span className="faq-chevron flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300">
-                                            <Plus size={16} />
-                                        </span>
-                                    </summary>
-                                    <p className="px-5 md:px-6 pb-6 text-sm text-white/55 leading-[1.8]">{f.a}</p>
-                                </details>
-                            </Reveal>
-                        ))}
-                    </div>
+                    <Reveal delay={0.08} className="lg:col-span-8">
+                        <FaqList faqs={page.faqs} />
+                    </Reveal>
                 </div>
             </section>
 
             {/* ─── Related ─── */}
-            <section className="relative py-16 md:py-20" aria-labelledby="related-heading">
+            <section className="relative py-16 md:py-20" aria-label="Related services">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <Reveal className="mb-8">
-                        <h2 id="related-heading" className="text-2xl md:text-3xl font-bold text-white">Related services</h2>
+                    <Reveal className="mb-8 flex items-end justify-between gap-6">
+                        <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Related services</h2>
                     </Reveal>
-                    <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {related.map((r) => (
                             <StaggerItem key={r.path}>
                                 <Link href={r.path} className="block h-full">
-                                    <TiltCard className="p-6">
-                                        <div className="flex items-start justify-between gap-4">
-                                            <div>
-                                                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">{r.kind}</span>
-                                                <h3 className="mt-2 text-lg font-bold text-white group-hover:text-[#C8FF00] transition-colors">{r.navLabel}</h3>
-                                                <p className="mt-2 text-sm text-white/45 leading-relaxed line-clamp-2">{r.seo.description}</p>
-                                            </div>
-                                            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/10 text-white/50 group-hover:bg-[#C8FF00] group-hover:text-black group-hover:border-[#C8FF00] group-hover:rotate-45 transition-all">
-                                                <ArrowUpRight size={16} />
+                                    <Card interactive className="flex h-full flex-col p-6">
+                                        <div className="flex items-start justify-between">
+                                            <IconTile>
+                                                <Icon icon={r.icon} size={20} />
+                                            </IconTile>
+                                            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-white/60 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
+                                                <Icon icon={ArrowUpRight01Icon} size={18} />
                                             </span>
                                         </div>
-                                    </TiltCard>
+                                        <h3 className="mt-8 text-lg font-semibold text-white">{r.navLabel}</h3>
+                                        <p className="mt-1.5 text-sm leading-relaxed text-white/55">{r.summary}</p>
+                                    </Card>
                                 </Link>
                             </StaggerItem>
                         ))}

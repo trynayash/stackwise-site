@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, type Variants } from "framer-motion";
+import React from "react";
+import { motion, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -11,44 +11,36 @@ type RevealProps = {
     className?: string;
     delay?: number;
     y?: number;
-    as?: "div" | "section" | "li" | "span";
 };
 
 /** Fades and lifts its children into place the first time they scroll into view. */
-export function Reveal({ children, className, delay = 0, y = 28, as = "div" }: RevealProps) {
-    const Component = motion[as];
+export function Reveal({ children, className, delay = 0, y = 24 }: RevealProps) {
     return (
-        <Component
+        <motion.div
             className={className}
-            initial={{ opacity: 0, y, filter: "blur(6px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay, ease: EASE_OUT }}
+            initial={{ opacity: 0, y }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, delay, ease: EASE_OUT }}
         >
             {children}
-        </Component>
+        </motion.div>
     );
 }
 
 const staggerParent: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+    show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
 };
 
 const staggerChild: Variants = {
-    hidden: { opacity: 0, y: 24, scale: 0.98 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: EASE_OUT } },
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_OUT } },
 };
 
 export function Stagger({ children, className }: { children: React.ReactNode; className?: string }) {
     return (
-        <motion.div
-            className={className}
-            variants={staggerParent}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-60px" }}
-        >
+        <motion.div className={className} variants={staggerParent} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
             {children}
         </motion.div>
     );
@@ -88,15 +80,15 @@ export function WordReveal({
             role="text"
             initial="hidden"
             {...trigger}
-            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06, delayChildren: delay } } }}
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: delay } } }}
         >
             {words.map((word, i) => (
                 <span key={`${word}-${i}`} aria-hidden="true" className="inline-block overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]">
                     <motion.span
                         className={cn("inline-block will-change-transform", wordClassName)}
                         variants={{
-                            hidden: { y: "110%", opacity: 0 },
-                            show: { y: "0%", opacity: 1, transition: { duration: 0.9, ease: EASE_OUT } },
+                            hidden: { y: "105%" },
+                            show: { y: "0%", transition: { duration: 0.8, ease: EASE_OUT } },
                         }}
                     >
                         {word}
@@ -108,46 +100,34 @@ export function WordReveal({
     );
 }
 
-/** Pulls its child slightly towards the cursor. No effect on touch devices. */
-export function Magnetic({ children, strength = 0.25, className }: { children: React.ReactNode; strength?: number; className?: string }) {
-    const ref = useRef<HTMLDivElement>(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const springX = useSpring(x, { stiffness: 200, damping: 15, mass: 0.3 });
-    const springY = useSpring(y, { stiffness: 200, damping: 15, mass: 0.3 });
-
-    const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
-        if (e.pointerType !== "mouse" || !ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        x.set((e.clientX - (rect.left + rect.width / 2)) * strength);
-        y.set((e.clientY - (rect.top + rect.height / 2)) * strength);
-    };
-
-    const reset = () => {
-        x.set(0);
-        y.set(0);
-    };
-
+/** Small label above a section heading, e.g. "01 — Services". */
+export function Eyebrow({ index, children, className }: { index?: string; children: React.ReactNode; className?: string }) {
     return (
-        <motion.div ref={ref} className={cn("inline-block", className)} style={{ x: springX, y: springY }} onPointerMove={onMove} onPointerLeave={reset}>
+        <span className={cn("inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-white/50", className)}>
+            {index && <span className="font-mono text-accent">{index}</span>}
+            {index && <span className="h-px w-6 bg-white/20" aria-hidden />}
             {children}
-        </motion.div>
+        </span>
     );
 }
 
-/** Section eyebrow + heading pair used across the home page. */
+/** Section eyebrow + heading (+ optional description or action) used across the site. */
 export function SectionHeader({
     eyebrow,
+    index,
     title,
     muted,
     description,
+    action,
     align = "left",
     className,
 }: {
     eyebrow: string;
+    index?: string;
     title: string;
     muted?: string;
     description?: string;
+    action?: React.ReactNode;
     align?: "left" | "center";
     className?: string;
 }) {
@@ -155,31 +135,29 @@ export function SectionHeader({
     return (
         <div
             className={cn(
-                "mb-14 md:mb-20 flex flex-col gap-6",
-                centered ? "items-center text-center mx-auto max-w-3xl" : "lg:flex-row lg:items-end lg:justify-between",
+                "mb-12 md:mb-16 flex flex-col gap-6",
+                centered ? "items-center text-center mx-auto max-w-3xl" : "lg:flex-row lg:items-end lg:justify-between lg:gap-16",
                 className
             )}
         >
             <div className={cn("max-w-3xl", centered && "mx-auto")}>
-                <Reveal>
-                    <span className="inline-flex items-center gap-2 text-[#C8FF00] text-[11px] font-mono tracking-[0.2em] uppercase mb-5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] shadow-[0_0_10px_#C8FF00] animate-pulse" />
-                        {eyebrow}
-                    </span>
+                <Reveal y={12}>
+                    <Eyebrow index={index}>{eyebrow}</Eyebrow>
                 </Reveal>
-                <h2 className="text-[2rem] leading-[1.05] sm:text-5xl md:text-6xl font-bold tracking-tight text-white text-balance">
+                <h2 className="mt-5 text-[2rem] leading-[1.08] sm:text-[2.75rem] md:text-[3.25rem] font-semibold tracking-[-0.035em] text-white text-balance">
                     <WordReveal text={title} />
                     {muted && (
                         <>
-                            <br />
-                            <WordReveal text={muted} className="text-white/25" delay={0.15} />
+                            {" "}
+                            <WordReveal text={muted} className="text-white/40" delay={0.1} />
                         </>
                     )}
                 </h2>
             </div>
-            {description && (
-                <Reveal delay={0.2} className={cn("max-w-md", centered && "mx-auto")}>
-                    <p className="text-white/45 text-base leading-relaxed font-light">{description}</p>
+            {(description || action) && (
+                <Reveal delay={0.15} className={cn("max-w-md flex flex-col gap-6", centered ? "mx-auto items-center" : "lg:items-start")}>
+                    {description && <p className="text-white/55 text-base md:text-[17px] leading-relaxed text-pretty">{description}</p>}
+                    {action}
                 </Reveal>
             )}
         </div>
