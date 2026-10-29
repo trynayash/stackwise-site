@@ -11,7 +11,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { ProjectCard } from "@/components/sections/portfolio";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { marketingPages, marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
-import { projects } from "@/lib/data";
+import { caseStudyBySlug } from "@/lib/case-studies";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 
@@ -45,7 +45,7 @@ export function Breadcrumbs({ items }: { items: { name: string; href?: string }[
 
 export function MarketingPage({ page }: { page: MarketingPageData }) {
     const related = page.related.map((path) => Object.values(marketingPages).find((p) => p.path === path)).filter(Boolean) as MarketingPageData[];
-    const work = page.work.map((id) => projects.find((p) => p.id === id)).filter((p) => p?.caseStudy) as (typeof projects)[number][];
+    const work = page.work.map((slug) => caseStudyBySlug[slug]).filter(Boolean);
     const hubPath = `/${page.kind.toLowerCase()}`;
 
     return (
@@ -186,9 +186,9 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                             }
                         />
                         <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-                            {work.map((project) => (
-                                <StaggerItem key={project.id}>
-                                    <ProjectCard project={project} />
+                            {work.map((study) => (
+                                <StaggerItem key={study.slug}>
+                                    <ProjectCard study={study} />
                                 </StaggerItem>
                             ))}
                         </Stagger>

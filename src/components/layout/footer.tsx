@@ -9,7 +9,7 @@ import { useSectionNav } from "@/hooks/use-section-nav";
 import { servicePages, solutionPages } from "@/lib/marketing-pages";
 import { siteConfig } from "@/config/site";
 
-const linkClass = "text-sm text-white/55 transition-colors hover:text-white";
+const linkClass = "link-draw text-sm text-white/55 hover:text-white";
 
 function Column({ title, href, children }: { title: string; href?: string; children: React.ReactNode }) {
     return (

@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { CloudUploadIcon, CodeIcon, PenTool03Icon, Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
+import { Reveal, SectionHeader } from "@/components/ui/motion-primitives";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
@@ -40,43 +40,62 @@ const steps = [
     },
 ];
 
+/** Desktop: the heading stays pinned while each week's card slides up and stacks over the last. */
 export function ProcessTimeline() {
     const { openInquiry } = useInquiry();
-    const gridRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({ target: gridRef, offset: ["start 80%", "end 70%"] });
-    const lineScale = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+    const listRef = useRef<HTMLOListElement>(null);
+    const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 70%", "end 60%"] });
+    const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
     return (
         <section id="process" className="relative py-20 md:py-28" aria-label="Our process">
-            <div className="container mx-auto px-5 sm:px-6">
-                <SectionHeader
-                    index="04"
-                    eyebrow="Process"
-                    title="From idea to launch"
-                    muted="in four clear weeks."
-                    description="A week-by-week process with no surprises. You always know what's happening, when, and what you get at the end of each step."
-                />
-
-                <div ref={gridRef} className="relative">
-                    {/* Progress line across the step icons (wide screens) */}
-                    <div aria-hidden className="absolute left-0 right-0 top-[27px] hidden h-px bg-line xl:block" />
-                    <motion.div aria-hidden className="absolute left-0 right-0 top-[27px] hidden h-px origin-left bg-accent xl:block" style={{ scaleX: lineScale }} />
-
-                    <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-4">
-                        {steps.map((step, i) => (
-                            <StaggerItem key={step.week} className="flex h-full flex-col">
-                                <div className="relative z-10 mb-5 flex items-center gap-3">
-                                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-line-strong bg-canvas text-white">
-                                        <Icon icon={step.icon} size={22} />
-                                    </span>
-                                    <span className="font-mono text-xs text-white/45">
-                                        {String(i + 1).padStart(2, "0")} · {step.week}
-                                    </span>
+            <div className="container mx-auto grid grid-cols-1 gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
+                <div className="lg:col-span-5">
+                    <div className="lg:sticky lg:top-28">
+                        <SectionHeader
+                            index="04"
+                            eyebrow="Process"
+                            title="From idea to launch"
+                            muted="in four clear weeks."
+                            className="mb-6 md:mb-6 lg:block"
+                        />
+                        <Reveal delay={0.1}>
+                            <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[17px]">
+                                A week-by-week process with no surprises. You always know what&apos;s happening, when, and what you get at the end of each step.
+                            </p>
+                            {/* Scroll progress through the four weeks */}
+                            <div className="mt-8 hidden max-w-md items-center gap-4 lg:flex">
+                                <div className="relative h-px flex-1 bg-line">
+                                    <motion.div className="absolute inset-y-0 left-0 w-full origin-left bg-accent" style={{ scaleX: progress }} />
                                 </div>
-                                <Card className="flex-1 p-6">
-                                    <h3 className="text-xl font-semibold tracking-tight text-white">{step.title}</h3>
-                                    <p className="mt-3 text-sm leading-relaxed text-white/55">{step.description}</p>
-                                    <ul className="mt-6 space-y-2.5 border-t border-line pt-5">
+                                <span className="font-mono text-xs text-white/45">4 weeks</span>
+                            </div>
+                            <div className="mt-10 rounded-2xl border border-line p-6">
+                                <p className="text-base font-semibold text-white">Bigger product? Same steps.</p>
+                                <p className="mt-1 text-sm text-white/55">Larger builds follow the same process, with a weekly call and a staging URL throughout.</p>
+                                <Button onClick={openInquiry} variant="secondary" arrow="right" className="mt-5">
+                                    Book a discovery call
+                                </Button>
+                            </div>
+                        </Reveal>
+                    </div>
+                </div>
+
+                <ol ref={listRef} className="space-y-5 lg:col-span-7 lg:space-y-8">
+                    {steps.map((step, i) => (
+                        <li key={step.week} className="lg:sticky" style={{ top: `calc(7rem + ${i * 1.5}rem)` }}>
+                            <Card className="bg-surface p-7 shadow-[0_-24px_48px_-24px_rgba(0,0,0,0.9)] md:p-9">
+                                    <div className="flex items-center justify-between gap-4">
+                                        <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-line-strong bg-canvas text-white">
+                                            <Icon icon={step.icon} size={22} />
+                                        </span>
+                                        <span className="font-mono text-xs text-white/45">
+                                            {String(i + 1).padStart(2, "0")} · {step.week}
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-8 text-2xl font-semibold tracking-tight text-white md:text-3xl">{step.title}</h3>
+                                    <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-white/55">{step.description}</p>
+                                    <ul className="mt-7 grid grid-cols-1 gap-x-6 gap-y-2.5 border-t border-line pt-6 sm:grid-cols-2">
                                         {step.deliverables.map((d) => (
                                             <li key={d} className="flex items-start gap-2.5 text-sm text-white/70">
                                                 <Icon icon={Tick02Icon} size={16} className="mt-0.5 flex-shrink-0 text-accent" />
@@ -84,21 +103,10 @@ export function ProcessTimeline() {
                                             </li>
                                         ))}
                                     </ul>
-                                </Card>
-                            </StaggerItem>
-                        ))}
-                    </Stagger>
-                </div>
-
-                <div className="mt-12 flex flex-col items-start gap-4 rounded-2xl border border-line p-6 sm:flex-row sm:items-center sm:justify-between md:p-7">
-                    <div>
-                        <p className="text-base font-semibold text-white">Bigger product? Same steps.</p>
-                        <p className="mt-1 text-sm text-white/55">Larger builds follow the same process, with a weekly call and a staging URL throughout.</p>
-                    </div>
-                    <Button onClick={openInquiry} variant="secondary" arrow="right">
-                        Book a discovery call
-                    </Button>
-                </div>
+                            </Card>
+                        </li>
+                    ))}
+                </ol>
             </div>
         </section>
     );

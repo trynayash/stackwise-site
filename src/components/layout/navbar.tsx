@@ -35,6 +35,7 @@ function MenuLink({ page, onNavigate }: { page: MarketingPageData; onNavigate: (
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -44,7 +45,16 @@ export function Navbar() {
     const goToSection = useSectionNav();
 
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 16);
+        let lastY = window.scrollY;
+        const handleScroll = () => {
+            const y = window.scrollY;
+            setIsScrolled(y > 16);
+            // Tuck the bar away while reading down the page; bring it back on any scroll up.
+            if (Math.abs(y - lastY) > 6) {
+                setHidden(y > lastY && y > 480);
+                lastY = y;
+            }
+        };
         handleScroll();
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
@@ -88,8 +98,9 @@ export function Navbar() {
         <>
             <header
                 className={cn(
-                    "fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300",
-                    solid ? "border-line bg-canvas/90 backdrop-blur-xl" : "border-transparent bg-transparent"
+                    "fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,transform] duration-300 ease-out",
+                    solid ? "border-line bg-canvas/90 backdrop-blur-xl" : "border-transparent bg-transparent",
+                    hidden && !menuOpen && "-translate-y-full"
                 )}
             >
                 <div ref={menuRef} onMouseLeave={scheduleClose}>

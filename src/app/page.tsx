@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { Trusted } from "@/components/sections/trusted";
+import { Manifesto } from "@/components/sections/manifesto";
 import { ServiceBento } from "@/components/sections/service-bento";
 import { Services } from "@/components/sections/services";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
@@ -22,6 +23,7 @@ export default function Home() {
             <JsonLd data={faqSchema(faqs)} />
             <Hero />
             <Trusted />
+            <Manifesto />
             <ServiceBento />
             <Portfolio />
             <Services />

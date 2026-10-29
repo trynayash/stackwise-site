@@ -8,7 +8,7 @@ type Variant = "primary" | "secondary" | "ghost" | "dark";
 type Size = "sm" | "md" | "lg";
 
 const base =
-    "group/btn relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-2";
+    "btn-roll group/btn relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-2";
 
 const variants: Record<Variant, string> = {
     primary: "bg-accent text-black hover:bg-accent-hover",
@@ -39,6 +39,19 @@ function ArrowMark({ arrow }: { arrow: Arrow }) {
     );
 }
 
+/** Wraps plain-text labels so they roll on hover; other content renders unchanged. */
+function Label({ children }: { children: React.ReactNode }) {
+    if (typeof children !== "string") return <>{children}</>;
+    return (
+        <span className="roll">
+            <span className="roll-inner">
+                <span>{children}</span>
+                <span aria-hidden>{children}</span>
+            </span>
+        </span>
+    );
+}
+
 type CommonProps = { variant?: Variant; size?: Size; arrow?: Arrow; className?: string; children: React.ReactNode };
 
 export function buttonClasses({ variant = "primary", size = "md", className }: { variant?: Variant; size?: Size; className?: string } = {}) {
@@ -56,7 +69,7 @@ export function Button({
 }: CommonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">) {
     return (
         <button type={type} className={buttonClasses({ variant, size, className })} {...props}>
-            {children}
+            <Label>{children}</Label>
             <ArrowMark arrow={arrow} />
         </button>
     );
@@ -75,14 +88,14 @@ export function ButtonLink({
     if (isExternal) {
         return (
             <a href={href} className={buttonClasses({ variant, size, className })} {...props}>
-                {children}
+                <Label>{children}</Label>
                 <ArrowMark arrow={arrow} />
             </a>
         );
     }
     return (
         <Link href={href} className={buttonClasses({ variant, size, className })} {...props}>
-            {children}
+            <Label>{children}</Label>
             <ArrowMark arrow={arrow} />
         </Link>
     );

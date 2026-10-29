@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
-import { projects } from "@/lib/data";
+import { caseStudies } from "@/lib/case-studies";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const siteUrl = siteConfig.url;
@@ -30,10 +30,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
     // Case studies pages
-    const caseStudyRoutes = projects
-        .filter((p) => p.caseStudy)
-        .map((p) => ({
-            url: `${siteUrl}/work/${p.id}`,
+    const caseStudyRoutes = caseStudies.map((s) => ({
+            url: `${siteUrl}/work/${s.slug}`,
             lastModified: new Date(),
             changeFrequency: "monthly" as const,
             priority: 0.7,

@@ -27,7 +27,7 @@ export type MarketingPageData = {
     idealFor: string[];
     deliverables: string[];
     stack: string[];
-    /** Project ids from src/lib/data.ts that show this kind of work. */
+    /** Case study slugs from src/lib/case-studies.ts that show this kind of work. */
     work: string[];
     faqs: Faq[];
     cta: { title: string; text: string };
@@ -71,7 +71,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Founders turning an idea or prototype into a paid product", "Teams replacing a fragile first version", "Businesses productizing an internal tool"],
         deliverables: ["Architecture plan & data model", "Auth, roles & team workspaces", "Billing & subscription flows", "Admin and customer dashboards", "CI/CD, staging & production", "Handoff docs & support period"],
         stack: ["Next.js", "TypeScript", "Node.js", "Go", "PostgreSQL", "Redis", "Stripe", "Razorpay", "AWS", "Vercel"],
-        work: ["limityourapis", "startupdeck-ai"],
+        work: ["limityourapi", "startupdeck"],
         faqs: [
             { q: "How long does it take to build a SaaS product?", a: "Most SaaS builds take 8–12 weeks from kickoff to launch, depending on scope. A focused MVP can be quicker. You get a detailed timeline after the discovery call, before any commitment." },
             { q: "Can you add subscriptions and payments?", a: "Yes. We integrate Stripe or Razorpay for subscriptions, trials, usage-based pricing, invoices and webhooks, and connect them to plan limits inside your app." },
@@ -108,7 +108,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Products adding AI search, chat or copilots", "Teams drowning in documents, tickets or email", "Operations that repeat the same judgement calls daily"],
         deliverables: ["Use-case & data review", "Model and provider selection", "RAG pipeline / vector store", "Agent tools & guardrails", "Evaluation set & monitoring", "Cost and latency report"],
         stack: ["OpenAI", "Anthropic", "pgvector", "Pinecone", "Milvus", "Python", "TypeScript", "PyTorch", "TensorFlow"],
-        work: ["startupdeck-ai", "promptp"],
+        work: ["startupdeck", "limityourapi"],
         faqs: [
             { q: "Which AI models do you work with?", a: "OpenAI, Anthropic and open-source models. We choose based on quality, cost, latency and where your data is allowed to go, and we can switch providers later without a rewrite." },
             { q: "Can AI use our private documents securely?", a: "Yes. With retrieval-augmented generation your documents stay in your own database or vector store. Access rules are enforced before anything reaches the model, and we can keep everything inside your cloud." },
@@ -145,7 +145,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Teams running the business on spreadsheets", "Companies outgrowing generic SaaS tools", "Operations stitched together with copy-paste"],
         deliverables: ["Workflow mapping session", "Data model & permissions", "Web app or internal portal", "Integrations with your tools", "Training & documentation", "Support period after launch"],
         stack: ["Next.js", "TypeScript", "Node.js", "Go", "PostgreSQL", "MongoDB", "Docker", "AWS"],
-        work: ["limityourapis", "codefusionai"],
+        work: ["scopeci", "limityourapi"],
         faqs: [
             { q: "Why custom software instead of an off-the-shelf tool?", a: "Off-the-shelf tools are great until your process doesn't fit them. Custom software matches how your team already works, removes per-seat fees and connects all your data in one place." },
             { q: "Can it connect to the tools we already use?", a: "Yes. We integrate with your existing tools through their APIs — accounting, CRM, payments, email, spreadsheets — so data flows automatically instead of being re-typed." },
@@ -182,7 +182,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Brands moving off WordPress or page builders", "Companies whose site isn't generating leads", "Launches that need to make a strong first impression"],
         deliverables: ["Sitemap & content plan", "Custom design in Figma", "Next.js build with CMS", "Technical SEO setup", "Analytics & conversion tracking", "Performance & accessibility pass"],
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Headless CMS", "Shopify", "Vercel"],
-        work: ["stackwise-platform", "codefusionai"],
+        work: ["startupdeck", "limityourapi"],
         faqs: [
             { q: "How long does a website take?", a: "A marketing website usually takes 2–3 weeks. E-commerce stores take 4–6 weeks. You'll get an exact timeline once we've agreed the pages and features." },
             { q: "Will my site be SEO-friendly?", a: "Yes. Pages are server-rendered with clean semantic HTML, sitemaps, metadata, structured data and fast load times — the technical foundations search engines look for." },
@@ -219,7 +219,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Non-technical founders who need a technical partner", "Funded teams that need to ship before hiring", "Founders preparing for technical due diligence"],
         deliverables: ["Product & scope workshop", "Clickable prototype", "Production MVP", "Analytics & feedback loops", "Architecture handover docs", "Help hiring your first engineers"],
         stack: ["Next.js", "TypeScript", "PostgreSQL", "Stripe", "Vercel", "AWS", "Figma"],
-        work: ["startupdeck-ai", "promptp"],
+        work: ["startupdeck", "scopeci"],
         faqs: [
             { q: "We're early stage — what does it cost?", a: "Starter builds begin at ₹49,999 and product builds at ₹1,49,999. We scope tightly around the features that prove your idea, so you don't pay for anything you don't need yet." },
             { q: "Can our future team take over the code?", a: "That's the point. The code is strictly typed, documented and handed over with architecture notes. We can also help interview your first engineers." },
@@ -256,7 +256,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Validating an idea with real users", "Replacing a no-code prototype that hit its limits", "Preparing a demo for investors or a pilot customer"],
         deliverables: ["Scope & feature priority list", "UX flows & UI design", "Working MVP in production", "Auth, billing & admin", "Analytics to measure traction", "Roadmap for version two"],
         stack: ["Next.js", "TypeScript", "PostgreSQL", "MongoDB", "Stripe", "Razorpay", "Vercel"],
-        work: ["promptp", "startupdeck-ai"],
+        work: ["scopeci", "startupdeck"],
         faqs: [
             { q: "How fast can you ship an MVP?", a: "Most MVPs launch in about 4–8 weeks, depending on scope. We agree the core features up front so the timeline stays predictable." },
             { q: "What if we need to change features mid-way?", a: "That's normal. Minor additions are absorbed. For bigger changes we send a clear quote and timeline update within 24 hours — no surprises." },
@@ -293,7 +293,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Teams re-typing data between tools", "Businesses running on shared spreadsheets", "Managers waiting on manual weekly reports"],
         deliverables: ["Process & bottleneck audit", "Automation plan with priorities", "Integrations & scheduled jobs", "Live dashboards", "Role-based portals", "Monitoring & alerts"],
         stack: ["Node.js", "Go", "PostgreSQL", "Slack API", "Airtable", "Webflow", "AWS"],
-        work: ["limityourapis", "codefusionai"],
+        work: ["scopeci", "limityourapi"],
         faqs: [
             { q: "What kind of processes can you automate?", a: "Anything repetitive and rule-based: data entry between tools, approvals, invoices, reports, reminders and syncing records. Show us the spreadsheet and we'll show you what can go." },
             { q: "Do we have to replace the tools we use now?", a: "Usually not. We connect your existing tools through their APIs and automate the work between them. We only suggest replacing something when it's clearly holding you back." },

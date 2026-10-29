@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { CustomerSupportIcon, FileSecurityIcon, Key01Icon, SourceCodeIcon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { HeroVisual } from "@/components/three/hero-visual";
@@ -30,15 +30,20 @@ function fadeUp(delay: number) {
 export function Hero() {
     const { openInquiry } = useInquiry();
     const goToSection = useSectionNav();
+    const heroRef = useRef<HTMLElement>(null);
+    // As the hero scrolls away, the copy drifts up and fades a little: a quiet hand-off to the next section.
+    const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+    const copyY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+    const copyOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.25]);
 
     return (
-        <section id="hero" className="relative overflow-hidden pt-28 pb-8 md:pt-32" aria-label="Introduction">
+        <section ref={heroRef} id="hero" className="relative overflow-hidden pt-28 pb-8 md:pt-32" aria-label="Introduction">
             <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
 
             <div className="container relative mx-auto px-5 sm:px-6">
                 <div className="grid min-h-[calc(100svh-9rem)] grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-6">
                     {/* Copy */}
-                    <div className="flex flex-col items-start lg:col-span-7">
+                    <motion.div style={{ y: copyY, opacity: copyOpacity }} className="flex flex-col items-start lg:col-span-7">
                         <motion.div {...fadeUp(0)} className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13px] text-white/70">
                             <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
                             Booking new projects
@@ -66,7 +71,7 @@ export function Hero() {
                         <motion.p {...fadeUp(0.65)} className="mt-5 text-sm text-white/40">
                             Free consultation · We reply within 24–48 hours
                         </motion.p>
-                    </div>
+                    </motion.div>
 
                     {/* 3D model */}
                     <motion.div
