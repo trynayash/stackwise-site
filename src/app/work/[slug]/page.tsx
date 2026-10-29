@@ -15,7 +15,7 @@ import { CountUp } from "@/components/ui/scroll-effects";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { CtaBand } from "@/components/sections/cta-band";
-import { Screenshot, StatusBadge } from "@/components/sections/portfolio";
+import { Screenshot, StatusBadge } from "@/components/work/work-card";
 import { ArchitectureDiagram } from "@/components/work/architecture-diagram";
 import { CaseStudyToc } from "@/components/work/case-study-toc";
 import { siteConfig } from "@/config/site";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const study = workBySlug[slug];
     if (!study) return {};
     return constructMetadata({
-        title: `${study.name} Case Study — ${study.kind}`,
+        title: `${study.name} Case Study: ${study.kind}`,
         description: study.metaDescription,
         canonical: `/work/${study.slug}`,
         ogKicker: "Case study",
@@ -81,7 +81,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         "@context": "https://schema.org",
                         "@type": "CreativeWork",
                         name: study.name,
-                        headline: `${study.name} — ${study.tagline}`,
+                        headline: `${study.name}: ${study.tagline}`,
                         description: study.metaDescription,
                         image: `${siteConfig.url}${study.preview}`,
                         url: `${siteConfig.url}/work/${study.slug}`,
@@ -94,7 +94,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
             {/* Header */}
             <section className="relative overflow-hidden pt-28 pb-12 md:pt-36 md:pb-16">
-                <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
                     <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Work", href: "/work" }, { name: study.name }]} />
                     <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
@@ -103,22 +102,22 @@ export default async function CaseStudyPage({ params }: PageProps) {
                                 <Eyebrow>Case study · {study.kind}</Eyebrow>
                                 <StatusBadge status={study.status} />
                             </Enter>
-                            <h1 className="mt-6 text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
-                                <WordReveal text={study.name} immediate /> <WordReveal text={study.tagline} immediate delay={0.1} className="text-white/40" />
+                            <h1 className="mt-5 text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
+                                <WordReveal text={study.name} immediate /> <WordReveal text={study.tagline} immediate delay={0.1} className="text-white/70" />
                             </h1>
                         </div>
                         <Enter delay={0.2} className="lg:col-span-4">
-                            <dl className="divide-y divide-line rounded-2xl border border-line bg-surface">
-                                <div className="flex items-baseline justify-between gap-4 px-5 py-4">
+                            <dl className="space-y-1 rounded-3xl bg-surface p-3">
+                                <div className="flex items-baseline justify-between gap-4 px-4 py-3">
                                     <dt className="text-sm text-white/50">Status</dt>
                                     <dd className="text-[15px] font-medium text-white">{study.status}</dd>
                                 </div>
-                                <div className="flex items-baseline justify-between gap-4 px-5 py-4">
+                                <div className="flex items-baseline justify-between gap-4 px-4 py-3">
                                     <dt className="text-sm text-white/50">Built with</dt>
                                     <dd className="text-right text-[15px] font-medium text-white">{study.stack.slice(0, 3).join(", ")}</dd>
                                 </div>
                                 {study.extraLinks.map((l) => (
-                                    <div key={l.href} className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-surface-2">
+                                    <div key={l.href} className="group flex items-center justify-between gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-surface-2">
                                         <dt className="text-sm text-white/55">{l.label}</dt>
                                         <dd>
                                             <a
@@ -142,8 +141,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
             {/* Screenshot */}
             <section className="pb-12 md:pb-16" aria-label={`${study.name} on ${displayDomain(study)}`}>
                 <div className="container mx-auto px-5 sm:px-6">
-                    <Enter delay={0.2} className="mx-auto max-w-6xl rounded-xl">
-                        <Screenshot study={study} priority />
+                    <Enter delay={0.2} className="mx-auto max-w-6xl">
+                        <Screenshot study={study} priority className="aspect-[16/10]" />
                     </Enter>
                 </div>
             </section>
@@ -151,9 +150,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
             {/* Metrics */}
             <section className="pb-16 md:pb-24" aria-label="Key facts">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
+                    <dl className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {study.metrics.map((m) => (
-                            <div key={m.label} className="bg-canvas p-7">
+                            <div key={m.label} className="rounded-3xl bg-surface p-7">
                                 <dt className="text-sm text-white/55">{m.label}</dt>
                                 <dd className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
                                     <CountUp value={m.value} />
@@ -172,20 +171,20 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         <CaseStudyToc items={sections.map((s) => ({ id: s.id, title: s.title }))} />
                     </aside>
                     <div className="space-y-16 lg:col-span-9">
-                        {sections.map((s, i) => (
+                        {sections.map((s) => (
                             <Reveal key={s.id}>
                                 <article id={s.id} className="scroll-mt-28">
-                                    <Eyebrow index={String(i + 1).padStart(2, "0")}>{s.title}</Eyebrow>
+                                    <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">{s.title}</h2>
                                     <div className="mt-6 max-w-3xl space-y-5 text-lg leading-relaxed text-white/75">
                                         {paragraphs(s.body).map((p) => (
                                             <p key={p.slice(0, 40)}>{p}</p>
                                         ))}
                                     </div>
                                     {s.id === "architecture" && study.highlights && (
-                                        <ol className="mt-8 max-w-3xl border-t border-line">
+                                        <ol className="mt-8 max-w-3xl space-y-2">
                                             {study.highlights.map((h, n) => (
-                                                <li key={h} className="flex gap-6 border-b border-line py-5">
-                                                    <span className="w-8 flex-shrink-0 font-mono text-sm text-accent">{String(n + 1).padStart(2, "0")}</span>
+                                                <li key={h} className="flex gap-4 rounded-2xl bg-surface p-5">
+                                                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-accent text-xs font-bold text-black">{n + 1}</span>
                                                     <span className="text-base leading-relaxed text-white/75">{h}</span>
                                                 </li>
                                             ))}
@@ -201,14 +200,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         ))}
 
                         <Reveal>
-                            <div className="flex flex-wrap gap-1.5 border-t border-line pt-8">
+                            <div className="flex flex-wrap gap-2">
                                 {study.stack.map((t) => (
-                                    <span key={t} className="rounded-full border border-line px-3 py-1 text-xs text-white/60">{t}</span>
+                                    <span key={t} className="rounded-full bg-white/[0.06] px-3.5 py-1.5 text-sm text-white/75">{t}</span>
                                 ))}
                             </div>
                         </Reveal>
 
-                        <Reveal className="flex flex-col items-start gap-4 rounded-2xl border border-line p-6 sm:flex-row sm:items-center sm:justify-between md:p-7">
+                        <Reveal className="flex flex-col items-start gap-4 rounded-3xl bg-surface p-6 sm:flex-row sm:items-center sm:justify-between md:p-7">
                             <div>
                                 <p className="text-base font-semibold text-white">Building something similar?</p>
                                 <p className="mt-1 text-sm text-white/55">We can walk you through how this was built on a free call.</p>
@@ -227,10 +226,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
                             <div>
                                 <p className="text-sm text-white/55">Next case study</p>
                                 <p className="mt-2 text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                                    {next.name} <span className="text-white/40">{next.tagline}</span>
+                                    {next.name} <span className="text-white/55">{next.tagline}</span>
                                 </p>
                             </div>
-                            <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-line text-white/70 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
+                            <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
                                 <Icon icon={ArrowRight01Icon} size={20} />
                             </span>
                         </Card>

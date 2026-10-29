@@ -6,13 +6,13 @@ type CardProps = React.HTMLAttributes<HTMLDivElement> & {
     interactive?: boolean;
 };
 
-/** Flat surface with a hairline border — the base for every card on the site. */
+/** Flat filled surface: the base for every card on the site. */
 export function Card({ interactive = false, className, children, ...props }: CardProps) {
     return (
         <div
             className={cn(
-                "group relative rounded-2xl border border-line bg-surface",
-                interactive && "transition-[transform,border-color,background-color] duration-300 ease-out hover:-translate-y-1 hover:border-line-strong hover:bg-surface-2",
+                "group relative rounded-3xl bg-surface",
+                interactive && "transition-[transform,background-color] duration-300 ease-out hover:-translate-y-1 hover:bg-surface-2",
                 className
             )}
             {...props}
@@ -26,7 +26,7 @@ export function Card({ interactive = false, className, children, ...props }: Car
 export function IconTile({ children, className, size = "md" }: { children: React.ReactNode; className?: string; size?: "sm" | "md" | "lg" }) {
     const sizes = { sm: "h-9 w-9 rounded-lg", md: "h-11 w-11 rounded-xl", lg: "h-14 w-14 rounded-2xl" };
     return (
-        <div className={cn("flex flex-shrink-0 items-center justify-center border border-line bg-surface-2 text-white", sizes[size], className)}>
+        <div className={cn("flex flex-shrink-0 items-center justify-center bg-accent text-black", sizes[size], className)}>
             {children}
         </div>
     );

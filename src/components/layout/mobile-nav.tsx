@@ -49,13 +49,13 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     aria-label="Menu"
                     data-lenis-prevent
                 >
-                    <div className="flex h-[72px] flex-shrink-0 items-center justify-between border-b border-line px-5">
+                    <div className="flex h-[72px] flex-shrink-0 items-center justify-between px-5">
                         <Link href="/" onClick={onClose} aria-label="StackWise home">
                             <Logo size="md" />
                         </Link>
                         <button
                             onClick={onClose}
-                            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-white"
+                            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white"
                             aria-label="Close menu"
                         >
                             <Icon icon={Cancel01Icon} size={20} />
@@ -63,13 +63,13 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     </div>
 
                     <nav className="flex-1 overflow-y-auto px-5 py-4" aria-label="Mobile navigation">
-                        <ul className="divide-y divide-line">
+                        <ul className="space-y-1">
                             <li>
                                 <button
                                     type="button"
                                     onClick={() => setServicesOpen((v) => !v)}
                                     aria-expanded={servicesOpen}
-                                    className="flex w-full items-center justify-between py-5 text-left text-2xl font-semibold tracking-tight text-white"
+                                    className="flex w-full items-center justify-between py-4 text-left text-2xl font-semibold tracking-tight text-white"
                                 >
                                     Services
                                     <Icon icon={Add01Icon} size={22} className={cn("text-white/50 transition-transform duration-200", servicesOpen && "rotate-45")} />
@@ -89,14 +89,14 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                                 { label: "Technologies", href: "/technologies", pages: technologyPages },
                                             ].map((group) => (
                                                 <div key={group.label} className="pb-5">
-                                                    <Link href={group.href} onClick={onClose} className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-white/55">
+                                                    <Link href={group.href} onClick={onClose} className="mb-1 block text-sm font-semibold text-accent">
                                                         {group.label}
                                                     </Link>
                                                     <ul>
                                                         {group.pages.map((p) => (
                                                             <li key={p.path}>
                                                                 <Link href={p.path} onClick={onClose} className="flex items-center gap-3 py-2.5 text-base text-white/80">
-                                                                    <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-line bg-surface-2">
+                                                                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.07]">
                                                                         <Icon icon={p.icon} size={16} />
                                                                     </span>
                                                                     {p.navLabel}
@@ -114,7 +114,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                 <li key={item.title}>
                                     <Link
                                         {...navLink(item, onClose)}
-                                        className="block py-5 text-2xl font-semibold tracking-tight text-white"
+                                        className="block py-4 text-2xl font-semibold tracking-tight text-white"
                                     >
                                         {item.title}
                                     </Link>
@@ -123,7 +123,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                         </ul>
                     </nav>
 
-                    <div className="flex-shrink-0 space-y-3 border-t border-line px-5 py-5" style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}>
+                    <div className="flex-shrink-0 space-y-3 bg-surface px-5 py-5" style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}>
                         <Button
                             size="lg"
                             arrow="right"

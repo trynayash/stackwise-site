@@ -1,14 +1,13 @@
 import React from "react";
-import { caseStudies } from "@/lib/case-studies";
 import { allWork } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { siteConfig } from "@/config/site";
-import { Eyebrow, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { Eyebrow, SectionHeader, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
-import { MoreWork, ShowcasePanel } from "@/components/sections/portfolio";
-import { Proof } from "@/components/sections/proof";
+import { WorkGrid } from "@/components/work/work-card";
+import { ProofGrid } from "@/components/sections/about";
 import { CtaBand } from "@/components/sections/cta-band";
 
 export const metadata = constructMetadata({
@@ -41,19 +40,18 @@ export default function WorkPage() {
             />
 
             <section className="relative overflow-hidden pt-28 pb-12 md:pt-36 md:pb-16">
-                <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
                     <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Work" }]} />
                     <Enter>
                         <Eyebrow>Work</Eyebrow>
                     </Enter>
-                    <h1 className="mt-6 max-w-4xl text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
-                        <WordReveal text="Products we've designed" immediate /> <WordReveal text="and engineered." immediate delay={0.15} className="text-white/40" />
+                    <h1 className="mt-4 max-w-4xl text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
+                        <WordReveal text="Products we've built" immediate /> <WordReveal text="and shipped." immediate delay={0.15} className="text-accent" />
                     </h1>
                     <Enter delay={0.25}>
                         <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/60">
-                            Each case study covers the problem, the constraints, the architecture and the trade-offs — so you can judge the engineering, not just the
-                            screenshots.
+                            Real products that people use. Each case study covers the problem, the architecture and the trade-offs, so you can judge the
+                            engineering as well as the screenshots.
                         </p>
                     </Enter>
                 </div>
@@ -61,18 +59,17 @@ export default function WorkPage() {
 
             <section className="pb-8" aria-label="Case studies">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <Stagger className="space-y-5">
-                        {caseStudies.map((s, i) => (
-                            <StaggerItem key={s.slug}>
-                                <ShowcasePanel study={s} index={i} total={caseStudies.length} />
-                            </StaggerItem>
-                        ))}
-                    </Stagger>
-                    <MoreWork className="mt-16 md:mt-20" />
+                    <h2 className="sr-only">All case studies</h2>
+                    <WorkGrid studies={allWork} priorityFirst />
                 </div>
             </section>
 
-            <Proof />
+            <section className="relative py-20 md:py-28" aria-label="Proof">
+                <div className="container mx-auto px-5 sm:px-6">
+                    <SectionHeader eyebrow="Proof" title="Things you can check for yourself." />
+                    <ProofGrid />
+                </div>
+            </section>
             <CtaBand />
         </div>
     );

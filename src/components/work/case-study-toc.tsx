@@ -24,9 +24,9 @@ export function CaseStudyToc({ items }: { items: { id: string; title: string }[]
 
     return (
         <nav aria-label="On this page" className="lg:sticky lg:top-28">
-            <p className="mb-4 text-xs uppercase tracking-[0.16em] text-white/55">On this page</p>
-            <ol className="space-y-1 border-l border-line">
-                {items.map((item, i) => (
+            <p className="mb-3 text-sm font-semibold text-white">On this page</p>
+            <ol className="space-y-1">
+                {items.map((item) => (
                     <li key={item.id}>
                         <a
                             href={`#${item.id}`}
@@ -35,11 +35,10 @@ export function CaseStudyToc({ items }: { items: { id: string; title: string }[]
                                 document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
                             }}
                             className={cn(
-                                "-ml-px flex items-center gap-3 border-l py-1.5 pl-4 text-sm transition-colors",
-                                active === item.id ? "border-accent text-white" : "border-transparent text-white/55 hover:text-white/80"
+                                "flex rounded-full px-4 py-2 text-sm transition-colors",
+                                active === item.id ? "bg-accent font-medium text-black" : "text-white/60 hover:bg-white/[0.06] hover:text-white"
                             )}
                         >
-                            <span className="font-mono text-xs text-white/50">{String(i + 1).padStart(2, "0")}</span>
                             {item.title}
                         </a>
                     </li>

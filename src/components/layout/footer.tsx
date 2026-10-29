@@ -14,7 +14,7 @@ const linkClass = "link-draw text-sm text-white/55 hover:text-white";
 function Column({ title, href, children }: { title: string; href?: string; children: React.ReactNode }) {
     return (
         <div>
-            <h3 className="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-white/50">
+            <h3 className="mb-5 text-sm font-semibold text-white">
                 {href ? <Link href={href} className="hover:text-white transition-colors">{title}</Link> : title}
             </h3>
             <ul className="space-y-3">{children}</ul>
@@ -26,7 +26,7 @@ export function Footer() {
     const navLink = useNavLink();
 
     return (
-        <footer className="relative overflow-hidden border-t border-line bg-canvas" role="contentinfo">
+        <footer className="relative overflow-hidden rounded-t-[2rem] bg-surface md:rounded-t-[3rem]" role="contentinfo">
             <div className="container mx-auto px-5 sm:px-6">
                 {/* Links */}
                 <div className="grid grid-cols-2 gap-10 pt-16 pb-14 md:grid-cols-4 lg:grid-cols-12">
@@ -37,6 +37,13 @@ export function Footer() {
                         <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">
                             A software studio by {siteConfig.author}, based in {siteConfig.location.city}. We design and build SaaS products, custom software and AI features for clients in India and abroad.
                         </p>
+                        <a
+                            href={`mailto:${siteConfig.emails.inbound}`}
+                            className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-white hover:text-accent"
+                        >
+                            <Icon icon={Mail01Icon} size={17} />
+                            {siteConfig.emails.inbound}
+                        </a>
                         <div className="mt-6 flex items-center gap-2">
                             {[
                                 { label: "Yash Suthar on X", href: siteConfig.links.twitter, icon: NewTwitterIcon },
@@ -49,7 +56,7 @@ export function Footer() {
                                     aria-label={s.label}
                                     target={s.href.startsWith("http") ? "_blank" : undefined}
                                     rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                    className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-white/60 transition-colors hover:border-line-strong hover:text-white"
+                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors hover:bg-accent hover:text-black"
                                 >
                                     <Icon icon={s.icon} size={18} />
                                 </a>
@@ -98,7 +105,7 @@ export function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="flex flex-col gap-4 border-t border-line py-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-4 pb-8 pt-2 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between">
                     <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
                     <div className="flex items-center gap-6">
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
@@ -113,9 +120,6 @@ export function Footer() {
                     </div>
                 </div>
             </div>
-
-            {/* Oversized wordmark: drawn via CSS (see .footer-wordmark) because it's decoration, not text */}
-            <div aria-hidden className="footer-wordmark pointer-events-none select-none overflow-hidden" />
         </footer>
     );
 }

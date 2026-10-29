@@ -6,15 +6,15 @@ import type { ArchitectureDiagram as Diagram } from "@/lib/case-studies";
 /** Lanes of components read left to right (top to bottom on phones), as drawn on yashsuthar.dev. */
 export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
     return (
-        <figure className="rounded-2xl border border-line bg-surface p-5 md:p-7">
+        <figure className="rounded-3xl bg-surface p-5 md:p-7">
             <div className="space-y-6">
                 {diagram.lanes.map((lane) => (
                     <div key={lane.label}>
-                        <p className="mb-3 text-xs uppercase tracking-[0.16em] text-white/55">{lane.label}</p>
+                        <p className="mb-3 text-sm font-medium text-white/60">{lane.label}</p>
                         <ol className="flex flex-col gap-2 md:flex-row md:items-stretch md:gap-0">
                             {lane.nodes.map((node, i) => (
                                 <li key={node.name} className="flex flex-col md:flex-1 md:flex-row md:items-center">
-                                    <div className="h-full flex-1 rounded-xl border border-line-strong bg-canvas p-4">
+                                    <div className="h-full flex-1 rounded-2xl bg-surface-3 p-4">
                                         <p className="text-sm font-semibold text-white">{node.name}</p>
                                         {node.detail && <p className="mt-1 text-xs leading-relaxed text-white/50">{node.detail}</p>}
                                     </div>
@@ -29,7 +29,7 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
                     </div>
                 ))}
             </div>
-            <figcaption className="mt-6 border-t border-line pt-4 text-sm text-white/55">{diagram.caption}</figcaption>
+            <figcaption className="mt-6 text-sm text-white/55">{diagram.caption}</figcaption>
         </figure>
     );
 }

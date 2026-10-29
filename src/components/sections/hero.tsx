@@ -1,110 +1,104 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { CustomerSupportIcon, FileSecurityIcon, Key01Icon, SourceCodeIcon } from "@hugeicons/core-free-icons";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Location01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { HeroVisual } from "@/components/three/hero-visual";
-import { WordReveal } from "@/components/ui/motion-primitives";
+import { ProjectDeck } from "@/components/sections/project-deck";
 import { Enter } from "@/components/ui/enter";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
-import { useSectionNav } from "@/hooks/use-section-nav";
+import { allWork } from "@/lib/more-work";
+import { siteConfig } from "@/config/site";
 
-const trustPoints = [
-    { icon: SourceCodeIcon, title: "Senior engineering", text: "Work directly with the engineer building it" },
-    { icon: Key01Icon, title: "100% code & IP", text: "Full repository handover, no lock-in" },
-    { icon: CustomerSupportIcon, title: "Support after launch", text: "1–3 months included in every plan" },
-    { icon: FileSecurityIcon, title: "NDA on request", text: "Signed before any sensitive discovery" },
-];
+const things = ["SaaS product.", "website.", "AI assistant.", "MVP.", "internal tool.", "mobile app."];
 
-export function Hero() {
-    const { openInquiry } = useInquiry();
-    const goToSection = useSectionNav();
-    const heroRef = useRef<HTMLElement>(null);
-    // As the hero scrolls away, the copy drifts up and fades a little: a quiet hand-off to the next section.
-    const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-    const copyY = useTransform(scrollYProgress, [0, 1], [0, -90]);
-    const copyOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.25]);
+const promises = ["Reply within 24–48 hours", "Written quote before we start", "You own 100% of the code"];
+
+/** The last line of the headline: cycles through what we build. */
+function RotatingWord() {
+    const [i, setI] = useState(0);
+    const reduced = useReducedMotion();
+
+    useEffect(() => {
+        if (reduced) return;
+        const t = setInterval(() => setI((v) => (v + 1) % things.length), 2400);
+        return () => clearInterval(t);
+    }, [reduced]);
 
     return (
-        <section ref={heroRef} id="hero" className="relative overflow-hidden pt-28 pb-8 md:pt-32" aria-label="Introduction">
-            <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-
-            <div className="container relative mx-auto px-5 sm:px-6">
-                <div className="grid min-h-[calc(100svh-9rem)] grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-6">
-                    {/* Copy */}
-                    <motion.div style={{ y: copyY, opacity: copyOpacity }} className="flex flex-col items-start lg:col-span-7">
-                        <Enter className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13px] text-white/70">
-                            <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
-                            Booking new projects
-                        </Enter>
-
-                        <h1 className="mb-6 text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.25rem] font-semibold tracking-[-0.045em] text-white text-balance">
-                            <WordReveal text="Give your custom software" immediate />{" "}
-                            <WordReveal text="the codebase it deserves." immediate delay={0.15} className="text-white/45" />
-                        </h1>
-
-                        <Enter as="p" delay={0.3} className="mb-10 max-w-xl text-lg leading-relaxed text-white/65 text-pretty">
-                            StackWise is a Mumbai software studio by Yash Suthar. We design and build SaaS products, custom software and AI features —
-                            clean, typed code that you fully own.
-                        </Enter>
-
-                        <Enter delay={0.4} className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                            <Button size="lg" arrow="right" onClick={openInquiry}>
-                                Get a free quote
-                            </Button>
-                            <ButtonLink href="/#portfolio" onClick={goToSection("portfolio")} variant="secondary" size="lg">
-                                See our work
-                            </ButtonLink>
-                        </Enter>
-
-                        <Enter as="p" delay={0.5} className="mt-5 text-sm text-white/55">
-                            Free consultation · We reply within 24–48 hours
-                        </Enter>
-                    </motion.div>
-
-                    {/* 3D model */}
-                    <Enter delay={0.15} className="relative -mx-5 h-[320px] sm:mx-0 sm:h-[420px] lg:col-span-5 lg:h-[580px]">
-                        <HeroVisual className="absolute inset-0" />
-                        <FloatingTag className="left-[2%] top-[16%]" label="Frontend" sub="Next.js · React" />
-                        <FloatingTag className="right-[0%] top-[44%]" label="API & data" sub="Node · Go · Postgres" />
-                        <FloatingTag className="left-[8%] bottom-[12%]" label="AI layer" sub="LLMs · RAG · Agents" />
-                    </Enter>
-                </div>
-
-                {/* Trust strip */}
-                <Enter
-                    as="ul"
-                    delay={0.55}
-                    className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+        <span className="relative inline-flex overflow-hidden pb-[0.1em] align-bottom">
+            <AnimatePresence mode="popLayout" initial={false}>
+                <motion.span
+                    key={things[i]}
+                    initial={{ y: "100%" }}
+                    animate={{ y: "0%" }}
+                    exit={{ y: "-100%" }}
+                    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-block whitespace-nowrap text-accent"
                 >
-                    {trustPoints.map((t) => (
-                        <li key={t.title} className="flex items-start gap-4 bg-canvas p-6">
-                            <Icon icon={t.icon} size={22} className="mt-0.5 text-white" />
-                            <div>
-                                <p className="text-[15px] font-semibold text-white">{t.title}</p>
-                                <p className="mt-1 text-sm text-white/50">{t.text}</p>
-                            </div>
-                        </li>
-                    ))}
-                </Enter>
-
-            </div>
-        </section>
+                    {things[i]}
+                </motion.span>
+            </AnimatePresence>
+        </span>
     );
 }
 
-function FloatingTag({ className, label, sub }: { className: string; label: string; sub: string }) {
+export function Hero() {
+    const { openInquiry } = useInquiry();
+
     return (
-        <div className={`pointer-events-none absolute z-10 hidden sm:block ${className}`}>
-            <div className="rounded-xl border border-line-strong bg-surface px-3.5 py-2.5">
-                <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-[2px] bg-accent" />
-                    <span className="text-xs font-semibold text-white">{label}</span>
+        <section id="hero" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24" aria-label="Introduction">
+            <div className="container mx-auto px-5 sm:px-6">
+                <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-8">
+                    <div className="flex flex-col items-start lg:col-span-6">
+                        <Enter className="mb-7 inline-flex items-center gap-2 rounded-full bg-white/[0.07] px-4 py-2 text-[13px] font-medium text-white/80">
+                            <Icon icon={Location01Icon} size={15} className="text-accent" />
+                            Software studio in {siteConfig.location.city}
+                        </Enter>
+
+                        <h1 className="text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
+                            <span className="sr-only">Let&apos;s build your SaaS product, website, AI assistant, MVP, internal tool or mobile app.</span>
+                            {/* No entrance animation: the headline is the page's largest paint (LCP), and Chrome
+                                ignores text that animates in until it next repaints. The rotating word supplies the motion. */}
+                            <span aria-hidden className="block">
+                                Let&apos;s build your
+                            </span>
+                            <span aria-hidden className="block">
+                                <RotatingWord />
+                            </span>
+                        </h1>
+
+                        <Enter as="p" delay={0.25} className="mt-7 max-w-xl text-lg leading-relaxed text-white/65 text-pretty">
+                            StackWise designs and builds SaaS products, AI features, custom software and websites for startups and growing businesses. You
+                            work directly with the engineer, get a written quote up front, and own every line of code.
+                        </Enter>
+
+                        <Enter delay={0.35} className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+                            <Button size="lg" arrow="right" onClick={openInquiry}>
+                                Get a free quote
+                            </Button>
+                            <ButtonLink href={`mailto:${siteConfig.emails.inbound}`} variant="secondary" size="lg">
+                                <Icon icon={Mail01Icon} size={18} />
+                                Email us
+                            </ButtonLink>
+                        </Enter>
+
+                        <Enter as="ul" delay={0.45} className="mt-8 flex flex-col gap-x-6 gap-y-2.5 text-sm text-white/65 sm:flex-row sm:flex-wrap">
+                            {promises.map((p) => (
+                                <li key={p} className="flex items-center gap-2">
+                                    <Icon icon={Tick02Icon} size={16} strokeWidth={2} className="text-accent" />
+                                    {p}
+                                </li>
+                            ))}
+                        </Enter>
+                    </div>
+
+                    <div className="lg:col-span-6">
+                        <ProjectDeck projects={allWork} />
+                    </div>
                 </div>
-                <span className="mt-0.5 block pl-3.5 text-[11px] font-mono text-white/55">{sub}</span>
             </div>
-        </div>
+        </section>
     );
 }

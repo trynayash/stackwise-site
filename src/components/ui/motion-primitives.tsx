@@ -120,21 +120,14 @@ export function WordReveal({
     );
 }
 
-/** Small label above a section heading, e.g. "01 — Services". */
-export function Eyebrow({ index, children, className }: { index?: string; children: React.ReactNode; className?: string }) {
-    return (
-        <span className={cn("inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-white/50", className)}>
-            {index && <span className="font-mono text-accent">{index}</span>}
-            {index && <span className="h-px w-6 bg-white/20" aria-hidden />}
-            {children}
-        </span>
-    );
+/** Small accent label above a section heading. */
+export function Eyebrow({ children, className }: { children: React.ReactNode; className?: string }) {
+    return <span className={cn("inline-block text-sm font-medium text-accent md:text-[15px]", className)}>{children}</span>;
 }
 
 /** Section eyebrow + heading (+ optional description or action) used across the site. */
 export function SectionHeader({
     eyebrow,
-    index,
     title,
     muted,
     description,
@@ -143,7 +136,6 @@ export function SectionHeader({
     className,
 }: {
     eyebrow: string;
-    index?: string;
     title: string;
     muted?: string;
     description?: string;
@@ -162,21 +154,21 @@ export function SectionHeader({
         >
             <div className={cn("max-w-3xl", centered && "mx-auto")}>
                 <Reveal y={12}>
-                    <Eyebrow index={index}>{eyebrow}</Eyebrow>
+                    <Eyebrow>{eyebrow}</Eyebrow>
                 </Reveal>
-                <h2 className="mt-5 text-[2rem] leading-[1.08] sm:text-[2.75rem] md:text-[3.25rem] font-semibold tracking-[-0.035em] text-white text-balance">
+                <h2 className="mt-4 text-[2.125rem] leading-[1.06] sm:text-[2.75rem] md:text-[3.5rem] font-semibold tracking-[-0.04em] text-white text-balance">
                     <WordReveal text={title} />
                     {muted && (
                         <>
                             {" "}
-                            <WordReveal text={muted} className="text-white/40" delay={0.1} />
+                            <WordReveal text={muted} delay={0.1} />
                         </>
                     )}
                 </h2>
             </div>
             {(description || action) && (
                 <Reveal delay={0.15} className={cn("max-w-md flex flex-col gap-6", centered ? "mx-auto items-center" : "lg:items-start")}>
-                    {description && <p className="text-white/55 text-base md:text-[17px] leading-relaxed text-pretty">{description}</p>}
+                    {description && <p className="text-white/60 text-base md:text-lg leading-relaxed text-pretty">{description}</p>}
                     {action}
                 </Reveal>
             )}

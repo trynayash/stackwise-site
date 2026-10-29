@@ -2,23 +2,21 @@
 
 import React from "react";
 import { MotionConfig } from "framer-motion";
-import { InquiryProvider } from "@/components/providers/inquiry-context";
+import { InquiryProvider, useInquiry } from "@/components/providers/inquiry-context";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import dynamic from "next/dynamic";
-import { useInquiry } from "@/components/providers/inquiry-context";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
 
-// The multi-step inquiry form is large; load it the first time someone opens it, not on every page.
-const InquiryModal = dynamic(() => import("@/components/project-inquiry/inquiry-modal").then((m) => m.InquiryModal), { ssr: false });
+// The quote chat drawer loads the first time someone opens it, not on every page view.
+const QuoteDrawer = dynamic(() => import("@/components/quote/quote-drawer").then((m) => m.QuoteDrawer), { ssr: false });
 
-function LazyInquiryModal() {
+function LazyQuoteDrawer() {
     const { isOpen } = useInquiry();
     const [requested, setRequested] = React.useState(false);
     if (isOpen && !requested) setRequested(true);
-    return requested ? <InquiryModal /> : null;
+    return requested ? <QuoteDrawer /> : null;
 }
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
@@ -44,7 +42,6 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                     >
                         Skip to content
                     </a>
-                    <ScrollProgress />
                     <Navbar />
 
                     <main id="main" className="relative flex min-h-screen flex-col">
@@ -56,7 +53,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                     </div>
 
                     <MobileCtaBar hidden={footerVisible} />
-                    <LazyInquiryModal />
+                    <LazyQuoteDrawer />
                 </SmoothScroll>
             </MotionConfig>
         </InquiryProvider>

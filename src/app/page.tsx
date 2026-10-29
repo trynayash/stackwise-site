@@ -1,18 +1,10 @@
 import { Hero } from "@/components/sections/hero";
-import { Trusted } from "@/components/sections/trusted";
-import { Manifesto } from "@/components/sections/manifesto";
-import { ServiceBento } from "@/components/sections/service-bento";
+import { Portfolio } from "@/components/sections/portfolio";
 import { Services } from "@/components/sections/services";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
-import { Portfolio } from "@/components/sections/portfolio";
-import { Proof } from "@/components/sections/proof";
-import { Comparison } from "@/components/sections/comparison";
 import { Pricing } from "@/components/sections/pricing";
+import { About } from "@/components/sections/about";
 import { FAQ } from "@/components/sections/faq";
-import { Testimonials } from "@/components/sections/testimonials";
-import { Founder } from "@/components/sections/founder";
-import { TechStack } from "@/components/sections/tech-stack";
-import { CtaBand } from "@/components/sections/cta-band";
 import { Contact } from "@/components/sections/contact";
 import { JsonLd, faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
@@ -23,20 +15,12 @@ export default function Home() {
         <div className="flex flex-col">
             <JsonLd data={faqSchema(faqs)} />
             <Hero />
-            <Trusted />
-            <Manifesto />
-            <ServiceBento />
             <Portfolio />
-            <Proof />
             <Services />
             <ProcessTimeline />
-            <Comparison />
             <Pricing />
-            <Testimonials />
-            <Founder />
-            <TechStack />
+            <About />
             <FAQ />
-            <CtaBand />
             <Contact />
         </div>
     );

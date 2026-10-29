@@ -2,11 +2,11 @@
 
 import React from "react";
 import { Mail01Icon } from "@hugeicons/core-free-icons";
-import { useInquiry } from "@/components/providers/inquiry-context";
-import { Eyebrow, Reveal, WordReveal } from "@/components/ui/motion-primitives";
-import { FaqList } from "@/components/ui/faq-list";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { FaqList } from "@/components/ui/faq-list";
+import { Reveal, SectionHeader } from "@/components/ui/motion-primitives";
+import { useInquiry } from "@/components/providers/inquiry-context";
 import { faqs } from "@/lib/faqs";
 import { siteConfig } from "@/config/site";
 
@@ -15,25 +15,21 @@ export function FAQ() {
 
     return (
         <section id="faq" className="relative py-20 md:py-28" aria-label="Frequently asked questions">
-            <div className="container mx-auto grid grid-cols-1 gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
+            <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
                 <div className="lg:col-span-4">
                     <div className="lg:sticky lg:top-28">
-                        <Reveal y={12}>
-                            <Eyebrow index="10">FAQ</Eyebrow>
-                        </Reveal>
-                        <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-[2.75rem]">
-                            <WordReveal text="Questions," /> <WordReveal text="answered." className="text-white/40" delay={0.1} />
-                        </h2>
-                        <Reveal delay={0.15}>
-                            <p className="mt-5 text-base leading-relaxed text-white/55">
-                                Everything you need to know before working with us. Can&apos;t find your answer?
-                            </p>
+                        <SectionHeader eyebrow="FAQ" title="Common questions." className="mb-6 md:mb-6 lg:block" />
+                        <Reveal delay={0.1}>
+                            <p className="text-base leading-relaxed text-white/60 md:text-lg">Can&apos;t find your answer? Ask in the chat or send an email.</p>
                             <div className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                                <Button onClick={openInquiry} arrow="right">
-                                    Ask us anything
+                                <Button onClick={() => openInquiry({ topic: "a question" })} arrow="right">
+                                    Ask a question
                                 </Button>
-                                <a href={`mailto:${siteConfig.emails.inbound}`} className="inline-flex h-12 items-center gap-2 px-1 text-sm text-white/60 hover:text-white">
-                                    <Icon icon={Mail01Icon} size={16} />
+                                <a
+                                    href={`mailto:${siteConfig.emails.inbound}`}
+                                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white/[0.06] px-6 text-[15px] font-semibold text-white transition-colors hover:bg-white/[0.12]"
+                                >
+                                    <Icon icon={Mail01Icon} size={18} />
                                     Email us
                                 </a>
                             </div>

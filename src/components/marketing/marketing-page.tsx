@@ -1,19 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight01Icon, ArrowUpRight01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, ArrowUpRight01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Card, IconTile } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { FaqList } from "@/components/ui/faq-list";
-import { Eyebrow, Reveal, SectionHeader, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
+import { Reveal, SectionHeader, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
 import { CtaBand } from "@/components/sections/cta-band";
-import { ProjectCard } from "@/components/sections/portfolio";
+import { WorkCard } from "@/components/work/work-card";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { marketingPages, marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
 import { workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
+import { presetForPage } from "@/lib/quote";
+import { siteConfig } from "@/config/site";
 import { JsonLd, breadcrumbSchema, faqSchema, rupees, serviceSchema } from "@/lib/schema";
 
 export function marketingMetadata(page: MarketingPageData): Metadata {
@@ -48,6 +50,8 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
     const related = page.related.map((path) => Object.values(marketingPages).find((p) => p.path === path)).filter(Boolean) as MarketingPageData[];
     const work = page.work.map((slug) => workBySlug[slug]).filter(Boolean);
     const hubPath = `/${page.kind.toLowerCase()}`;
+    const preset = presetForPage(page.slug, page.navLabel);
+    const price = page.facts.find((f) => f.label === "Starting at")?.value;
 
     return (
         <div className="relative">
@@ -71,46 +75,51 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
 
             {/* ─── Hero ─── */}
             <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
-                <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
                 <div className="container relative mx-auto px-5 sm:px-6">
                     <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: page.kind, href: hubPath }, { name: page.navLabel }]} />
 
                     <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-7">
-                            <Enter className="flex items-center gap-3">
-                                <IconTile size="sm">
-                                    <Icon icon={page.icon} size={18} />
-                                </IconTile>
-                                <Eyebrow>{page.badge}</Eyebrow>
+                            <Enter className="inline-flex items-center gap-2 rounded-full bg-white/[0.07] px-4 py-2 text-[13px] font-medium text-white/80">
+                                <Icon icon={page.icon} size={16} className="text-accent" />
+                                {page.badge}
                             </Enter>
                             <h1 className="mt-7 text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl text-balance">
                                 <WordReveal text={page.titleTop} immediate />{" "}
-                                <WordReveal text={page.titleAccent} immediate delay={0.15} className="text-white/40" />
+                                <WordReveal text={page.titleAccent} immediate delay={0.15} className="text-accent" />
                             </h1>
                             <Enter delay={0.25}>
                                 <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/60 text-pretty">{page.intro}</p>
                             </Enter>
                             <Enter delay={0.35} className="mt-10 flex flex-col gap-3 sm:flex-row">
-                                <QuoteButton />
-                                <ButtonLink href="/#pricing" variant="secondary" size="lg">
-                                    See pricing
+                                <QuoteButton preset={preset} />
+                                <ButtonLink href={`mailto:${siteConfig.emails.inbound}`} variant="secondary" size="lg">
+                                    <Icon icon={Mail01Icon} size={18} />
+                                    Email us
                                 </ButtonLink>
                             </Enter>
                         </div>
 
                         {/* At a glance */}
                         <Enter delay={0.3} className="lg:col-span-5">
-                            <div className="rounded-2xl border border-line bg-surface">
-                                <p className="border-b border-line px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white/55">At a glance</p>
-                                <dl className="divide-y divide-line">
-                                    {page.facts.map((f) => (
-                                        <div key={f.label} className="flex items-baseline justify-between gap-6 px-6 py-4">
-                                            <dt className="text-sm text-white/50">{f.label}</dt>
-                                            <dd className="text-right text-[15px] font-medium text-white">{f.value}</dd>
-                                        </div>
-                                    ))}
+                            <div className="rounded-3xl bg-surface p-7 md:p-8">
+                                {price && (
+                                    <div className="mb-6 rounded-2xl bg-accent p-5 text-black">
+                                        <p className="text-sm font-medium text-black/65">Starting at</p>
+                                        <p className="mt-1 text-4xl font-semibold tracking-[-0.04em]">{price}</p>
+                                    </div>
+                                )}
+                                <dl className="space-y-4">
+                                    {page.facts
+                                        .filter((f) => f.label !== "Starting at")
+                                        .map((f) => (
+                                            <div key={f.label} className="flex items-baseline justify-between gap-6">
+                                                <dt className="text-sm text-white/55">{f.label}</dt>
+                                                <dd className="text-right text-[15px] font-medium text-white">{f.value}</dd>
+                                            </div>
+                                        ))}
                                 </dl>
-                                <p className="border-t border-line px-6 py-4 text-sm text-white/55">Free consultation · We reply within 24–48 hours</p>
+                                <p className="mt-6 text-sm text-white/55">Free consultation. We reply within 24–48 hours.</p>
                             </div>
                         </Enter>
                     </div>
@@ -120,15 +129,17 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             {/* ─── What's included ─── */}
             <section className="relative py-16 md:py-24" aria-labelledby="included">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <SectionHeader index="01" eyebrow="What's included" title="Everything you need," muted="built properly." />
-                    <Stagger className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+                    <SectionHeader eyebrow="What's included" title="Everything you need, built properly." />
+                    <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {page.features.map((feat) => (
-                            <StaggerItem key={feat.title} className="bg-canvas">
-                                <div className="h-full p-7 md:p-8">
-                                    <Icon icon={feat.icon} size={24} className="text-white" />
-                                    <h3 className="mt-8 text-lg font-semibold text-white">{feat.title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-white/55">{feat.description}</p>
-                                </div>
+                            <StaggerItem key={feat.title} className="h-full">
+                                <Card interactive className="h-full p-7 md:p-8">
+                                    <IconTile>
+                                        <Icon icon={feat.icon} size={20} />
+                                    </IconTile>
+                                    <h3 className="mt-7 text-lg font-semibold text-white">{feat.title}</h3>
+                                    <p className="mt-2 text-[15px] leading-relaxed text-white/60">{feat.description}</p>
+                                </Card>
                             </StaggerItem>
                         ))}
                     </Stagger>
@@ -140,7 +151,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                 <div className="container mx-auto grid grid-cols-1 gap-5 px-5 sm:px-6 lg:grid-cols-12">
                     <Reveal className="lg:col-span-5">
                         <Card className="h-full p-7 md:p-9">
-                            <Eyebrow index="02">A great fit if you are</Eyebrow>
+                            <h2 className="text-2xl font-semibold tracking-tight text-white">A great fit if you are</h2>
                             <ul className="mt-8 space-y-5">
                                 {page.idealFor.map((item) => (
                                     <li key={item} className="flex items-start gap-4 text-lg leading-snug text-white">
@@ -155,7 +166,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                     </Reveal>
                     <Reveal delay={0.08} className="lg:col-span-7">
                         <Card className="h-full p-7 md:p-9">
-                            <Eyebrow index="03">What you get</Eyebrow>
+                            <h2 className="text-2xl font-semibold tracking-tight text-white">What you get</h2>
                             <ul className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                                 {page.deliverables.map((d) => (
                                     <li key={d} className="flex items-start gap-3 text-[15px] text-white/75">
@@ -164,11 +175,11 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="mt-8 border-t border-line pt-6">
+                            <div className="mt-9">
                                 <p className="text-sm text-white/55">Typical stack</p>
-                                <div className="mt-3 flex flex-wrap gap-1.5">
+                                <div className="mt-3 flex flex-wrap gap-2">
                                     {page.stack.map((s) => (
-                                        <span key={s} className="rounded-full border border-line px-3 py-1 text-xs text-white/60">{s}</span>
+                                        <span key={s} className="rounded-full bg-white/[0.06] px-3.5 py-1.5 text-sm text-white/75">{s}</span>
                                     ))}
                                 </div>
                             </div>
@@ -182,20 +193,18 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                 <section className="relative py-16 md:py-24" aria-labelledby="relevant-work">
                     <div className="container mx-auto px-5 sm:px-6">
                         <SectionHeader
-                            index="04"
                             eyebrow="Relevant work"
-                            title="See how we've built"
-                            muted="similar products."
+                            title="Similar products we've built."
                             action={
-                                <ButtonLink href="/#portfolio" variant="secondary" arrow="right">
+                                <ButtonLink href="/work" variant="secondary" arrow="right">
                                     All work
                                 </ButtonLink>
                             }
                         />
-                        <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+                        <Stagger className="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2">
                             {work.map((study) => (
                                 <StaggerItem key={study.slug}>
-                                    <ProjectCard study={study} />
+                                    <WorkCard study={study} />
                                 </StaggerItem>
                             ))}
                         </Stagger>
@@ -206,15 +215,15 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             {/* ─── Process ─── */}
             <section className="relative py-16 md:py-24" aria-label="How it works">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <SectionHeader index="05" eyebrow="How it works" title="Four steps." muted="Zero guesswork." />
-                    <Stagger className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
-                        {marketingProcess.map((s) => (
-                            <StaggerItem key={s.step} className="bg-canvas">
-                                <div className="h-full p-7">
-                                    <span className="font-mono text-sm text-accent">{s.step}</span>
-                                    <h3 className="mt-6 text-lg font-semibold text-white">{s.title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-white/55">{s.text}</p>
-                                </div>
+                    <SectionHeader eyebrow="How it works" title="Four clear steps, from first call to launch." />
+                    <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        {marketingProcess.map((s, i) => (
+                            <StaggerItem key={s.step} className="h-full">
+                                <Card className="h-full p-7">
+                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-black">{i + 1}</span>
+                                    <h3 className="mt-7 text-lg font-semibold text-white">{s.title}</h3>
+                                    <p className="mt-2 text-[15px] leading-relaxed text-white/60">{s.text}</p>
+                                </Card>
                             </StaggerItem>
                         ))}
                     </Stagger>
@@ -225,15 +234,9 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             <section className="relative py-16 md:py-24" aria-label="Frequently asked questions">
                 <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
                     <Reveal className="lg:col-span-4">
-                        <Eyebrow index="06">FAQ</Eyebrow>
-                        <h2 className="mt-5 text-3xl font-semibold tracking-[-0.03em] text-white md:text-4xl">Common questions</h2>
-                        <p className="mt-4 text-base leading-relaxed text-white/55">
-                            Something else on your mind?{" "}
-                            <Link href="/#contact" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-accent">
-                                Ask us directly
-                            </Link>
-                            .
-                        </p>
+                        <h2 className="text-3xl font-semibold tracking-[-0.03em] text-white md:text-4xl">Common questions</h2>
+                        <p className="mt-4 text-base leading-relaxed text-white/60">Something else on your mind? Ask in the chat, it only takes a minute.</p>
+                        <QuoteButton label="Ask a question" preset={preset} size="md" variant="secondary" className="mt-6" />
                     </Reveal>
                     <Reveal delay={0.08} className="lg:col-span-8">
                         <FaqList faqs={page.faqs} />
@@ -256,7 +259,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                             <IconTile>
                                                 <Icon icon={r.icon} size={20} />
                                             </IconTile>
-                                            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-white/60 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
+                                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
                                                 <Icon icon={ArrowUpRight01Icon} size={18} />
                                             </span>
                                         </div>
@@ -270,7 +273,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                 </div>
             </section>
 
-            <CtaBand title={page.cta.title} subtitle={page.cta.text} />
+            <CtaBand title={page.cta.title} subtitle={page.cta.text} preset={preset} />
         </div>
     );
 }

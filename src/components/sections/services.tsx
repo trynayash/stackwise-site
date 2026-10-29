@@ -1,277 +1,196 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-    AiBrain01Icon, Analytics01Icon, CloudServerIcon, Compass01Icon, Globe02Icon, Layers01Icon, PackageIcon, PaintBoardIcon,
-    Plug01Icon, RefreshIcon, ServerStack01Icon, Settings02Icon, ShoppingCart01Icon, SmartPhone01Icon, UserGroupIcon,
-    WorkflowSquare01Icon, Wrench01Icon,
-} from "@hugeicons/core-free-icons";
+import Link from "next/link";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight01Icon, ArrowUpRight01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { Icon } from "@/components/ui/icon";
+import { Reveal } from "@/components/ui/motion-primitives";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { SectionHeader } from "@/components/ui/motion-primitives";
-import { Button } from "@/components/ui/button";
-import { Icon, type IconSvgElement } from "@/components/ui/icon";
+import { marketingPages, servicePages, solutionPages, type MarketingPageData } from "@/lib/marketing-pages";
+import { workBySlug } from "@/lib/more-work";
+import { presetForPage } from "@/lib/quote";
 import { cn } from "@/lib/utils";
 
-// ─── Types ──────────────────────────────────────────────
-type ServiceItem = {
-    icon: IconSvgElement;
-    title: string;
-    description: string;
-    deliverables: string[];
-};
+const core = ["saas-development", "ai-development", "custom-software", "web-development"].map((slug) => marketingPages[slug]);
+const others = [...servicePages.filter((p) => !core.includes(p)), ...solutionPages];
 
-type CategoryData = {
-    id: string;
-    label: string;
-    hook: string;
-    storyLine1: string;
-    storyLine2: string;
-    services: ServiceItem[];
-};
+const fact = (page: MarketingPageData, label: string) => page.facts.find((f) => f.label === label)?.value;
 
-// ─── Categories & Services Data ─────────────────────────
-const categories: CategoryData[] = [
-    {
-        id: "build",
-        label: "Build",
-        hook: "Have an idea?",
-        storyLine1: "We help turn concepts into production-ready software products.",
-        storyLine2: "From planning and design to engineering, deployment and iteration.",
-        services: [
-            {
-                icon: Layers01Icon,
-                title: "SaaS Product Development",
-                description: "Build subscription-based software platforms with secure architecture.",
-                deliverables: ["Architecture", "Subscriptions", "Dashboards", "Deployment"],
-            },
-            {
-                icon: PackageIcon,
-                title: "MVP Development",
-                description: "Launch the first version of your product without months of unnecessary complexity.",
-                deliverables: ["Product planning", "Core features", "UI/UX design", "Fast launch"],
-            },
-            {
-                icon: Globe02Icon,
-                title: "Web Platforms",
-                description: "Fast digital platforms designed for credibility, growth, and conversion.",
-                deliverables: ["Company websites", "Landing pages", "CMS systems", "SEO foundations"],
-            },
-            {
-                icon: SmartPhone01Icon,
-                title: "Mobile Apps",
-                description: "Build mobile experiences connected with powerful backend systems.",
-                deliverables: ["iOS & Android", "Cross-platform", "Mobile APIs", "App deployment"],
-            },
-            {
-                icon: PaintBoardIcon,
-                title: "UI/UX Product Design",
-                description: "Create intuitive digital experiences that users understand and businesses can scale.",
-                deliverables: ["User research", "Design systems", "Prototypes", "Conversion optimization"],
-            },
-        ],
-    },
-    {
-        id: "automate",
-        label: "Automate",
-        hook: "Still running operations manually?",
-        storyLine1: "We replace repetitive workflows with custom software and intelligent automation.",
-        storyLine2: "Purpose-built systems that eliminate manual overhead and reduce operational cost.",
-        services: [
-            {
-                icon: AiBrain01Icon,
-                title: "AI Product Engineering",
-                description: "Add practical AI capabilities that create actual business value.",
-                deliverables: ["LLM integrations", "RAG systems", "Intelligent workflows", "AI automation"],
-            },
-            {
-                icon: WorkflowSquare01Icon,
-                title: "Business Automation",
-                description: "Replace disconnected tools and manual processes with software built around your operations.",
-                deliverables: ["Workflow engines", "Process automation", "System integrations", "Custom dashboards"],
-            },
-            {
-                icon: Analytics01Icon,
-                title: "Data Dashboards & Analytics",
-                description: "Turn business data into clear insights and better decisions.",
-                deliverables: ["Admin dashboards", "KPI systems", "Data visualization", "Reporting tools"],
-            },
-            {
-                icon: Settings02Icon,
-                title: "Custom Internal Software",
-                description: "Build internal tools tailored to how your team actually works.",
-                deliverables: ["CRM systems", "ERP platforms", "Internal tools", "Operations software"],
-            },
-        ],
-    },
-    {
-        id: "scale",
-        label: "Scale",
-        hook: "Growing faster than your systems?",
-        storyLine1: "We rebuild infrastructure, APIs and platforms designed for reliability.",
-        storyLine2: "Scalable systems that handle growth without breaking under real operating conditions.",
-        services: [
-            {
-                icon: ServerStack01Icon,
-                title: "Backend Engineering",
-                description: "Design high-performance backend systems focused on architecture and predictable behavior.",
-                deliverables: ["System architecture", "Database design", "Performance tuning", "Security"],
-            },
-            {
-                icon: Plug01Icon,
-                title: "APIs & Integrations",
-                description: "Connect your business systems with reliable APIs and integrations.",
-                deliverables: ["REST APIs", "Payment integrations", "CRM connections", "Developer platforms"],
-            },
-            {
-                icon: CloudServerIcon,
-                title: "Cloud & DevOps",
-                description: "Deploy and operate applications with reliable infrastructure.",
-                deliverables: ["Cloud architecture", "CI/CD pipelines", "Docker deployments", "Monitoring"],
-            },
-            {
-                icon: ShoppingCart01Icon,
-                title: "E-commerce Platforms",
-                description: "Create commerce platforms built for sales, operations and growth.",
-                deliverables: ["Online stores", "Checkout systems", "Payment integrations", "Inventory"],
-            },
-        ],
-    },
-    {
-        id: "improve",
-        label: "Improve",
-        hook: "Need a long-term technical partner?",
-        storyLine1: "We continuously maintain, optimize and evolve your software.",
-        storyLine2: "Engineering ownership that extends well beyond launch day.",
-        services: [
-            {
-                icon: RefreshIcon,
-                title: "Software Modernization",
-                description: "Upgrade outdated software into faster, safer and more maintainable systems.",
-                deliverables: ["Code refactoring", "Performance improvements", "Migration planning", "Security upgrades"],
-            },
-            {
-                icon: Wrench01Icon,
-                title: "Maintenance & Support",
-                description: "Long-term engineering support after your product goes live.",
-                deliverables: ["Bug fixes", "Security updates", "Performance monitoring", "New features"],
-            },
-            {
-                icon: Compass01Icon,
-                title: "Technical Consulting",
-                description: "Senior engineering guidance before making important technology decisions.",
-                deliverables: ["Architecture reviews", "Stack selection", "Scaling strategy", "Development roadmap"],
-            },
-            {
-                icon: UserGroupIcon,
-                title: "Startup Technology Partner",
-                description: "Work with StackWise as your external product engineering team.",
-                deliverables: ["MVP development", "Product iterations", "Feature planning", "Engineering ownership"],
-            },
-        ],
-    },
-];
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-// ─── Component ──────────────────────────────────────────
-export function Services() {
-    const [activeCategory, setActiveCategory] = useState("build");
-    const current = categories.find((c) => c.id === activeCategory) ?? categories[0];
+/** Details for the selected service: a real project it produced, price, timeline and what's included. */
+function ServicePanel({ page }: { page: MarketingPageData }) {
     const { openInquiry } = useInquiry();
+    const study = workBySlug[page.work[0]];
+    const price = fact(page, "Starting at");
+    const timeline = fact(page, "Typical timeline");
 
     return (
-        <section id="services-catalog" className="relative py-20 md:py-28" aria-label="Services catalog">
-            <div className="container mx-auto px-5 sm:px-6">
-                <SectionHeader
-                    index="03"
-                    eyebrow="Capabilities"
-                    title="Everything from idea"
-                    muted="to production."
-                    description="Validating a startup idea, scaling a SaaS platform or untangling operations — pick where you are and see exactly what we deliver."
-                />
+        <div>
+            {study && (
+                <Link href={`/work/${study.slug}`} className="group relative block overflow-hidden rounded-3xl bg-ink">
+                    <Image
+                        src={study.preview}
+                        alt={`${study.name}: ${study.tagline}`}
+                        width={1600}
+                        height={1000}
+                        sizes="(min-width: 1024px) 640px, 100vw"
+                        className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
+                    <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/75 px-3.5 py-2 text-[13px] font-medium text-white backdrop-blur">
+                        Built by us: {study.name}
+                        <Icon icon={ArrowUpRight01Icon} size={15} />
+                    </span>
+                </Link>
+            )}
 
-                {/* Segmented tabs */}
-                <div role="tablist" aria-label="Service categories" className="mb-8 inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-line bg-surface p-1 scrollbar-hide">
-                    {categories.map((cat) => {
-                        const isActive = activeCategory === cat.id;
-                        return (
-                            <button
-                                key={cat.id}
-                                role="tab"
-                                aria-selected={isActive}
-                                aria-controls={`panel-${cat.id}`}
-                                onClick={() => setActiveCategory(cat.id)}
-                                className={cn(
-                                    "relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-colors cursor-pointer",
-                                    isActive ? "text-black" : "text-white/60 hover:text-white"
-                                )}
-                            >
-                                {isActive && (
-                                    <motion.span layoutId="services-tab-pill" className="absolute inset-0 rounded-full bg-white" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
-                                )}
-                                <span className="relative z-10">{cat.label}</span>
-                            </button>
-                        );
-                    })}
-                </div>
+            <p className="mt-7 text-lg leading-relaxed text-ink/75">{page.intro}</p>
 
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={current.id}
-                        id={`panel-${current.id}`}
-                        role="tabpanel"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } }}
-                        exit={{ opacity: 0, y: -6, transition: { duration: 0.2 } }}
-                        className="grid grid-cols-1 gap-5 lg:grid-cols-12"
-                    >
-                        {/* Story */}
-                        <div className="flex flex-col justify-between rounded-2xl border border-line bg-surface p-7 md:p-9 lg:col-span-4">
-                            <div>
-                                <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/55">{current.label}</span>
-                                <h3 className="mt-4 text-2xl font-semibold leading-snug tracking-tight text-white md:text-3xl">{current.hook}</h3>
-                                <p className="mt-4 text-base leading-relaxed text-white/60">{current.storyLine1}</p>
-                                <p className="mt-2 text-sm leading-relaxed text-white/55">{current.storyLine2}</p>
-                            </div>
-                            <Button onClick={openInquiry} arrow="right" className="mt-8 self-start">
-                                Discuss your project
-                            </Button>
+            <div className="mt-6 flex flex-wrap gap-2">
+                {price && (
+                    <span className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-black">{price === "Custom quote" ? price : `From ${price}`}</span>
+                )}
+                {timeline && <span className="rounded-full bg-ink/[0.07] px-4 py-2 text-sm font-medium text-ink">{timeline}</span>}
+            </div>
+
+            <ul className="mt-7 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+                {page.deliverables.slice(0, 6).map((d) => (
+                    <li key={d} className="flex items-start gap-2.5 text-[15px] text-ink/80">
+                        <Icon icon={Tick02Icon} size={18} strokeWidth={2} className="mt-0.5 flex-shrink-0 text-ink" />
+                        {d}
+                    </li>
+                ))}
+            </ul>
+
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <button
+                    type="button"
+                    onClick={() => openInquiry(presetForPage(page.slug, page.navLabel))}
+                    className="inline-flex h-14 cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-8 text-base font-semibold text-white transition-colors hover:bg-black"
+                >
+                    Get a quote for this
+                    <Icon icon={ArrowRight01Icon} size={18} />
+                </button>
+                <Link href={page.path} className="inline-flex h-14 items-center justify-center gap-1.5 px-4 text-base font-semibold text-ink/70 hover:text-ink">
+                    More about {page.navLabel}
+                    <Icon icon={ArrowRight01Icon} size={18} />
+                </Link>
+            </div>
+        </div>
+    );
+}
+
+/**
+ * What we build, on a light panel: pick a service on the left, see a project it produced,
+ * its starting price and what's included on the right (inline on phones).
+ */
+export function Services() {
+    const [active, setActive] = useState(0);
+
+    return (
+        <section id="services" className="relative py-6 md:py-10" aria-label="Services">
+            <div className="mx-2 rounded-[2rem] bg-paper py-16 text-ink sm:mx-3 md:rounded-[3rem] md:py-24">
+                <div className="container mx-auto px-5 sm:px-6">
+                    <Reveal className="mb-12 max-w-3xl md:mb-16">
+                        <span className="text-sm font-semibold text-ink/70 md:text-[15px]">What we build</span>
+                        <h2 className="mt-4 text-[2.125rem] font-semibold leading-[1.06] tracking-[-0.04em] sm:text-[2.75rem] md:text-[3.5rem] text-balance">
+                            From first idea to a product people pay for.
+                        </h2>
+                    </Reveal>
+
+                    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+                        <div className="lg:col-span-5">
+                            {core.map((page, i) => {
+                                const selected = active === i;
+                                return (
+                                    <div key={page.slug} className="py-1">
+                                        <button
+                                            type="button"
+                                            aria-pressed={selected}
+                                            onClick={() => setActive(i)}
+                                            onMouseEnter={() => setActive(i)}
+                                            className={cn(
+                                                "group flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl px-5 py-5 text-left transition-colors md:py-6",
+                                                selected ? "bg-white" : "hover:bg-white/50"
+                                            )}
+                                        >
+                                            <span>
+                                                <span
+                                                    className={cn(
+                                                        "block text-2xl font-semibold tracking-[-0.03em] transition-colors md:text-[2rem]",
+                                                        selected ? "text-ink" : "text-ink/50 group-hover:text-ink/75"
+                                                    )}
+                                                >
+                                                    {page.navLabel}
+                                                </span>
+                                                <span className={cn("mt-1 block text-[15px]", selected ? "text-ink/70" : "text-ink/60")}>{page.summary}</span>
+                                            </span>
+                                            <span
+                                                className={cn(
+                                                    "flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full transition-colors",
+                                                    selected ? "bg-accent text-black" : "bg-ink/[0.06] text-ink/60"
+                                                )}
+                                            >
+                                                <Icon icon={page.icon} size={20} />
+                                            </span>
+                                        </button>
+
+                                        {/* Phones: details open under the chosen service */}
+                                        <AnimatePresence initial={false}>
+                                            {selected && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="overflow-hidden px-1 lg:hidden"
+                                                >
+                                                    <div className="pb-6 pt-4">
+                                                        <ServicePanel page={page} />
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                );
+                            })}
                         </div>
 
-                        {/* Rows */}
-                        <ul className="overflow-hidden rounded-2xl border border-line lg:col-span-8">
-                            {current.services.map((service, i) => (
-                                <motion.li
-                                    key={service.title}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.05 + i * 0.05, ease: EASE } }}
-                                    className="grid grid-cols-1 gap-4 border-b border-line bg-canvas p-6 last:border-b-0 md:grid-cols-12 md:gap-6 md:p-7"
-                                >
-                                    <div className="flex items-start gap-4 md:col-span-6">
-                                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-line bg-surface-2 text-white">
-                                            <Icon icon={service.icon} size={18} />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-base font-semibold text-white md:text-lg">{service.title}</h4>
-                                            <p className="mt-1 text-sm leading-relaxed text-white/55">{service.description}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-wrap content-start gap-1.5 md:col-span-6 md:justify-end">
-                                        {service.deliverables.map((item) => (
-                                            <span key={item} className="rounded-full border border-line px-3 py-1 text-xs text-white/55">
-                                                {item}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </motion.li>
+                        <div aria-live="polite" className="hidden lg:col-span-7 lg:block">
+                            <div className="sticky top-28">
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.div
+                                        key={core[active].slug}
+                                        initial={{ opacity: 0, y: 14 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        <ServicePanel page={core[active]} />
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        </div>
+                    </div>
+
+                    <Reveal className="mt-16 md:mt-20">
+                        <p className="text-[15px] font-semibold text-ink">We also do</p>
+                        <ul className="mt-4 flex flex-wrap gap-2">
+                            {others.map((p) => (
+                                <li key={p.path}>
+                                    <Link
+                                        href={p.path}
+                                        className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-white"
+                                    >
+                                        <Icon icon={p.icon} size={16} />
+                                        {p.navLabel}
+                                    </Link>
+                                </li>
                             ))}
                         </ul>
-                    </motion.div>
-                </AnimatePresence>
+                    </Reveal>
+                </div>
             </div>
         </section>
     );
 }
-
-export default Services;

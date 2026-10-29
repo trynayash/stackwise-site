@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 function MenuHeading({ title, href, linkLabel, onNavigate }: { title: string; href: string; linkLabel: string; onNavigate: () => void }) {
     return (
         <div className="mb-3 flex items-center justify-between">
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/55">{title}</span>
+            <span className="text-sm font-semibold text-white">{title}</span>
             <Link href={href} onClick={onNavigate} className="text-xs text-white/50 hover:text-white">
                 {linkLabel}
             </Link>
@@ -29,7 +29,7 @@ function MenuHeading({ title, href, linkLabel, onNavigate }: { title: string; hr
 function MenuLink({ page, onNavigate }: { page: MarketingPageData; onNavigate: () => void }) {
     return (
         <Link href={page.path} onClick={onNavigate} className="group -mx-2.5 flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-white/[0.04]">
-            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-line bg-surface-2 text-white/80 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-black">
+            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-white/[0.07] text-white/80 transition-colors group-hover:bg-accent group-hover:text-black">
                 <Icon icon={page.icon} size={17} />
             </span>
             <span className="min-w-0">
@@ -106,8 +106,8 @@ export function Navbar() {
         <>
             <header
                 className={cn(
-                    "fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,transform] duration-300 ease-out",
-                    solid ? "border-line bg-canvas/90 backdrop-blur-xl" : "border-transparent bg-transparent",
+                    "fixed top-0 left-0 right-0 z-50 transition-[background-color,transform] duration-300 ease-out",
+                    solid ? "bg-canvas/85 backdrop-blur-xl" : "bg-transparent",
                     hidden && !menuOpen && "-translate-y-full"
                 )}
             >
@@ -160,7 +160,7 @@ export function Navbar() {
                             </Button>
                             <button
                                 onClick={() => setIsMobileNavOpen(true)}
-                                className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-line text-white transition-colors hover:bg-white/[0.06]"
+                                className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white transition-colors hover:bg-white/[0.12]"
                                 aria-label="Open menu"
                             >
                                 <Icon icon={Menu01Icon} size={20} />
@@ -178,7 +178,7 @@ export function Navbar() {
                                 exit={{ opacity: 0, y: -8 }}
                                 transition={{ duration: 0.18, ease: "easeOut" }}
                                 onMouseEnter={openMenu}
-                                className="absolute inset-x-0 top-full hidden lg:block border-b border-line bg-canvas"
+                                className="absolute inset-x-0 top-full hidden lg:block bg-canvas shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)]"
                             >
                                 <div className="container mx-auto grid grid-cols-12 gap-10 px-6 py-9">
                                     <div className="col-span-6">
@@ -214,16 +214,17 @@ export function Navbar() {
                                         ))}
                                     </div>
                                     <div className="col-span-3">
-                                        <div className="flex h-full flex-col justify-between rounded-2xl border border-line bg-surface p-6">
+                                        <div className="flex h-full flex-col justify-between rounded-3xl bg-accent p-6 text-black">
                                             <div>
-                                                <p className="text-base font-semibold text-white">Not sure where to start?</p>
-                                                <p className="mt-2 text-sm leading-relaxed text-white/55">
+                                                <p className="text-base font-semibold">Not sure where to start?</p>
+                                                <p className="mt-2 text-sm leading-relaxed text-black/70">
                                                     Tell us what you&apos;re trying to achieve. We&apos;ll suggest the simplest way to get there.
                                                 </p>
                                             </div>
                                             <div className="mt-6 space-y-3">
                                                 <Button
                                                     size="sm"
+                                                    variant="dark"
                                                     arrow="right"
                                                     className="w-full"
                                                     onClick={() => {
@@ -235,7 +236,7 @@ export function Navbar() {
                                                 </Button>
                                                 <a
                                                     href={`mailto:${siteConfig.emails.inbound}`}
-                                                    className="flex items-center justify-center gap-2 text-xs text-white/50 hover:text-white"
+                                                    className="flex items-center justify-center gap-2 text-xs font-medium text-black/70 hover:text-black"
                                                 >
                                                     <Icon icon={Mail01Icon} size={14} />
                                                     {siteConfig.emails.inbound}
@@ -244,7 +245,7 @@ export function Navbar() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border-t border-line">
+                                <div className="bg-surface">
                                     <div className="container mx-auto flex items-center justify-between px-6 py-4 text-sm">
                                         <span className="text-white/50">Written quote before work starts · 100% code ownership · Support after launch</span>
                                         <Link href="/#pricing" onClick={goToSection("pricing", closeMenu)} className="inline-flex items-center gap-1 text-white/70 hover:text-white">
