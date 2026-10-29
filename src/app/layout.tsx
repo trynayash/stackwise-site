@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [ogImageUrl(siteConfig.tagline, "Software Studio")],
-    creator: "@stackwise",
+    creator: "@YashVibes1",
   },
   robots: {
     index: true,
@@ -127,10 +127,9 @@ const serviceSchema = {
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Surat",
-    "addressRegion": "Gujarat",
-    "postalCode": "395009",
-    "addressCountry": "IN",
+    "addressLocality": siteConfig.location.city,
+    "addressRegion": siteConfig.location.region,
+    "addressCountry": siteConfig.location.countryCode,
   },
 };
 

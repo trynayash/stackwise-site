@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Alert02Icon, Clock01Icon, Mail01Icon, CheckmarkCircle02Icon, Shield01Icon } from "@hugeicons/core-free-icons";
+import { Alert02Icon, Clock01Icon, Location01Icon, Mail01Icon, CheckmarkCircle02Icon, Shield01Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select, Textarea } from "@/components/ui/input";
 import { Icon } from "@/components/ui/icon";
@@ -27,6 +27,7 @@ const emptyForm = { name: "", email: "", phone: "", projectType: "", timeline: "
 const promises = [
     { icon: Clock01Icon, title: "Reply within 24 hours", text: "On working days, from the engineer who'd build it." },
     { icon: Shield01Icon, title: "Confidential", text: "Happy to sign an NDA before you share details. No spam, ever." },
+    { icon: Location01Icon, title: `Based in ${siteConfig.location.city}`, text: "Working remotely with clients in India and abroad." },
 ];
 
 export function Contact() {

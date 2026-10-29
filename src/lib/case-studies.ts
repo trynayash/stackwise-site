@@ -55,12 +55,15 @@ export type CaseStudy = {
   metaDescription: string;
   overview: CaseStudySection;
   problem: CaseStudySection;
-  constraints: CaseStudySection;
+  /* Optional (StackWise only): the smaller projects in src/lib/more-work.ts don't have these write-ups. */
+  constraints?: CaseStudySection;
   architecture: CaseStudySection;
-  diagram: ArchitectureDiagram;
-  tradeoffs: CaseStudySection;
+  diagram?: ArchitectureDiagram;
+  /** Numbered list of what was built, shown under Architecture (StackWise only). */
+  highlights?: string[];
+  tradeoffs?: CaseStudySection;
   metrics: CaseStudyMetric[];
-  lessons: CaseStudySection;
+  lessons?: CaseStudySection;
   extraLinks: { label: string; href: string }[];
 };
 

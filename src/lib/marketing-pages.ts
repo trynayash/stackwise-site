@@ -184,7 +184,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Brands moving off WordPress or page builders", "Companies whose site isn't generating leads", "Launches that need to make a strong first impression"],
         deliverables: ["Sitemap & content plan", "Custom design in Figma", "Next.js build with CMS", "Technical SEO setup", "Analytics & conversion tracking", "Performance & accessibility pass"],
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Headless CMS", "Shopify", "Vercel"],
-        work: ["startupdeck", "limityourapi"],
+        work: ["stackwise", "codefusionai"],
         faqs: [
             { q: "How long does a website take?", a: "A marketing website usually takes 2–3 weeks. E-commerce stores take 4–6 weeks. You'll get an exact timeline once we've agreed the pages and features." },
             { q: "Will my site be SEO-friendly?", a: "Yes. Pages are server-rendered with clean semantic HTML, sitemaps, metadata, structured data and fast load times — the technical foundations search engines look for." },
@@ -520,7 +520,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["Marketing sites that need to rank and convert", "SaaS products that need a fast, SEO-friendly front end", "Teams moving off WordPress or page builders"],
         deliverables: ["Next.js App Router codebase", "Technical SEO setup", "CMS integration", "Analytics & tracking", "Vercel deployment", "Handoff docs"],
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
-        work: [],
+        work: ["stackwise", "codefusionai"],
         faqs: [
             { q: "Why Next.js?", a: "It renders pages on the server, so search engines and link previews see real content, and it stays fast on real devices. It's also widely used, so hiring for it later is easy." },
             { q: "Can you migrate our site to Next.js?", a: "Yes. We rebuild the pages, keep your URLs (or redirect them) so search rankings carry over, and connect a CMS so your team can keep editing." },
@@ -557,7 +557,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         idealFor: ["SaaS products that need a fast, reliable dashboard", "Teams outgrowing a prototype front end", "Products with real-time or data-heavy screens"],
         deliverables: ["React + TypeScript codebase", "Component library", "API integration", "Charts & dashboards", "Automated tests", "Handoff docs"],
         stack: ["React", "TypeScript", "Vite", "TanStack Query", "Tailwind CSS", "Radix UI", "Vitest", "Playwright"],
-        work: ["limityourapi", "startupdeck"],
+        work: ["limityourapi", "codefusionai"],
         faqs: [
             { q: "React or Next.js?", a: "Next.js when pages must rank in search or load fast for first-time visitors; plain React with Vite for logged-in dashboards. Many products use both." },
             { q: "Can you take over an existing React app?", a: "Yes. We start with a short code review, then improve types, state and tests as we add features." },

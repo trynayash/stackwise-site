@@ -11,7 +11,7 @@ export const faqs: Faq[] = [
     },
     {
         q: "Do you guys disappear after launch?",
-        a: "Never. Every project includes 1-3 months of post-launch support (depending on your plan). After that, we offer monthly maintenance retainers starting at $199/month. We also provide detailed handoff documentation so your internal team can maintain the codebase independently if preferred.",
+        a: "Never. Every project includes 1-3 months of post-launch support (depending on your plan). After that, you can move to a monthly maintenance retainer, quoted to fit your product. We also provide detailed handoff documentation so your internal team can maintain the codebase independently if preferred.",
     },
     {
         q: "What's the typical project timeline?",

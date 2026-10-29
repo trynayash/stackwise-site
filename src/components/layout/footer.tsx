@@ -35,12 +35,12 @@ export function Footer() {
                             <Logo size="md" />
                         </Link>
                         <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">
-                            A software studio by {siteConfig.author}. We design and build SaaS products, custom software and AI features.
+                            A software studio by {siteConfig.author}, based in {siteConfig.location.city}. We design and build SaaS products, custom software and AI features for clients in India and abroad.
                         </p>
                         <div className="mt-6 flex items-center gap-2">
                             {[
-                                { label: "StackWise on X", href: siteConfig.links.twitter, icon: NewTwitterIcon },
-                                { label: "StackWise on GitHub", href: siteConfig.links.github, icon: Github01Icon },
+                                { label: "Yash Suthar on X", href: siteConfig.links.twitter, icon: NewTwitterIcon },
+                                { label: "Yash Suthar on GitHub", href: siteConfig.links.github, icon: Github01Icon },
                                 { label: "Email StackWise", href: `mailto:${siteConfig.emails.inbound}`, icon: Mail01Icon },
                             ].map((s) => (
                                 <a

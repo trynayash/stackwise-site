@@ -51,7 +51,7 @@ export function constructMetadata({
             title: `${title} | ${siteConfig.name}`,
             description,
             images: [imageUrl],
-            creator: "@stackwise",
+            creator: "@YashVibes1",
         },
         robots: noIndex
             ? {

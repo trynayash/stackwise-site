@@ -2,15 +2,22 @@ export const siteConfig = {
     name: "StackWise",
     tagline: "Engineering Digital Growth",
     description: "A software studio by Yash Suthar that designs and builds SaaS products, custom software and AI features.",
-    url: "https://stackwise.agency",
+    /**
+     * Canonical site URL. Set NEXT_PUBLIC_SITE_URL once a custom domain is connected;
+     * until then Vercel's production URL is used, so canonical links and share images always resolve.
+     */
+    url:
+        process.env.NEXT_PUBLIC_SITE_URL ??
+        (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://stackwise.agency"),
+    location: { city: "Mumbai", region: "Maharashtra", country: "India", countryCode: "IN" },
     author: "Yash Suthar",
     emails: {
         primary: "hello@stackwise.agency",
         inbound: "yashrsuthar90@gmail.com",
     },
     links: {
-        twitter: "https://twitter.com/stackwise",
-        github: "https://github.com/trynayash/Stackwise",
+        twitter: "https://x.com/YashVibes1",
+        github: "https://github.com/trynayash",
     },
     /** Primary navigation. `id` scrolls to a home-page section; `href` links to a page. */
     navItems: [

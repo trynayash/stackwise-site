@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { caseStudies, displayDomain, type CaseStudy } from "@/lib/case-studies";
+import { moreWork } from "@/lib/more-work";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
@@ -67,6 +68,25 @@ export function ProjectCard({ study }: { study: CaseStudy }) {
                 </div>
             </Card>
         </Link>
+    );
+}
+
+/** Grid of the smaller projects, shown under the featured case studies. */
+export function MoreWork({ className }: { className?: string }) {
+    return (
+        <div className={className}>
+            <div className="mb-6 flex items-end justify-between gap-6">
+                <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">More work</h3>
+                <span className="text-sm text-white/45">{moreWork.length} more projects</span>
+            </div>
+            <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+                {moreWork.map((s) => (
+                    <StaggerItem key={s.slug}>
+                        <ProjectCard study={s} />
+                    </StaggerItem>
+                ))}
+            </Stagger>
+        </div>
     );
 }
 
@@ -232,6 +252,10 @@ export function Portfolio() {
                     </Stagger>
                 </div>
             )}
+
+            <div className="container mx-auto px-5 sm:px-6">
+                <MoreWork className="mt-16 md:mt-20" />
+            </div>
         </section>
     );
 }

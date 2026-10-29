@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ArrowRight01Icon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
-import { caseStudies, caseStudyBySlug, displayDomain } from "@/lib/case-studies";
+import { displayDomain, type CaseStudySection } from "@/lib/case-studies";
+import { allWork, workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { Icon } from "@/components/ui/icon";
@@ -23,12 +24,12 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-    return caseStudies.map((s) => ({ slug: s.slug }));
+    return allWork.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const study = caseStudyBySlug[slug];
+    const study = workBySlug[slug];
     if (!study) return {};
     return constructMetadata({
         title: `${study.name} — Case Study`,
@@ -48,20 +49,23 @@ const shortUrl = (href: string) => {
 
 export default async function CaseStudyPage({ params }: PageProps) {
     const { slug } = await params;
-    const study = caseStudyBySlug[slug];
+    const study = workBySlug[slug];
     if (!study) notFound();
 
-    const index = caseStudies.findIndex((s) => s.slug === slug);
-    const next = caseStudies[(index + 1) % caseStudies.length];
+    const index = allWork.findIndex((s) => s.slug === slug);
+    const next = allWork[(index + 1) % allWork.length];
 
-    const sections = [
-        { id: "overview", ...study.overview },
-        { id: "problem", ...study.problem },
-        { id: "constraints", ...study.constraints },
-        { id: "architecture", ...study.architecture },
-        { id: "tradeoffs", ...study.tradeoffs },
-        { id: "lessons", ...study.lessons },
-    ];
+    // Smaller projects skip the sections they don't have.
+    const sections = (
+        [
+            ["overview", study.overview],
+            ["problem", study.problem],
+            ["constraints", study.constraints],
+            ["architecture", study.architecture],
+            ["tradeoffs", study.tradeoffs],
+            ["lessons", study.lessons],
+        ] as [string, CaseStudySection | undefined][]
+    ).flatMap(([id, section]) => (section ? [{ id, ...section }] : []));
 
     return (
         <div className="relative">
@@ -175,7 +179,17 @@ export default async function CaseStudyPage({ params }: PageProps) {
                                             <p key={p.slice(0, 40)}>{p}</p>
                                         ))}
                                     </div>
-                                    {s.id === "architecture" && (
+                                    {s.id === "architecture" && study.highlights && (
+                                        <ol className="mt-8 max-w-3xl border-t border-line">
+                                            {study.highlights.map((h, n) => (
+                                                <li key={h} className="flex gap-6 border-b border-line py-5">
+                                                    <span className="w-8 flex-shrink-0 font-mono text-sm text-accent">{String(n + 1).padStart(2, "0")}</span>
+                                                    <span className="text-base leading-relaxed text-white/75">{h}</span>
+                                                </li>
+                                            ))}
+                                        </ol>
+                                    )}
+                                    {s.id === "architecture" && study.diagram && (
                                         <div className="mt-10">
                                             <ArchitectureDiagram diagram={study.diagram} />
                                         </div>

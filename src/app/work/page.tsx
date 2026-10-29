@@ -1,17 +1,18 @@
 import React from "react";
 import { caseStudies } from "@/lib/case-studies";
+import { allWork } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { siteConfig } from "@/config/site";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
-import { ShowcasePanel } from "@/components/sections/portfolio";
+import { MoreWork, ShowcasePanel } from "@/components/sections/portfolio";
 import { Proof } from "@/components/sections/proof";
 import { CtaBand } from "@/components/sections/cta-band";
 
 export const metadata = constructMetadata({
     title: "Our Work — Case Studies",
-    description: "Case studies of SaaS and AI products designed and engineered by StackWise: LimitYourAPI, ScopeCI and StartupDeckAI, with architecture, trade-offs and lessons.",
+    description: "Case studies of SaaS, AI and web products designed and engineered by StackWise — LimitYourAPI, ScopeCI, StartupDeckAI, CodeFusionAI, PromptP and this website — with architecture, trade-offs and lessons.",
     canonical: "/work",
     ogKicker: "Work",
 });
@@ -28,7 +29,7 @@ export default function WorkPage() {
                     {
                         "@context": "https://schema.org",
                         "@type": "ItemList",
-                        itemListElement: caseStudies.map((s, i) => ({
+                        itemListElement: allWork.map((s, i) => ({
                             "@type": "ListItem",
                             position: i + 1,
                             url: `${siteConfig.url}/work/${s.slug}`,
@@ -66,6 +67,7 @@ export default function WorkPage() {
                             </StaggerItem>
                         ))}
                     </Stagger>
+                    <MoreWork className="mt-16 md:mt-20" />
                 </div>
             </section>
 

@@ -11,7 +11,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { ProjectCard } from "@/components/sections/portfolio";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { marketingPages, marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
-import { caseStudyBySlug } from "@/lib/case-studies";
+import { workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 
@@ -45,7 +45,7 @@ export function Breadcrumbs({ items }: { items: { name: string; href?: string }[
 
 export function MarketingPage({ page }: { page: MarketingPageData }) {
     const related = page.related.map((path) => Object.values(marketingPages).find((p) => p.path === path)).filter(Boolean) as MarketingPageData[];
-    const work = page.work.map((slug) => caseStudyBySlug[slug]).filter(Boolean);
+    const work = page.work.map((slug) => workBySlug[slug]).filter(Boolean);
     const hubPath = `/${page.kind.toLowerCase()}`;
 
     return (

@@ -9,6 +9,7 @@ const facts = [
     { label: "Role", value: "Founder & lead engineer" },
     { label: "Main stack", value: "Next.js · TypeScript · Go" },
     { label: "Every project", value: "Full code & IP handover" },
+    { label: "Based in", value: `${siteConfig.location.city}, ${siteConfig.location.country}` },
 ];
 
 export function Founder() {
@@ -52,7 +53,7 @@ export function Founder() {
                             <p>My main stack is Next.js, TypeScript and Tailwind. I write custom code instead of using WordPress templates.</p>
                         </div>
 
-                        <dl className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+                        <dl className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
                             {facts.map((f) => (
                                 <div key={f.label} className="bg-canvas p-5">
                                     <dt className="text-xs uppercase tracking-[0.16em] text-white/40">{f.label}</dt>
