@@ -2,6 +2,25 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 import { siteConfig } from "@/config/site";
+import { redactSensitive } from "@/lib/assistant";
+
+const MAX_BODY_BYTES = 20_000;
+
+/** Only this site (production, Vercel previews and local dev) may post enquiries; stops other sites and scripts using it as a mail relay. */
+function isAllowedOrigin(origin: string | null): boolean {
+    if (!origin) return false;
+    try {
+        const host = new URL(origin).host;
+        return (
+            host === new URL(siteConfig.url).host ||
+            host === process.env.VERCEL_URL ||
+            /^stackwise-site(-[a-z0-9-]+)?\.vercel\.app$/.test(host) ||
+            /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)
+        );
+    } catch {
+        return false;
+    }
+}
 
 /** Visitor text is inserted into the notification email, so it must never be read as HTML. */
 function escapeHtml(value: string): string {
@@ -54,18 +73,33 @@ export async function POST(request: Request) {
                    request.headers.get("x-real-ip") || 
                    "127.0.0.1";
 
+        if (!isAllowedOrigin(request.headers.get("origin"))) {
+            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
+        if (!request.headers.get("content-type")?.includes("application/json")) {
+            return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
+        }
+        const text = await request.text();
+        if (text.length > MAX_BODY_BYTES) {
+            return NextResponse.json({ error: "Message too long" }, { status: 413 });
+        }
+        // Counted only for requests from this site, so junk from elsewhere can't use up a visitor's allowance.
         if (isRateLimited(ip)) {
             return NextResponse.json(
                 { error: `Too many inquiries sent. Please wait an hour or email ${siteConfig.emails.inbound} directly.` },
                 { status: 429 }
             );
         }
-
-        const body = await request.json();
+        let body: Record<string, unknown>;
+        try {
+            body = JSON.parse(text);
+        } catch {
+            return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+        }
 
         // 1. Honeypot Check (Silently drop bot spam)
         if (body.botField) {
-            console.warn(`[SYSTEM] Honeypot triggered. Silent success returned. IP: ${ip}`);
+            console.warn("[contact] Honeypot triggered; dropped silently.");
             return NextResponse.json(
                 { success: true, message: "Message sent successfully" },
                 { status: 200 }
@@ -82,7 +116,9 @@ export async function POST(request: Request) {
             );
         }
 
-        const raw = result.data;
+        // The chat already strips card, ID and password details; repeat it here for requests that skip the chat.
+        const scrub = (v: string) => redactSensitive(v).text;
+        const raw = { ...result.data, name: scrub(result.data.name), projectType: scrub(result.data.projectType), details: scrub(result.data.details) };
         const [name, email, projectType, timeline, budget, details] = [raw.name, raw.email, raw.projectType, raw.timeline, raw.budget, raw.details].map(escapeHtml);
         const phone = raw.phone ? escapeHtml(raw.phone) : undefined;
 
@@ -189,7 +225,7 @@ export async function POST(request: Request) {
 
             <div class="footer">
                 TRANSMISSION TIMESTAMP // ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'long' }).toUpperCase()}<br>
-                SECURE LEAD SYSTEM // IP: ${ip}
+                SECURE LEAD SYSTEM
             </div>
         </div>
     </div>
@@ -215,14 +251,15 @@ export async function POST(request: Request) {
             html: emailHtml,
         });
 
-        console.log(`[SYSTEM] Secure Lead Dispatched. Target: ${email}`);
+        // No personal details in logs.
+        console.log("[contact] Enquiry sent.");
 
         return NextResponse.json(
             { success: true, message: "Message sent successfully" },
             { status: 200 }
         );
     } catch (error) {
-        console.error("❌ Contact form error:", error);
+        console.error("[contact] Failed to send:", error instanceof Error ? error.message : "unknown error");
         return NextResponse.json(
             { error: "Failed to send message. Please try again." },
             { status: 500 }

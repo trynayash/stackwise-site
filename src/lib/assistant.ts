@@ -21,7 +21,7 @@ import { siteConfig } from "@/config/site";
 
 export type AssistantAction = { kind: "email"; label?: string; subject?: string; body?: string } | { kind: "link"; label: string; href: string };
 
-export type AssistantReply = { text: string; actions?: AssistantAction[]; blocked?: boolean };
+export type AssistantReply = { text: string; actions?: AssistantAction[]; blocked?: boolean; unanswered?: boolean };
 
 const EMAIL = siteConfig.emails.inbound;
 
@@ -118,7 +118,7 @@ const ENCODED = /(?:^|\s)[A-Za-z0-9+/]{32,}={0,2}(?:\s|$)|\b[0-9a-f]{40,}\b|\\u[
 const ABUSE = /\b(fuck\w*|shit\w*|bitch\w*|bastard|asshole|dickhead|cunt|motherfucker|slut|whore|retard\w*|bhenchod|behenchod|madarchod|chutiy\w*|gandu|bhosd\w*|randi|lavd\w*|lodu|harami)\b/;
 const NEEDS_A_PERSON = /\b(complain\w*|refund|dispute|lawsuit|sue you|legal (action|notice)|lawyer|court|consumer forum|scam\w*|fraud\w*|cheat(ed|ing)|unprofessional|not delivered|missed (the |our )?deadline|(site|website|app|server|production) (is |went )?down|outage|hacked|data (leak|breach)|security breach)\b/;
 
-export type Screening = { ok: true } | { ok: false; reply: AssistantReply; mask?: boolean };
+export type Screening = { ok: true } | { ok: false; kind: "crisis" | "encoded" | "blocked" | "abuse" | "handoff"; reply: AssistantReply; mask?: boolean };
 
 /**
  * Input guardrail: decides whether a message may reach the knowledge base at all.
@@ -129,19 +129,21 @@ export function screen(text: string, previous?: string): Screening {
     if (CRISIS.test(t)) {
         return {
             ok: false,
+            kind: "crisis",
             reply: {
                 text: "I'm really sorry you're going through this. Please talk to someone right now. In India you can call Tele-MANAS on 14416 (free, 24/7), or emergency services on 112. If you're elsewhere, please contact your local emergency number.",
             },
         };
     }
     if (ENCODED.test(text)) {
-        return { ok: false, reply: { text: "I can't read encoded text. Ask your question in plain words, or email us.", actions: [{ kind: "email", label: "Email us" }], blocked: true } };
+        return { ok: false, kind: "encoded", reply: { text: "I can't read encoded text. Ask your question in plain words, or email us.", actions: [{ kind: "email", label: "Email us" }], blocked: true } };
     }
     // A previous message that was refused on its own has been dealt with; only innocent-looking halves are joined.
-    if (isBlocked(text) || (previous && !isBlocked(previous) && isBlocked(`${previous} ${text}`))) return { ok: false, reply: refusal };
+    if (isBlocked(text) || (previous && !isBlocked(previous) && isBlocked(`${previous} ${text}`))) return { ok: false, kind: "blocked", reply: refusal };
     if (ABUSE.test(t)) {
         return {
             ok: false,
+            kind: "abuse",
             mask: true,
             reply: { text: "Let's keep it friendly. I'm happy to help with anything about StackWise, or you can email us.", actions: [{ kind: "email", label: "Email us" }] },
         };
@@ -149,6 +151,7 @@ export function screen(text: string, previous?: string): Screening {
     if (NEEDS_A_PERSON.test(t)) {
         return {
             ok: false,
+            kind: "handoff",
             reply: {
                 text: "That's one for a person, not a chat assistant. Please email Yash directly and he'll get back to you personally.",
                 actions: [{ kind: "email", label: "Email Yash", subject: "Needs a reply from Yash", body: text.trim() }],
@@ -218,6 +221,7 @@ function unknown(question: string): AssistantReply {
     return {
         text: "I'm not able to answer that here. I can help with questions about StackWise's services, pricing and process. For anything else, email us and we'll get back to you.",
         actions: [{ kind: "email", label: "Email your question", subject: "Question from the website", body: question }],
+        unanswered: true,
     };
 }
 

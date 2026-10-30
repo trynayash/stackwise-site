@@ -86,7 +86,7 @@ function EstimateCard({ service }: { service: string }) {
     );
 }
 
-function SummaryCard({ state, onSend }: { state: ChatState; onSend: () => void }) {
+function SummaryCard({ state, onSend, onNavigate }: { state: ChatState; onSend: () => void; onNavigate?: () => void }) {
     const { answers: a, preset, status } = state;
     const rows: [string, string | undefined][] = [
         ["Plan", preset?.plan],
@@ -142,6 +142,13 @@ function SummaryCard({ state, onSend }: { state: ChatState; onSend: () => void }
                     Send by email instead
                 </a>
             </div>
+            <p className="px-4 pb-3 text-xs text-white/50">
+                By sending, you agree to our{" "}
+                <Link href="/privacy" onClick={onNavigate} className="underline underline-offset-2 hover:text-white">
+                    Privacy Policy
+                </Link>
+                .
+            </p>
         </div>
     );
 }
@@ -153,7 +160,7 @@ function BotRow({ m, state, isLatestSummary, onSend, onNavigate }: { m: BotMessa
             <div className="min-w-0 flex-1 text-[15px] leading-7 text-white/90">
                 <p className="whitespace-pre-line">{m.text}</p>
                 {m.card?.kind === "estimate" && <EstimateCard service={m.card.service} />}
-                {m.card?.kind === "summary" && isLatestSummary && <SummaryCard state={state} onSend={onSend} />}
+                {m.card?.kind === "summary" && isLatestSummary && <SummaryCard state={state} onSend={onSend} onNavigate={onNavigate} />}
                 {m.actions && <Actions actions={m.actions} answers={state.answers} preset={state.preset} onNavigate={onNavigate} />}
             </div>
         </motion.div>
@@ -388,7 +395,10 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                         </div>
                     </form>
                     <p className="mt-2 text-center text-xs leading-relaxed text-white/50">
-                        Answers cover StackWise only.<span className="hidden sm:inline"> Yash replies to every quote personally.</span>
+                        Answers cover StackWise only. Don&apos;t share passwords or card details.{" "}
+                        <Link href="/privacy" onClick={onClose} className="underline underline-offset-2 hover:text-white">
+                            Privacy
+                        </Link>
                     </p>
                 </div>
             </div>

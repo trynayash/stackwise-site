@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { answer, isQuestion, maskAbuse, matchOption, redactSensitive, screen, type AssistantAction } from "@/lib/assistant";
 import { budgetBelowStart, estimateFor, summarise, type QuoteAnswers, type QuotePreset } from "@/lib/quote";
 import { siteConfig } from "@/config/site";
+import { track } from "@/lib/analytics";
 
 export const STEPS = ["service", "stage", "timeline", "budget", "details", "name", "email", "phone", "review"] as const;
 export type Step = (typeof STEPS)[number];
@@ -148,6 +149,7 @@ export function useQuoteChat(preset?: QuotePreset) {
             const s = stateRef.current;
             const answers: QuoteAnswers = { ...s.answers, ...extra, [key]: value };
             const step = Math.min(STEPS.indexOf(key) + 1, STEPS.length - 1);
+            if (!s.messages.some((m) => m.from === "user" && m.answers)) track("quote_started", { service: answers.service ?? "unknown" });
             setState((prev) => ({ ...prev, answers, step, error: undefined, messages: [...prev.messages, user({ text: shown, answers: key, skipped: value === undefined })] }));
             const note = followUp(key, answers);
             respond([...(note ? [bot(note)] : []), ask(step, answers)]);
@@ -161,6 +163,7 @@ export function useQuoteChat(preset?: QuotePreset) {
             const s = stateRef.current;
             setState((prev) => ({ ...prev, error: undefined, messages: [...prev.messages, user({ text })] }));
             const reply = answer(text);
+            track("chat_question", { result: reply.blocked ? "refused" : reply.unanswered ? "unanswered" : "answered" });
             const out: BotMessage[] = [bot({ text: reply.text, actions: reply.actions })];
             const step = STEPS[s.step];
             if (s.status === "chatting" && step !== "review") out.push(bot({ text: `Back to your quote: ${questionFor(step, s.answers).replace(/^Thanks! /, "")}`, asks: step }));
@@ -196,6 +199,7 @@ export function useQuoteChat(preset?: QuotePreset) {
                     ? [bot({ text: "For your safety I've removed what looked like a card number, ID number or password. Please don't share those here." })]
                     : [];
                 respond([...notice, ...(check.ok ? [] : [bot({ text: check.reply.text, actions: check.reply.actions })])]);
+                track("chat_guardrail", { type: check.ok ? "sensitive_data" : check.kind });
                 return;
             }
 
@@ -298,8 +302,10 @@ export function useQuoteChat(preset?: QuotePreset) {
                 }),
             });
             if (!res.ok) throw new Error("not sent");
+            track("quote_sent", { service: answers.service ?? "unknown" });
             respond([bot({ text: `Sent. Thanks, ${firstName(answers.name)}! Yash will reply to ${answers.email} within 24–48 hours on working days. Ask me anything else in the meantime.` })], { status: "sent" });
         } catch {
+            track("quote_send_failed");
             respond(
                 [
                     bot({
