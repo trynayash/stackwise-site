@@ -10,17 +10,16 @@ import type { WorkSummary } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 
 /** A product screenshot in a thin browser frame: the site's address above, nothing else. */
-function Frame({ study, priority = false, sizes, className }: { study: WorkSummary; priority?: boolean; sizes: string; className?: string }) {
+function Frame({ study, sizes, className }: { study: WorkSummary; sizes: string; className?: string }) {
     return (
         <div className={cn("overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.35)] ring-1 ring-ink/10", className)}>
-            <p className="truncate px-2.5 pb-1.5 pt-1 font-mono text-xs text-ink/60">{study.domain}</p>
+            <p className="truncate px-2.5 pb-1.5 pt-1 font-mono text-xs text-ink/70">{study.domain}</p>
             <Image
                 src={study.preview}
                 alt={`${study.name}: ${study.tagline}`}
                 width={1600}
                 height={1000}
                 sizes={sizes}
-                preload={priority}
                 className="aspect-[16/10] w-full rounded-xl object-cover object-top"
             />
         </div>
@@ -45,8 +44,9 @@ export function HeroStage({ projects, className }: { projects: WorkSummary[]; cl
 
             <div className="enter-fade relative w-[90%] md:absolute md:bottom-[8%] md:left-0 md:w-[84%]" style={{ ["--d" as string]: "200ms" } as React.CSSProperties}>
                 <Tilt max={4}>
-                    <Link href={`/work/${front.slug}`} aria-label={`${front.name} case study`} className="block">
-                        <Frame study={front} priority sizes="(min-width: 1024px) 580px, 90vw" />
+                    {/* Same destination as the caption card, which is the link keyboards and screen readers use. */}
+                    <Link href={`/work/${front.slug}`} tabIndex={-1} aria-hidden className="block">
+                        <Frame study={front} sizes="(min-width: 1024px) 580px, 90vw" />
                     </Link>
                 </Tilt>
             </div>
