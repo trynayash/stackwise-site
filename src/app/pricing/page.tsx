@@ -16,6 +16,7 @@ import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { JsonLd, breadcrumbSchema, faqSchema, rupees } from "@/lib/schema";
 import { constructMetadata } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export const metadata = constructMetadata({
     title: "Pricing: SaaS, Web App & Website Development",
@@ -37,14 +38,14 @@ function Cell({ value, highlight }: { value: string; highlight?: boolean }) {
     if (value === "yes")
         return (
             <>
-                <Icon icon={Tick02Icon} size={20} strokeWidth={2} className={highlight ? "text-black" : "text-accent"} />
+                <Icon icon={Tick02Icon} size={20} strokeWidth={2} className={highlight ? "text-accent sm:text-black" : "text-accent"} />
                 <span className="sr-only">Included</span>
             </>
         );
     if (value === "no")
         return (
             <>
-                <Icon icon={MinusSignIcon} size={18} className={highlight ? "text-black/40" : "text-white/30"} />
+                <Icon icon={MinusSignIcon} size={18} className={highlight ? "text-white/30 sm:text-black/40" : "text-white/30"} />
                 <span className="sr-only">Not included</span>
             </>
         );
@@ -114,10 +115,11 @@ export default function PricingPage() {
                 <div className="container mx-auto px-5 sm:px-6">
                     <SectionHeader eyebrow="Compare plans" title="What each plan includes." />
                     <Reveal>
-                        <div role="region" aria-label="Plan comparison" tabIndex={0} className="relative overflow-x-auto rounded-3xl bg-surface">
-                            <table className="w-full min-w-[720px] border-collapse text-left text-[15px]">
+                        {/* Phones: one card per feature listing the three plans. Wider screens: the full table. */}
+                        <div role="region" aria-label="Plan comparison" tabIndex={0} className="relative rounded-3xl bg-surface sm:overflow-x-auto">
+                            <table className="w-full border-collapse text-left text-[15px] sm:min-w-[720px]">
                                 <caption className="sr-only">Starter Build, Product Build and Scale plans compared</caption>
-                                <thead>
+                                <thead className="max-sm:sr-only">
                                     <tr>
                                         <th scope="col" className="w-[30%] px-6 py-5 text-sm font-medium text-white/55">
                                             Plan
@@ -134,12 +136,19 @@ export default function PricingPage() {
                                 </thead>
                                 <tbody>
                                     {planComparison.map((row) => (
-                                        <tr key={row.feature} className="border-t border-white/[0.06]">
-                                            <th scope="row" className="px-6 py-4 font-medium text-white/80">
+                                        <tr key={row.feature} className="block border-t border-white/[0.06] px-5 py-4 first:border-t-0 sm:table-row sm:border-t sm:p-0">
+                                            <th scope="row" className="block pb-2 text-base font-semibold text-white sm:table-cell sm:px-6 sm:py-4 sm:text-[15px] sm:font-medium sm:text-white/80">
                                                 {row.feature}
                                             </th>
                                             {row.values.map((v, i) => (
-                                                <td key={i} className={plans[i].highlight ? "bg-accent/[0.92] px-6 py-4 text-black/80" : "px-6 py-4 text-white/70"}>
+                                                <td
+                                                    key={i}
+                                                    data-label={plans[i].title}
+                                                    className={cn(
+                                                        "flex items-center justify-between gap-6 py-1.5 text-right text-white/70 before:text-left before:text-sm before:text-white/50 before:content-[attr(data-label)] sm:table-cell sm:px-6 sm:py-4 sm:text-left sm:before:content-none",
+                                                        plans[i].highlight && "sm:bg-accent/[0.92] sm:text-black/80"
+                                                    )}
+                                                >
                                                     <Cell value={v} highlight={plans[i].highlight} />
                                                 </td>
                                             ))}

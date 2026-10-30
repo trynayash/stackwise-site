@@ -8,6 +8,7 @@ import { Pricing } from "@/components/sections/pricing";
 import { About } from "@/components/sections/about";
 import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
+import { GuidesTeaser } from "@/components/sections/guides-teaser";
 import { JsonLd, faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
 
@@ -25,6 +26,7 @@ export default function Home() {
             <Pricing />
             <About />
             <FAQ />
+            <GuidesTeaser />
             <Contact />
         </div>
     );

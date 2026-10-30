@@ -253,7 +253,9 @@ export function Navbar() {
                                                         openInquiry();
                                                     }}
                                                 >
-                                                    Free consultation
+                                                    {/* The card is narrow below xl, where the full label would be cut off. */}
+                                                    <span className="xl:hidden">Free call</span>
+                                                    <span className="hidden xl:inline">Free consultation</span>
                                                 </Button>
                                                 <a
                                                     href={`mailto:${siteConfig.emails.inbound}`}

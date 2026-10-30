@@ -47,11 +47,12 @@ function Block({ block }: { block: GuideBlock }) {
         }
         case "table":
             return (
-                // Wide tables scroll sideways inside their own box on phones instead of stretching the page.
-                <div role="region" aria-label={block.caption ?? "Comparison table"} tabIndex={0} className="relative overflow-x-auto rounded-2xl bg-surface">
-                    <table className="w-full min-w-[560px] border-collapse text-left text-[15px]">
+                // Phones get one card per row with each value labelled; wider screens get the full table, which
+                // scrolls sideways inside its own box if it still doesn't fit.
+                <div role="region" aria-label={block.caption ?? "Comparison table"} tabIndex={0} className="relative rounded-2xl bg-surface sm:overflow-x-auto">
+                    <table className="w-full border-collapse text-left text-[15px] [overflow-wrap:normal] sm:min-w-[560px]">
                         {block.caption && <caption className="px-5 pt-5 text-left text-sm font-medium text-white/60">{block.caption}</caption>}
-                        <thead>
+                        <thead className="max-sm:sr-only">
                             <tr>
                                 {block.head.map((h) => (
                                     <th key={h} scope="col" className="border-b border-white/10 px-5 py-4 font-semibold text-white">
@@ -62,14 +63,18 @@ function Block({ block }: { block: GuideBlock }) {
                         </thead>
                         <tbody>
                             {block.rows.map((row, r) => (
-                                <tr key={r} className="border-b border-white/[0.06] last:border-0">
+                                <tr key={r} className="block border-b border-white/[0.06] py-3 last:border-0 sm:table-row sm:py-0">
                                     {row.map((cell, c) =>
                                         c === 0 ? (
-                                            <th key={c} scope="row" className="px-5 py-4 align-top font-medium text-white">
+                                            <th key={c} scope="row" className="block px-5 pb-2 pt-2 align-top text-base font-semibold text-white sm:table-cell sm:py-4 sm:text-[15px] sm:font-medium">
                                                 <RichText text={cell} />
                                             </th>
                                         ) : (
-                                            <td key={c} className="px-5 py-4 align-top text-white/70">
+                                            <td
+                                                key={c}
+                                                data-label={block.head[c]}
+                                                className="block px-5 py-1.5 align-top text-white/70 before:mb-0.5 before:block before:text-xs before:font-medium before:uppercase before:tracking-wider before:text-white/45 before:content-[attr(data-label)] sm:table-cell sm:py-4 sm:before:content-none"
+                                            >
                                                 <RichText text={cell} />
                                             </td>
                                         )
@@ -141,7 +146,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
             {/* ─── Header ─── */}
             <section className="relative overflow-hidden pt-28 pb-10 md:pt-36 md:pb-14">
                 <div className="container relative mx-auto px-5 sm:px-6">
-                    <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Guides", href: "/guides" }, { name: guide.category }]} />
+                    <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Guides", href: "/guides" }, { name: `${guide.category} guide` }]} />
                     <div className="max-w-4xl">
                         <Enter>
                             <Eyebrow>Guide · {guide.category}</Eyebrow>
@@ -152,10 +157,12 @@ export function GuidePage({ guide }: { guide: Guide }) {
                         <Enter delay={0.2} className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/60">
                             <span className="flex items-center gap-2">
                                 <Icon icon={UserIcon} size={16} className="text-accent" />
-                                <a href={siteConfig.links.portfolio} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-white">
-                                    {siteConfig.author}
-                                </a>
-                                , founder of {siteConfig.name}
+                                <span>
+                                    <a href={siteConfig.links.portfolio} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-white">
+                                        {siteConfig.author}
+                                    </a>
+                                    , founder of {siteConfig.name}
+                                </span>
                             </span>
                             <span className="flex items-center gap-2">
                                 <Icon icon={Calendar03Icon} size={16} className="text-accent" />
