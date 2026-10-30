@@ -6,9 +6,17 @@ import { siteConfig } from "@/config/site";
 
 /**
  * The quote chat's answer engine. It is deliberately closed: every reply is written here from content
- * already published on the site, so it cannot reveal anything that isn't public. Questions about how
- * this site or chat was made, attempts to override its rules, requests for secrets, and anything not
- * about StackWise get a short refusal with an email button instead of an answer.
+ * already published on the site, so it cannot reveal anything that isn't public.
+ *
+ * Guardrail layers, in the order they run:
+ *   1. Input: screen() catches crisis messages (helplines), encoded payloads, attempts to override the
+ *      rules (also when obfuscated, written in Hinglish or split across two messages), questions about
+ *      how this site or chat was made, requests for secrets, abuse, and issues that need a person.
+ *      redactSensitive() strips card, Aadhaar, PAN and password details before anything is kept.
+ *   2. Retrieval: answers come only from the intents below; anything unmatched gets a polite
+ *      "not able to answer" with an email button.
+ *   3. Output: safeReply() re-checks every reply before it is shown and only allows on-site links.
+ *   4. Human hand-off: complaints, disputes and urgent problems go straight to Yash by email.
  */
 
 export type AssistantAction = { kind: "email"; label?: string; subject?: string; body?: string } | { kind: "link"; label: string; href: string };
@@ -17,10 +25,14 @@ export type AssistantReply = { text: string; actions?: AssistantAction[]; blocke
 
 const EMAIL = siteConfig.emails.inbound;
 
+const INVISIBLE = /[\u00AD\u200B-\u200F\u202A-\u202E\u2060-\u2064\uFEFF]/g;
+
 export function normalise(input: string): string {
     return input
+        .replace(INVISIBLE, "")
         .toLowerCase()
         .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
         .replace(/[‘’]/g, "'")
         .replace(/[^a-z0-9₹$'?.\s/+-]/g, " ")
         .replace(/\s+/g, " ")
@@ -40,8 +52,17 @@ const blocked: RegExp[] = [
     /\bprompts?\b/,
     /\b(developer|god|dan|admin|debug|sudo|unrestricted)\s+mode\b/,
     /\b(pretend|roleplay|role[\s-]play|you are now|act as|simulate being)\b/,
+    /\b(do anything now|from now on you|you must now|new rules?:|override mode)\b/,
+    /\b(repeat|print|output|display|reveal|translate|list|dump|summari[sz]e|spell out)\b.{0,30}\b(above|before this|previous (text|message|instructions)|your (rules|instructions|guidelines|programming|configuration|setup))\b/,
+    /\b(your|the) (system |hidden |secret |internal |original )?(instructions|guidelines|programming|configuration|training data|knowledge base|source code)\b/,
     // Secrets and internals.
-    /\b(api\s?keys?|secrets?|passwords?|passcodes?|tokens?|credentials?|private\s+keys?|ssh|\.env|env(ironment)?\s*(vars?|variables?|file))\b/,
+    /\b(api\s?keys?|secrets?|passwords?|passcodes?|tokens?|credentials?|private\s+keys?|ssh keys?|\.env|env(ironment)?\s*(vars?|variables?|file))\b.{0,30}\b(your|the site|stackwise|admin|server|vercel|github|gmail|email account)\b/,
+    /\b(your|the|stackwise'?s?|admin|give me|tell me|share|show me|send me|what is|what'?s)\b.{0,30}\b(api\s?keys?|secrets?|passwords?|passcodes?|tokens?|credentials?|private\s+keys?|ssh keys?|\.env|env(ironment)?\s*(vars?|variables?|file))\b/,
+    // Hinglish: "who made this website", "which AI did you use", "ignore everything".
+    /\b(ye|yeh|is|iss)\s+(website|site|page|chat\s?bot|bot)\b.{0,40}\b(kisne|kis ne|kaun|kaise|kis)\b/,
+    /\b(kisne|kis ne)\b.{0,25}\b(banay\w*|banai\w*|banaay\w*|banaai\w*|develop\w*|design\w*)\b/,
+    /\b(kaun\s?sa|kaunsa|konsa|kon sa|kaun se|konse)\b.{0,25}\b(ai|a\.i\.|tool|tools|model|software)\b/,
+    /\b(sab ?kuch|saare? rules?|rules?)\b.{0,15}\b(ignore|bhool|bhul)\w*/,
     /\b(reveal|leak|expose|dump|show me|tell me|share|give me|send me)\b.{0,40}\b(internal|private|confidential|hidden|backend|database|source code|config(uration)?|server|logs?|admin)\b/,
     /\b(database|server|admin panel|backend|hosting|deploy(ment)?|repo(sitory)?|source code|analytics|logs?)\b.{0,30}\b(of|for|behind|on)\s+(this|the|your)\s+(site|website|chat|bot)\b/,
     // Personal details about the founder.
@@ -52,6 +73,8 @@ const blocked: RegExp[] = [
     new RegExp(String.raw`\b${SITE}\b.{0,40}\b(built|made|created|designed|developed|coded|generated|powered|hosted|running|made with|built with|built using)\b`),
     new RegExp(String.raw`\b(tools?|tech(nology|nologies)?|stack|framework|model|llm|ai|platform|cms|template|theme|hosting|host|software|language)\b.{0,40}\b(behind|for|of|in|used|use|on|power(s|ing)?)\b.{0,20}\b${SITE}\b`),
     /\b(what|which)\b.{0,25}\b(ai|a\.i\.|llms?|models?|ai tools?)\b.{0,40}\b(use|used|using|uses)\b/,
+    new RegExp(String.raw`\b(what|which)\b.{0,30}\b(hosting|host|server|tech|stack|framework|cms|platform|tools?|language|database|ai|model)\b.{0,30}\b${SITE}\b`),
+    new RegExp(String.raw`\b${SITE}\b.{0,30}\b(use|uses|using|run on|runs on|hosted on|built on)\b`),
     /\b(do|did|does)\s+(you|yash|stackwise|they|he)\s+(use|uses|used)\s+(ai|a\.i\.|llms?|ai tools?)\b/,
     new RegExp(String.raw`\b(are|is)\s+(you|this|it)\b.{0,20}\b${VENDOR}\b`),
     new RegExp(String.raw`\b${VENDOR}\b.{0,30}\b(made|built|wrote|generated|designed|created|powers?|powered)\b`),
@@ -62,11 +85,127 @@ function isIntegrationQuestion(t: string): boolean {
     return new RegExp(String.raw`\b${VENDOR}\b`).test(t) && /\b(my|our|integrat\w*|connect\w*|add|plug\w*|into|api for|use in)\b/.test(t);
 }
 
+/* Obfuscation: leetspeak, look-alike letters and spaced-out words ("b y p 4 s s") are folded back
+   before the high-risk keywords are checked again, so disguising a request doesn't get it through. */
+const LOOKALIKES: Record<string, string> = { "0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "7": "t", "@": "a", $: "s", "!": "i", "а": "a", "е": "e", "о": "o", "р": "p", "с": "c", "у": "y", "х": "x", "і": "i", "ѕ": "s" };
+const SQUASHED_RISK = /(bypass|jailbreak|ignoreprevious|ignoreall|ignoreyour|ignoreeverything|systemprompt|developermode|doanythingnow|apikey|chatgpt|claude|anthropic|openai|gemini|copilot|deepseek|whobuiltthis|whomadethis|kisnebanay)/;
+
+function looksObfuscated(raw: string): boolean {
+    INVISIBLE.lastIndex = 0;
+    return INVISIBLE.test(raw) || /([a-z][\s.\-_*|]){3,}[a-z]\b/i.test(raw) || /[a-z][0-9@$!][a-z]/i.test(raw) || /[а-яіѕ]/i.test(raw);
+}
+
+function squash(raw: string): string {
+    return raw
+        .replace(INVISIBLE, "")
+        .toLowerCase()
+        .split("")
+        .map((c) => LOOKALIKES[c] ?? c)
+        .join("")
+        .replace(/[^a-z]/g, "");
+}
+
 export function isBlocked(text: string): boolean {
     const t = normalise(text);
     if (isIntegrationQuestion(t) && !/\b(bypass|ignore|prompt|secret|password|api\s?key)\b/.test(t)) return false;
     if (new RegExp(String.raw`\b${VENDOR}\b`).test(t)) return true;
-    return blocked.some((re) => re.test(t));
+    if (blocked.some((re) => re.test(t))) return true;
+    return looksObfuscated(text) && SQUASHED_RISK.test(squash(text));
+}
+
+const CRISIS = /\b(suicid\w*|kill (myself|me)|end (my|this) life|ending my life|want to die|wanna die|self[\s-]?harm|hurt myself|no reason to live|marna chaht[ai]|khudkushi|aatmahatya)\b/;
+const ENCODED = /(?:^|\s)[A-Za-z0-9+/]{32,}={0,2}(?:\s|$)|\b[0-9a-f]{40,}\b|\\u[0-9a-f]{4}|&#x?[0-9a-f]+;/i;
+const ABUSE = /\b(fuck\w*|shit\w*|bitch\w*|bastard|asshole|dickhead|cunt|motherfucker|slut|whore|retard\w*|bhenchod|behenchod|madarchod|chutiy\w*|gandu|bhosd\w*|randi|lavd\w*|lodu|harami)\b/;
+const NEEDS_A_PERSON = /\b(complain\w*|refund|dispute|lawsuit|sue you|legal (action|notice)|lawyer|court|consumer forum|scam\w*|fraud\w*|cheat(ed|ing)|unprofessional|not delivered|missed (the |our )?deadline|(site|website|app|server|production) (is |went )?down|outage|hacked|data (leak|breach)|security breach)\b/;
+
+export type Screening = { ok: true } | { ok: false; reply: AssistantReply; mask?: boolean };
+
+/**
+ * Input guardrail: decides whether a message may reach the knowledge base at all.
+ * `previous` is the visitor's last message, so a request split across two messages is still caught.
+ */
+export function screen(text: string, previous?: string): Screening {
+    const t = normalise(text);
+    if (CRISIS.test(t)) {
+        return {
+            ok: false,
+            reply: {
+                text: "I'm really sorry you're going through this. Please talk to someone right now. In India you can call Tele-MANAS on 14416 (free, 24/7), or emergency services on 112. If you're elsewhere, please contact your local emergency number.",
+            },
+        };
+    }
+    if (ENCODED.test(text)) {
+        return { ok: false, reply: { text: "I can't read encoded text. Ask your question in plain words, or email us.", actions: [{ kind: "email", label: "Email us" }], blocked: true } };
+    }
+    // A previous message that was refused on its own has been dealt with; only innocent-looking halves are joined.
+    if (isBlocked(text) || (previous && !isBlocked(previous) && isBlocked(`${previous} ${text}`))) return { ok: false, reply: refusal };
+    if (ABUSE.test(t)) {
+        return {
+            ok: false,
+            mask: true,
+            reply: { text: "Let's keep it friendly. I'm happy to help with anything about StackWise, or you can email us.", actions: [{ kind: "email", label: "Email us" }] },
+        };
+    }
+    if (NEEDS_A_PERSON.test(t)) {
+        return {
+            ok: false,
+            reply: {
+                text: "That's one for a person, not a chat assistant. Please email Yash directly and he'll get back to you personally.",
+                actions: [{ kind: "email", label: "Email Yash", subject: "Needs a reply from Yash", body: text.trim() }],
+            },
+        };
+    }
+    return { ok: true };
+}
+
+/** Hides abusive words in the visible transcript. */
+export function maskAbuse(text: string): string {
+    return text.replace(new RegExp(ABUSE.source, "gi"), (w) => `${w[0]}${"*".repeat(Math.max(w.length - 1, 2))}`);
+}
+
+function luhn(digits: string): boolean {
+    let sum = 0;
+    for (let i = 0; i < digits.length; i++) {
+        let d = Number(digits[digits.length - 1 - i]);
+        if (i % 2 === 1) {
+            d *= 2;
+            if (d > 9) d -= 9;
+        }
+        sum += d;
+    }
+    return sum % 10 === 0;
+}
+
+/**
+ * Removes card numbers, Aadhaar and PAN numbers, bank account numbers and passwords or OTPs
+ * from anything the visitor types, before it is shown, kept or sent.
+ */
+export function redactSensitive(text: string): { text: string; removed: boolean } {
+    let removed = false;
+    const mark = () => {
+        removed = true;
+        return "[removed]";
+    };
+    const out = text
+        .replace(/\b(?:\d[ -]?){12,18}\d\b/g, (m) => {
+            const digits = m.replace(/\D/g, "");
+            return (digits.length >= 13 && luhn(digits)) || /^\d{4}[ -]?\d{4}[ -]?\d{4}$/.test(m.trim()) ? mark() : m;
+        })
+        .replace(/\b\d{4}[ -]\d{4}[ -]\d{4}\b/g, () => mark())
+        .replace(/\b[a-z]{5}\d{4}[a-z]\b/gi, (m) => (/^[A-Z]{5}\d{4}[A-Z]$/i.test(m) ? mark() : m))
+        .replace(/\b(password|passwd|pwd|passcode|otp|pin|cvv|upi pin)\b(\s*(is|:|=|-)\s*)\S+/gi, (_m, k, sep) => `${k}${sep}${mark()}`)
+        .replace(/\b(account (no|number)|a\/c( no)?|acc no)\b([^\d]{0,6})\d{6,18}\b/gi, (_m, k, _a, _b, sep) => `${k}${sep}${mark()}`);
+    return { text: out, removed };
+}
+
+const UNSAFE_OUTPUT = /\b(claude|anthropic|openai|chat\s?gpt|gemini|copilot|system prompt|api key|password|secret key|\.env)\b/i;
+
+/** Output guardrail: a reply that mentions anything off-limits is replaced, and only on-site links are allowed. */
+export function safeReply(reply: AssistantReply): AssistantReply {
+    const texts = [reply.text, ...(reply.actions ?? []).map((a) => a.label ?? "")];
+    if (texts.some((t) => UNSAFE_OUTPUT.test(t))) return refusal;
+    const actions = reply.actions?.filter((a) => a.kind === "email" || (a.href.startsWith("/") && !a.href.startsWith("//")));
+    return { ...reply, actions };
 }
 
 export const refusal: AssistantReply = {
@@ -241,7 +380,7 @@ const intents: Intent[] = [
         },
     },
     {
-        patterns: [/\b(how long|timeline|time\s?frame|duration|turnaround|deadline|how (fast|quick)|how soon|when can (you|it|we)|delivery time)\b/],
+        patterns: [/\b(how long|timeline|time\s?frame|duration|turnaround|deadline|how (fast|quick)|how soon|when can (you|it|we)|delivery time|urgent(ly)?|asap)\b/],
         answer: (t) => {
             const slug = detectServicePage(t);
             const tl = slug && serviceTimeline(slug);
@@ -363,7 +502,7 @@ const intents: Intent[] = [
     },
     {
         weight: 0.3,
-        patterns: [/\b(services?|what (do|can) you (do|offer|build|make)|offer(ings)?|capabilit(y|ies)|can you (build|make|do|help|develop|create|integrate)|do you (build|make|do|develop|create|offer|integrate))\b/],
+        patterns: [/\b(services?|what (do|can) you (do|offer|build|make)|offer(ings)?|capabilit(y|ies)|can you (build|make|do|help|develop|create|integrate|add|implement|set up)|do you (build|make|do|develop|create|offer|integrate|add|implement))\b/],
         answer: (t) => {
             const slug = detectServicePage(t);
             if (slug) {
@@ -388,6 +527,10 @@ function serviceOnly(t: string): AssistantReply | null {
 
 /** Answers a visitor's question, or refuses. Never returns anything not written in this file or published on the site. */
 export function answer(question: string): AssistantReply {
+    return safeReply(findAnswer(question));
+}
+
+function findAnswer(question: string): AssistantReply {
     if (isBlocked(question)) return refusal;
     const t = normalise(question);
     let best: { intent: Intent; score: number } | null = null;

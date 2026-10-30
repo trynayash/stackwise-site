@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { answer, isBlocked, isQuestion, matchOption, refusal, type AssistantAction } from "@/lib/assistant";
+import { answer, isQuestion, maskAbuse, matchOption, redactSensitive, screen, type AssistantAction } from "@/lib/assistant";
 import { budgetBelowStart, estimateFor, summarise, type QuoteAnswers, type QuotePreset } from "@/lib/quote";
 import { siteConfig } from "@/config/site";
 
@@ -43,6 +43,10 @@ export type ChatState = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+\d][\d\s()-]{6,19}$/;
 const SKIP_RE = /^(no|nope|nah|skip|no thanks|not now|none|n\/a|na)[.! ]*$/i;
+const NAME_RE = /^[\p{L}][\p{L}\s.'-]{0,59}$/u;
+/** At most this many messages in RATE_WINDOW ms; a simple brake on floods and scripted abuse. */
+const RATE_LIMIT = 12;
+const RATE_WINDOW = 30_000;
 
 export const optionalSteps: Partial<Record<Step, string>> = { details: "Skip for now", phone: "No thanks" };
 
@@ -119,6 +123,7 @@ function initialState(preset?: QuotePreset): ChatState {
 export function useQuoteChat(preset?: QuotePreset) {
     const [state, setState] = useState<ChatState>(() => initialState(preset));
     const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const sentAt = useRef<number[]>([]);
     const stateRef = useRef(state);
     useEffect(() => {
         stateRef.current = state;
@@ -173,10 +178,24 @@ export function useQuoteChat(preset?: QuotePreset) {
             if (s.typing || s.status === "sending") return;
             const step = STEPS[s.step];
 
-            // Guardrails first, whatever question is open.
-            if (isBlocked(text)) {
-                setState((prev) => ({ ...prev, error: undefined, messages: [...prev.messages, user({ text })] }));
-                respond([bot({ text: refusal.text, actions: refusal.actions })]);
+            const now = Date.now();
+            sentAt.current = [...sentAt.current.filter((t) => now - t < RATE_WINDOW), now];
+            if (sentAt.current.length > RATE_LIMIT) {
+                setState((prev) => ({ ...prev, error: "You're sending messages quickly. Give it a few seconds." }));
+                return;
+            }
+
+            // Guardrails first, whatever question is open: sensitive details are removed, then the message is screened.
+            const { text: clean, removed } = redactSensitive(text);
+            const previous = [...s.messages].reverse().find((m): m is UserMessage => m.from === "user")?.text;
+            const check = screen(clean, previous);
+            if (!check.ok || removed) {
+                const shown = check.ok || !check.mask ? clean : maskAbuse(clean);
+                setState((prev) => ({ ...prev, error: undefined, messages: [...prev.messages, user({ text: shown })] }));
+                const notice = removed
+                    ? [bot({ text: "For your safety I've removed what looked like a card number, ID number or password. Please don't share those here." })]
+                    : [];
+                respond([...notice, ...(check.ok ? [] : [bot({ text: check.reply.text, actions: check.reply.actions })])]);
                 return;
             }
 
@@ -200,7 +219,9 @@ export function useQuoteChat(preset?: QuotePreset) {
             }
             if (step === "name") {
                 if (isQuestion(text) || text.split(/\s+/).length > 5) return answerQuestion(text);
-                return commit("name", text.replace(/^(i'?m|i am|my name is|this is|it'?s)\s+/i, ""), text);
+                const name = text.replace(/^(i'?m|i am|my name is|this is|it'?s)\s+/i, "");
+                if (!NAME_RE.test(name)) return setState((prev) => ({ ...prev, error: "Please enter just your name." }));
+                return commit("name", name, text);
             }
             if (step === "email") {
                 if (EMAIL_RE.test(text)) return commit("email", text, text);

@@ -3,14 +3,19 @@ import nodemailer from "nodemailer";
 import { z } from "zod";
 import { siteConfig } from "@/config/site";
 
+/** Visitor text is inserted into the notification email, so it must never be read as HTML. */
+function escapeHtml(value: string): string {
+    return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 // Zod Schema to validate contact form submissions
 const contactSchema = z.object({
     name: z.string().min(1, "Name is required").max(100),
-    email: z.string().email("Please enter a valid email address"),
-    phone: z.string().optional(),
-    projectType: z.string().min(1, "Project type is required"),
-    timeline: z.string().min(1, "Timeline is required"),
-    budget: z.string().min(1, "Budget qualification is required"),
+    email: z.string().email("Please enter a valid email address").max(200),
+    phone: z.string().max(30).optional(),
+    projectType: z.string().min(1, "Project type is required").max(120),
+    timeline: z.string().min(1, "Timeline is required").max(80),
+    budget: z.string().min(1, "Budget qualification is required").max(80),
     details: z.string().min(10, "Tell us more details (at least 10 characters)").max(5000),
     botField: z.string().optional(),
 });
@@ -77,7 +82,9 @@ export async function POST(request: Request) {
             );
         }
 
-        const { name, email, phone, projectType, timeline, budget, details } = result.data;
+        const raw = result.data;
+        const [name, email, projectType, timeline, budget, details] = [raw.name, raw.email, raw.projectType, raw.timeline, raw.budget, raw.details].map(escapeHtml);
+        const phone = raw.phone ? escapeHtml(raw.phone) : undefined;
 
         // 3. SMTP Production Credentials Check
         if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
@@ -202,8 +209,9 @@ export async function POST(request: Request) {
         await transporter.sendMail({
             from: `"StackWise Leads" <${process.env.GMAIL_USER}>`,
             to: "yashrsuthar90@gmail.com",
-            replyTo: email,
-            subject: `[INQUIRY] ${name.toUpperCase()} — ${projectType}`,
+            replyTo: raw.email,
+            // Subject lines are plain text: use the raw values with line breaks removed.
+            subject: `[INQUIRY] ${raw.name.toUpperCase()} — ${raw.projectType}`.replace(/[\r\n]+/g, " ").slice(0, 160),
             html: emailHtml,
         });
 
