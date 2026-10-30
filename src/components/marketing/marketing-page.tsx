@@ -29,15 +29,15 @@ export function marketingMetadata(page: MarketingPageData): Metadata {
 
 export function Breadcrumbs({ items }: { items: { name: string; href?: string }[] }) {
     return (
-        <nav aria-label="Breadcrumb" className="mb-10">
-            <ol className="flex flex-wrap items-center gap-2 text-sm text-white/55">
+        <nav aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex flex-wrap items-center gap-x-2 text-sm text-white/55">
                 {items.map((item, i) => (
                     <li key={item.name} className="flex items-center gap-2">
                         {i > 0 && <Icon icon={ArrowRight01Icon} size={14} className="text-white/50" />}
                         {item.href ? (
-                            <Link href={item.href} className="transition-colors hover:text-white">{item.name}</Link>
+                            <Link href={item.href} className="-mx-1.5 inline-flex min-h-11 min-w-11 items-center justify-center px-1.5 transition-colors hover:text-white">{item.name}</Link>
                         ) : (
-                            <span className="text-white/75" aria-current="page">{item.name}</span>
+                            <span className="py-3 text-white/75" aria-current="page">{item.name}</span>
                         )}
                     </li>
                 ))}

@@ -110,14 +110,15 @@ export function ProjectDeck({ projects }: { projects: CaseStudy[] }) {
             </div>
 
             {/* Caption + controls */}
-            <div className="mx-auto mt-6 flex w-[86%] items-center justify-between gap-4">
-                <div className="min-w-0" aria-live="polite">
+            <div className="mx-auto mt-6 flex w-full items-center justify-between gap-4 sm:w-[86%]">
+                {/* Room for a wrapped second line on small phones, so the controls don't jump as projects change. */}
+                <div className="min-h-[3.75rem] min-w-0 sm:min-h-0" aria-live="polite">
                     <AnimatePresence mode="wait" initial={false}>
                         <motion.div key={current.slug} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>
                             <Link href={`/work/${current.slug}`} className="text-base font-semibold text-white hover:underline underline-offset-4">
                                 {current.name}
                             </Link>
-                            <p className="truncate text-sm text-white/55">
+                            <p className="text-sm leading-snug text-white/55">
                                 {current.kind} · {current.status}
                             </p>
                         </motion.div>

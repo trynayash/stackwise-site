@@ -73,7 +73,7 @@ export function Hero() {
                             Software studio in {siteConfig.location.city}
                         </Enter>
 
-                        <h1 className="text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
+                        <h1 className="text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.05em] text-white min-[400px]:text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[4.25rem] xl:text-[5.4rem]">
                             <span className="sr-only">Let&apos;s build your SaaS product, website, AI assistant, MVP, internal tool or mobile app.</span>
                             <span aria-hidden className="block">
                                 <Rise delay={0}>Let&apos;s</Rise> <Rise delay={70}>build</Rise> <Rise delay={140}>your</Rise>

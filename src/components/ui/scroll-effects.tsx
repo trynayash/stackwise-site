@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { animate, motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useReached } from "@/components/ui/use-reached";
 import { cn } from "@/lib/utils";
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -11,8 +12,7 @@ const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
  * "3,400+" → 0…3,400 then "+"; "₹1,49,999" counts in Indian grouping; values without a number render as-is.
  */
 export function CountUp({ value, className, duration = 1.4 }: { value: string; className?: string; duration?: number }) {
-    const ref = useRef<HTMLSpanElement>(null);
-    const inView = useInView(ref, { once: true, margin: "-40px" });
+    const [ref, inView] = useReached<HTMLSpanElement>(40);
     const reduced = useReducedMotion();
     const match = value.match(/^(\D*?)(\d[\d,]*)(.*)$/);
     const target = match ? Number(match[2].replace(/,/g, "")) : null;
@@ -47,7 +47,9 @@ export function CountUp({ value, className, duration = 1.4 }: { value: string; c
 }
 
 function LitWord({ word, progress, range, still }: { word: string; progress: MotionValue<number>; range: [number, number]; still: boolean }) {
-    const opacity = useTransform(progress, range, [0.25, 1]);
+    // A function transform runs on every scroll update. The range form can be handed to a native scroll
+    // timeline, which lets words that were already passed fall back to dim once their slice of the range ends.
+    const opacity = useTransform(progress, (p) => 0.3 + 0.7 * Math.min(1, Math.max(0, (p - range[0]) / (range[1] - range[0]))));
     return <motion.span style={{ opacity: still ? 1 : opacity }}>{word} </motion.span>;
 }
 

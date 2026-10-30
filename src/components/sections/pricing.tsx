@@ -33,19 +33,19 @@ export function Pricing() {
                                 <Tilt className="h-full" max={5}>
                                     <div
                                         className={cn(
-                                            "flex h-full flex-col rounded-3xl p-8 md:p-9",
+                                            "flex h-full flex-col rounded-3xl p-6 min-[400px]:p-8 md:p-9",
                                             hi ? "bg-accent text-black" : "bg-surface text-white"
                                         )}
                                     >
                                         <div className="flex items-center justify-between gap-4">
                                             <h3 className="text-xl font-semibold">{plan.title}</h3>
-                                            {hi && <span className="rounded-full bg-black px-3 py-1 text-xs font-semibold text-accent">Most popular</span>}
+                                            {hi && <span className="flex-shrink-0 whitespace-nowrap rounded-full bg-black px-3 py-1 text-xs font-semibold text-accent">Most popular</span>}
                                         </div>
                                         <p className={cn("mt-3 text-[15px] leading-relaxed", hi ? "text-black/70" : "text-white/60")}>{plan.description}</p>
 
-                                        <p className="mt-8 flex items-baseline gap-2">
+                                        <p className="mt-8 flex flex-wrap items-baseline gap-x-2">
                                             {plan.price !== "Custom" && <span className={cn("text-sm", hi ? "text-black/60" : "text-white/55")}>from</span>}
-                                            <span className="text-[2.75rem] font-semibold leading-none tracking-[-0.04em] md:text-5xl">
+                                            <span className="text-[2.5rem] font-semibold leading-none tracking-[-0.04em] min-[400px]:text-[2.75rem] md:text-5xl lg:text-[2.6rem] xl:text-5xl">
                                                 {plan.price === "Custom" ? "Custom" : <CountUp value={plan.price.replace("+", "")} duration={1.6} />}
                                             </span>
                                         </p>

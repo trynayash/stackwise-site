@@ -236,7 +236,7 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
     return (
         <div className={cn("flex min-h-0 flex-col bg-[#0d0d0d]", className)}>
             {/* Header */}
-            <div className="flex flex-shrink-0 items-center gap-3 border-b border-white/[0.08] px-4 py-3 sm:px-5">
+            <div className="flex flex-shrink-0 items-center gap-2.5 border-b border-white/[0.08] px-4 py-3 short:py-2 sm:gap-3 sm:px-5">
                 <Mark className="h-9 w-9 text-base" />
                 <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-semibold leading-tight text-white">StackWise assistant</p>
@@ -244,49 +244,53 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                         Instant answers<span className="hidden sm:inline"> · Yash replies to every quote</span>
                     </p>
                 </div>
-                <a
-                    href={mailto("Hello from the website")}
-                    aria-label="Email us"
-                    title="Email us"
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/[0.07] hover:text-white"
-                >
-                    <Icon icon={Mail01Icon} size={18} />
-                </a>
-                <button
-                    type="button"
-                    onClick={() => {
-                        interacted.current = false;
-                        setValue("");
-                        reset(state.preset);
-                    }}
-                    aria-label="Start over"
-                    title="Start over"
-                    className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/[0.07] hover:text-white"
-                >
-                    <Icon icon={RefreshIcon} size={17} />
-                </button>
-                {onClose && (
+                {/* Buttons sit flush against each other (each is a 40px target) so the title keeps its line. */}
+                <div className="-mr-2 flex flex-shrink-0 items-center">
+                    {/* The composer has its own "Email us" link, so the smallest phones drop this one. */}
+                    <a
+                        href={mailto("Hello from the website")}
+                        aria-label="Email us"
+                        title="Email us"
+                        className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full min-[360px]:flex text-white/60 transition-colors hover:bg-white/[0.07] hover:text-white"
+                    >
+                        <Icon icon={Mail01Icon} size={18} />
+                    </a>
                     <button
                         type="button"
-                        onClick={onClose}
-                        aria-label="Close chat"
-                        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/[0.07] hover:text-white"
+                        onClick={() => {
+                            interacted.current = false;
+                            setValue("");
+                            reset(state.preset);
+                        }}
+                        aria-label="Start over"
+                        title="Start over"
+                        className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/[0.07] hover:text-white"
                     >
-                        <Icon icon={Cancel01Icon} size={18} />
+                        <Icon icon={RefreshIcon} size={17} />
                     </button>
-                )}
+                    {onClose && (
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            aria-label="Close chat"
+                            className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/[0.07] hover:text-white"
+                        >
+                            <Icon icon={Cancel01Icon} size={18} />
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Conversation */}
             <div ref={logRef} data-lenis-prevent role="log" aria-live="polite" aria-relevant="additions" className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-                <div className="mx-auto w-full max-w-[720px] space-y-6 px-4 py-6 sm:px-6">
+                <div className="mx-auto w-full max-w-[720px] space-y-6 px-4 py-6 short:space-y-4 short:py-3 sm:px-6">
                     {messages.map((m, i) =>
                         m.from === "bot" ? (
                             <BotRow key={m.id} m={m} state={state} isLatestSummary={i === latestSummary} onSend={send} onNavigate={onClose} />
                         ) : (
                             <motion.div key={m.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }} className="group flex items-center justify-end gap-2">
                                 {m.answers && (
-                                    <Icon icon={PencilEdit02Icon} size={15} className="text-white/0 transition-colors group-hover:text-white/45" />
+                                    <Icon icon={PencilEdit02Icon} size={15} className="text-white/0 transition-colors group-hover:text-white/45 group-focus-within:text-white/45 [@media(hover:none)]:text-white/40" />
                                 )}
                                 {m.answers ? (
                                     <button
@@ -320,11 +324,11 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
             </div>
 
             {/* Composer */}
-            <div className="flex-shrink-0 px-3 pb-3 pt-2 sm:px-5 sm:pb-4">
+            <div className="flex-shrink-0 px-3 pb-3 pt-2 sm:px-5 sm:pb-4 short:pb-2">
                 <div className="mx-auto w-full max-w-[720px]">
                     {chips.length > 0 && (
-                        // One swipeable row on phones so the options never crowd out the conversation.
-                        <div className="scrollbar-hide -mx-3 mb-3 flex gap-2 overflow-x-auto px-3 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+                        // One swipeable row on phones and short screens, so the options never crowd out the conversation.
+                        <div className="scrollbar-hide -mx-3 mb-3 flex gap-2 overflow-x-auto px-3 sm:tall:mx-0 sm:tall:flex-wrap sm:tall:overflow-visible sm:tall:px-0">
                             {chips.map((c) => (
                                 <button
                                     key={c}
@@ -333,7 +337,7 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                                         interacted.current = true;
                                         choose(c);
                                     }}
-                                    className="flex-shrink-0 cursor-pointer whitespace-nowrap rounded-full border border-white/[0.14] px-3.5 py-2 text-sm text-white/85 transition-colors hover:border-white/30 hover:bg-white/[0.05] hover:text-white active:scale-[0.98]"
+                                    className="flex-shrink-0 cursor-pointer whitespace-nowrap rounded-full border border-white/[0.14] px-4 py-2.5 text-sm text-white/85 transition-colors hover:border-white/30 hover:bg-white/[0.05] hover:text-white active:scale-[0.98]"
                                 >
                                     {c}
                                 </button>
@@ -379,7 +383,7 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                             <a
                                 href={mailto("Hello from the website")}
                                 onClick={(e) => e.stopPropagation()}
-                                className="inline-flex h-8 items-center gap-1.5 rounded-full px-2.5 text-[13px] font-medium text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
+                                className="inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-[13px] font-medium text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
                             >
                                 <Icon icon={Mail01Icon} size={16} />
                                 Email us
@@ -388,7 +392,7 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                                 type="submit"
                                 disabled={!canSend}
                                 aria-label="Send message"
-                                className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-accent text-black transition-colors hover:bg-accent-hover disabled:cursor-default disabled:bg-white/[0.08] disabled:text-white/35"
+                                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-accent text-black transition-colors hover:bg-accent-hover disabled:cursor-default disabled:bg-white/[0.08] disabled:text-white/35"
                             >
                                 <Icon icon={ArrowUp02Icon} size={18} strokeWidth={2} />
                             </button>

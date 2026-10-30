@@ -118,17 +118,17 @@ export function Services() {
                                                 <span
                                                     className={cn(
                                                         "block text-2xl font-semibold tracking-[-0.03em] transition-colors md:text-[2rem]",
-                                                        selected ? "text-ink" : "text-ink/50 group-hover:text-ink/75"
+                                                        selected ? "text-ink" : "text-ink/65 group-hover:text-ink/85"
                                                     )}
                                                 >
                                                     {page.navLabel}
                                                 </span>
-                                                <span className={cn("mt-1 block text-[15px]", selected ? "text-ink/70" : "text-ink/60")}>{page.summary}</span>
+                                                <span className={cn("mt-1 block text-[15px]", selected ? "text-ink/75" : "text-ink/70")}>{page.summary}</span>
                                             </span>
                                             <span
                                                 className={cn(
                                                     "flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full transition-colors",
-                                                    selected ? "bg-accent text-black" : "bg-ink/[0.06] text-ink/60"
+                                                    selected ? "bg-accent text-black" : "bg-ink/[0.07] text-ink/70"
                                                 )}
                                             >
                                                 <Icon icon={page.icon} size={20} />

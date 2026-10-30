@@ -31,8 +31,10 @@ function EmailCard() {
     return (
         <div className="rounded-3xl bg-surface p-6 md:p-7">
             <p className="text-sm font-medium text-white/55">Prefer email?</p>
-            <a href={`mailto:${email}`} className="mt-2 block break-all text-xl font-semibold text-white hover:underline underline-offset-4 md:text-2xl">
-                {email}
+            <a href={`mailto:${email}`} className="mt-1 block break-words py-2 text-xl font-semibold text-white hover:underline underline-offset-4 md:text-2xl">
+                {/* On narrow screens the address breaks before the @, never mid-word. */}
+                {email.split("@")[0]}
+                <wbr />@{email.split("@")[1]}
             </a>
             <div className="mt-5 flex flex-wrap gap-2">
                 <a

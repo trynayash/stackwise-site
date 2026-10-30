@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, type Variants } from "framer-motion";
+import { useReached } from "@/components/ui/use-reached";
 import { cn } from "@/lib/utils";
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -15,12 +16,13 @@ type RevealProps = {
 
 /** Fades and lifts its children into place the first time they scroll into view. */
 export function Reveal({ children, className, delay = 0, y = 24 }: RevealProps) {
+    const [ref, reached] = useReached<HTMLDivElement>();
     return (
         <motion.div
+            ref={ref}
             className={className}
             initial={{ opacity: 0, y }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            animate={reached ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.7, delay, ease: EASE_OUT }}
         >
             {children}
@@ -39,8 +41,9 @@ const staggerChild: Variants = {
 };
 
 export function Stagger({ children, className }: { children: React.ReactNode; className?: string }) {
+    const [ref, reached] = useReached<HTMLDivElement>();
     return (
-        <motion.div className={className} variants={staggerParent} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+        <motion.div ref={ref} className={className} variants={staggerParent} initial="hidden" animate={reached ? "show" : "hidden"}>
             {children}
         </motion.div>
     );
@@ -69,6 +72,7 @@ export function WordReveal({
     immediate?: boolean;
 }) {
     const words = text.split(" ");
+    const [ref, reached] = useReached<HTMLSpanElement>(40);
 
     // On-load headlines animate in CSS so they paint before JavaScript runs (keeps LCP fast).
     if (immediate) {
@@ -89,17 +93,16 @@ export function WordReveal({
         );
     }
 
-    // The in-view trigger lives on the outer span: each word starts clipped by its mask,
-    // so observing the words themselves would never report them as visible.
-    const trigger = { whileInView: "show", viewport: { once: true, margin: "-40px" } };
-
+    // The trigger lives on the outer span: each word starts clipped by its mask,
+    // so measuring the words themselves would never report them as visible.
     return (
         <motion.span
+            ref={ref}
             className={cn("inline", className)}
             aria-label={text}
             role="text"
             initial="hidden"
-            {...trigger}
+            animate={reached ? "show" : "hidden"}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: delay } } }}
         >
             {words.map((word, i) => (

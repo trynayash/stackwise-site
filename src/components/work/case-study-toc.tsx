@@ -35,7 +35,7 @@ export function CaseStudyToc({ items }: { items: { id: string; title: string }[]
                                 document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
                             }}
                             className={cn(
-                                "flex rounded-full px-4 py-2 text-sm transition-colors",
+                                "flex min-h-11 items-center rounded-full px-4 py-2 text-sm transition-colors",
                                 active === item.id ? "bg-accent font-medium text-black" : "text-white/60 hover:bg-white/[0.06] hover:text-white"
                             )}
                         >

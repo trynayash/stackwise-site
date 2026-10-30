@@ -7,6 +7,7 @@ import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTran
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/motion-primitives";
+import { useReached } from "@/components/ui/use-reached";
 import type { CaseStudy } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 
@@ -48,7 +49,7 @@ export function Screenshot({ study, className, priority = false, sizes }: { stud
  * page scrolls (a light parallax). A priority image skips the wipe so it paints straight away.
  */
 function RevealImage({ study, className, sizes, priority = false }: { study: CaseStudy; className?: string; sizes: string; priority?: boolean }) {
-    const ref = useRef<HTMLDivElement>(null);
+    const [ref, reached] = useReached<HTMLDivElement>();
     const reduced = useReducedMotion();
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
     const y = useTransform(scrollYProgress, [0, 1], reduced ? ["0%", "0%"] : ["-6%", "6%"]);
@@ -57,8 +58,7 @@ function RevealImage({ study, className, sizes, priority = false }: { study: Cas
         <motion.div
             ref={ref}
             initial={priority || reduced ? false : { clipPath: "inset(12% 12% 12% 12% round 24px)" }}
-            whileInView={{ clipPath: "inset(0% 0% 0% 0% round 24px)" }}
-            viewport={{ once: true, margin: "-60px" }}
+            animate={reached ? { clipPath: "inset(0% 0% 0% 0% round 24px)" } : undefined}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className={cn("relative overflow-hidden rounded-3xl bg-surface-2", className)}
         >

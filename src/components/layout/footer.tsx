@@ -32,7 +32,7 @@ export function Footer() {
                 {/* Links */}
                 <div className="grid grid-cols-2 gap-10 pt-16 pb-14 md:grid-cols-4 lg:grid-cols-12">
                     <div className="col-span-2 md:col-span-4 lg:col-span-4">
-                        <Link href="/" aria-label="StackWise home" className="group inline-block">
+                        <Link href="/" aria-label="StackWise home" className="group inline-flex min-h-11 items-center">
                             <Logo size="md" />
                         </Link>
                         <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">
@@ -40,7 +40,7 @@ export function Footer() {
                         </p>
                         <a
                             href={`mailto:${siteConfig.emails.inbound}`}
-                            className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-white hover:text-accent"
+                            className="mt-3 inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-white hover:text-accent"
                         >
                             <Icon icon={Mail01Icon} size={17} />
                             {siteConfig.emails.inbound}
@@ -107,14 +107,14 @@ export function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="flex flex-col gap-4 pb-8 pt-2 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-2 pb-6 pt-2 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between">
                     <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
                     <div className="flex items-center gap-6">
-                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-                        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+                        <Link href="/privacy" className="inline-flex min-h-11 items-center hover:text-white transition-colors">Privacy</Link>
+                        <Link href="/terms" className="inline-flex min-h-11 items-center hover:text-white transition-colors">Terms</Link>
                         <button
                             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                            className="inline-flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+                            className="inline-flex min-h-11 items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
                         >
                             Back to top
                             <Icon icon={ArrowUp01Icon} size={16} />

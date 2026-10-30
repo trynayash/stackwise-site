@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Screen-height variants: landscape phones and small laptop windows have little vertical room. */
+@custom-variant short (@media (max-height: 520px));
+@custom-variant tall (@media (min-height: 640px));
+
 @theme {
   --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
