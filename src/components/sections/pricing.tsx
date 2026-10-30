@@ -15,7 +15,10 @@ import { cn } from "@/lib/utils";
 
 const included = ["Written quote before work starts", "100% code and IP ownership", "Support after launch", "NDA on request"];
 
-/** The three plans. On the home page it links on to the full pricing page; `standalone` drops that link. */
+/**
+ * The three plans. On the home page it links on to the full pricing page; `standalone` (the pricing page itself)
+ * drops that link and uses a header that doesn't repeat the page title.
+ */
 export function Pricing({ standalone = false }: { standalone?: boolean }) {
     const { openInquiry } = useInquiry();
 
@@ -23,8 +26,8 @@ export function Pricing({ standalone = false }: { standalone?: boolean }) {
         <section id="pricing" className="relative py-20 md:py-28" aria-label="Pricing">
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
-                    eyebrow="Pricing"
-                    title="Clear starting prices."
+                    eyebrow={standalone ? "Plans" : "Pricing"}
+                    title={standalone ? "Pick a starting point." : "Clear starting prices."}
                     description="Pick the closest fit and we'll send a written quote for your exact project. No hourly billing, no surprise invoices."
                 />
 

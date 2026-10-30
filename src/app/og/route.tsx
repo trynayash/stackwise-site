@@ -1,16 +1,45 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/config/site";
 
 const MAX_TITLE = 90;
 
+const HOME_TITLE = "Your next product. Built right, from day one.";
+const HOME_MARK = "Built right,";
+
+// Static cuts of the site's own faces (the variable woff2 the site uses can't be read by the image renderer).
+const fonts = Promise.all([
+    readFile(join(process.cwd(), "src/app/og/SpaceGrotesk-Regular.ttf")),
+    readFile(join(process.cwd(), "src/app/og/SpaceGrotesk-SemiBold.ttf")),
+    readFile(join(process.cwd(), "src/fonts/Oughter.otf")),
+]);
+
+const [starter, product] = siteConfig.pricing;
+
+/** Splits the title into wrap-able tokens, keeping the marked phrase whole so its highlight never breaks. */
+function tokens(title: string, mark: string) {
+    const at = mark ? title.indexOf(mark) : -1;
+    if (at < 0) return title.split(" ").map((text) => ({ text, marked: false }));
+    const words = (s: string) => s.split(" ").filter(Boolean).map((text) => ({ text, marked: false }));
+    return [...words(title.slice(0, at)), { text: mark, marked: true }, ...words(title.slice(at + mark.length))];
+}
+
 /**
- * Branded 1200×630 social-share image. Used by every page's Open Graph / Twitter metadata:
+ * Branded 1200×630 social-share image, styled like the home hero: paper background, ink type and the
+ * accent marker. Used by every page's Open Graph / Twitter metadata:
  *   /og?title=SaaS%20Development&kicker=Services
+ *   /og?title=...&mark=phrase   highlights that phrase of the title
+ * With no title it shows the home headline.
  */
-export function GET(request: Request) {
+export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const title = (searchParams.get("title") || siteConfig.tagline).slice(0, MAX_TITLE);
-    const kicker = (searchParams.get("kicker") || "Software Studio").slice(0, 40);
+    const custom = searchParams.get("title");
+    const title = (custom || HOME_TITLE).slice(0, MAX_TITLE);
+    const mark = custom ? (searchParams.get("mark") ?? "").slice(0, 40) : HOME_MARK;
+    const kicker = (searchParams.get("kicker") || `Software studio, ${siteConfig.location.city}`).slice(0, 40);
+    const size = title.length > 60 ? 66 : title.length > 36 ? 80 : 92;
+    const [regular, semibold, wordmark] = await fonts;
 
     return new ImageResponse(
         (
@@ -21,65 +50,60 @@ export function GET(request: Request) {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-                    padding: "72px 80px",
-                    backgroundColor: "#060606",
-                    backgroundImage: "radial-gradient(ellipse 70% 60% at 85% 10%, rgba(200,255,0,0.22), transparent 70%)",
-                    color: "#fff",
-                    fontFamily: "sans-serif",
+                    padding: "64px 80px 56px",
+                    backgroundColor: "#f2f1ec",
+                    color: "#0b0b0b",
+                    fontFamily: "Space Grotesk",
                 }}
             >
-                {/* Grid */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", fontFamily: "Oughter", fontSize: 40, letterSpacing: -0.5 }}>STACKWISE</div>
+                    <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, textTransform: "uppercase", color: "rgba(11,11,11,0.65)" }}>{kicker}</div>
+                </div>
+
+                <div style={{ display: "flex", flexWrap: "wrap", maxWidth: 1000, fontSize: size, fontWeight: 600, lineHeight: 1.04 }}>
+                    {tokens(title, mark).map((t, i) => (
+                        <span
+                            key={i}
+                            style={
+                                t.marked
+                                    ? { backgroundColor: "#C8FF00", borderRadius: size * 0.2, padding: `0 ${size * 0.12}px`, margin: `0 ${size * 0.2}px 0 ${-size * 0.12}px` }
+                                    : { marginRight: size * 0.22 }
+                            }
+                        >
+                            {t.text}
+                        </span>
+                    ))}
+                </div>
+
                 <div
                     style={{
-                        position: "absolute",
-                        inset: 0,
                         display: "flex",
-                        backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-                        backgroundSize: "60px 60px",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        paddingTop: 24,
+                        borderTop: "2px solid rgba(11,11,11,0.15)",
+                        fontSize: 22,
+                        letterSpacing: 2,
+                        textTransform: "uppercase",
+                        color: "rgba(11,11,11,0.6)",
                     }}
-                />
-
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                    {/* Stacked-layers mark */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                        <div style={{ width: 44, height: 10, borderRadius: 4, background: "#C8FF00" }} />
-                        <div style={{ width: 44, height: 10, borderRadius: 4, background: "rgba(200,255,0,0.6)" }} />
-                        <div style={{ width: 44, height: 10, borderRadius: 4, background: "rgba(200,255,0,0.3)" }} />
+                >
+                    <div style={{ display: "flex" }}>
+                        {`Websites from ${starter.price.replace("+", "")} / SaaS from ${product.price.replace("+", "")}`}
                     </div>
-                    <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: -1 }}>{siteConfig.name}</div>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignSelf: "flex-start",
-                            padding: "8px 18px",
-                            borderRadius: 999,
-                            border: "1px solid rgba(200,255,0,0.4)",
-                            background: "rgba(200,255,0,0.1)",
-                            color: "#C8FF00",
-                            fontSize: 22,
-                            letterSpacing: 3,
-                            textTransform: "uppercase",
-                        }}
-                    >
-                        {kicker}
-                    </div>
-                    <div style={{ display: "flex", fontSize: title.length > 45 ? 64 : 80, fontWeight: 700, lineHeight: 1.05, letterSpacing: -3, maxWidth: 1000 }}>
-                        {title}
-                    </div>
-                </div>
-
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 24, color: "rgba(255,255,255,0.55)" }}>
-                    <div style={{ display: "flex" }}>SaaS · Custom Software · AI</div>
-                    <div style={{ display: "flex", color: "#C8FF00" }}>{siteConfig.url.replace("https://", "")}</div>
+                    <div style={{ display: "flex", textTransform: "none", letterSpacing: 0 }}>{siteConfig.url.replace(/^https?:\/\//, "")}</div>
                 </div>
             </div>
         ),
         {
             width: 1200,
             height: 630,
+            fonts: [
+                { name: "Space Grotesk", data: regular, weight: 400, style: "normal" },
+                { name: "Space Grotesk", data: semibold, weight: 600, style: "normal" },
+                { name: "Oughter", data: wordmark, weight: 400, style: "normal" },
+            ],
             headers: { "Cache-Control": "public, max-age=86400, s-maxage=604800, immutable" },
         }
     );

@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
-import { ogImageUrl } from "@/lib/seo";
 import { JsonLd, siteGraph } from "@/lib/schema";
 import { servicePages } from "@/lib/marketing-pages";
 import { LayoutShell } from "@/components/layout/layout-shell";
@@ -46,7 +45,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: ogImageUrl("SaaS, AI & Custom Software Development", "Software Studio · Mumbai"),
+        url: "/og",
         width: 1200,
         height: 630,
         alt: siteConfig.homeTitle,
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.homeTitle,
     description: siteConfig.description,
-    images: [ogImageUrl("SaaS, AI & Custom Software Development", "Software Studio · Mumbai")],
+    images: ["/og"],
     creator: "@YashVibes1",
   },
   robots: {
