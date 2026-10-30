@@ -320,7 +320,7 @@ Source: `src/components/ui/scroll-effects.tsx`.
 
 | # | Section | Layout | Motion |
 |---|---|---|---|
-| 1 | **Hero (light panel)** | Full-bleed `bg-paper text-ink` section marked `data-nav-light` so the navbar switches to dark text over it. Mono uppercase eyebrow with a live dot ("Independent software studio · Mumbai"). Three-line H1 (`lg:text-[4rem] xl:text-[4.5rem]`, leading 0.98) with the key phrase in a marker highlight: `bg-accent px-[0.12em] -mx-[0.12em] rounded-[0.22em] [box-decoration-break:clone]`. Paragraph, a dark primary button plus an underlined "Explore our work" link, then a 3-column trust row divided by hairlines. Right column: an HTML product mockup (`hero-mockup.tsx`: dashboard window, code window, pipeline card, mono annotations and a "Live build" pill); windows stack in flow on phones and sit at fixed spots inside an aspect box from `md`. A mono bottom strip carries starting prices and the stack. | `.rise-word` headline, CSS `Enter` for copy and each mockup window, scroll parallax (`visualY` 0 → -70, `copyY` 0 → 40) |
+| 1 | **Hero (light panel)** | Full-bleed `bg-paper text-ink` section marked `data-nav-light` so the navbar switches to dark text over it. Mono uppercase eyebrow with a live dot ("Independent software studio · Mumbai"). Three-line H1 (`lg:text-[4rem] xl:text-[4.5rem]`, leading 0.98) with the key phrase in a marker highlight: `bg-accent px-[0.12em] -mx-[0.12em] rounded-[0.22em] [box-decoration-break:clone]`. Paragraph, a dark primary button plus an underlined "Explore our work" link, then a 3-column trust row divided by hairlines. Right column: a stage of two real product screenshots (`hero-stage.tsx`): the front one in a thin browser frame showing only the domain, tilting toward the cursor and linking to its case study; the second layered behind at a 3° rotation; a white caption card with the product name, kind and status. Frames stack in flow on phones and sit in a fixed box from `md`. A mono bottom strip carries starting prices and the stack. | `.rise-word` headline, CSS `Enter` for copy and each mockup window, scroll parallax (`visualY` 0 → -70, `copyY` 0 → 40) |
 | 2 | **Kinetic band** | Two full-bleed rows of big words (what Yash builds or works with) | Velocity marquee |
 | 3 | **Selected work** | Section header (eyebrow, H2 and a "See all" button on the right), then the work grid (every 3rd card full width) | Clip-path wipe, inner parallax, cursor label, staggered Reveal |
 | 4 | **What I do (paper panel)** | `mx-2 sm:mx-3 rounded-[2rem] md:rounded-[3rem] bg-paper text-ink`. Left 5 columns: a selectable list (big label, summary, round icon; the selected item gets `bg-white` and an accent icon). Right 7 columns: a sticky detail panel (screenshot, intro, chips, tick list, CTA). On mobile the details open under the selected item. Below: "Also" chips. | `AnimatePresence mode="wait"` panel swap (y 14 → 0, 0.3s); mobile accordion uses height auto |
@@ -396,7 +396,7 @@ Section header pattern: eyebrow (accent, in a Reveal) → H2 (WordReveal) → op
 | CountUp, ScrollLitText | `src/components/ui/scroll-effects.tsx` |
 | Enter (CSS hero entrance) | `src/components/ui/enter.tsx` |
 | Hero (light panel) | `src/components/sections/hero.tsx` |
-| Hero product mockup | `src/components/sections/hero-mockup.tsx` |
+| Hero stage (real screenshots) | `src/components/sections/hero-stage.tsx` |
 | Project deck | `src/components/sections/project-deck.tsx` |
 | Kinetic band | `src/components/sections/marquee.tsx` |
 | Logo loop | `src/components/sections/stack-loop.tsx` |

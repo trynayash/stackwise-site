@@ -5,7 +5,8 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight01Icon, CodeIcon, Invoice01Icon, UserIcon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { HeroMockup } from "@/components/sections/hero-mockup";
+import { HeroStage } from "@/components/sections/hero-stage";
+import type { WorkSummary } from "@/lib/case-studies";
 import { Enter } from "@/components/ui/enter";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
@@ -36,7 +37,8 @@ function Rise({ children, delay, className }: { children: React.ReactNode; delay
  * mockup on the right, and the facts a buyer wants first. `data-nav-light` tells the navbar to use dark text
  * while it sits over this section.
  */
-export function Hero() {
+/** `projects` arrive from the server as summaries; the first two are shown on the stage. */
+export function Hero({ projects }: { projects: WorkSummary[] }) {
     const { openInquiry } = useInquiry();
     const ref = useRef<HTMLElement>(null);
     // As the hero scrolls away the mockup drifts up a little faster than the copy.
@@ -99,7 +101,7 @@ export function Hero() {
                     </motion.div>
 
                     <motion.div style={{ y: visualY }} className="lg:col-span-6">
-                        <HeroMockup className="mx-auto max-w-[720px]" />
+                        <HeroStage projects={projects} className="mx-auto max-w-[720px] lg:pt-4" />
                     </motion.div>
                 </div>
 
