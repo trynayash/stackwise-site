@@ -27,7 +27,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "SaaS Engineering",
         titleTop: "SaaS products,",
         titleAccent: "engineered to scale.",
-        intro: "We design, build and deploy Software-as-a-Service products — from the first architecture plan to secure APIs, subscriptions and multi-tenant infrastructure. Clean, typed code that is built to grow.",
+        intro: "We design, build and deploy Software-as-a-Service products, from the first architecture plan to secure APIs, subscriptions and multi-tenant infrastructure. Clean, typed code that is built to grow.",
         icon: DashboardSquare01Icon,
         facts: [{ label: "Typical timeline", value: "8–12 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
@@ -64,7 +64,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "AI Engineering",
         titleTop: "AI features that",
         titleAccent: "do real work.",
-        intro: "We build production-ready AI features — not generic wrappers. Custom pipelines, search over your own data and agents that automate real business workflows.",
+        intro: "We build production-ready AI features, not generic wrappers. Custom pipelines, search over your own data and agents that automate real business workflows.",
         icon: AiBrain01Icon,
         facts: [{ label: "Typical timeline", value: "Scoped after discovery" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
@@ -101,7 +101,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Custom Software",
         titleTop: "Software shaped around",
         titleAccent: "how you work.",
-        intro: "Off-the-shelf software rarely fits how you work. We design and build internal dashboards, management portals and APIs around your business logic — not the other way round.",
+        intro: "Off-the-shelf software rarely fits how you work. We design and build internal dashboards, management portals and APIs around your business logic, not the other way round.",
         icon: SourceCodeIcon,
         facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
@@ -118,7 +118,7 @@ const corePages: Record<string, MarketingPageData> = {
         work: ["scopeci", "limityourapi"],
         faqs: [
             { q: "Why custom software instead of an off-the-shelf tool?", a: "Off-the-shelf tools are great until your process doesn't fit them. Custom software matches how your team already works, removes per-seat fees and connects all your data in one place." },
-            { q: "Can it connect to the tools we already use?", a: "Yes. We integrate with your existing tools through their APIs — accounting, CRM, payments, email, spreadsheets — so data flows automatically instead of being re-typed." },
+            { q: "Can it connect to the tools we already use?", a: "Yes. We integrate with your existing tools through their APIs: accounting, CRM, payments, email, spreadsheets, so data flows automatically instead of being re-typed." },
             ownershipFaq,
         ],
         cta: { title: "Build your internal operating platform", text: "Want to automate processes or connect scattered data cleanly? Let's talk and map out a custom software plan." },
@@ -155,7 +155,7 @@ const corePages: Record<string, MarketingPageData> = {
         work: ["stackwise", "codefusionai"],
         faqs: [
             { q: "How long does a website take?", a: "A marketing website usually takes 2–3 weeks. E-commerce stores take 4–6 weeks. You'll get an exact timeline once we've agreed the pages and features." },
-            { q: "Will my site be SEO-friendly?", a: "Yes. Pages are server-rendered with clean semantic HTML, sitemaps, metadata, structured data and fast load times — the technical foundations search engines look for." },
+            { q: "Will my site be SEO-friendly?", a: "Yes. Pages are server-rendered with clean semantic HTML, sitemaps, metadata, structured data and fast load times: the technical foundations search engines look for." },
             { q: "Can my team edit content without a developer?", a: "Yes. We connect a headless CMS so your team can update pages, posts and products themselves, without touching code." },
         ],
         cta: { title: "Upgrade your website", text: "Ready to move from a template to a fast, custom Next.js site? Let's plan it together." },
@@ -175,7 +175,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "For Startups",
         titleTop: "Your technical partner,",
         titleAccent: "from idea to first hires.",
-        intro: "Startups need more than a mock-up. They need stable, modular code that earns customer trust and holds up to technical due diligence. We build products ready for launch — and for your next engineers.",
+        intro: "Startups need more than a mock-up. They need stable, modular code that earns customer trust and holds up to technical due diligence. We build products ready for launch, and for the engineers you hire next.",
         icon: ChartIncreaseIcon,
         facts: [{ label: "Typical timeline", value: "4–8 weeks to launch" }, { label: "Starting at", value: "₹34,999" }, quoteFact, ownershipFact],
         features: [
@@ -191,7 +191,7 @@ const corePages: Record<string, MarketingPageData> = {
         stack: ["Next.js", "TypeScript", "PostgreSQL", "Stripe", "Vercel", "AWS", "Figma"],
         work: ["startupdeck", "scopeci"],
         faqs: [
-            { q: "We're early stage — what does it cost?", a: "Starter builds begin at ₹34,999 and product builds at ₹98,999. We scope tightly around the features that prove your idea, so you don't pay for anything you don't need yet." },
+            { q: "We're early stage. What does it cost?", a: "Starter builds begin at ₹34,999 and product builds at ₹98,999. We scope tightly around the features that prove your idea, so you don't pay for anything you don't need yet." },
             { q: "Can our future team take over the code?", a: "That's the point. The code is strictly typed, documented and handed over with architecture notes. We can also help interview your first engineers." },
             { q: "Do you sign NDAs?", a: "Yes. We sign an NDA before any discovery call where sensitive information is shared." },
         ],
@@ -204,7 +204,7 @@ const corePages: Record<string, MarketingPageData> = {
         kind: "Solutions",
         serviceType: "MVP development",
         navLabel: "MVP Development",
-        summary: "Ship a working first version fast — without a rewrite later.",
+        summary: "Ship a working first version fast, without a rewrite later.",
         seo: {
             title: "MVP Development Company for Startups",
             description: "MVP development for startups: ship a SaaS MVP in 4–8 weeks on a production-grade stack that won't need a rewrite. From ₹98,999, and you own the code.",
@@ -229,7 +229,7 @@ const corePages: Record<string, MarketingPageData> = {
         work: ["scopeci", "startupdeck"],
         faqs: [
             { q: "How fast can you ship an MVP?", a: "Most MVPs launch in about 4–8 weeks, depending on scope. We agree the core features up front so the timeline stays predictable." },
-            { q: "What if we need to change features mid-way?", a: "That's normal. Minor additions are absorbed. For bigger changes we send a clear quote and timeline update within 24 hours — no surprises." },
+            { q: "What if we need to change features mid-way?", a: "That's normal. Minor additions are absorbed. For bigger changes we send a clear quote and timeline update within 24 hours, with no surprises." },
             { q: "Will we need to rebuild it later?", a: "No. The MVP is built on the same production-grade stack you'd use at scale, so version two builds on top of it instead of starting over." },
         ],
         cta: { title: "Turn your idea into a working product", text: "Ready to turn your wireframes or idea into a secure, working web app? Let's build your core." },
@@ -249,7 +249,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Business Automation",
         titleTop: "Take the manual work",
         titleAccent: "out of operations.",
-        intro: "Manual admin leaks hours and money. We build integrations, scheduled jobs and secure dashboards that remove the friction — and the spreadsheets — from your operations.",
+        intro: "Manual admin leaks hours and money. We build integrations, scheduled jobs and secure dashboards that take the friction, and the spreadsheets, out of your operations.",
         icon: WorkflowSquare01Icon,
         facts: [{ label: "Typical timeline", value: "Scoped after discovery" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
@@ -287,7 +287,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Mobile Apps",
         titleTop: "Mobile apps,",
         titleAccent: "one codebase, both stores.",
-        intro: "We build cross-platform iOS and Android apps with React Native and TypeScript, connected to secure APIs — so you launch on both stores without maintaining two separate codebases.",
+        intro: "We build cross-platform iOS and Android apps with React Native and TypeScript, connected to secure APIs, so you launch on both stores without maintaining two separate codebases.",
         icon: SmartPhone01Icon,
         facts: [{ label: "Typical timeline", value: "Scoped after discovery" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
@@ -324,7 +324,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Product Design",
         titleTop: "Product design",
         titleAccent: "people understand.",
-        intro: "We design interfaces users understand and teams can build on — research, flows, a design system and clickable Figma prototypes you can test before a single line of code is written.",
+        intro: "We design interfaces users understand and teams can build on: research, flows, a design system and clickable Figma prototypes you can test before a single line of code is written.",
         icon: PaintBoardIcon,
         facts: [{ label: "Typical timeline", value: "Scoped after discovery" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
@@ -398,7 +398,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Modernization",
         titleTop: "Modernize your software",
         titleAccent: "without starting over.",
-        intro: "Outdated code slows every change. We upgrade legacy systems step by step — refactoring, migrating and hardening — so the product keeps running while it gets faster and safer to work on.",
+        intro: "Outdated code slows every change. We upgrade legacy systems step by step, refactoring, migrating and hardening, so the product keeps running while it gets faster and safer to work on.",
         icon: RefreshIcon,
         facts: [{ label: "Typical timeline", value: "Scoped after an audit" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
@@ -435,7 +435,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Maintenance & Support",
         titleTop: "Support that keeps going",
         titleAccent: "after launch day.",
-        intro: "Every build includes a support period after launch. After that, we can stay on as your engineering team — fixing bugs, applying security updates and shipping new features.",
+        intro: "Every build includes a support period after launch. After that, we can stay on as your engineering team, fixing bugs, applying security updates and shipping new features.",
         icon: Wrench01Icon,
         facts: [{ label: "Included", value: "1–3 months with every build" }, { label: "After that", value: "Monthly retainer" }, quoteFact, ownershipFact],
         features: [
@@ -469,7 +469,7 @@ const corePages: Record<string, MarketingPageData> = {
         summary: "Fast, SEO-ready websites and apps on Next.js.",
         seo: {
             title: "Next.js Development Company",
-            description: "Next.js development: server-rendered websites, SaaS front ends and e-commerce on the App Router with TypeScript — fast, SEO-ready and easy to maintain.",
+            description: "Next.js development: server-rendered websites, SaaS front ends and e-commerce on the App Router with TypeScript: fast, SEO-ready and easy to maintain.",
         },
         badge: "Next.js",
         titleTop: "Next.js development,",
@@ -511,7 +511,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "React",
         titleTop: "React apps,",
         titleAccent: "built to stay maintainable.",
-        intro: "We build React and TypeScript front ends for dashboards and SaaS products — typed end to end, with clear state management, so features keep shipping as the app grows.",
+        intro: "We build React and TypeScript front ends for dashboards and SaaS products, typed end to end, with clear state management, so features keep shipping as the app grows.",
         icon: ReactIcon,
         facts: [{ label: "Starting at", value: "₹98,999" }, { label: "Language", value: "TypeScript" }, quoteFact, ownershipFact],
         features: [
@@ -548,7 +548,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Node.js",
         titleTop: "Node.js backends,",
         titleAccent: "typed and dependable.",
-        intro: "We build APIs, background jobs and integrations in Node.js and TypeScript, on PostgreSQL and Redis — the backend behind dashboards, AI features and third-party integrations.",
+        intro: "We build APIs, background jobs and integrations in Node.js and TypeScript, on PostgreSQL and Redis: the backend behind dashboards, AI features and third-party integrations.",
         icon: ServerStack01Icon,
         facts: [{ label: "Starting at", value: "₹98,999" }, { label: "Language", value: "TypeScript" }, quoteFact, ownershipFact],
         features: [
@@ -585,7 +585,7 @@ const corePages: Record<string, MarketingPageData> = {
         badge: "Go",
         titleTop: "Go services for",
         titleAccent: "high-concurrency work.",
-        intro: "When an API has to stay exact and fast under heavy concurrent load, we build it in Go — with atomic Redis operations, background batching and tests that run with the race detector.",
+        intro: "When an API has to stay exact and fast under heavy concurrent load, we build it in Go, with atomic Redis operations, background batching and tests that run with the race detector.",
         icon: TerminalIcon,
         facts: [{ label: "Typical timeline", value: "Scoped after discovery" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
@@ -601,7 +601,7 @@ const corePages: Record<string, MarketingPageData> = {
         stack: ["Go", "Gin", "Redis", "Lua", "PostgreSQL", "Docker", "GitHub Actions"],
         work: ["limityourapi"],
         faqs: [
-            { q: "When is Go the right choice?", a: "When a service handles lots of concurrent requests and needs predictable latency — rate limiters, gateways, metering. For most product APIs, Node.js is simpler." },
+            { q: "When is Go the right choice?", a: "When a service handles lots of concurrent requests and needs predictable latency: rate limiters, gateways, metering. For most product APIs, Node.js is simpler." },
             { q: "How do you make sure it holds up under load?", a: "Shared state lives in atomic Redis scripts, and behaviour under concurrency is tested, not assumed. Yash has published a measured study of Redis rate limiters under concurrency." },
             ownershipFaq,
         ],

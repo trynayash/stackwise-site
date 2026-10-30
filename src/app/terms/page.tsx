@@ -26,7 +26,9 @@ export default function TermsOfService() {
             <h2>2. Intellectual property</h2>
             <p>
                 All content on this website, including text, graphics, logos, and code, is the property of StackWise or its licensors and is protected
-                by copyright laws. You may not reproduce, distribute, or create derivative works without our express written permission.
+                by copyright laws. You may not reproduce, distribute, or create derivative works without our express written permission. This covers
+                this website only: software, designs and other work we build for a client belong to that client at handover, as set out in the
+                client&apos;s agreement.
             </p>
 
             <h2>3. Limitation of liability</h2>

@@ -103,11 +103,11 @@ export const moreWork: CaseStudy[] = [
         ),
         problem: section(
             "Problem",
-            "A studio site has to load fast, read well to search engines and turn visitors into enquiries — while proving the engineering it sells."
+            "A studio site has to load fast, read well to search engines and turn visitors into enquiries, while proving the engineering it sells."
         ),
         architecture: section(
             "Architecture",
-            "Every page is rendered on the server, so search engines and link previews see real content. Interactive parts — motion, menus, the inquiry form — are small client components inside server-rendered pages.\n\nService, solution, technology and case-study pages are generated from typed content files, and each one emits its own structured data and a generated social-share image."
+            "Every page is rendered on the server, so search engines and link previews see real content. Interactive parts (motion, menus, the inquiry form) are small client components inside server-rendered pages.\n\nService, solution, technology and case-study pages are generated from typed content files, and each one emits its own structured data and a generated social-share image."
         ),
         highlights: [
             "Next.js App Router with server-rendered pages, generated metadata, a sitemap and per-page social images",
