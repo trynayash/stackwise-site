@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
@@ -9,20 +8,12 @@ import { servicePages } from "@/lib/marketing-pages";
 import { LayoutShell } from "@/components/layout/layout-shell";
 import Script from "next/script";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Self-hosted (Latin + Latin Extended, includes ₹), so builds never depend on Google Fonts being reachable.
+const spaceGrotesk = localFont({
+  src: "../fonts/SpaceGrotesk-Variable.woff2",
+  weight: "300 700",
   variable: "--font-space-grotesk",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  display: "swap",
 });
 
 // Wordmark font: next/font preloads it, so the logo paints in its final face without a late swap.
@@ -124,7 +115,7 @@ export default function RootLayout({
         <JsonLd data={siteSchema} />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${oughter.variable} font-sans antialiased bg-canvas text-foreground`}
+        className={`${spaceGrotesk.variable} ${oughter.variable} font-sans antialiased bg-canvas text-foreground`}
         suppressHydrationWarning
       >
         <LayoutShell>{children}</LayoutShell>

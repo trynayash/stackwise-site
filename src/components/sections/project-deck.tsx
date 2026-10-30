@@ -89,15 +89,20 @@ export function ProjectDeck({ projects }: { projects: CaseStudy[] }) {
                                 className="absolute inset-x-0 top-[24%] mx-auto w-[86%]"
                                 aria-hidden={!front}
                             >
-                                {front ? (
-                                    <Link href={`/work/${p.slug}`} aria-label={`${p.name} case study`} className="block">
-                                        {card}
-                                    </Link>
-                                ) : (
-                                    <div onClick={() => setActive(i)} className="cursor-pointer">
-                                        {card}
-                                    </div>
-                                )}
+                                {/* Same element for every position: swapping it would re-mount the image on each shuffle. */}
+                                <Link
+                                    href={`/work/${p.slug}`}
+                                    aria-label={`${p.name} case study`}
+                                    tabIndex={front ? undefined : -1}
+                                    onClick={(e) => {
+                                        if (front) return;
+                                        e.preventDefault();
+                                        setActive(i);
+                                    }}
+                                    className="block"
+                                >
+                                    {card}
+                                </Link>
                             </motion.div>
                         );
                     })}
