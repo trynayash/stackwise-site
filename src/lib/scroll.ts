@@ -23,13 +23,12 @@ export function scrollToTarget(target: number | string | HTMLElement, options: {
     const { offset = 0 } = options;
     const run = () => {
         const immediate = options.immediate || reducedMotion();
-        if (lenis) {
-            lenis.scrollTo(target, { offset, immediate });
-            return;
-        }
         const el = typeof target === "string" ? document.querySelector<HTMLElement>(target) : typeof target === "number" ? null : target;
-        const top = typeof target === "number" ? target : el ? el.getBoundingClientRect().top + window.scrollY : 0;
-        window.scrollTo({ top: top + offset, behavior: immediate ? "auto" : "smooth" });
+        // Measured against the page's real position: Lenis's own copy can lag a native scroll (keyboard,
+        // scrollbar) by a frame, which would send an element target to the wrong place.
+        const top = (typeof target === "number" ? target : el ? el.getBoundingClientRect().top + window.scrollY : 0) + offset;
+        if (lenis) lenis.scrollTo(top, { immediate });
+        else window.scrollTo({ top, behavior: immediate ? "auto" : "smooth" });
     };
     if (locks > 0) pending = run;
     else run();
