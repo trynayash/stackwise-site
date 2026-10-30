@@ -1,7 +1,7 @@
 import React from "react";
 import {
     AiBrain01Icon, Analytics01Icon, CheckmarkCircle02Icon, CloudUploadIcon, CodeIcon, DashboardSquare01Icon, Layers01Icon, PenTool03Icon,
-    Search01Icon, Settings01Icon, Tick02Icon,
+    Search01Icon, Settings01Icon,
 } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
@@ -22,10 +22,10 @@ const nav = [
 ];
 
 const stats = [
-    { label: "Active projects", value: "4", delta: "+2" },
-    { label: "Total users", value: "12.4K", delta: "+28%" },
-    { label: "API requests", value: "892K", delta: "+52%" },
-    { label: "Uptime", value: "99.9%", delta: "" },
+    { label: "Active projects", value: "4" },
+    { label: "Total users", value: "12.4K" },
+    { label: "API requests", value: "892K" },
+    { label: "Open tasks", value: "17" },
 ];
 
 const deploys = [
@@ -61,14 +61,9 @@ const tone: Record<string, string> = { kw: "text-[#c792ea]", s: "text-[#c3e88d]"
 
 function WindowBar({ url, dark = false }: { url?: string; dark?: boolean }) {
     return (
-        <div className={cn("flex items-center gap-2 border-b px-3 py-2", dark ? "border-white/10" : "border-ink/[0.08]")}>
-            <span className="flex gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-            </span>
+        <div className={cn("flex items-center border-b px-3 py-2", dark ? "border-white/10" : "border-ink/[0.08]")}>
             {url && (
-                <span className={cn("mx-auto rounded-md px-3 py-0.5 font-mono text-[10px]", dark ? "bg-white/[0.08] text-white/70" : "bg-ink/[0.05] text-ink/65")}>
+                <span className={cn("rounded-md px-2.5 py-0.5 font-mono text-[10px]", dark ? "bg-white/[0.08] text-white/70" : "bg-ink/[0.05] text-ink/65")}>
                     {url}
                 </span>
             )}
@@ -123,10 +118,7 @@ function Dashboard({ className }: { className?: string }) {
                         {stats.map((s) => (
                             <div key={s.label} className="rounded-lg border border-ink/[0.07] p-2">
                                 <p className="text-[9px] text-ink/60">{s.label}</p>
-                                <p className="mt-0.5 flex items-baseline gap-1.5 text-[15px] font-bold tracking-tight text-ink">
-                                    {s.value}
-                                    {s.delta && <span className="rounded bg-accent/60 px-1 text-[8px] font-semibold">{s.delta}</span>}
-                                </p>
+                                <p className="mt-0.5 text-[15px] font-bold tracking-tight text-ink">{s.value}</p>
                             </div>
                         ))}
                     </div>
@@ -143,12 +135,9 @@ function Dashboard({ className }: { className?: string }) {
                         <ul className="hidden space-y-1.5 rounded-lg border border-ink/[0.07] p-2 md:col-span-2 md:block">
                             <li className="text-[9px] font-semibold text-ink">Recent deployments</li>
                             {deploys.map((d) => (
-                                <li key={d.title} className="flex items-center justify-between gap-2 text-[9px]">
-                                    <span>
-                                        <span className="block text-ink/80">{d.title}</span>
-                                        <span className="text-ink/60">{d.when}</span>
-                                    </span>
-                                    <span className="rounded bg-accent/60 px-1.5 py-0.5 text-[8px] font-semibold text-ink">Live</span>
+                                <li key={d.title} className="text-[9px]">
+                                    <span className="block text-ink/80">{d.title}</span>
+                                    <span className="text-ink/60">{d.when}</span>
                                 </li>
                             ))}
                         </ul>
@@ -186,20 +175,14 @@ function Pipeline({ className }: { className?: string }) {
         <div className={cn("rounded-xl border border-ink/10 bg-white p-3 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.35)] md:p-4", className)}>
             <div className="flex items-center justify-between">
                 <p className="text-[11px] font-bold text-ink">From code to production</p>
-                <span className="flex items-center gap-1 text-[9px] text-ink/65">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#5c8a00]" />
-                    Production ready
-                </span>
+                <span className="text-[9px] text-ink/65">Four steps</span>
             </div>
             <ol className="mt-3 flex items-start justify-between gap-1">
                 {steps.map((s, i) => (
                     <li key={s.title} className="flex flex-1 items-start">
                         <div className="flex flex-col items-center text-center">
-                            <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-ink/[0.05] text-ink">
+                            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink/[0.05] text-ink">
                                 <Icon icon={s.icon} size={14} />
-                                <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-accent text-ink">
-                                    <Icon icon={Tick02Icon} size={8} strokeWidth={3} />
-                                </span>
                             </span>
                             <span className="mt-1.5 text-[10px] font-semibold text-ink">{s.title}</span>
                             <span className="text-[8px] text-ink/60">{s.sub}</span>
@@ -215,27 +198,7 @@ function Pipeline({ className }: { className?: string }) {
 export function HeroMockup({ className }: { className?: string }) {
     return (
         // Phones: the windows stack in normal flow, overlapping slightly. From md up they sit at fixed spots in a framed box.
-        <div aria-hidden className={cn("relative w-full pt-7 md:aspect-[5/4] md:pt-0 lg:aspect-[7/6]", className)}>
-            {/* Annotations */}
-            <p className="enter-fade absolute left-[12%] top-0 hidden font-mono text-[11px] uppercase tracking-[0.18em] text-ink/70 md:block" style={{ ["--d" as string]: "700ms" } as React.CSSProperties}>
-                Design → Build → Ship
-            </p>
-            <span
-                className="enter-fade absolute right-0 top-0 z-20 flex items-center gap-2 rounded-md bg-accent px-3 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink md:text-[11px]"
-                style={{ ["--d" as string]: "600ms" } as React.CSSProperties}
-            >
-                <span className="h-2 w-2 rounded-full bg-ink" />
-                Live build
-            </span>
-            <p
-                className="enter-fade absolute -right-2 bottom-[-6%] hidden -rotate-6 font-mono text-[10px] uppercase leading-snug tracking-[0.16em] text-ink/70 lg:block"
-                style={{ ["--d" as string]: "800ms" } as React.CSSProperties}
-            >
-                Real products
-                <br />
-                Real ownership
-            </p>
-
+        <div aria-hidden className={cn("relative w-full md:aspect-[5/4] lg:aspect-[7/6]", className)}>
             <Dashboard className="enter-fade relative md:absolute md:left-[8%] md:right-0 md:top-[9%]" />
             <CodeWindow className="enter-fade relative -mt-10 w-[76%] md:absolute md:bottom-[12%] md:left-0 md:mt-0 md:w-[46%]" />
             <Pipeline className="enter-fade hidden w-[52%] md:absolute md:bottom-0 md:right-0 md:block" />

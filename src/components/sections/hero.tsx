@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown01Icon, ArrowUpRight01Icon, CodeIcon, Invoice01Icon, UserIcon } from "@hugeicons/core-free-icons";
+import { ArrowUpRight01Icon, CodeIcon, Invoice01Icon, UserIcon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { HeroMockup } from "@/components/sections/hero-mockup";
 import { Enter } from "@/components/ui/enter";
@@ -49,12 +49,8 @@ export function Hero() {
             <div className="container mx-auto px-5 sm:px-6">
                 <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
                     <motion.div style={{ y: copyY }} className="flex flex-col items-start lg:col-span-6 lg:pt-8">
-                        <Enter as="p" className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] text-ink/70">
-                            <span aria-hidden className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5c8a00]/60" />
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#5c8a00]" />
-                            </span>
-                            Independent software studio · {siteConfig.location.city}
+                        <Enter as="p" className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">
+                            Independent software studio, {siteConfig.location.city}
                         </Enter>
 
                         <h1 className="mt-7 text-[clamp(2.25rem,9.4vw,4.25rem)] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-[clamp(3.25rem,6.6vw,4.75rem)] md:mt-8 lg:text-[4rem] xl:text-[4.5rem]">
@@ -109,11 +105,10 @@ export function Hero() {
 
                 {/* Bottom strip */}
                 <Enter delay={0.5} className="mt-12 flex flex-col gap-3 border-t border-ink/15 py-5 font-mono text-xs uppercase tracking-[0.14em] text-ink/60 sm:flex-row sm:items-center sm:justify-between md:mt-16">
-                    <span className="flex items-center gap-3">
-                        <Icon icon={ArrowDown01Icon} size={14} className="hidden md:block" />
-                        Websites from {starter.price.replace("+", "")} · SaaS from {product.price.replace("+", "")}
+                    <span>
+                        Websites from {starter.price.replace("+", "")} / SaaS from {product.price.replace("+", "")}
                     </span>
-                    <span className="hidden md:block">{stack.join(" · ")}</span>
+                    <span className="hidden md:block">{stack.join(" / ")}</span>
                 </Enter>
             </div>
         </section>
