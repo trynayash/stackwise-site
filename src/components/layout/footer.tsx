@@ -8,6 +8,7 @@ import { Icon } from "@/components/ui/icon";
 import { Magnetic } from "@/components/ui/interactive";
 import { useNavLink } from "@/hooks/use-section-nav";
 import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
+import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 
 const linkClass = "link-draw text-sm text-white/55 hover:text-white";
@@ -25,6 +26,7 @@ function Column({ title, href, children }: { title: string; href?: string; child
 
 export function Footer() {
     const navLink = useNavLink();
+    const { industries, locations, guides } = useSiteLinks();
 
     return (
         <footer className="relative overflow-hidden rounded-t-[2rem] bg-surface md:rounded-t-[3rem]" role="contentinfo">
@@ -95,11 +97,42 @@ export function Footer() {
 
                     <div className="lg:col-span-2">
                         <Column title="Company">
-                            {[...siteConfig.navItems, { title: "Contact", id: "contact" }].map((item) => (
+                            {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", id: "contact" }].map((item) => (
                                 <li key={item.title}>
                                     <Link {...navLink(item)} className={linkClass}>
                                         {item.title}
                                     </Link>
+                                </li>
+                            ))}
+                        </Column>
+                    </div>
+                </div>
+
+                {/* Industries, places and guides: a second row of links */}
+                <div className="grid grid-cols-2 gap-10 border-t border-white/[0.06] pt-12 pb-14 md:grid-cols-12">
+                    <div className="md:col-span-3">
+                        <Column title="Industries" href="/industries">
+                            {industries.map((l) => (
+                                <li key={l.path}>
+                                    <Link href={l.path} className={linkClass}>{l.label}</Link>
+                                </li>
+                            ))}
+                        </Column>
+                    </div>
+                    <div className="md:col-span-3">
+                        <Column title="Where we work" href="/locations">
+                            {locations.map((l) => (
+                                <li key={l.path}>
+                                    <Link href={l.path} className={linkClass}>{l.label}</Link>
+                                </li>
+                            ))}
+                        </Column>
+                    </div>
+                    <div className="col-span-2 md:col-span-6">
+                        <Column title="Guides" href="/guides">
+                            {guides.map((l) => (
+                                <li key={l.path}>
+                                    <Link href={l.path} className={linkClass}>{l.label}</Link>
                                 </li>
                             ))}
                         </Column>

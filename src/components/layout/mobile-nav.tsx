@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Add01Icon, Cancel01Icon, Mail01Icon } from "@hugeicons/core-free-icons";
+import { Add01Icon, Cancel01Icon, Mail01Icon, Building03Icon } from "@hugeicons/core-free-icons";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { useNavLink } from "@/hooks/use-section-nav";
 import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
+import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+    const { industries } = useSiteLinks();
     const [servicesOpen, setServicesOpen] = useState(false);
     const { openInquiry } = useInquiry();
     const navLink = useNavLink();
@@ -88,6 +90,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                                 { label: "Services", href: "/services", pages: servicePages },
                                                 { label: "Solutions", href: "/solutions", pages: solutionPages },
                                                 { label: "Technologies", href: "/technologies", pages: technologyPages },
+                                                {
+                                                    label: "Industries",
+                                                    href: "/industries",
+                                                    pages: industries.map((l) => ({ path: l.path, navLabel: l.label, icon: Building03Icon })),
+                                                },
                                             ].map((group) => (
                                                 <div key={group.label} className="pb-5">
                                                     <Link href={group.href} onClick={onClose} className="mb-1 block text-sm font-semibold text-accent">
@@ -111,7 +118,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                     )}
                                 </AnimatePresence>
                             </li>
-                            {[...siteConfig.navItems, { title: "Contact", id: "contact" }].map((item) => (
+                            {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", id: "contact" }].map((item) => (
                                 <li key={item.title}>
                                     <Link
                                         {...navLink(item, onClose)}

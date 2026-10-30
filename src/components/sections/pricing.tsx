@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Tick02Icon } from "@hugeicons/core-free-icons";
+import Link from "next/link";
+import { ArrowRight01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
@@ -9,11 +10,13 @@ import { useInquiry } from "@/components/providers/inquiry-context";
 import { CountUp } from "@/components/ui/scroll-effects";
 import { Tilt } from "@/components/ui/interactive";
 import { siteConfig } from "@/config/site";
+import { approxUsd } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 
 const included = ["Written quote before work starts", "100% code and IP ownership", "Support after launch", "NDA on request"];
 
-export function Pricing() {
+/** The three plans. On the home page it links on to the full pricing page; `standalone` drops that link. */
+export function Pricing({ standalone = false }: { standalone?: boolean }) {
     const { openInquiry } = useInquiry();
 
     return (
@@ -48,6 +51,9 @@ export function Pricing() {
                                             <span className="text-[2.5rem] font-semibold leading-none tracking-[-0.04em] min-[400px]:text-[2.75rem] md:text-5xl lg:text-[2.6rem] xl:text-5xl">
                                                 {plan.price === "Custom" ? "Custom" : <CountUp value={plan.price.replace("+", "")} duration={1.6} />}
                                             </span>
+                                        </p>
+                                        <p className={cn("mt-2 text-sm", hi ? "text-black/60" : "text-white/55")}>
+                                            {approxUsd(plan.price) ?? "Quoted after a discovery call"}
                                         </p>
 
                                         <ul className="mt-8 space-y-3.5">
@@ -85,7 +91,16 @@ export function Pricing() {
                             </li>
                         ))}
                     </ul>
-                    <p className="mt-6 text-[15px] text-white/60">
+                    {!standalone && (
+                        <Link
+                            href="/pricing"
+                            className="mt-6 inline-flex min-h-11 items-center gap-1.5 text-[15px] font-semibold text-white underline decoration-accent/60 underline-offset-4 hover:decoration-accent"
+                        >
+                            Compare plans and see prices for every service
+                            <Icon icon={ArrowRight01Icon} size={16} />
+                        </Link>
+                    )}
+                    <p className="mt-4 text-[15px] text-white/60">
                         Need a monthly retainer or a technical review instead?{" "}
                         <button
                             type="button"

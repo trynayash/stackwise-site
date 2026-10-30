@@ -8,7 +8,8 @@ import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { CtaBand } from "@/components/sections/cta-band";
-import { marketingPageList, type MarketingPageData } from "@/lib/marketing-pages";
+import type { MarketingPageData } from "@/lib/marketing-pages";
+import { allPageList } from "@/lib/all-pages";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { siteConfig } from "@/config/site";
 
@@ -18,11 +19,13 @@ const kindLabels: Record<Kind, string> = {
     Services: "Browse by service",
     Solutions: "Or start from your goal",
     Technologies: "Browse by technology",
+    Industries: "Browse by industry",
+    Locations: "Where our clients are",
 };
 
 /** Index page listing every service, solution or technology page. */
 export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title: string; accent: string; intro: string }) {
-    const pages = marketingPageList.filter((p) => p.kind === kind);
+    const pages = allPageList.filter((p) => p.kind === kind);
     const otherKinds = (Object.keys(kindLabels) as Kind[]).filter((k) => k !== kind);
     const path = `/${kind.toLowerCase()}`;
 
@@ -99,7 +102,7 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                         <Reveal key={other} className="mt-12">
                             <p className="mb-4 text-sm text-white/55">{kindLabels[other]}</p>
                             <div className="flex flex-wrap gap-2">
-                                {marketingPageList
+                                {allPageList
                                     .filter((p) => p.kind === other)
                                     .map((p) => (
                                         <Link

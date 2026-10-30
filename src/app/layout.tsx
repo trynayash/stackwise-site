@@ -6,6 +6,7 @@ import { ogImageUrl } from "@/lib/seo";
 import { JsonLd, siteGraph } from "@/lib/schema";
 import { servicePages } from "@/lib/marketing-pages";
 import { LayoutShell } from "@/components/layout/layout-shell";
+import { navLinks } from "@/lib/all-pages";
 import Script from "next/script";
 
 // Self-hosted (Latin + Latin Extended, includes ₹), so builds never depend on Google Fonts being reachable.
@@ -118,7 +119,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${oughter.variable} font-sans antialiased bg-canvas text-foreground`}
         suppressHydrationWarning
       >
-        <LayoutShell>{children}</LayoutShell>
+        <LayoutShell links={navLinks()}>{children}</LayoutShell>
       </body>
     </html>
   );

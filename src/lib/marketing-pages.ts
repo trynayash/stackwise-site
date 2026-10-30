@@ -7,44 +7,12 @@ import {
     Activity01Icon, AppStoreIcon, ArrowDataTransferHorizontalIcon, Bug01Icon, ContainerIcon, CursorPointer01Icon, Notification01Icon, ReactIcon, RefreshIcon,
     ServerStack01Icon, SmartPhone01Icon, UserSearch01Icon, Wrench01Icon,
 } from "@hugeicons/core-free-icons";
-import type { IconSvgElement } from "@/components/ui/icon";
-import type { Faq } from "@/lib/faqs";
+import { ownershipFact, ownershipFaq, quoteFact, type MarketingPageData } from "@/lib/pages/shared";
+import { agenciesPage } from "@/lib/pages/agencies";
 
-export type MarketingPageData = {
-    slug: string;
-    path: string;
-    kind: "Services" | "Solutions" | "Technologies";
-    serviceType: string;
-    seo: { title: string; description: string };
-    badge: string;
-    navLabel: string;
-    /** One line for menus and cards. */
-    summary: string;
-    titleTop: string;
-    titleAccent: string;
-    intro: string;
-    icon: IconSvgElement;
-    facts: { label: string; value: string }[];
-    features: { icon: IconSvgElement; title: string; description: string }[];
-    idealFor: string[];
-    deliverables: string[];
-    stack: string[];
-    /** Case study slugs from src/lib/case-studies.ts that show this kind of work. */
-    work: string[];
-    faqs: Faq[];
-    cta: { title: string; text: string };
-    related: string[];
-};
+export type { MarketingPageData };
 
-const ownershipFaq: Faq = {
-    q: "Do I own the code?",
-    a: "Yes, 100%. At handover you get the full repository, design files, documentation and access to every account and service the product runs on. There are no licensing fees or lock-ins.",
-};
-
-const quoteFact = { label: "Pricing", value: "Written quote before work starts" };
-const ownershipFact = { label: "Ownership", value: "100% code & IP" };
-
-export const marketingPages: Record<string, MarketingPageData> = {
+const corePages: Record<string, MarketingPageData> = {
     "saas-development": {
         slug: "saas-development",
         path: "/services/saas-development",
@@ -53,8 +21,8 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "SaaS Development",
         summary: "Subscription products with auth, billing and dashboards.",
         seo: {
-            title: "SaaS Development Services",
-            description: "Custom SaaS development: multi-tenant architecture, auth, Stripe and Razorpay subscriptions, dashboards and cloud deployment. Code you fully own.",
+            title: "SaaS Development Company in India",
+            description: "SaaS development company in Mumbai, India: multi-tenant apps with auth, Stripe or Razorpay billing and dashboards. From ₹1,49,999. You own the code.",
         },
         badge: "SaaS Engineering",
         titleTop: "SaaS products,",
@@ -80,7 +48,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
             ownershipFaq,
         ],
         cta: { title: "Let's build your SaaS product", text: "Need a custom dashboard, secure subscriptions or automated workflows? Tell us about it and we'll map out the architecture." },
-        related: ["/solutions/mvp-development", "/services/ai-development", "/solutions/startups"],
+        related: ["/solutions/mvp-development", "/guides/saas-development-cost-india", "/guides/multi-tenant-saas-architecture"],
     },
     "ai-development": {
         slug: "ai-development",
@@ -90,8 +58,8 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "AI Development",
         summary: "LLM features, RAG over your data and AI agents.",
         seo: {
-            title: "AI Development Services",
-            description: "AI development services: LLM features, RAG over your own documents and AI agents built into your product with leading commercial or open-source models.",
+            title: "AI Development Company: LLM, RAG & Agents",
+            description: "AI development company in India: LLM features, RAG over your own documents and AI agents built into your product, on commercial or open-source models.",
         },
         badge: "AI Engineering",
         titleTop: "AI features that",
@@ -127,8 +95,8 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Custom Software",
         summary: "Internal tools, CRMs, portals and APIs built around you.",
         seo: {
-            title: "Custom Software Development Services",
-            description: "Custom software development: internal tools, CRM and ERP platforms, APIs and data integrations designed around how your business actually works.",
+            title: "Custom Software Development Company",
+            description: "Custom software development company in Mumbai: internal tools, CRMs, portals and APIs built around how your business works. From ₹1,49,999.",
         },
         badge: "Custom Software",
         titleTop: "Software shaped around",
@@ -164,8 +132,8 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Web Development",
         summary: "Fast, SEO-ready websites and web platforms in Next.js.",
         seo: {
-            title: "Web Development & E-Commerce Services",
-            description: "Custom Next.js websites and web platforms: fast, accessible and SEO-ready, with headless CMS and e-commerce options. Built to turn visitors into enquiries.",
+            title: "Website & Web App Development Company",
+            description: "Website development company in Mumbai: custom Next.js websites and web apps that load fast, rank well and bring in enquiries. From ₹49,999.",
         },
         badge: "Web Development",
         titleTop: "Websites that load fast",
@@ -191,7 +159,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
             { q: "Can my team edit content without a developer?", a: "Yes. We connect a headless CMS so your team can update pages, posts and products themselves, without touching code." },
         ],
         cta: { title: "Upgrade your website", text: "Ready to move from a template to a fast, custom Next.js site? Let's plan it together." },
-        related: ["/services/saas-development", "/solutions/startups", "/services/custom-software"],
+        related: ["/technologies/nextjs", "/guides/website-development-cost-india", "/guides/nextjs-vs-wordpress"],
     },
     startups: {
         slug: "startups",
@@ -201,7 +169,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "For Startups",
         summary: "A technical partner from first prototype to first hires.",
         seo: {
-            title: "SaaS & Product Development for Startups",
+            title: "Software Development for Startups",
             description: "Product engineering for startups: ship fast with clean, modular code your future team and investors can trust. You own 100% of the code.",
         },
         badge: "For Startups",
@@ -228,7 +196,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
             { q: "Do you sign NDAs?", a: "Yes. We sign an NDA before any discovery call where sensitive information is shared." },
         ],
         cta: { title: "Build your product core right", text: "Have a prototype or product doc ready? Let's map out your development plan and set up a solid backend." },
-        related: ["/solutions/mvp-development", "/services/saas-development", "/services/ai-development"],
+        related: ["/solutions/mvp-development", "/guides/how-to-choose-a-saas-development-company", "/guides/freelancer-vs-agency-vs-studio"],
     },
     "mvp-development": {
         slug: "mvp-development",
@@ -238,8 +206,8 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "MVP Development",
         summary: "Ship a working first version fast — without a rewrite later.",
         seo: {
-            title: "SaaS MVP Development & Rapid Prototyping",
-            description: "MVP development without technical debt: ship your SaaS MVP fast on a production-grade stack (Next.js, TypeScript, PostgreSQL) that won't need a rewrite.",
+            title: "MVP Development Company for Startups",
+            description: "MVP development for startups: ship a SaaS MVP in 4–8 weeks on a production-grade stack that won't need a rewrite. From ₹1,49,999, and you own the code.",
         },
         badge: "MVP Development",
         titleTop: "Launch your MVP",
@@ -265,7 +233,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
             { q: "Will we need to rebuild it later?", a: "No. The MVP is built on the same production-grade stack you'd use at scale, so version two builds on top of it instead of starting over." },
         ],
         cta: { title: "Turn your idea into a working product", text: "Ready to turn your wireframes or idea into a secure, working web app? Let's build your core." },
-        related: ["/solutions/startups", "/services/saas-development", "/services/web-development"],
+        related: ["/services/saas-development", "/guides/mvp-development-cost", "/guides/how-long-to-build-a-saas"],
     },
     "business-automation": {
         slug: "business-automation",
@@ -275,7 +243,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Business Automation",
         summary: "Replace spreadsheets and manual steps with software.",
         seo: {
-            title: "Business Automation & Workflow Engineering",
+            title: "Business Process Automation Services",
             description: "Business process automation: replace spreadsheets and manual work with custom workflows, integrations, dashboards and secure client portals.",
         },
         badge: "Business Automation",
@@ -313,7 +281,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Mobile Apps",
         summary: "iOS and Android apps connected to a solid backend.",
         seo: {
-            title: "Mobile App Development Services",
+            title: "Mobile App Development Company (iOS & Android)",
             description: "Cross-platform iOS and Android app development: one TypeScript codebase, native-feeling UI, secure APIs and store submission. You own all of the code.",
         },
         badge: "Mobile Apps",
@@ -350,7 +318,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "UI/UX Design",
         summary: "Product design and clickable prototypes before code.",
         seo: {
-            title: "UI/UX Design Services",
+            title: "UI/UX Design Agency for SaaS & Web Apps",
             description: "UI/UX product design: user research, design systems and clickable Figma prototypes, so you see exactly what you're getting before code is written.",
         },
         badge: "Product Design",
@@ -387,7 +355,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Cloud & DevOps",
         summary: "CI/CD, containers and infrastructure you can trust.",
         seo: {
-            title: "Cloud & DevOps Services",
+            title: "Cloud & DevOps Services: AWS, CI/CD, Docker",
             description: "Cloud and DevOps: CI/CD in GitHub Actions, Docker deployments, Terraform infrastructure and monitoring on AWS, Vercel and Render.",
         },
         badge: "Cloud & DevOps",
@@ -424,7 +392,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Modernization",
         summary: "Upgrade legacy code into faster, safer systems.",
         seo: {
-            title: "Software Modernization Services",
+            title: "Legacy Software Modernization Services",
             description: "Modernize legacy software step by step: refactoring, migrations, security upgrades and performance work on a modern TypeScript stack, no big rewrite.",
         },
         badge: "Modernization",
@@ -527,7 +495,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
             ownershipFaq,
         ],
         cta: { title: "Build it on Next.js", text: "Tell us about your site or product. We'll plan the pages, content and SEO setup." },
-        related: ["/services/web-development", "/technologies/react", "/services/saas-development"],
+        related: ["/services/web-development", "/technologies/react", "/guides/nextjs-vs-wordpress"],
     },
     react: {
         slug: "react",
@@ -537,7 +505,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "React",
         summary: "Dashboards and web apps in React and TypeScript.",
         seo: {
-            title: "React Development Services",
+            title: "React.js Development Company",
             description: "React development: dashboards, SaaS front ends and complex web apps in React and TypeScript, with TanStack Query, charts and real-time updates.",
         },
         badge: "React",
@@ -574,7 +542,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Node.js",
         summary: "APIs, background jobs and integrations in Node.js.",
         seo: {
-            title: "Node.js Development Services",
+            title: "Node.js Development Company",
             description: "Node.js and TypeScript backends: REST and GraphQL APIs, BullMQ background jobs, webhooks and integrations on PostgreSQL and Redis.",
         },
         badge: "Node.js",
@@ -611,7 +579,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         navLabel: "Go (Golang)",
         summary: "High-concurrency services and APIs in Go.",
         seo: {
-            title: "Go (Golang) Development Services",
+            title: "Golang Development Company",
             description: "Go development for high-concurrency APIs: rate limiting, metering and real-time services on Redis and PostgreSQL, tested with the race detector.",
         },
         badge: "Go",
@@ -640,6 +608,15 @@ export const marketingPages: Record<string, MarketingPageData> = {
         cta: { title: "Build a service that holds up under load", text: "Tell us about your traffic and what must never break. We'll design for it." },
         related: ["/technologies/nodejs", "/services/cloud-devops", "/services/custom-software"],
     },
+};
+
+/**
+ * Services, solutions and technologies. Client components (navigation, the chat) import this module, so the
+ * industry and location pages live in src/lib/all-pages.ts instead and stay out of the browser bundle.
+ */
+export const marketingPages: Record<string, MarketingPageData> = {
+    ...corePages,
+    ...(agenciesPage ? { [agenciesPage.slug]: agenciesPage } : {}),
 };
 
 export const marketingPageList = Object.values(marketingPages);

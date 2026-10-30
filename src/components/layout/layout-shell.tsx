@@ -4,6 +4,8 @@ import React from "react";
 import { MotionConfig } from "framer-motion";
 import { InquiryProvider, useInquiry } from "@/components/providers/inquiry-context";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { SiteLinksProvider } from "@/components/providers/site-links";
+import type { NavLinks } from "@/lib/all-pages";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
@@ -19,7 +21,7 @@ function LazyQuoteDrawer() {
     return requested ? <QuoteDrawer /> : null;
 }
 
-export function LayoutShell({ children }: { children: React.ReactNode }) {
+export function LayoutShell({ children, links }: { children: React.ReactNode; links: NavLinks }) {
     const footerRef = React.useRef<HTMLDivElement>(null);
     const [footerVisible, setFooterVisible] = React.useState(false);
 
@@ -33,29 +35,31 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <InquiryProvider>
-            <MotionConfig reducedMotion="user">
-                <SmoothScroll>
-                    <a
-                        href="#main"
-                        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-black"
-                    >
-                        Skip to content
-                    </a>
-                    <Navbar />
+        <SiteLinksProvider links={links}>
+            <InquiryProvider>
+                <MotionConfig reducedMotion="user">
+                    <SmoothScroll>
+                        <a
+                            href="#main"
+                            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-black"
+                        >
+                            Skip to content
+                        </a>
+                        <Navbar />
 
-                    <main id="main" className="relative flex min-h-screen flex-col">
-                        {children}
-                    </main>
+                        <main id="main" className="relative flex min-h-screen flex-col">
+                            {children}
+                        </main>
 
-                    <div ref={footerRef}>
-                        <Footer />
-                    </div>
+                        <div ref={footerRef}>
+                            <Footer />
+                        </div>
 
-                    <MobileCtaBar hidden={footerVisible} />
-                    <LazyQuoteDrawer />
-                </SmoothScroll>
-            </MotionConfig>
-        </InquiryProvider>
+                        <MobileCtaBar hidden={footerVisible} />
+                        <LazyQuoteDrawer />
+                    </SmoothScroll>
+                </MotionConfig>
+            </InquiryProvider>
+        </SiteLinksProvider>
     );
 }

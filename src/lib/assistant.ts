@@ -3,6 +3,7 @@ import { marketingPages } from "@/lib/marketing-pages";
 import { allWork } from "@/lib/more-work";
 import { estimateFor, quoteBudgets, quoteServices, quoteStages, quoteTimelines } from "@/lib/quote";
 import { siteConfig } from "@/config/site";
+import { approxUsd } from "@/lib/pricing";
 
 /**
  * The quote chat's answer engine. It is deliberately closed: every reply is written here from content
@@ -378,8 +379,8 @@ const intents: Intent[] = [
             }
             const [starter, product, scale] = siteConfig.pricing;
             return {
-                text: `${starter.title} starts from ${starter.price.replace("+", "")} for websites and landing pages. ${product.title} starts from ${product.price.replace("+", "")} for SaaS products, dashboards and web apps. ${scale.title} is a custom quote for AI systems and larger platforms. Every project gets a written quote before work starts.`,
-                actions: [{ kind: "link", label: "See pricing", href: "/#pricing" }],
+                text: `${starter.title} starts from ${starter.price.replace("+", "")} (${approxUsd(starter.price)}) for websites and landing pages. ${product.title} starts from ${product.price.replace("+", "")} (${approxUsd(product.price)}) for SaaS products, dashboards and web apps. ${scale.title} is a custom quote for AI systems and larger platforms. Every project gets a written quote before work starts.`,
+                actions: [{ kind: "link", label: "See pricing", href: "/pricing" }],
             };
         },
     },
@@ -445,6 +446,14 @@ const intents: Intent[] = [
         }),
     },
     {
+        weight: 0.6,
+        patterns: [/\b(white[\s-]?label(ed|led)?|agencies|for (my|our) (agency|clients)|(digital|marketing|design|branding|creative) agency|reseller|resell|outsourc\w* (for|from) (my|our) agency|partner agency)\b/],
+        answer: () => ({
+            text: faq("Do you work with agencies"),
+            actions: [{ kind: "link", label: "White-label for agencies", href: "/solutions/agencies" }],
+        }),
+    },
+    {
         patterns: [/\b(founder|who (runs|owns|leads|is behind|started|founded|made|built|created) stackwise|team|team size|how many (people|developers|engineers|employees)|yash|who will (work|build|code)|freelancer|agency|in[\s-]?house)\b/],
         answer: () => ({
             text: `StackWise is run by ${siteConfig.author}, founder and lead engineer, based in ${siteConfig.location.city}. You work directly with him, from the first call to launch.`,
@@ -458,7 +467,10 @@ const intents: Intent[] = [
             /\b(work|clients?)\b.{0,20}\b(abroad|international|overseas|outside india|other countries|usa|us|uk|europe|dubai|canada|australia)\b/,
             /\b(time\s?zones?|remote(ly)?)\b/,
         ],
-        answer: () => ({ text: `StackWise is based in ${siteConfig.location.city}, ${siteConfig.location.country}. We work remotely with clients in India and abroad.` }),
+        answer: () => ({
+            text: `StackWise is based in ${siteConfig.location.city}, ${siteConfig.location.country}. We work remotely with clients in India and abroad, and schedule calls at a time that suits both time zones.`,
+            actions: [{ kind: "link", label: "Where we work", href: "/locations" }],
+        }),
     },
     {
         weight: 0.4,

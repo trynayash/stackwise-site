@@ -11,7 +11,8 @@ import { Enter } from "@/components/ui/enter";
 import { CtaBand } from "@/components/sections/cta-band";
 import { WorkCard } from "@/components/work/work-card";
 import { QuoteButton } from "@/components/marketing/quote-button";
-import { marketingPages, marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
+import { marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
+import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { presetForPage } from "@/lib/quote";
@@ -47,11 +48,13 @@ export function Breadcrumbs({ items }: { items: { name: string; href?: string }[
 }
 
 export function MarketingPage({ page }: { page: MarketingPageData }) {
-    const related = page.related.map((path) => Object.values(marketingPages).find((p) => p.path === path)).filter(Boolean) as MarketingPageData[];
+    const related = page.related.map(resolveLink).filter((l): l is SiteLink => Boolean(l));
     const work = page.work.map((slug) => workBySlug[slug]).filter(Boolean);
     const hubPath = `/${page.kind.toLowerCase()}`;
     const preset = presetForPage(page.slug, page.navLabel);
     const price = page.facts.find((f) => f.label === "Starting at")?.value;
+    // "₹49,999 (about US$550)" shows the rupee price large and the conversion underneath.
+    const [priceMain, priceNote] = price?.match(/^(.*?)\s*\((.*)\)$/)?.slice(1) ?? [price, undefined];
 
     return (
         <div className="relative">
@@ -63,6 +66,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                         path: page.path,
                         serviceType: page.serviceType,
                         startingPrice: rupees(page.facts.find((f) => f.label === "Starting at")?.value),
+                        areaServed: page.areaServed,
                     }),
                     breadcrumbSchema([
                         { name: "Home", path: "/" },
@@ -106,7 +110,8 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                 {price && (
                                     <div className="mb-6 rounded-2xl bg-accent p-5 text-black">
                                         <p className="text-sm font-medium text-black/65">Starting at</p>
-                                        <p className="mt-1 text-4xl font-semibold tracking-[-0.04em]">{price}</p>
+                                        <p className="mt-1 text-4xl font-semibold tracking-[-0.04em]">{priceMain}</p>
+                                        {priceNote && <p className="mt-1 text-sm font-medium text-black/65">{priceNote}</p>}
                                     </div>
                                 )}
                                 <dl className="space-y-4">
@@ -245,10 +250,10 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             </section>
 
             {/* ─── Related ─── */}
-            <section className="relative py-16 md:py-20" aria-label="Related services">
+            <section className="relative py-16 md:py-20" aria-label="Related pages">
                 <div className="container mx-auto px-5 sm:px-6">
                     <Reveal className="mb-8 flex items-end justify-between gap-6">
-                        <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Related services</h2>
+                        <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Related</h2>
                     </Reveal>
                     <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {related.map((r) => (
@@ -263,7 +268,8 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                                 <Icon icon={ArrowUpRight01Icon} size={18} />
                                             </span>
                                         </div>
-                                        <h3 className="mt-8 text-lg font-semibold text-white">{r.navLabel}</h3>
+                                        <p className="mt-8 text-xs font-medium uppercase tracking-wider text-white/45">{r.kind}</p>
+                                        <h3 className="mt-1.5 text-lg font-semibold text-white">{r.title}</h3>
                                         <p className="mt-1.5 text-sm leading-relaxed text-white/55">{r.summary}</p>
                                     </Card>
                                 </Link>

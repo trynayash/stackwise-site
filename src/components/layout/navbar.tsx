@@ -13,6 +13,7 @@ import { Magnetic } from "@/components/ui/interactive";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { useNavLink, useSectionNav } from "@/hooks/use-section-nav";
 import { servicePages, solutionPages, technologyPages, type MarketingPageData } from "@/lib/marketing-pages";
+import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +55,7 @@ function NavPill() {
 }
 
 export function Navbar() {
+    const { industries } = useSiteLinks();
     const [isScrolled, setIsScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -265,12 +267,26 @@ export function Navbar() {
                                     </div>
                                 </div>
                                 <div className="bg-surface">
-                                    <div className="container mx-auto flex items-center justify-between px-6 py-4 text-sm">
-                                        <span className="text-white/50">Written quote before work starts · 100% code ownership · Support after launch</span>
-                                        <Link href="/#pricing" onClick={goToSection("pricing", closeMenu)} className="inline-flex items-center gap-1 text-white/70 hover:text-white">
-                                            See pricing
-                                            <Icon icon={ArrowRight01Icon} size={16} />
-                                        </Link>
+                                    <div className="container mx-auto flex items-center justify-between gap-6 px-6 py-3 text-sm">
+                                        <div className="flex flex-wrap items-center gap-x-1 gap-y-1">
+                                            <Link href="/industries" onClick={closeMenu} className="mr-2 font-medium text-white hover:text-accent">
+                                                Industries
+                                            </Link>
+                                            {industries.map((l) => (
+                                                <Link key={l.path} href={l.path} onClick={closeMenu} className="rounded-full px-2.5 py-1.5 text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white">
+                                                    {l.label}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                        <div className="flex flex-shrink-0 items-center gap-5">
+                                            <Link href="/guides" onClick={closeMenu} className="text-white/70 hover:text-white">
+                                                Guides
+                                            </Link>
+                                            <Link href="/pricing" onClick={closeMenu} className="inline-flex items-center gap-1 font-medium text-white hover:text-accent">
+                                                See pricing
+                                                <Icon icon={ArrowRight01Icon} size={16} />
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>

@@ -2,9 +2,9 @@ export const siteConfig = {
     name: "StackWise",
     tagline: "Engineering Digital Growth",
     description:
-        "StackWise is a Mumbai software studio building SaaS products, AI features, custom software and fast Next.js websites — clean, typed code you fully own.",
+        "StackWise is a Mumbai SaaS and software development company building SaaS products, AI features, web apps and fast Next.js websites. You own the code.",
     /** Home page <title>; every other page uses "Page title | StackWise". */
-    homeTitle: "StackWise — SaaS, AI & Custom Software Studio in Mumbai",
+    homeTitle: "SaaS & Software Development Company in Mumbai | StackWise",
     /**
      * Canonical site URL: the Vercel production address. If a custom domain is ever connected,
      * set NEXT_PUBLIC_SITE_URL to it and canonical links and share images follow.
@@ -29,7 +29,7 @@ export const siteConfig = {
     navItems: [
         { title: "Work", href: "/work" },
         { title: "Process", id: "process" },
-        { title: "Pricing", id: "pricing" },
+        { title: "Pricing", href: "/pricing" },
         { title: "About", id: "founder" },
         { title: "FAQ", id: "faq" },
     ],

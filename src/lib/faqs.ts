@@ -2,6 +2,10 @@ export type Faq = { q: string; a: string };
 
 export const faqs: Faq[] = [
     {
+        q: "How much does a website or SaaS product cost?",
+        a: "Business websites start at ₹49,999 (about US$550), and SaaS products, web apps and dashboards at ₹1,49,999 (about US$1,600). AI systems and larger platforms are quoted after a free discovery call. Every project gets a fixed, written quote before work starts, with no hourly billing. The pricing page lists starting prices for every service.",
+    },
+    {
         q: "Who owns the code when it's done?",
         a: "You do. 100%. Every line of code, every design file, every asset we create belongs to you. We transfer full ownership upon project completion — no licensing fees, no strings attached. You get the complete source code, design files, and documentation.",
     },
@@ -28,6 +32,10 @@ export const faqs: Faq[] = [
     {
         q: "Do you sign NDAs and confidentiality agreements?",
         a: "Absolutely. We sign NDAs before any discovery call where sensitive information is shared. Your business ideas, data, and proprietary information are protected by legally binding agreements. We take client confidentiality extremely seriously.",
+    },
+    {
+        q: "Do you work with agencies as a white-label partner?",
+        a: "Yes. We build websites, web apps and SaaS products under your agency's brand, from your briefs or Figma files. We sign an NDA on request and only speak to your client if you want us to. You get the same written quote before work starts, and the code goes to you or your client at handover.",
     },
     {
         q: "Can I see real case studies before committing?",

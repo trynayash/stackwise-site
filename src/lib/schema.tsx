@@ -15,6 +15,47 @@ export function faqSchema(faqs: Faq[]) {
     };
 }
 
+/** An article (used for guides), authored by the founder and published by the studio. */
+export function articleSchema({
+    title,
+    description,
+    path,
+    published,
+    updated,
+    section,
+    keywords,
+    image,
+}: {
+    title: string;
+    description: string;
+    path: string;
+    published: string;
+    updated: string;
+    section: string;
+    keywords: string[];
+    image: string;
+}) {
+    const url = `${siteConfig.url}${path}`;
+    return {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: title,
+        description,
+        url,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        image: image.startsWith("http") ? image : `${siteConfig.url}${image}`,
+        datePublished: published,
+        dateModified: updated,
+        inLanguage: "en-IN",
+        articleSection: section,
+        keywords: keywords.join(", "),
+        author: { "@type": "Person", "@id": `${siteConfig.url}/#founder`, name: siteConfig.author, url: siteConfig.links.portfolio },
+        publisher: { "@id": orgId },
+        // The short answer and takeaways are the parts written to be read aloud or quoted by assistants.
+        speakable: { "@type": "SpeakableSpecification", cssSelector: ["#short-answer", "#key-takeaways"] },
+    };
+}
+
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
     return {
         "@context": "https://schema.org",
@@ -40,6 +81,7 @@ export function serviceSchema({
     path,
     serviceType,
     startingPrice,
+    areaServed,
 }: {
     name: string;
     description: string;
@@ -47,6 +89,8 @@ export function serviceSchema({
     serviceType: string;
     /** Starting price in INR, when the page states one. */
     startingPrice?: number;
+    /** Countries the page is about; defaults to India and worldwide. */
+    areaServed?: string[];
 }) {
     return {
         "@context": "https://schema.org",
@@ -56,7 +100,9 @@ export function serviceSchema({
         serviceType,
         url: `${siteConfig.url}${path}`,
         provider: { "@id": orgId },
-        areaServed: [{ "@type": "Country", name: "India" }, "Worldwide"],
+        areaServed: areaServed?.length
+            ? areaServed.map((name) => ({ "@type": name === siteConfig.location.city ? "City" : "Country", name }))
+            : [{ "@type": "Country", name: "India" }, "Worldwide"],
         ...(startingPrice
             ? {
                   offers: {
@@ -83,6 +129,16 @@ export function siteGraph({ services }: { services: { name: string; path: string
         addressCountry: location.countryCode,
     };
     const logo = { "@type": "ImageObject", url: `${url}/web-app-manifest-512x512.png`, width: 512, height: 512 };
+    // Topics the studio is an entity for: helps search and answer engines connect it to these queries.
+    const knowsAbout = [
+        "SaaS development", "SaaS product development", "MVP development", "Custom software development", "Web application development",
+        "Website development", "Next.js development", "React development", "Node.js development", "Go development", "TypeScript",
+        "AI development", "LLM integration", "Retrieval-augmented generation", "AI agents", "Mobile app development", "React Native",
+        "UI/UX design", "Cloud and DevOps", "AWS", "PostgreSQL", "Redis", "Stripe integration", "Razorpay integration",
+        "Multi-tenant architecture", "API development", "Business process automation", "Software modernization",
+        "White-label development for agencies", "Fintech software", "Healthcare software", "Edtech platforms", "E-commerce development",
+    ];
+    const areaServed = ["India", "United States", "United Kingdom", "United Arab Emirates", "Australia", "Canada", "Singapore"].map((n) => ({ "@type": "Country", name: n }));
 
     return {
         "@context": "https://schema.org",
@@ -95,8 +151,12 @@ export function siteGraph({ services }: { services: { name: string; path: string
                 logo,
                 email: emails.inbound,
                 description: siteConfig.description,
+                slogan: siteConfig.tagline,
                 address,
                 founder: { "@id": personId },
+                foundingLocation: { "@type": "Place", name: `${location.city}, ${location.country}` },
+                areaServed,
+                knowsAbout,
             },
             {
                 "@type": "Person",
@@ -125,9 +185,10 @@ export function siteGraph({ services }: { services: { name: string; path: string
                 url,
                 image: logo.url,
                 email: emails.inbound,
-                priceRange: "₹₹₹",
+                priceRange: "₹49,999 – ₹1,49,999+",
                 address,
-                areaServed: [{ "@type": "Country", name: "India" }, "Worldwide"],
+                areaServed,
+                knowsAbout,
                 founder: { "@id": personId },
                 parentOrganization: { "@id": orgId },
                 hasOfferCatalog: {
