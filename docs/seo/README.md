@@ -30,6 +30,6 @@ Keywords are never rendered or stuffed into meta tags; they guide what each page
 
 ## After each deploy
 
-1. In Google Search Console and Bing Webmaster Tools, submit `https://stackwise-site.vercel.app/sitemap.xml` (set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` and `NEXT_PUBLIC_BING_SITE_VERIFICATION` in Vercel first).
+1. In Google Search Console and Bing Webmaster Tools, submit `https://stackwise.yashsuthar.dev/sitemap.xml` (set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` and `NEXT_PUBLIC_BING_SITE_VERIFICATION` in Vercel first).
 2. Use URL Inspection → Request indexing for new pages.
 3. If a custom domain is connected, set `NEXT_PUBLIC_SITE_URL` so canonical links, the sitemap and structured data use it.

@@ -117,14 +117,14 @@ export function LegalPage({
                                     </li>
                                 ))}
                             </ul>
-                            <p className="mt-5 text-sm text-white/45">This summary is a guide. The full text below is what applies.</p>
+                            <p className="mt-5 text-sm text-white/55">This summary is a guide. The full text below is what applies.</p>
                         </section>
 
                         <div className="legal mt-4">
                             {sections.map((s, i) => (
                                 <section key={s.id} id={s.id} aria-labelledby={`${s.id}-heading`} className="scroll-mt-28 border-t border-white/10 py-10 first:border-t-0 md:py-12">
                                     <div className="flex gap-5">
-                                        <span aria-hidden className="pt-1 font-mono text-xs text-white/40">
+                                        <span aria-hidden className="pt-1 font-mono text-xs text-white/55">
                                             {String(i + 1).padStart(2, "0")}
                                         </span>
                                         <div className="min-w-0 flex-1">

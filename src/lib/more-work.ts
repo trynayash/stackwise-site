@@ -93,7 +93,7 @@ export const moreWork: CaseStudy[] = [
         status: "Live",
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "three.js", "Zod"],
         preview: "/projects/stackwise.webp",
-        liveUrl: "https://stackwise-site.vercel.app",
+        liveUrl: "https://stackwise.yashsuthar.dev",
         repoUrl: "https://github.com/trynayash/stackwise-site",
         metaDescription:
             "How the StackWise website is built: Next.js 16 App Router, server-rendered pages, a lazy-loaded 3D hero, scroll-driven motion, structured data and a validated inquiry flow.",
@@ -126,7 +126,7 @@ export const moreWork: CaseStudy[] = [
             { label: "Motion", value: "Reduced-motion aware", note: "Every effect has a calm fallback" },
         ],
         extraLinks: [
-            { label: "Live site", href: "https://stackwise-site.vercel.app" },
+            { label: "Live site", href: "https://stackwise.yashsuthar.dev" },
             { label: "GitHub", href: "https://github.com/trynayash/stackwise-site" },
         ],
     },

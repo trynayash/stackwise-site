@@ -6,12 +6,12 @@ export const siteConfig = {
     /** Home page <title>; every other page uses "Page title | StackWise". */
     homeTitle: "SaaS & Software Development Company in Mumbai | StackWise",
     /**
-     * Canonical site URL: the Vercel production address. If a custom domain is ever connected,
-     * set NEXT_PUBLIC_SITE_URL to it and canonical links and share images follow.
+     * Canonical site URL. Vercel fills in the production domain at build time; NEXT_PUBLIC_SITE_URL
+     * overrides it, and the fallback keeps local builds on the real address.
      */
     url:
         process.env.NEXT_PUBLIC_SITE_URL ??
-        (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://stackwise-site.vercel.app"),
+        (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://stackwise.yashsuthar.dev"),
     location: { city: "Mumbai", region: "Maharashtra", country: "India", countryCode: "IN" },
     author: "Yash Suthar",
     emails: {

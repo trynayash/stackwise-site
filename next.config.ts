@@ -54,6 +54,13 @@ const nextConfig: NextConfig = {
     },
     async redirects() {
         return [
+            // The old Vercel address sends everything to the real domain, so links and search results consolidate.
+            {
+                source: "/:path*",
+                has: [{ type: "host", value: "stackwise-site.vercel.app" }],
+                destination: "https://stackwise.yashsuthar.dev/:path*",
+                permanent: true,
+            },
             // Case study slugs before the work section was synced with yashsuthar.dev
             { source: "/work/limityourapis", destination: "/work/limityourapi", permanent: true },
             { source: "/work/startupdeck-ai", destination: "/work/startupdeck", permanent: true },
