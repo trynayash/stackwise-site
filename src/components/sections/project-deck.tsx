@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import type { WorkSummary } from "@/lib/case-studies";
@@ -26,15 +26,19 @@ export function ProjectDeck({ projects }: { projects: WorkSummary[] }) {
     const [active, setActive] = useState(0);
     const [paused, setPaused] = useState(false);
     const reduced = useReducedMotion();
+    // Only deal cards while most of the deck is on screen: no shuffling nobody can see, and on phones no
+    // late repaint that would count as the page's largest paint.
+    const deckRef = useRef<HTMLDivElement>(null);
+    const inView = useInView(deckRef, { amount: 0.6 });
 
     const rx = useSpring(useMotionValue(0), { stiffness: 120, damping: 18 });
     const ry = useSpring(useMotionValue(0), { stiffness: 120, damping: 18 });
 
     useEffect(() => {
-        if (paused || reduced) return;
+        if (paused || reduced || !inView) return;
         const t = setInterval(() => setActive((a) => (a + 1) % n), 4200);
         return () => clearInterval(t);
-    }, [paused, reduced, n]);
+    }, [paused, reduced, inView, n]);
 
     const tilt = (e: React.PointerEvent<HTMLDivElement>) => {
         if (reduced || e.pointerType !== "mouse") return;
@@ -60,7 +64,7 @@ export function ProjectDeck({ projects }: { projects: WorkSummary[] }) {
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
         >
-            <div className="relative aspect-[100/78] [perspective:1400px]" onPointerMove={tilt}>
+            <div ref={deckRef} className="relative aspect-[100/78] [perspective:1400px]" onPointerMove={tilt}>
                 <motion.div className="absolute inset-0 [transform-style:preserve-3d]" style={{ rotateX: rx, rotateY: ry }}>
                     {projects.map((p, i) => {
                         const offset = (i - active + n) % n;
