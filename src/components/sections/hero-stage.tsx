@@ -36,14 +36,14 @@ export function HeroStage({ projects, className }: { projects: WorkSummary[]; cl
     if (!front) return null;
 
     return (
-        <div className={cn("relative md:aspect-[6/5]", className)}>
+        <div className={cn("relative pt-14 md:aspect-[6/5] md:pt-0", className)}>
             {back && (
                 <div className="enter-fade absolute right-0 top-0 w-[72%] rotate-[3deg] md:w-[76%]" style={{ ["--d" as string]: "350ms" } as React.CSSProperties}>
                     <Frame study={back} sizes="(min-width: 1024px) 520px, 70vw" className="opacity-90" />
                 </div>
             )}
 
-            <div className="enter-fade relative mt-16 w-[90%] md:absolute md:bottom-[8%] md:left-0 md:mt-0 md:w-[84%]" style={{ ["--d" as string]: "200ms" } as React.CSSProperties}>
+            <div className="enter-fade relative w-[90%] md:absolute md:bottom-[8%] md:left-0 md:w-[84%]" style={{ ["--d" as string]: "200ms" } as React.CSSProperties}>
                 <Tilt max={4}>
                     <Link href={`/work/${front.slug}`} aria-label={`${front.name} case study`} className="block">
                         <Frame study={front} priority sizes="(min-width: 1024px) 580px, 90vw" />

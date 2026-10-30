@@ -95,10 +95,11 @@ export function About() {
                                         href={l.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex h-12 items-center gap-2 rounded-full bg-black/10 px-5 text-[15px] font-semibold transition-colors hover:bg-black/20"
+                                        aria-label={l.label}
+                                        title={l.label}
+                                        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/10 transition-colors hover:bg-black/20"
                                     >
-                                        <Icon icon={l.icon} size={17} />
-                                        {l.label}
+                                        <Icon icon={l.icon} size={18} />
                                     </a>
                                 ))}
                             </div>

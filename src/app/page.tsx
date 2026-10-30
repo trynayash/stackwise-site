@@ -16,16 +16,19 @@ import { allWork } from "@/lib/more-work";
 import { toWorkSummary } from "@/lib/case-studies";
 import { homeServices } from "@/lib/home-data";
 
+// The two products framed in the hero.
+const heroWork = allWork.slice(0, 2);
+
 // Sections render on the server so the full page is in the HTML for search engines and link previews.
 export default function Home() {
     return (
         <div className="flex flex-col">
             <JsonLd data={faqSchema(faqs)} />
-            <Hero projects={allWork.slice(0, 2).map(toWorkSummary)} />
+            <Hero projects={heroWork.map(toWorkSummary)} />
             <Marquee />
             <Portfolio />
             <Testimonials />
-            <Services {...homeServices()} />
+            <Services {...homeServices(heroWork.map((w) => w.slug))} />
             <StackLoop />
             <ProcessTimeline />
             <Pricing />

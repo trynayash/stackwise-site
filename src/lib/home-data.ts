@@ -25,13 +25,14 @@ const coreSlugs = ["saas-development", "ai-development", "custom-software", "web
 
 /**
  * The Services section's data, built on the server so the browser only receives these fields rather than
- * every page's full content.
+ * every page's full content. `shown` lists case studies already on screen (the hero's); each service shows
+ * its first other study, so the same screenshot doesn't repeat down the page.
  */
-export function homeServices(): { core: ServiceCard[]; others: ServiceLink[] } {
+export function homeServices(shown: string[] = []): { core: ServiceCard[]; others: ServiceLink[] } {
     const core = coreSlugs.map((slug) => {
         const p = marketingPages[slug];
         const fact = (label: string) => p.facts.find((f) => f.label === label)?.value;
-        const study = workBySlug[p.work[0]];
+        const study = workBySlug[p.work.find((w) => !shown.includes(w)) ?? p.work[0]];
         return {
             slug,
             path: p.path,

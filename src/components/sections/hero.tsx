@@ -33,15 +33,15 @@ function Rise({ children, delay, className }: { children: React.ReactNode; delay
 }
 
 /**
- * Light opening panel: the studio's one-line promise with the key phrase marked in the accent, a product
- * mockup on the right, and the facts a buyer wants first. `data-nav-light` tells the navbar to use dark text
+ * Light opening panel: the studio's one-line promise with the key phrase marked in the accent, screenshots
+ * of real products on the right, and the facts a buyer wants first. `data-nav-light` tells the navbar to use dark text
  * while it sits over this section.
  */
 /** `projects` arrive from the server as summaries; the first two are shown on the stage. */
 export function Hero({ projects }: { projects: WorkSummary[] }) {
     const { openInquiry } = useInquiry();
     const ref = useRef<HTMLElement>(null);
-    // As the hero scrolls away the mockup drifts up a little faster than the copy.
+    // As the hero scrolls away the screenshots drift up a little faster than the copy (side-by-side layout only).
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
     const visualY = useTransform(scrollYProgress, [0, 1], [0, -70]);
     const copyY = useTransform(scrollYProgress, [0, 1], [0, 40]);
@@ -50,7 +50,7 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
         <section ref={ref} id="hero" data-nav-light className="relative overflow-hidden bg-paper pt-28 text-ink md:pt-32" aria-label="Introduction">
             <div className="container mx-auto px-5 sm:px-6">
                 <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
-                    <motion.div style={{ y: copyY }} className="flex flex-col items-start lg:col-span-6 lg:pt-8">
+                    <motion.div style={{ y: copyY }} className="flex flex-col items-start max-lg:transform-none! lg:col-span-6 lg:pt-8">
                         <Enter as="p" className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">
                             Independent software studio, {siteConfig.location.city}
                         </Enter>
@@ -100,7 +100,7 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
                         </Enter>
                     </motion.div>
 
-                    <motion.div style={{ y: visualY }} className="lg:col-span-6">
+                    <motion.div style={{ y: visualY }} className="max-lg:transform-none! lg:col-span-6">
                         <HeroStage projects={projects} className="mx-auto max-w-[720px] lg:pt-4" />
                     </motion.div>
                 </div>
@@ -108,7 +108,8 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
                 {/* Bottom strip */}
                 <Enter delay={0.5} className="mt-12 flex flex-col gap-3 border-t border-ink/15 py-5 font-mono text-xs uppercase tracking-[0.14em] text-ink/60 sm:flex-row sm:items-center sm:justify-between md:mt-16">
                     <span>
-                        Websites from {starter.price.replace("+", "")} / SaaS from {product.price.replace("+", "")}
+                        <span className="whitespace-nowrap">Websites from {starter.price.replace("+", "")}</span> /{" "}
+                        <span className="whitespace-nowrap">SaaS from {product.price.replace("+", "")}</span>
                     </span>
                     <span className="hidden md:block">{stack.join(" / ")}</span>
                 </Enter>

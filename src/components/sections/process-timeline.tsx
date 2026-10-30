@@ -12,28 +12,28 @@ import { useReached } from "@/components/ui/use-reached";
 
 const steps = [
     {
-        week: "Week 1",
+        step: "Step 1",
         title: "Plan",
         description: "We learn your business, users and goals, then agree on scope, a technical plan and a timeline.",
         deliverables: ["Requirements and scope", "Technical plan", "Timeline and milestones"],
         icon: Search01Icon,
     },
     {
-        week: "Week 2",
+        step: "Step 2",
         title: "Design",
         description: "Clickable Figma designs, so you see exactly what you're getting before any code is written.",
         deliverables: ["Wireframes for every screen", "Final visual design", "Clickable prototype"],
         icon: PenTool03Icon,
     },
     {
-        week: "Week 3",
+        step: "Step 3",
         title: "Build",
         description: "We build the front end, back end, database and integrations, and you follow along on a live staging link.",
         deliverables: ["Front end and APIs", "Login and payments", "Staging link and updates"],
         icon: CodeIcon,
     },
     {
-        week: "Week 4",
+        step: "Step 4",
         title: "Launch",
         description: "Testing on every device, a speed and security pass, a final review with you, and launch.",
         deliverables: ["Device and browser testing", "Speed and security check", "Launch and handover"],
@@ -65,18 +65,18 @@ export function ProcessTimeline() {
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
                     eyebrow="How it works"
-                    title="From first call to launch in four weeks."
-                    description="A simple website takes about four weeks. Bigger products follow the same steps over a longer timeline, with a weekly call and a staging link throughout."
+                    title="Four steps from first call to launch."
+                    description="Websites usually go live in 2–3 weeks, MVPs in 4–8 and SaaS products in 8–12. Every project follows the same four steps, with a weekly call and a live staging link throughout."
                 />
 
                 <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     {steps.map((step) => (
-                        <StaggerItem key={step.week} className="h-full">
+                        <StaggerItem key={step.step} className="h-full">
                             <Tilt className="h-full" max={6}>
                                 <div className="flex h-full flex-col rounded-3xl bg-surface p-7 transition-colors duration-300 hover:bg-surface-2">
                                     <div className="flex items-center justify-between">
                                         <StepIcon icon={step.icon} />
-                                        <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">{step.week}</span>
+                                        <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">{step.step}</span>
                                     </div>
                                     <h3 className="mt-8 text-2xl font-semibold tracking-tight text-white">{step.title}</h3>
                                     <p className="mt-3 text-[15px] leading-relaxed text-white/60">{step.description}</p>
