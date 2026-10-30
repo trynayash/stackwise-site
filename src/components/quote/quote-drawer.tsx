@@ -70,7 +70,7 @@ export function QuoteDrawer() {
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "spring", stiffness: 320, damping: 36 }}
-                        className="absolute inset-0 flex flex-col bg-surface sm:inset-y-3 sm:left-auto sm:right-3 sm:w-[440px] sm:rounded-3xl"
+                        className="absolute inset-0 flex h-[100dvh] flex-col overflow-hidden bg-[#0d0d0d] sm:inset-y-3 sm:left-auto sm:right-3 sm:h-auto sm:w-[460px] sm:rounded-[28px] sm:border sm:border-white/10 sm:shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)]"
                     >
                         <QuoteChat chat={chat} onClose={closeInquiry} className="h-full" />
                     </motion.div>

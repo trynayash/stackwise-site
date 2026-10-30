@@ -68,7 +68,7 @@ export function Contact() {
                         Tell us what you&apos;re building.
                     </h2>
                     <p className="mt-5 text-base leading-relaxed text-white/60 md:text-lg">
-                        Answer a few quick questions in the chat and you&apos;ll see a starting price straight away. Free, and no commitment.
+                        Ask anything, or answer a few quick questions and you&apos;ll see a starting price straight away. Free, and no commitment.
                     </p>
 
                     <ol className="mt-9 space-y-5">
@@ -89,7 +89,7 @@ export function Contact() {
                 </Reveal>
 
                 <Reveal delay={0.1} className="lg:col-span-7">
-                    <div className="flex h-[640px] flex-col overflow-hidden rounded-3xl bg-surface md:h-[700px]">
+                    <div className="flex h-[min(680px,calc(100svh-6rem))] min-h-[520px] flex-col overflow-hidden rounded-[28px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] md:h-[720px]">
                         <QuoteChat chat={chat} className="h-full" />
                     </div>
                 </Reveal>

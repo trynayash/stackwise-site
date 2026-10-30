@@ -76,12 +76,16 @@ export function MobileCtaBar({ hidden }: { hidden: boolean }) {
                         transition={{ type: "spring", stiffness: 320, damping: 26 }}
                         className="group fixed bottom-6 right-6 z-50 hidden cursor-pointer items-center gap-3 rounded-full bg-surface-2 py-2 pl-2 pr-6 text-left shadow-[0_20px_40px_-12px_rgba(0,0,0,0.85)] transition-colors hover:bg-surface-3 md:flex"
                     >
-                        <span aria-hidden className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-sm font-bold text-black">
-                            YS
+                        <span
+                            aria-hidden
+                            className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-lg text-black"
+                            style={{ fontFamily: "var(--font-oughter), sans-serif" }}
+                        >
+                            S
                         </span>
                         <span>
                             <span className="block text-[15px] font-semibold text-white">Get a quote</span>
-                            <span className="block text-xs text-white/55">Chat with Yash · 2 min</span>
+                            <span className="block text-xs text-white/55">Ask anything · instant answers</span>
                         </span>
                     </motion.button>
                 </>

@@ -96,6 +96,8 @@ export type QuoteAnswers = {
     name?: string;
     email?: string;
     phone?: string;
+    /** Anything the visitor typed that didn't fit a question, e.g. "a marketplace for tutors". */
+    notes?: string;
 };
 
 /** Plain-text summary used in the email fallback and the API's details field. */
@@ -110,6 +112,7 @@ export function summarise(a: QuoteAnswers, preset?: QuotePreset): string {
         "",
         "About the project:",
         a.details?.trim() || "No description yet.",
+        ...(a.notes ? ["", `Notes: ${a.notes}`] : []),
     ]
         .filter((line): line is string => typeof line === "string")
         .join("\n");
