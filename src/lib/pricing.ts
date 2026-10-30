@@ -53,7 +53,7 @@ export const priceFactors = [
 export const pricingFaqs: Faq[] = [
     {
         q: "How much does StackWise charge?",
-        a: "Business websites start at ₹49,999 (about US$550), SaaS products and web apps at ₹1,49,999 (about US$1,600), and AI systems and larger platforms are quoted after a discovery call. Every project gets a written quote for its exact scope before work starts.",
+        a: "Business websites start at ₹34,999 (about US$400), SaaS products and web apps at ₹98,999 (about US$1,050), and AI systems and larger platforms are quoted after a discovery call. Every project gets a written quote for its exact scope before work starts.",
     },
     {
         q: "Are your prices fixed or hourly?",

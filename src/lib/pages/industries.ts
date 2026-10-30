@@ -26,7 +26,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         titleAccent: "built to reconcile to the paisa.",
         intro: "We build fintech software for startups and finance teams: payment and payout flows, lending and wealth dashboards, KYC onboarding through your chosen provider, and ledgers that reconcile against your gateway and bank. Card data stays with the payment gateway, every money movement is logged, and data storage is planned around RBI rules from the first schema.",
         icon: BankIcon,
-        facts: [{ label: "Typical timeline", value: "8–12 weeks (MVP 4–8)" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "8–12 weeks (MVP 4–8)" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: CreditCardIcon, title: "Payments and payouts", description: "Razorpay or Stripe for checkout, subscriptions, refunds and payouts, with webhooks verified by signature and processed idempotently, so a retried event never books money twice." },
             { icon: DatabaseIcon, title: "Double-entry ledgers", description: "Every money movement is stored as balanced debit and credit entries in PostgreSQL, with amounts held as integer paise, never floating-point numbers." },
@@ -53,7 +53,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does fintech software development cost?",
-                a: "A focused fintech dashboard or MVP starts from ₹1,49,999 (about US$1,600) under our Product Build plan. A ledger with reconciliation, several payment or KYC integrations and a security review add scope, and larger platforms are quoted after discovery. In India, agencies commonly quote anywhere from a few lakh to tens of lakhs for fintech builds, depending on scope and team.",
+                a: "A focused fintech dashboard or MVP starts from ₹98,999 (about US$1,050) under our Product Build plan. A ledger with reconciliation, several payment or KYC integrations and a security review add scope, and larger platforms are quoted after discovery. In India, agencies commonly quote anywhere from a few lakh to tens of lakhs for fintech builds, depending on scope and team.",
             },
             {
                 q: "Why does a fintech product need a ledger?",
@@ -140,7 +140,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         titleAccent: "private by design.",
         intro: "We build healthtech software for clinics, diagnostic labs and health startups: patient portals, appointment and telehealth booking, and the dashboards staff use every day. Records sit behind role-based permissions, each view and edit is logged, and data is encrypted in transit and at rest. The design supports India's DPDP Act and, for US patients, HIPAA, with compliance sign-off by you and your advisers.",
         icon: Hospital01Icon,
-        facts: [{ label: "Typical scope", value: "Portal + staff dashboard" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical scope", value: "Portal + staff dashboard" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: UserAccountIcon, title: "Patient portals", description: "Patients sign in to see appointments, prescriptions, lab reports and invoices, and download what they need without calling the front desk." },
             { icon: Appointment01Icon, title: "Appointment and telehealth booking", description: "Doctor schedules, slot booking, reminders by SMS or email, and video consultation links created through a video provider's API." },
@@ -167,7 +167,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does healthcare software development cost?",
-                a: "A patient portal or clinic dashboard starts from ₹1,49,999 (about US$1,600) under our Product Build plan, with a written quote agreed before work begins. Telehealth video, integration with an existing records or lab system, a mobile app, or a formal security review add scope and are priced after discovery. Most of the effort sits in permissions and integrations, not in screens.",
+                a: "A patient portal or clinic dashboard starts from ₹98,999 (about US$1,050) under our Product Build plan, with a written quote agreed before work begins. Telehealth video, integration with an existing records or lab system, a mobile app, or a formal security review add scope and are priced after discovery. Most of the effort sits in permissions and integrations, not in screens.",
             },
             {
                 q: "Is the software HIPAA or DPDP compliant?",
@@ -250,7 +250,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         titleAccent: "built around progress.",
         intro: "We build edtech and e-learning platforms: course catalogs, in-browser code editors, progress tracking, subscriptions and the dashboards cohort managers and admins run on. AI tutoring features can explain mistakes or answer questions from your own course material, within limits you set. CodeFusionAI, our live learning platform, pairs a browser code editor with a course catalog.",
         icon: GraduationScrollIcon,
-        facts: [{ label: "Typical timeline", value: "8–12 weeks" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "8–12 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: BookOpen01Icon, title: "Course catalogs", description: "Courses, modules and lessons with video, text and quizzes, filterable by level and topic, and editable by your team from an admin panel." },
             { icon: CodeIcon, title: "In-browser code editors", description: "A code editor beside each lesson with syntax highlighting and saved work, so learners practice without installing anything on their machine." },
@@ -277,7 +277,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does it cost to build an e-learning platform?",
-                a: "A course platform with a catalog, learner accounts, progress tracking and Razorpay or Stripe payments starts from ₹1,49,999 (about US$1,600) under our Product Build plan. In-browser code execution, live classes, AI tutoring or a companion mobile app add scope and are quoted after discovery. The price is fixed in a written quote up front, with no hourly billing.",
+                a: "A course platform with a catalog, learner accounts, progress tracking and Razorpay or Stripe payments starts from ₹98,999 (about US$1,050) under our Product Build plan. In-browser code execution, live classes, AI tutoring or a companion mobile app add scope and are quoted after discovery. The price is fixed in a written quote up front, with no hourly billing.",
             },
             {
                 q: "Can learners write and run code in the browser?",
@@ -358,7 +358,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         titleAccent: "fast from first tap to checkout.",
         intro: "We build e-commerce and D2C stores on Next.js: product pages that stay quick on mid-range phones and patchy mobile data, a Razorpay or Stripe checkout, and dashboards that keep stock and orders straight. Go headless on the commerce backend you already use, or run a custom store you control end to end.",
         icon: ShoppingCart01Icon,
-        facts: [{ label: "Typical timeline", value: "4–6 weeks" }, { label: "Starting at", value: "₹49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "4–6 weeks" }, { label: "Starting at", value: "₹34,999" }, quoteFact, ownershipFact],
         features: [
             { icon: FlashIcon, title: "Fast Next.js storefronts", description: "Server-rendered product and category pages, optimized images and lean scripts, so shoppers on mobile data see products before they give up." },
             { icon: Layers01Icon, title: "Headless commerce", description: "Keep your current commerce backend for products and orders and put a custom Next.js front end on top, or run the whole store on PostgreSQL." },
@@ -385,7 +385,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does an e-commerce website cost in India?",
-                a: "A custom Next.js store starts from ₹49,999 (about US$550) under our Starter Build plan and usually takes 4–6 weeks. Catalog size, product variants, courier integrations and custom inventory or order dashboards move the price; app-style dashboards fall under Product Build from ₹1,49,999. You see the full figure in a written quote before anything is built.",
+                a: "A custom Next.js store starts from ₹34,999 (about US$400) under our Starter Build plan and usually takes 4–6 weeks. Catalog size, product variants, courier integrations and custom inventory or order dashboards move the price; app-style dashboards fall under Product Build from ₹98,999. You see the full figure in a written quote before anything is built.",
             },
             {
                 q: "Headless or custom store: which should I choose?",
@@ -466,7 +466,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         titleAccent: "from first enquiry to signed deal.",
         intro: "We build real estate and proptech software: listing sites with map search and filters, a CRM that catches every enquiry, portals for brokers and channel partners, and dashboards for rents, leases and maintenance. It suits developers, brokerages and property managers who have outgrown spreadsheets and scattered lead inboxes.",
         icon: Building03Icon,
-        facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: MapsLocation01Icon, title: "Listing search and maps", description: "Filter by locality, budget, BHK, possession date and amenities, with results on a map through a maps provider's API and shareable search URLs." },
             { icon: Search01Icon, title: "SEO-ready property pages", description: "Each project and unit type gets a server-rendered page with photos, floor plans, structured data and a field for its RERA registration number." },
@@ -493,7 +493,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does real estate software cost to build?",
-                a: "A marketing site for a single project starts from ₹49,999 (about US$550). A listing site with search, maps and a lead CRM is a database-driven web app, so it starts from ₹1,49,999 (about US$1,600) under our Product Build plan. Property management dashboards and partner portals add scope, and each one is priced in a written quote before work starts.",
+                a: "A marketing site for a single project starts from ₹34,999 (about US$400). A listing site with search, maps and a lead CRM is a database-driven web app, so it starts from ₹98,999 (about US$1,050) under our Product Build plan. Property management dashboards and partner portals add scope, and each one is priced in a written quote before work starts.",
             },
             {
                 q: "Can leads from listing portals and ads go into one CRM?",
@@ -574,7 +574,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         titleAccent: "that knows where every shipment is.",
         intro: "We build logistics and supply-chain software: shipment tracking your customers can check themselves, dispatch and route dashboards for your operations team, driver apps, and warehouse tools for stock and picking. Everything connects to carriers, marketplaces and ERPs through APIs and webhooks, so status updates arrive without anyone re-typing them.",
         icon: TruckDeliveryIcon,
-        facts: [{ label: "Typical timeline", value: "4–8 weeks (driver app extra)" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "4–8 weeks (driver app extra)" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: DeliveryTracking01Icon, title: "Shipment tracking", description: "A tracking page and API that show each shipment's events from pickup to proof of delivery, with customer updates by email or SMS." },
             { icon: Route01Icon, title: "Dispatch and route dashboards", description: "Assign jobs to vehicles and drivers, see them on a live map, and reorder stops when a pickup is added in the middle of the day." },
@@ -601,7 +601,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does logistics software development cost?",
-                a: "A tracking portal or dispatch dashboard starts from ₹1,49,999 (about US$1,600) under our Product Build plan. A driver app for iOS and Android, several carrier integrations or a high-volume tracking API add scope and are quoted after discovery. The number of integrations usually drives cost more than the number of screens, so we list each one in the written quote.",
+                a: "A tracking portal or dispatch dashboard starts from ₹98,999 (about US$1,050) under our Product Build plan. A driver app for iOS and Android, several carrier integrations or a high-volume tracking API add scope and are quoted after discovery. The number of integrations usually drives cost more than the number of screens, so we list each one in the written quote.",
             },
             {
                 q: "Can the driver app work without mobile signal?",

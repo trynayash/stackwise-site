@@ -20,7 +20,7 @@ export const agenciesPage: MarketingPageData | null = {
     titleAccent: "for agencies, under your brand.",
     intro: "StackWise is a white-label development partner for digital, marketing, design and branding agencies. We turn your Figma files into fast Next.js websites, build web apps and SaaS products, take overflow work and maintain client sites, all under your agency's name. Your client deals with you, and owns the code at the end.",
     icon: HandshakeIcon,
-    facts: [{ label: "Typical timeline", value: "2–3 weeks (SaaS 8–12)" }, { label: "Starting at", value: "₹49,999" }, quoteFact, ownershipFact],
+    facts: [{ label: "Typical timeline", value: "2–3 weeks (SaaS 8–12)" }, { label: "Starting at", value: "₹34,999" }, quoteFact, ownershipFact],
     features: [
         { icon: FigmaIcon, title: "Figma to Next.js websites", description: "Your designers hand over Figma files; we build them in Next.js and TypeScript to match, responsive, quick to load and set up for SEO." },
         { icon: DashboardSquare01Icon, title: "Web apps and SaaS builds", description: "Client portals, dashboards and subscription products with sign-up, roles and Stripe or Razorpay billing, for clients who need more than a site." },
@@ -51,7 +51,7 @@ export const agenciesPage: MarketingPageData | null = {
         },
         {
             q: "How much does white-label development cost for an agency?",
-            a: "Websites and landing pages start from ₹49,999 (about US$550), and web apps or SaaS builds from ₹1,49,999 (about US$1,600). Mobile apps, AI features and larger platforms are quoted after discovery. Every project gets a written quote before work starts, with no hourly billing and no surprise invoices, so you know your cost before you price the job for your client.",
+            a: "Websites and landing pages start from ₹34,999 (about US$400), and web apps or SaaS builds from ₹98,999 (about US$1,050). Mobile apps, AI features and larger platforms are quoted after discovery. Every project gets a written quote before work starts, with no hourly billing and no surprise invoices, so you know your cost before you price the job for your client.",
         },
         {
             q: "Will you contact our clients directly?",

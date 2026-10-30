@@ -11,13 +11,13 @@ const guide: Guide = {
             "What a website costs in India and Mumbai in 2026: builder vs freelancer vs agency vs custom Next.js, what a quote should include and the yearly costs.",
     },
     summary: "Website costs in India and Mumbai compared: builders, freelancers, agencies and custom Next.js sites.",
-    answer: "A website in India in 2026 can cost anywhere from a few thousand rupees a year on a template builder to several lakh for a custom site with e-commerce and integrations. Freelancers commonly quote in the tens of thousands of rupees, and agencies from there up to a few lakh. StackWise's Starter Build, a custom Next.js site, starts at ₹49,999 (about US$550).",
+    answer: "A website in India in 2026 can cost anywhere from a few thousand rupees a year on a template builder to several lakh for a custom site with e-commerce and integrations. Freelancers commonly quote in the tens of thousands of rupees, and agencies from there up to a few lakh. StackWise's Starter Build, a custom Next.js site, starts at ₹34,999 (about US$400).",
     takeaways: [
         "Template builders cost the least up front but charge every year and limit custom features.",
         "Freelancers suit simple sites; agencies and studios suit sites that need design, SEO and integrations done properly.",
         "Budget every year for the domain, hosting, business email and maintenance, not just the build.",
         "E-commerce costs more and takes longer than a business site because of the catalog, checkout and payments.",
-        "StackWise's Starter Build starts at ₹49,999 (about US$550) and includes 1 month of support.",
+        "StackWise's Starter Build starts at ₹34,999 (about US$400) and includes 1 month of support.",
     ],
     sections: [
         {
@@ -36,7 +36,7 @@ const guide: Guide = {
                         ["Template or website builder (DIY)", "Low: a plan fee and your own time", "A subscription for as long as the site exists, higher for more features", "A simple site you will edit yourself"],
                         ["Freelancer", "Commonly tens of thousands of rupees", "Hosting, domain, fixes billed as needed", "Brochure sites with a clear brief and a modest budget"],
                         ["Agency", "Commonly tens of thousands to a few lakh", "Hosting plus a maintenance plan", "Businesses that want design, content and project management handled"],
-                        ["Custom Next.js build", "Varies by studio; StackWise starts at ₹49,999 (about US$550)", "Usually low hosting, plus optional maintenance", "Fast, SEO-focused sites you own outright, with room to add features"],
+                        ["Custom Next.js build", "Varies by studio; StackWise starts at ₹34,999 (about US$400)", "Usually low hosting, plus optional maintenance", "Fast, SEO-focused sites you own outright, with room to add features"],
                     ],
                 },
                 {
@@ -133,7 +133,7 @@ const guide: Guide = {
     faqs: [
         {
             q: "How much does a website cost in Mumbai?",
-            a: "Mumbai prices follow the wider Indian market: freelancers commonly quote in the tens of thousands of rupees, and agencies from there up to a few lakh, with metro agencies often at the higher end. StackWise is based in Mumbai, and its Starter Build, a custom Next.js site with SEO and speed tuning, starts at ₹49,999 (about US$550).",
+            a: "Mumbai prices follow the wider Indian market: freelancers commonly quote in the tens of thousands of rupees, and agencies from there up to a few lakh, with metro agencies often at the higher end. StackWise is based in Mumbai, and its Starter Build, a custom Next.js site with SEO and speed tuning, starts at ₹34,999 (about US$400).",
         },
         {
             q: "What is the cost of a small business website in India?",

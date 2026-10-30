@@ -3,35 +3,35 @@ export type Faq = { q: string; a: string };
 export const faqs: Faq[] = [
     {
         q: "How much does a website or SaaS product cost?",
-        a: "Business websites start at ₹49,999 (about US$550), and SaaS products, web apps and dashboards at ₹1,49,999 (about US$1,600). AI systems and larger platforms are quoted after a free discovery call. Every project gets a fixed, written quote before work starts, with no hourly billing. The pricing page lists starting prices for every service.",
+        a: "Business websites start at ₹34,999 (about US$400), and SaaS products, web apps and dashboards at ₹98,999 (about US$1,050). AI systems and larger platforms are quoted after a free discovery call. Every project gets a fixed, written quote before work starts, with no hourly billing. The pricing page lists starting prices for every service.",
     },
     {
         q: "Who owns the code when it's done?",
-        a: "You do. 100%. Every line of code, every design file, every asset we create belongs to you. We transfer full ownership upon project completion — no licensing fees, no strings attached. You get the complete source code, design files, and documentation.",
+        a: "You do, 100%. At handover you get the full source code, design files, documentation and access to every account the product runs on. There are no licensing fees and no lock-in.",
     },
     {
         q: "What if I don't like the design?",
-        a: "We build in revision rounds at every stage. During Week 2, we present high-fidelity Figma prototypes before writing any code. You get 3 rounds of design revisions included in every package. If after all revisions you're still not satisfied, we'll redesign from scratch — that's our guarantee.",
+        a: "You see clickable Figma designs before any code is written, and three rounds of design revisions are included in every project. If you're still not happy after that, we redesign it from scratch.",
     },
     {
-        q: "Do you guys disappear after launch?",
-        a: "Never. Every project includes 1-3 months of post-launch support (depending on your plan). After that, you can move to a monthly maintenance retainer, quoted to fit your product. We also provide detailed handoff documentation so your internal team can maintain the codebase independently if preferred.",
+        q: "What happens after launch?",
+        a: "Every project includes 1 to 3 months of support, depending on the plan. After that you can move to a monthly maintenance retainer quoted to fit your product, or hand over to your own team with the documentation we write for you.",
     },
     {
         q: "What's the typical project timeline?",
-        a: "Most projects take 4-8 weeks from kickoff to launch. Simple websites: 2-3 weeks. E-commerce stores: 4-6 weeks. Complex web apps and SaaS: 8-12 weeks. We provide a detailed timeline during our free consultation call.",
+        a: "Simple websites take 2–3 weeks, online stores 4–6 weeks, MVPs 4–8 weeks and full SaaS products 8–12 weeks. You get a detailed timeline after the free consultation call, before you commit to anything.",
     },
     {
         q: "How do you communicate during the project?",
-        a: "You talk directly with the developer on Slack, Discord or email. You get regular progress updates, a weekly call, and a staging URL where you can see the work as it is built.",
+        a: "You talk directly to the engineer building your product, on Slack, Discord or email. There's a weekly call and a live staging link, so you can see progress as it happens.",
     },
     {
         q: "What if the project scope changes mid-way?",
-        a: "Scope changes happen — we get it. Minor additions (under 10% of project scope) are absorbed at no extra cost. For larger changes, we provide a transparent quote and timeline adjustment within 24 hours. No surprises, no hidden fees.",
+        a: "Small additions, under 10% of the agreed scope, are absorbed at no extra cost. For bigger changes you get a written quote and an updated timeline within 24 hours, before anything is built.",
     },
     {
         q: "Do you sign NDAs and confidentiality agreements?",
-        a: "Absolutely. We sign NDAs before any discovery call where sensitive information is shared. Your business ideas, data, and proprietary information are protected by legally binding agreements. We take client confidentiality extremely seriously.",
+        a: "Yes. We sign an NDA before you share anything sensitive, usually before the discovery call, and keep your idea, data and code confidential.",
     },
     {
         q: "Do you work with agencies as a white-label partner?",
@@ -39,6 +39,6 @@ export const faqs: Faq[] = [
     },
     {
         q: "Can I see real case studies before committing?",
-        a: "Yes. The portfolio section has write-ups of products we have built, with what each one does and how it is built. We can walk through any of them on a call.",
+        a: "Yes. The work section has write-ups of live products we've built, with what each one does and how it's built. We're happy to walk you through any of them on a call.",
     },
 ];

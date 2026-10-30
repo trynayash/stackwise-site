@@ -493,7 +493,7 @@ const intents: Intent[] = [
         weight: 0.5,
         patterns: [/\b(e-?commerce|online store|shopify|woocommerce|wordpress|wix|webflow|squarespace|cms|templates?)\b/],
         answer: () => ({
-            text: "We build custom websites and online stores in Next.js, usually with a headless CMS, rather than WordPress or template sites. Websites start from ₹49,999; online stores usually take 4–6 weeks.",
+            text: "We build custom websites and online stores in Next.js, usually with a headless CMS, rather than WordPress or template sites. Websites start from ₹34,999; online stores usually take 4–6 weeks.",
             actions: [pageLink("web-development")],
         }),
     },

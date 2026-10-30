@@ -11,12 +11,12 @@ const guide: Guide = {
             "What SaaS development costs in India in 2026: the six cost drivers, typical ranges by build type, running costs after launch and how to spend less.",
     },
     summary: "What drives SaaS development cost in India, typical ranges by build type, and the running costs to plan for.",
-    answer: "SaaS development in India in 2026 commonly costs anywhere from under ₹2 lakh for a tightly scoped first version to tens of lakhs for a multi-tenant platform with complex billing, integrations or AI. Scope drives most of the price, followed by team type and design depth. StackWise's Product Build starts at ₹1,49,999 (about US$1,600), with a written quote before work starts.",
+    answer: "SaaS development in India in 2026 commonly costs anywhere from under ₹2 lakh for a tightly scoped first version to tens of lakhs for a multi-tenant platform with complex billing, integrations or AI. Scope drives most of the price, followed by team type and design depth. StackWise's Product Build starts at ₹98,999 (about US$1,050), with a written quote before work starts.",
     takeaways: [
         "Scope is the biggest cost driver: every user role, pricing rule and integration adds design, build and testing time.",
         "Multi-tenancy, subscription billing and integrations are where SaaS quotes grow fastest.",
         "Budget for running costs too: hosting, third-party services, payment gateway fees and maintenance.",
-        "StackWise's Product Build starts at ₹1,49,999 (about US$1,600) and includes 3 months of support.",
+        "StackWise's Product Build starts at ₹98,999 (about US$1,050) and includes 3 months of support.",
         "Save money by cutting scope, not by skipping tests, security or code ownership.",
     ],
     sections: [
@@ -63,7 +63,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "As a concrete anchor, StackWise's **Product Build starts at ₹1,49,999** (about US$1,600). It covers SaaS products, dashboards and web apps: sign-up, login and user dashboards, Stripe or Razorpay payments and subscriptions, built in Next.js and TypeScript, with 3 months of support. A SaaS typically takes 8–12 weeks and an MVP 4–8 weeks. AI systems, complex platforms and high-traffic APIs get a custom quote. Details are on the [pricing page](/pricing).",
+                    text: "As a concrete anchor, StackWise's **Product Build starts at ₹98,999** (about US$1,050). It covers SaaS products, dashboards and web apps: sign-up, login and user dashboards, Stripe or Razorpay payments and subscriptions, built in Next.js and TypeScript, with 3 months of support. A SaaS typically takes 8–12 weeks and an MVP 4–8 weeks. AI systems, complex platforms and high-traffic APIs get a custom quote. Details are on the [pricing page](/pricing).",
                 },
                 {
                     type: "callout",
@@ -139,7 +139,7 @@ const guide: Guide = {
     faqs: [
         {
             q: "How much does it cost to build a SaaS app in India?",
-            a: "SaaS builds in India commonly range from under ₹2 lakh for a tightly scoped first version to tens of lakhs for a multi-tenant platform with complex billing, integrations or AI. The number depends mainly on scope and team type. StackWise's Product Build starts at ₹1,49,999 (about US$1,600), and every project gets a written quote before work starts.",
+            a: "SaaS builds in India commonly range from under ₹2 lakh for a tightly scoped first version to tens of lakhs for a multi-tenant platform with complex billing, integrations or AI. The number depends mainly on scope and team type. StackWise's Product Build starts at ₹98,999 (about US$1,050), and every project gets a written quote before work starts.",
         },
         {
             q: "What are the monthly running costs of a SaaS product?",

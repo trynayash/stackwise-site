@@ -22,14 +22,14 @@ const corePages: Record<string, MarketingPageData> = {
         summary: "Subscription products with auth, billing and dashboards.",
         seo: {
             title: "SaaS Development Company in India",
-            description: "SaaS development company in Mumbai, India: multi-tenant apps with auth, Stripe or Razorpay billing and dashboards. From ₹1,49,999. You own the code.",
+            description: "SaaS development company in Mumbai, India: multi-tenant apps with auth, Stripe or Razorpay billing and dashboards. From ₹98,999. You own the code.",
         },
         badge: "SaaS Engineering",
         titleTop: "SaaS products,",
         titleAccent: "engineered to scale.",
         intro: "We design, build and deploy Software-as-a-Service products — from the first architecture plan to secure APIs, subscriptions and multi-tenant infrastructure. Clean, typed code that is built to grow.",
         icon: DashboardSquare01Icon,
-        facts: [{ label: "Typical timeline", value: "8–12 weeks" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "8–12 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: Layers01Icon, title: "Multi-tenant architecture", description: "Secure data isolation, tenant routing and customizable workspaces, so every customer only ever sees their own data." },
             { icon: Shield01Icon, title: "Authentication & roles", description: "MFA support, session tracking and role-based permissions from day one." },
@@ -96,14 +96,14 @@ const corePages: Record<string, MarketingPageData> = {
         summary: "Internal tools, CRMs, portals and APIs built around you.",
         seo: {
             title: "Custom Software Development Company",
-            description: "Custom software development company in Mumbai: internal tools, CRMs, portals and APIs built around how your business works. From ₹1,49,999.",
+            description: "Custom software development company in Mumbai: internal tools, CRMs, portals and APIs built around how your business works. From ₹98,999.",
         },
         badge: "Custom Software",
         titleTop: "Software shaped around",
         titleAccent: "how you work.",
         intro: "Off-the-shelf software rarely fits how you work. We design and build internal dashboards, management portals and APIs around your business logic — not the other way round.",
         icon: SourceCodeIcon,
-        facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: WorkflowSquare01Icon, title: "Business automation", description: "Replace repetitive tasks, paper workflows and manual data entry with event-driven software." },
             { icon: Table01Icon, title: "Custom CRM & ERP", description: "Portals for sales pipelines, clients, resources and inventory, designed for your exact workflow." },
@@ -133,14 +133,14 @@ const corePages: Record<string, MarketingPageData> = {
         summary: "Fast, SEO-ready websites and web platforms in Next.js.",
         seo: {
             title: "Website & Web App Development Company",
-            description: "Website development company in Mumbai: custom Next.js websites and web apps that load fast, rank well and bring in enquiries. From ₹49,999.",
+            description: "Website development company in Mumbai: custom Next.js websites and web apps that load fast, rank well and bring in enquiries. From ₹34,999.",
         },
         badge: "Web Development",
         titleTop: "Websites that load fast",
         titleAccent: "and convert.",
         intro: "Custom-coded websites that look sharp and load fast. With a headless CMS and careful technical SEO, we help growing brands get found and turn visitors into customers.",
         icon: Globe02Icon,
-        facts: [{ label: "Typical timeline", value: "2–3 weeks (e-commerce 4–6)" }, { label: "Starting at", value: "₹49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "2–3 weeks (e-commerce 4–6)" }, { label: "Starting at", value: "₹34,999" }, quoteFact, ownershipFact],
         features: [
             { icon: BrowserIcon, title: "Next.js websites & stores", description: "Marketing sites and headless e-commerce on Shopify or a custom backend, built for fast page loads." },
             { icon: PaintBoardIcon, title: "Custom UI/UX design", description: "Custom layouts, spacing systems, considered typography and purposeful animation." },
@@ -177,7 +177,7 @@ const corePages: Record<string, MarketingPageData> = {
         titleAccent: "from idea to first hires.",
         intro: "Startups need more than a mock-up. They need stable, modular code that earns customer trust and holds up to technical due diligence. We build products ready for launch — and for your next engineers.",
         icon: ChartIncreaseIcon,
-        facts: [{ label: "Typical timeline", value: "4–8 weeks to launch" }, { label: "Starting at", value: "₹49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "4–8 weeks to launch" }, { label: "Starting at", value: "₹34,999" }, quoteFact, ownershipFact],
         features: [
             { icon: CodeIcon, title: "Investor-ready stack", description: "Modular, strictly typed Next.js and TypeScript that future developers can read, inherit and scale." },
             { icon: Calendar03Icon, title: "Speed to market", description: "Coding starts within 48 hours of design approval, focused on the core user loop." },
@@ -191,7 +191,7 @@ const corePages: Record<string, MarketingPageData> = {
         stack: ["Next.js", "TypeScript", "PostgreSQL", "Stripe", "Vercel", "AWS", "Figma"],
         work: ["startupdeck", "scopeci"],
         faqs: [
-            { q: "We're early stage — what does it cost?", a: "Starter builds begin at ₹49,999 and product builds at ₹1,49,999. We scope tightly around the features that prove your idea, so you don't pay for anything you don't need yet." },
+            { q: "We're early stage — what does it cost?", a: "Starter builds begin at ₹34,999 and product builds at ₹98,999. We scope tightly around the features that prove your idea, so you don't pay for anything you don't need yet." },
             { q: "Can our future team take over the code?", a: "That's the point. The code is strictly typed, documented and handed over with architecture notes. We can also help interview your first engineers." },
             { q: "Do you sign NDAs?", a: "Yes. We sign an NDA before any discovery call where sensitive information is shared." },
         ],
@@ -207,14 +207,14 @@ const corePages: Record<string, MarketingPageData> = {
         summary: "Ship a working first version fast — without a rewrite later.",
         seo: {
             title: "MVP Development Company for Startups",
-            description: "MVP development for startups: ship a SaaS MVP in 4–8 weeks on a production-grade stack that won't need a rewrite. From ₹1,49,999, and you own the code.",
+            description: "MVP development for startups: ship a SaaS MVP in 4–8 weeks on a production-grade stack that won't need a rewrite. From ₹98,999, and you own the code.",
         },
         badge: "MVP Development",
         titleTop: "Launch your MVP",
         titleAccent: "without technical debt.",
         intro: "Shipping fast doesn't mean cutting corners. We build production-ready MVPs on a modern stack (Next.js, TypeScript, PostgreSQL), so your codebase is an asset for your future team, not a rewrite.",
         icon: PackageIcon,
-        facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹1,49,999" }, quoteFact, ownershipFact],
+        facts: [{ label: "Typical timeline", value: "4–8 weeks" }, { label: "Starting at", value: "₹98,999" }, quoteFact, ownershipFact],
         features: [
             { icon: CheckListIcon, title: "Lean feature scoping", description: "Cut nice-to-haves and focus on the core loop users will pay for." },
             { icon: CodeIcon, title: "No-debt code", description: "Even when moving fast: modular components, clean schemas and type-safe APIs." },
@@ -476,7 +476,7 @@ const corePages: Record<string, MarketingPageData> = {
         titleAccent: "fast by default.",
         intro: "We build websites and product front ends on Next.js and TypeScript: server-rendered for search engines, fast on real devices, and structured so your next developer can pick it up. This website is built with it too.",
         icon: BrowserIcon,
-        facts: [{ label: "Starting at", value: "₹49,999" }, { label: "Built on", value: "App Router + TypeScript" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999" }, { label: "Built on", value: "App Router + TypeScript" }, quoteFact, ownershipFact],
         features: [
             { icon: Search01Icon, title: "SEO built in", description: "Server rendering, metadata, sitemaps and structured data on every page." },
             { icon: FlashIcon, title: "Performance", description: "Static and edge rendering, image optimization and lean client bundles." },
@@ -513,7 +513,7 @@ const corePages: Record<string, MarketingPageData> = {
         titleAccent: "built to stay maintainable.",
         intro: "We build React and TypeScript front ends for dashboards and SaaS products — typed end to end, with clear state management, so features keep shipping as the app grows.",
         icon: ReactIcon,
-        facts: [{ label: "Starting at", value: "₹1,49,999" }, { label: "Language", value: "TypeScript" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹98,999" }, { label: "Language", value: "TypeScript" }, quoteFact, ownershipFact],
         features: [
             { icon: Analytics01Icon, title: "Dashboards & charts", description: "Usage, revenue and analytics views with Chart.js or Recharts." },
             { icon: ArrowDataTransferHorizontalIcon, title: "Server state", description: "TanStack Query for caching, retries and background refresh." },
@@ -550,7 +550,7 @@ const corePages: Record<string, MarketingPageData> = {
         titleAccent: "typed and dependable.",
         intro: "We build APIs, background jobs and integrations in Node.js and TypeScript, on PostgreSQL and Redis — the backend behind dashboards, AI features and third-party integrations.",
         icon: ServerStack01Icon,
-        facts: [{ label: "Starting at", value: "₹1,49,999" }, { label: "Language", value: "TypeScript" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹98,999" }, { label: "Language", value: "TypeScript" }, quoteFact, ownershipFact],
         features: [
             { icon: ApiIcon, title: "REST & GraphQL APIs", description: "Express APIs with validation, auth and OpenAPI-typed clients." },
             { icon: DatabaseIcon, title: "PostgreSQL & Drizzle", description: "Typed schemas and migrations that grow with the product." },

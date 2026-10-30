@@ -12,9 +12,11 @@ import { CircularBadge, Magnetic } from "@/components/ui/interactive";
 import type { WorkSummary } from "@/lib/case-studies";
 import { siteConfig } from "@/config/site";
 
-const things = ["SaaS product.", "website.", "AI assistant.", "MVP.", "internal tool.", "mobile app."];
+const things = ["SaaS product.", "MVP.", "AI assistant.", "website."];
 
-const promises = ["Reply within 24–48 hours", "Written quote before we start", "You own 100% of the code"];
+// Starting prices up front: the clearest reason to get in touch, read from the pricing config so they never drift.
+const [starter, product] = siteConfig.pricing;
+const promises = [`Websites from ${starter.price.replace("+", "")}`, `SaaS products from ${product.price.replace("+", "")}`, "You own 100% of the code"];
 
 /** The last line of the headline: cycles through what we build. */
 function RotatingWord() {
@@ -75,7 +77,7 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
                         </Enter>
 
                         <h1 className="text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.05em] text-white min-[400px]:text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[4.25rem] xl:text-[5.4rem]">
-                            <span className="sr-only">Let&apos;s build your SaaS product, website, AI assistant, MVP, internal tool or mobile app.</span>
+                            <span className="sr-only">Let&apos;s build your SaaS product, MVP, AI assistant or website.</span>
                             <span aria-hidden className="block">
                                 <Rise delay={0}>Let&apos;s</Rise> <Rise delay={70}>build</Rise> <Rise delay={140}>your</Rise>
                             </span>
@@ -87,8 +89,8 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
                         </h1>
 
                         <Enter as="p" delay={0.25} className="mt-7 max-w-xl text-lg leading-relaxed text-white/65 text-pretty">
-                            StackWise designs and builds SaaS products, AI features, custom software and websites for startups and growing businesses. You
-                            work directly with the engineer, get a written quote up front, and own every line of code.
+                            SaaS products and MVPs, AI features and fast websites for startups and growing businesses. You work directly with the
+                            engineer who builds it, get a fixed written quote up front, and own every line of code.
                         </Enter>
 
                         <Enter delay={0.35} className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">

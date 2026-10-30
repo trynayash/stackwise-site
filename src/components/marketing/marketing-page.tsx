@@ -54,7 +54,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
     const hubPath = `/${page.kind.toLowerCase()}`;
     const preset = presetForPage(page.slug, page.navLabel);
     const price = page.facts.find((f) => f.label === "Starting at")?.value;
-    // "₹49,999 (about US$550)" shows the rupee price large and the conversion underneath.
+    // "₹34,999 (about US$400)" shows the rupee price large and the conversion underneath.
     const [priceMain, priceNote] = price?.match(/^(.*?)\s*\((.*)\)$/)?.slice(1) ?? [price, undefined];
 
     return (

@@ -290,7 +290,7 @@ Source: `src/components/ui/scroll-effects.tsx`.
 - **`ScrollLitText`:** each word's opacity goes from 0.3 to 1 as `useScroll({ target, offset: ["start 85%", "end 55%"] })` passes through that word's slice.
   - Use a **function** transform: `useTransform(p, v => 0.3 + 0.7 * clamp((v - a) / (b - a)))`. The range form can be handed to a native scroll timeline, and then words you've already read fade back.
   - With reduced motion, show the same markup at full opacity.
-- **`CountUp`:** keeps any prefix and suffix ("3,400+", "₹1,49,999", which uses en-IN grouping). It animates 0 → target over 1.4s and starts on `useReached(40)`. The real value sits in an `sr-only` span.
+- **`CountUp`:** keeps any prefix and suffix ("3,400+", "₹98,999", which uses en-IN grouping). It animates 0 → target over 1.4s and starts on `useReached(40)`. The real value sits in an `sr-only` span.
 
 ### 5.14 Navbar
 - `fixed` at `h-[72px]`, transparent at the top. After 16px of scroll it becomes `bg-canvas/85 backdrop-blur-xl`.

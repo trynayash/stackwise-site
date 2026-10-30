@@ -174,7 +174,7 @@ const guide: Guide = {
         },
         {
             q: "How much does it cost to hire a software company in Mumbai?",
-            a: "It depends on scope, team seniority and engagement type more than on location. Quotes commonly range from tens of thousands of rupees for a simple website to several lakh or more for a SaaS product or custom platform. StackWise starts at ₹49,999 for business websites and ₹1,49,999 for SaaS products and web apps, with a written quote before work starts.",
+            a: "It depends on scope, team seniority and engagement type more than on location. Quotes commonly range from tens of thousands of rupees for a simple website to several lakh or more for a SaaS product or custom platform. StackWise starts at ₹34,999 for business websites and ₹98,999 for SaaS products and web apps, with a written quote before work starts.",
         },
     ],
     keywords: [

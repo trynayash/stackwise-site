@@ -9,6 +9,7 @@ import { About } from "@/components/sections/about";
 import { FAQ } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { GuidesTeaser } from "@/components/sections/guides-teaser";
+import { Testimonials } from "@/components/sections/testimonials";
 import { JsonLd, faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
 import { allWork } from "@/lib/more-work";
@@ -23,6 +24,7 @@ export default function Home() {
             <Hero projects={allWork.map(toWorkSummary)} />
             <Marquee />
             <Portfolio />
+            <Testimonials />
             <Services {...homeServices()} />
             <StackLoop />
             <ProcessTimeline />

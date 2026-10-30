@@ -11,7 +11,7 @@ const guide: Guide = {
             "How much an MVP costs to build in 2026: what to include and leave out, cost by MVP type from waitlist page to AI MVP, timelines and how to avoid a rewrite.",
     },
     summary: "What an MVP costs in 2026 by type, what it should include, how long it takes and how to avoid a rewrite.",
-    answer: "An MVP in 2026 can cost anything from a few thousand rupees for a landing page with a waitlist to tens of lakhs for a SaaS or AI MVP with real users, billing and data. Scope is the main driver. Indian studios commonly quote a few lakh for a working web app MVP. StackWise's Product Build starts at ₹1,49,999 (about US$1,600), typically over 4–8 weeks.",
+    answer: "An MVP in 2026 can cost anything from a few thousand rupees for a landing page with a waitlist to tens of lakhs for a SaaS or AI MVP with real users, billing and data. Scope is the main driver. Indian studios commonly quote a few lakh for a working web app MVP. StackWise's Product Build starts at ₹98,999 (about US$1,050), typically over 4–8 weeks.",
     takeaways: [
         "An MVP tests one risky assumption with real users. It is not a cheap copy of the full vision.",
         "Cost depends on the type: a waitlist page and a SaaS MVP with billing are different projects.",
@@ -65,7 +65,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "StackWise's anchor prices: the **Starter Build starts at ₹49,999** (about US$550) for landing pages and marketing sites, and the **Product Build starts at ₹1,49,999** (about US$1,600) for web apps and SaaS, including sign-up, login, user dashboards and Stripe or Razorpay subscriptions. Design-only prototypes and AI MVPs are quoted after discovery. See [MVP development](/solutions/mvp-development) for how a build runs.",
+                    text: "StackWise's anchor prices: the **Starter Build starts at ₹34,999** (about US$400) for landing pages and marketing sites, and the **Product Build starts at ₹98,999** (about US$1,050) for web apps and SaaS, including sign-up, login, user dashboards and Stripe or Razorpay subscriptions. Design-only prototypes and AI MVPs are quoted after discovery. See [MVP development](/solutions/mvp-development) for how a build runs.",
                 },
             ],
         },
@@ -138,7 +138,7 @@ const guide: Guide = {
     faqs: [
         {
             q: "How much does an MVP cost in India?",
-            a: "A working web app MVP built by an Indian studio or agency commonly costs a few lakh rupees, and a SaaS MVP with billing can run from a few lakh to tens of lakhs depending on scope and team. A landing page with a waitlist costs far less. StackWise's Product Build starts at ₹1,49,999 (about US$1,600).",
+            a: "A working web app MVP built by an Indian studio or agency commonly costs a few lakh rupees, and a SaaS MVP with billing can run from a few lakh to tens of lakhs depending on scope and team. A landing page with a waitlist costs far less. StackWise's Product Build starts at ₹98,999 (about US$1,050).",
         },
         {
             q: "How long does it take to build an MVP?",

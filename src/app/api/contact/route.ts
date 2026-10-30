@@ -126,7 +126,7 @@ export async function POST(request: Request) {
         if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
             console.error("❌ STACKWISE SMTP SERVICE: Missing GMAIL_USER or GMAIL_APP_PASSWORD environment variables.");
             return NextResponse.json(
-                { error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.` },
+                { error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.`, code: "email_not_configured" },
                 { status: 503 }
             );
         }

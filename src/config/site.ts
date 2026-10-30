@@ -36,7 +36,7 @@ export const siteConfig = {
     pricing: [
         {
             title: "Starter Build",
-            price: "₹49,999+",
+            price: "₹34,999+",
             description: "For business websites, landing pages and marketing sites.",
             features: [
                 "Custom Next.js website",
@@ -49,7 +49,7 @@ export const siteConfig = {
         },
         {
             title: "Product Build",
-            price: "₹1,49,999+",
+            price: "₹98,999+",
             description: "For SaaS products, dashboards, web apps and database-driven tools.",
             features: [
                 "Custom web application",

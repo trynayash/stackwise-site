@@ -154,7 +154,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "When custom is the right call, StackWise builds [custom software](/services/custom-software) such as internal tools, CRMs, portals and APIs, from ₹1,49,999 (about US$1,600) and typically in 4–8 weeks. Business automation is quoted after discovery. You own 100% of the code and receive the design files, documentation and access to every account at handover, with no licensing fees or lock-in.",
+                    text: "When custom is the right call, StackWise builds [custom software](/services/custom-software) such as internal tools, CRMs, portals and APIs, from ₹98,999 (about US$1,050) and typically in 4–8 weeks. Business automation is quoted after discovery. You own 100% of the code and receive the design files, documentation and access to every account at handover, with no licensing fees or lock-in.",
                 },
             ],
         },
@@ -178,7 +178,7 @@ const guide: Guide = {
         },
         {
             q: "How much does custom software cost in India?",
-            a: "It depends on users, workflows, integrations and security needs. Indian studios and agencies commonly quote anywhere from about a lakh for a focused internal tool to tens of lakhs for a large platform. StackWise builds custom software from ₹1,49,999 (about US$1,600), with a written quote before work starts.",
+            a: "It depends on users, workflows, integrations and security needs. Indian studios and agencies commonly quote anywhere from about a lakh for a focused internal tool to tens of lakhs for a large platform. StackWise builds custom software from ₹98,999 (about US$1,050), with a written quote before work starts.",
         },
     ],
     keywords: [

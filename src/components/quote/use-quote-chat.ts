@@ -302,6 +302,21 @@ export function useQuoteChat(preset?: QuotePreset) {
                     details: `${summarise(answers, p)}\n\nSent from the quote chat on ${siteConfig.url}`,
                 }),
             });
+            if (res.status === 503) {
+                // Email delivery isn't set up on the server: hand over to the visitor's email app with
+                // everything filled in, as a normal last step rather than an error.
+                track("quote_email_handoff", { service: answers.service ?? "unknown" });
+                respond(
+                    [
+                        bot({
+                            text: `Last step, ${firstName(answers.name)}: tap below to send your details by email. Everything is already filled in, and Yash replies within 24–48 hours on working days.`,
+                            actions: [{ kind: "email", label: "Send by email", subject: "quote" }],
+                        }),
+                    ],
+                    { status: "failed" }
+                );
+                return;
+            }
             if (!res.ok) throw new Error("not sent");
             track("quote_sent", { service: answers.service ?? "unknown" });
             respond([bot({ text: `Sent. Thanks, ${firstName(answers.name)}! Yash will reply to ${answers.email} within 24–48 hours on working days. Ask me anything else in the meantime.` })], { status: "sent" });

@@ -110,7 +110,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "For reference, StackWise's Product Build for SaaS products and web apps starts from ₹1,49,999 (about US$1,600) and the Starter Build for websites from ₹49,999 (about US$550), with a written quote before work starts. The [SaaS development cost guide](/guides/saas-development-cost-india) explains how scope drives price. Compare quotes against the same written scope, and ask what support is included after launch.",
+                    text: "For reference, StackWise's Product Build for SaaS products and web apps starts from ₹98,999 (about US$1,050) and the Starter Build for websites from ₹34,999 (about US$400), with a written quote before work starts. The [SaaS development cost guide](/guides/saas-development-cost-india) explains how scope drives price. Compare quotes against the same written scope, and ask what support is included after launch.",
                 },
             ],
         },
@@ -171,7 +171,7 @@ const guide: Guide = {
         },
         {
             q: "How much does it cost to outsource software development to India?",
-            a: "It depends on scope, stack and team. Indian agencies commonly quote anywhere from a few lakh to tens of lakhs of rupees for a SaaS MVP, and websites cost less. StackWise starts from ₹49,999 (about US$550) for websites and ₹1,49,999 (about US$1,600) for SaaS products and web apps, with a written quote for every project.",
+            a: "It depends on scope, stack and team. Indian agencies commonly quote anywhere from a few lakh to tens of lakhs of rupees for a SaaS MVP, and websites cost less. StackWise starts from ₹34,999 (about US$400) for websites and ₹98,999 (about US$1,050) for SaaS products and web apps, with a written quote for every project.",
         },
         {
             q: "Who owns the code when I outsource development to India?",

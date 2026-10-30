@@ -21,14 +21,14 @@ export const locationPages: Record<string, MarketingPageData> = {
         summary: "A Mumbai software studio for SaaS, web apps and fast websites.",
         seo: {
             title: "Software & SaaS Development Company in Mumbai",
-            description: "Software, SaaS and website development company in Mumbai: Next.js builds from ₹49,999, written quotes, full code ownership, in-person meetings on request.",
+            description: "Software, SaaS and website development company in Mumbai: Next.js builds from ₹34,999, written quotes, full code ownership, in-person meetings on request.",
         },
         badge: "Mumbai, India",
         titleTop: "Software and SaaS development,",
         titleAccent: "built in Mumbai.",
         intro: "StackWise is a software development company in Mumbai, run by founder and lead engineer Yash Suthar. We build SaaS products, web apps and fast Next.js websites for Mumbai businesses and startups. You work directly with the engineer who writes your code, and we can meet in person in Mumbai by arrangement.",
         icon: Location01Icon,
-        facts: [{ label: "Starting at", value: "₹49,999" }, { label: "Time zone", value: "IST, same as you" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999" }, { label: "Time zone", value: "IST, same as you" }, quoteFact, ownershipFact],
         features: [
             { icon: MeetingRoomIcon, title: "Meet in person by arrangement", description: "Kickoffs, design reviews or handover can happen face to face in Mumbai when it helps. Between meetings, you message the engineer on Slack, Discord or email and join a weekly call." },
             { icon: Clock01Icon, title: "No time difference", description: "We share your clock, so a question raised in the morning can be talked through the same afternoon. Demos and calls are booked at times that suit your team, not squeezed into an overlap window." },
@@ -55,7 +55,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does software or website development cost in Mumbai?",
-                a: "At StackWise, business websites and landing pages start at ₹49,999, and SaaS products, dashboards and web apps start at ₹1,49,999. AI systems, mobile apps and larger platforms are quoted after a discovery call. Every Mumbai project gets a written quote before work begins, there is no hourly billing, and small additions under 10% of scope are absorbed.",
+                a: "At StackWise, business websites and landing pages start at ₹34,999, and SaaS products, dashboards and web apps start at ₹98,999. AI systems, mobile apps and larger platforms are quoted after a discovery call. Every Mumbai project gets a written quote before work begins, there is no hourly billing, and small additions under 10% of scope are absorbed.",
             },
             {
                 q: "Can we meet in person in Mumbai?",
@@ -139,14 +139,14 @@ export const locationPages: Record<string, MarketingPageData> = {
         summary: "Remote SaaS and software builds for startups and businesses across India.",
         seo: {
             title: "SaaS & Software Development Company in India",
-            description: "SaaS and software development company in India: Razorpay and UPI billing, GST-ready invoicing, DPDP-aware design and AWS Mumbai hosting. From ₹49,999.",
+            description: "SaaS and software development company in India: Razorpay and UPI billing, GST-ready invoicing, DPDP-aware design and AWS Mumbai hosting. From ₹34,999.",
         },
         badge: "Across India",
         titleTop: "SaaS and software development",
         titleAccent: "for teams across India.",
         intro: "StackWise is a Mumbai studio that builds SaaS products and custom software for companies anywhere in India, working remotely. The software handles what Indian products need: Razorpay and UPI payments, GST-ready invoices and data hosted in AWS Mumbai. Prices are listed in rupees, and the engineer who scopes your project is the one who builds it.",
         icon: MapsLocation01Icon,
-        facts: [{ label: "Starting at", value: "₹49,999" }, { label: "Time zone", value: "IST, one zone nationwide" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999" }, { label: "Time zone", value: "IST, one zone nationwide" }, quoteFact, ownershipFact],
         features: [
             { icon: Calendar03Icon, title: "Fully remote, one time zone", description: "India runs on a single time zone, so whether you are in Bengaluru, Delhi NCR, Pune or Kochi there is nothing to coordinate. Discovery, demos and the weekly call happen on video, and Slack, Discord or email cover the days between." },
             { icon: LockIcon, title: "Built with the DPDP Act in mind", description: "Consent and notice flows, data tagged by purpose, and admin tools to correct or erase a person's records, designed around the Digital Personal Data Protection Act, 2023. Final compliance sign-off sits with you and your advisers." },
@@ -173,7 +173,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "What does SaaS development cost in India?",
-                a: "At StackWise, a SaaS product, dashboard or web app starts at ₹1,49,999 and a business website at ₹49,999. Indian agencies commonly quote anywhere from a few lakh to tens of lakhs for a SaaS MVP, depending on scope and team. You get a written quote before work begins, and there is no hourly billing.",
+                a: "At StackWise, a SaaS product, dashboard or web app starts at ₹98,999 and a business website at ₹34,999. Indian agencies commonly quote anywhere from a few lakh to tens of lakhs for a SaaS MVP, depending on scope and team. You get a written quote before work begins, and there is no hourly billing.",
             },
             {
                 q: "Do you work with companies outside Mumbai?",
@@ -262,9 +262,9 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "For US teams",
         titleTop: "Offshore SaaS development",
         titleAccent: "for US startups and businesses.",
-        intro: "From Mumbai, StackWise designs and builds SaaS products, MVPs and internal software for American founders and companies. We work remotely, with no US office and no sales layer: you deal with the lead engineer, and calls fall where the Indian evening meets the US morning. Starting prices are set in rupees, about US$550 for a website and about US$1,600 for a SaaS product.",
+        intro: "From Mumbai, StackWise designs and builds SaaS products, MVPs and internal software for American founders and companies. We work remotely, with no US office and no sales layer: you deal with the lead engineer, and calls fall where the Indian evening meets the US morning. Starting prices are set in rupees, about US$400 for a website and about US$1,050 for a SaaS product.",
         icon: EarthIcon,
-        facts: [{ label: "Starting at", value: "₹49,999 (about US$550)" }, { label: "Time difference", value: "IST is 9.5–10.5 hours ahead of ET" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "IST is 9.5–10.5 hours ahead of ET" }, quoteFact, ownershipFact],
         features: [
             { icon: Clock01Icon, title: "Your morning, our evening", description: "India is 9.5 hours ahead of New York during daylight time (EDT) and 10.5 hours in winter (EST), so 9 am Eastern is 6:30 pm or 7:30 pm in Mumbai. Calls sit in that window, agreed at kickoff, and work continues through the Indian day." },
             { icon: Hospital01Icon, title: "HIPAA-aware health data", description: "For health products we design for encryption, role-based access and audit logs, on HIPAA-eligible AWS services covered by AWS's BAA. Student and children's data can be planned around FERPA and COPPA. You own the compliance sign-off." },
@@ -291,7 +291,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does it cost to outsource SaaS development to India from the US?",
-                a: "For a US company, the entry points are ₹49,999 (about US$550) for a marketing website and ₹1,49,999 (about US$1,600) for a SaaS product or web app. Dollar figures are approximate conversions from rupees. AI systems and larger platforms get a custom quote. Every US project has a written quote before work starts, and there is no hourly billing.",
+                a: "For a US company, the entry points are ₹34,999 (about US$400) for a marketing website and ₹98,999 (about US$1,050) for a SaaS product or web app. Dollar figures are approximate conversions from rupees. AI systems and larger platforms get a custom quote. Every US project has a written quote before work starts, and there is no hourly billing.",
             },
             {
                 q: "How does the time difference between the US and India work?",
@@ -382,7 +382,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         titleAccent: "for UK companies.",
         intro: "StackWise builds SaaS products, web apps and custom software for UK businesses from Mumbai, working remotely with no UK office. Your mornings line up with our afternoons, production data can stay in AWS London, and systems are designed with UK GDPR in mind. Starting prices are in rupees, with approximate US dollar figures for reference.",
         icon: Building03Icon,
-        facts: [{ label: "Starting at", value: "₹49,999 (about US$550)" }, { label: "Time difference", value: "IST is 4.5–5.5 hours ahead of UK time" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "IST is 4.5–5.5 hours ahead of UK time" }, quoteFact, ownershipFact],
         features: [
             { icon: Sun03Icon, title: "UK mornings, Indian afternoons", description: "India is 4.5 hours ahead during British Summer Time and 5.5 hours ahead on GMT. 9 am in London is 1:30 pm or 2:30 pm in Mumbai, so most of your morning and lunchtime overlap the Indian working day." },
             { icon: Shield01Icon, title: "UK GDPR and the DPA 2018", description: "Lawful-basis records, consent, subject access and erasure tools, and data minimization, designed around UK GDPR and the Data Protection Act 2018. Your DPO or adviser signs off on compliance." },
@@ -409,7 +409,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "What does it cost a UK company to outsource development to StackWise?",
-                a: "A UK marketing site starts at ₹49,999 (about US$550); a SaaS product or web app starts at ₹1,49,999 (about US$1,600). Prices are set in rupees, so treat the dollar numbers as a guide. Anything larger, such as mobile apps, AI work or complex platforms, gets a custom quote once discovery is done. You receive a written quote before anything is built, with no hourly billing.",
+                a: "A UK marketing site starts at ₹34,999 (about US$400); a SaaS product or web app starts at ₹98,999 (about US$1,050). Prices are set in rupees, so treat the dollar numbers as a guide. Anything larger, such as mobile apps, AI work or complex platforms, gets a custom quote once discovery is done. You receive a written quote before anything is built, with no hourly billing.",
             },
             {
                 q: "How much do UK and Indian working hours overlap?",
@@ -494,7 +494,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         titleAccent: "for Dubai and the UAE.",
         intro: "StackWise builds web apps, mobile apps and SaaS products for businesses in Dubai, Abu Dhabi and the rest of the UAE, working remotely from Mumbai. The UAE is only 1.5 hours behind India, so almost the entire working day is shared. Interfaces can ship in Arabic and English, with right-to-left layouts built properly from the start.",
         icon: City01Icon,
-        facts: [{ label: "Starting at", value: "₹49,999 (about US$550)" }, { label: "Time difference", value: "IST is 1.5 hours ahead of UAE" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "IST is 1.5 hours ahead of UAE" }, quoteFact, ownershipFact],
         features: [
             { icon: Time04Icon, title: "Almost the same working day", description: "Dubai is 1.5 hours behind Mumbai all year, since neither country uses daylight saving. 9 am in Dubai is 10:30 am in Mumbai, so the weekly call and daily threads on Slack, Discord or email all happen in shared hours." },
             { icon: TranslateIcon, title: "Arabic and right-to-left UI", description: "Layouts built with CSS logical properties so they mirror cleanly, direction-aware icons, Arabic web fonts and bilingual content in the CMS, checked in both directions before launch." },
@@ -521,7 +521,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does app or software development cost for a UAE business?",
-                a: "Business websites for UAE companies begin at ₹49,999 (about US$550), while SaaS products and web apps begin at ₹1,49,999 (about US$1,600). For mobile apps and AI features, the price comes after a discovery call. The dollar amounts are approximate conversions. Every UAE project is quoted in writing before any work starts.",
+                a: "Business websites for UAE companies begin at ₹34,999 (about US$400), while SaaS products and web apps begin at ₹98,999 (about US$1,050). For mobile apps and AI features, the price comes after a discovery call. The dollar amounts are approximate conversions. Every UAE project is quoted in writing before any work starts.",
             },
             {
                 q: "What is the time difference between India and the UAE?",
@@ -607,7 +607,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         titleAccent: "for Australian startups.",
         intro: "StackWise is a Mumbai software studio that builds SaaS products, web apps and websites for Australian founders, remotely. The Indian morning falls in your afternoon, data can live in AWS Sydney, and the product is designed with the Privacy Act 1988 in mind. You work with the engineer who builds it, not a project coordinator.",
         icon: Sun03Icon,
-        facts: [{ label: "Starting at", value: "₹49,999 (about US$550)" }, { label: "Time difference", value: "Sydney is 4.5–5.5 hours ahead of IST" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "Sydney is 4.5–5.5 hours ahead of IST" }, quoteFact, ownershipFact],
         features: [
             { icon: Clock02Icon, title: "Your afternoon, our morning", description: "Sydney and Melbourne are 4.5 hours ahead of India on AEST and 5.5 hours ahead on AEDT. 10 am in Mumbai is 2:30 pm or 3:30 pm in Sydney, which makes your afternoon the natural slot for calls." },
             { icon: Shield01Icon, title: "Privacy Act 1988 and the APPs", description: "Collection notices, access and correction requests and breach logging designed around the Australian Privacy Principles, including APP 8 on sending personal information overseas. Your advisers sign off on compliance." },
@@ -634,7 +634,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "What does offshore development cost for an Australian startup?",
-                a: "An Australian startup can begin with a landing page or website from ₹49,999 (about US$550), or a SaaS product, dashboard or web app from ₹1,49,999 (about US$1,600). AI systems, mobile apps and high-traffic platforms are custom quotes. The US dollar numbers are approximate. Your quote is written and agreed before any work begins.",
+                a: "An Australian startup can begin with a landing page or website from ₹34,999 (about US$400), or a SaaS product, dashboard or web app from ₹98,999 (about US$1,050). AI systems, mobile apps and high-traffic platforms are custom quotes. The US dollar numbers are approximate. Your quote is written and agreed before any work begins.",
             },
             {
                 q: "How do Australian and Indian time zones line up?",
@@ -719,7 +719,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         titleAccent: "for Canadian companies.",
         intro: "StackWise builds SaaS products, AI features and custom software for Canadian startups and businesses, remotely from Mumbai. Data can stay in AWS Canada (Central), the design is built around PIPEDA's principles, and calls happen in your morning. From the first call to handover you talk to the engineer who writes the code.",
         icon: MapPinIcon,
-        facts: [{ label: "Starting at", value: "₹49,999 (about US$550)" }, { label: "Time difference", value: "IST is 9.5–10.5 hours ahead of Toronto" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "IST is 9.5–10.5 hours ahead of Toronto" }, quoteFact, ownershipFact],
         features: [
             { icon: Calendar03Icon, title: "Calls in your morning", description: "Toronto is on Eastern time, so 9 am there is 6:30 pm in Mumbai in summer and 7:30 pm in winter. Vancouver is three hours further behind, so West Coast calls land early in your day. Slack, Discord or email cover everything in between." },
             { icon: Shield01Icon, title: "PIPEDA and provincial laws", description: "Meaningful consent, purpose limits, access requests and breach records, designed around PIPEDA. Quebec's Law 25 and the Alberta and British Columbia privacy acts may also apply; your advisers confirm which." },
@@ -746,7 +746,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does it cost a Canadian company to outsource development to India?",
-                a: "StackWise starting prices are ₹49,999 (about US$550) for websites and ₹1,49,999 (about US$1,600) for SaaS products and web apps, converted at roughly ₹93 per US dollar. AI features, mobile apps and cloud work are priced after discovery. Before anything is built you get a written quote, and minor changes under 10% of scope are absorbed.",
+                a: "StackWise starting prices are ₹34,999 (about US$400) for websites and ₹98,999 (about US$1,050) for SaaS products and web apps, converted at roughly ₹93 per US dollar. AI features, mobile apps and cloud work are priced after discovery. Before anything is built you get a written quote, and minor changes under 10% of scope are absorbed.",
             },
             {
                 q: "What is the time difference between Toronto, Vancouver and India?",
@@ -831,7 +831,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         titleAccent: "for Singapore startups and SMEs.",
         intro: "StackWise builds SaaS products, web apps and internal tools for Singapore startups and SMEs, remotely from Mumbai. Singapore is 2.5 hours ahead of India, so most of your working day overlaps ours. Products are designed with the PDPA in mind, hosted in AWS Singapore, and structured so new markets in the region can be added later.",
         icon: Building05Icon,
-        facts: [{ label: "Starting at", value: "₹49,999 (about US$550)" }, { label: "Time difference", value: "Singapore is 2.5 hours ahead of IST" }, quoteFact, ownershipFact],
+        facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "Singapore is 2.5 hours ahead of IST" }, quoteFact, ownershipFact],
         features: [
             { icon: Clock01Icon, title: "Shared afternoons", description: "9 am in Singapore is 6:30 am in Mumbai and 5 pm is 2:30 pm, so your late morning and afternoon share hours with the Indian working day. Neither country changes its clocks, and updates flow through Slack, Discord or email." },
             { icon: Shield01Icon, title: "PDPA 2012 obligations", description: "Consent and notification flows, access and correction requests, and breach logging designed around the PDPA's data protection obligations, including mandatory breach notification. Your DPO confirms compliance." },
@@ -858,7 +858,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         faqs: [
             {
                 q: "How much does software development cost for a Singapore startup?",
-                a: "Prices for Singapore projects start at ₹49,999 (about US$550) for a website and ₹1,49,999 (about US$1,600) for a SaaS product or web app. The dollar amounts are rough conversions, not fixed prices. Platforms with AI, mobile apps or heavy traffic are scoped and quoted individually. No work begins until you have a written quote.",
+                a: "Prices for Singapore projects start at ₹34,999 (about US$400) for a website and ₹98,999 (about US$1,050) for a SaaS product or web app. The dollar amounts are rough conversions, not fixed prices. Platforms with AI, mobile apps or heavy traffic are scoped and quoted individually. No work begins until you have a written quote.",
             },
             {
                 q: "How many hours ahead of India is Singapore?",

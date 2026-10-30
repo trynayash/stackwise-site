@@ -185,7 +185,7 @@ export function siteGraph({ services }: { services: { name: string; path: string
                 url,
                 image: logo.url,
                 email: emails.inbound,
-                priceRange: "₹49,999 – ₹1,49,999+",
+                priceRange: "₹34,999 – ₹98,999+",
                 address,
                 areaServed,
                 knowsAbout,

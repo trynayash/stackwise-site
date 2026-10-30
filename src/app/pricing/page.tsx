@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata = constructMetadata({
     title: "Pricing: SaaS, Web App & Website Development",
-    description: "Websites from ₹49,999 and SaaS products from ₹1,49,999, with a fixed written quote before work starts. Compare plans and see starting prices for every service.",
+    description: "Websites from ₹34,999 and SaaS products from ₹98,999, with a fixed written quote before work starts. Compare plans and see starting prices for every service.",
     canonical: "/pricing",
     ogKicker: "Pricing",
 });
@@ -100,7 +100,7 @@ export default function PricingPage() {
                     </h1>
                     <Enter delay={0.25} className="mt-7 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
                         <p className="max-w-2xl text-lg leading-relaxed text-white/60">
-                            Websites from ₹49,999 and SaaS products from ₹1,49,999. Every project gets a fixed, written quote before any work starts. No hourly billing, no
+                            Websites from ₹34,999 and SaaS products from ₹98,999. Every project gets a fixed, written quote before any work starts. No hourly billing, no
                             surprise invoices, and you own all of the code.
                         </p>
                         <QuoteButton label="Get my price" />
