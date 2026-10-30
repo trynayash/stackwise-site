@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { scrollToTarget } from "@/lib/scroll";
 
 /**
  * Returns a click handler for links to home-page sections (`/#id`).
@@ -16,7 +17,12 @@ export function useSectionNav() {
             e.preventDefault();
             after?.();
             if (pathname === "/") {
-                document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                const el = document.getElementById(id);
+                if (el) {
+                    // Scrolling up brings the navbar back, so leave room for it; scrolling down tucks it away.
+                    const up = el.getBoundingClientRect().top < 0;
+                    scrollToTarget(el, { offset: up ? -88 : 0 });
+                }
                 history.replaceState(null, "", `#${id}`);
             } else {
                 router.push(`/#${id}`);

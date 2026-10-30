@@ -67,7 +67,7 @@ export function Navbar() {
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-    const { openInquiry } = useInquiry();
+    const { openInquiry, isOpen: quoteOpen } = useInquiry();
     const goToSection = useSectionNav();
     const navLink = useNavLink();
 
@@ -120,6 +120,12 @@ export function Navbar() {
     }, []);
 
     const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+    // Phone browsers tint their own bars with theme-color; match whatever sits under the navbar.
+    useEffect(() => {
+        const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+        if (meta) meta.content = overLight && !menuOpen && !isMobileNavOpen && !quoteOpen ? "#f2f1ec" : "#0a0a0a";
+    }, [overLight, menuOpen, isMobileNavOpen, quoteOpen]);
 
     const solid = isScrolled || menuOpen;
     const light = overLight && !menuOpen;

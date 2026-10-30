@@ -12,6 +12,7 @@ import { useNavLink } from "@/hooks/use-section-nav";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { lockScroll, unlockScroll } from "@/lib/scroll";
 
 interface MobileNavProps {
     isOpen: boolean;
@@ -26,12 +27,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
 
     useEffect(() => {
         if (!isOpen) return;
-        const previous = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
+        lockScroll();
         const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
         window.addEventListener("keydown", onKey);
         return () => {
-            document.body.style.overflow = previous;
+            unlockScroll();
             window.removeEventListener("keydown", onKey);
         };
     }, [isOpen, onClose]);
@@ -48,7 +48,6 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     role="dialog"
                     aria-modal="true"
                     aria-label="Menu"
-                    data-lenis-prevent
                 >
                     <div className="flex h-[72px] flex-shrink-0 items-center justify-between px-5 short:h-14">
                         <Link href="/" onClick={onClose} aria-label="StackWise home">
@@ -63,7 +62,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                         </button>
                     </div>
 
-                    <nav className="flex-1 overflow-y-auto px-5 py-4 short:py-1" aria-label="Mobile navigation">
+                    <nav data-lenis-prevent className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 short:py-1" aria-label="Mobile navigation">
                         {/* Short screens (a phone on its side) list the links in two columns so more fit without scrolling. */}
                         <ul className="space-y-1 short:grid short:grid-cols-2 short:gap-x-8 short:space-y-0">
                             <li className="short:col-span-2">

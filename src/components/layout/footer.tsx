@@ -9,6 +9,7 @@ import { Magnetic } from "@/components/ui/interactive";
 import { useNavLink } from "@/hooks/use-section-nav";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
+import { scrollToTarget } from "@/lib/scroll";
 
 const linkClass = "link-draw text-sm text-white/55 hover:text-white";
 
@@ -145,7 +146,7 @@ export function Footer() {
                         <Link href="/privacy" className="inline-flex min-h-11 items-center hover:text-white transition-colors">Privacy</Link>
                         <Link href="/terms" className="inline-flex min-h-11 items-center hover:text-white transition-colors">Terms</Link>
                         <button
-                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                            onClick={() => scrollToTarget(0)}
                             className="inline-flex min-h-11 items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
                         >
                             Back to top

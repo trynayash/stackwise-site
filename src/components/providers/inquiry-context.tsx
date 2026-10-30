@@ -1,7 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useRef } from "react";
 import type { QuotePreset } from "@/lib/quote";
+import { lockScroll, unlockScroll } from "@/lib/scroll";
 
 interface InquiryContextType {
     isOpen: boolean;
@@ -22,16 +23,24 @@ const InquiryContext = createContext<InquiryContextType>({
 export function InquiryProvider({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
     const [preset, setPreset] = useState<QuotePreset | undefined>(undefined);
+    // Whether this provider currently holds the page's scroll lock, so repeat opens never lock twice.
+    const locked = useRef(false);
 
     const openInquiry = useCallback((value?: QuotePreset | React.SyntheticEvent) => {
         setPreset(value && !("nativeEvent" in value) ? value : undefined);
         setIsOpen(true);
-        document.body.style.overflow = "hidden";
+        if (!locked.current) {
+            locked.current = true;
+            lockScroll();
+        }
     }, []);
 
     const closeInquiry = useCallback(() => {
         setIsOpen(false);
-        document.body.style.overflow = "";
+        if (locked.current) {
+            locked.current = false;
+            unlockScroll();
+        }
     }, []);
 
     return <InquiryContext.Provider value={{ isOpen, preset, openInquiry, closeInquiry }}>{children}</InquiryContext.Provider>;

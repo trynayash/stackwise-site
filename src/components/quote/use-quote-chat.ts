@@ -292,6 +292,8 @@ export function useQuoteChat(preset?: QuotePreset) {
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                // A stalled request becomes the email hand-off below instead of a chat stuck on "sending".
+                signal: AbortSignal.timeout(20_000),
                 body: JSON.stringify({
                     name: answers.name,
                     email: answers.email,

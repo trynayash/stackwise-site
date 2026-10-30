@@ -98,6 +98,11 @@ section[id] {
 }
 
 /* Lenis smooth scroll */
+html {
+  /* Keep the scrollbar's space while a modal freezes the page, so nothing shifts sideways. */
+  scrollbar-gutter: stable;
+}
+
 html.lenis,
 html.lenis body {
   height: auto;

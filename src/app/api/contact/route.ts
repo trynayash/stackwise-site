@@ -6,6 +6,21 @@ import { redactSensitive } from "@/lib/assistant";
 
 const MAX_BODY_BYTES = 20_000;
 
+/** JSON reply that no browser or CDN may cache. */
+function reply(body: Record<string, unknown>, status: number) {
+    return NextResponse.json(body, { status, headers: { "Cache-Control": "no-store" } });
+}
+
+/** The visitor's address: Vercel's own header first, since x-forwarded-for can be appended to by anyone upstream. */
+function clientIp(request: Request): string {
+    return (
+        request.headers.get("x-vercel-forwarded-for")?.split(",")[0].trim() ||
+        request.headers.get("x-real-ip")?.trim() ||
+        request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+        "unknown"
+    );
+}
+
 /** Only this site (production, Vercel previews and local dev) may post enquiries; stops other sites and scripts using it as a mail relay. */
 function isAllowedOrigin(origin: string | null): boolean {
     if (!origin) return false;
@@ -39,13 +54,22 @@ const contactSchema = z.object({
     botField: z.string().optional(),
 });
 
-// Simple in-memory rate limiter map
+// In-memory rate limiter. Each serverless instance keeps its own map, so this is a brake on bursts rather
+// than a hard guarantee; the origin check and honeypot carry the rest.
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const LIMIT = 5; // 5 inquiries per hour
 const WINDOW = 60 * 60 * 1000; // 1 hour
+const MAX_TRACKED = 5_000;
+
+/** Drops expired entries so the map can't grow without bound on a long-lived instance. */
+function pruneRateMap(now: number) {
+    for (const [key, entry] of rateLimitMap) if (now - entry.lastReset > WINDOW) rateLimitMap.delete(key);
+    if (rateLimitMap.size > MAX_TRACKED) rateLimitMap.clear();
+}
 
 function isRateLimited(ip: string): boolean {
     const now = Date.now();
+    pruneRateMap(now);
     const clientLimit = rateLimitMap.get(ip);
     
     if (!clientLimit) {
@@ -68,52 +92,43 @@ function isRateLimited(ip: string): boolean {
 
 export async function POST(request: Request) {
     try {
-        // Read client IP for rate limiting
-        const ip = request.headers.get("x-forwarded-for")?.split(",")[0] || 
-                   request.headers.get("x-real-ip") || 
-                   "127.0.0.1";
-
-        if (!isAllowedOrigin(request.headers.get("origin"))) {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        // Browsers label cross-site requests themselves; anything so labelled is not this site's chat.
+        const fetchSite = request.headers.get("sec-fetch-site");
+        if (!isAllowedOrigin(request.headers.get("origin")) || fetchSite === "cross-site") {
+            return reply({ error: "Forbidden" }, 403);
         }
         if (!request.headers.get("content-type")?.includes("application/json")) {
-            return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
+            return reply({ error: "Unsupported content type" }, 415);
         }
         const text = await request.text();
         if (text.length > MAX_BODY_BYTES) {
-            return NextResponse.json({ error: "Message too long" }, { status: 413 });
+            return reply({ error: "Message too long" }, 413);
         }
         // Counted only for requests from this site, so junk from elsewhere can't use up a visitor's allowance.
-        if (isRateLimited(ip)) {
-            return NextResponse.json(
-                { error: `Too many inquiries sent. Please wait an hour or email ${siteConfig.emails.inbound} directly.` },
-                { status: 429 }
-            );
+        if (isRateLimited(clientIp(request))) {
+            return reply({ error: `Too many inquiries sent. Please wait an hour or email ${siteConfig.emails.inbound} directly.` }, 429);
         }
         let body: Record<string, unknown>;
         try {
             body = JSON.parse(text);
         } catch {
-            return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+            return reply({ error: "Invalid request" }, 400);
+        }
+        if (!body || typeof body !== "object" || Array.isArray(body)) {
+            return reply({ error: "Invalid request" }, 400);
         }
 
         // 1. Honeypot Check (Silently drop bot spam)
         if (body.botField) {
             console.warn("[contact] Honeypot triggered; dropped silently.");
-            return NextResponse.json(
-                { success: true, message: "Message sent successfully" },
-                { status: 200 }
-            );
+            return reply({ success: true, message: "Message sent successfully" }, 200);
         }
 
         // 2. Schema Validation using Zod
         const result = contactSchema.safeParse(body);
         if (!result.success) {
             const firstError = result.error.issues[0]?.message || "Invalid form data";
-            return NextResponse.json(
-                { error: firstError },
-                { status: 400 }
-            );
+            return reply({ error: firstError }, 400);
         }
 
         // The chat already strips card, ID and password details; repeat it here for requests that skip the chat.
@@ -125,10 +140,7 @@ export async function POST(request: Request) {
         // 3. SMTP Production Credentials Check
         if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
             console.error("❌ STACKWISE SMTP SERVICE: Missing GMAIL_USER or GMAIL_APP_PASSWORD environment variables.");
-            return NextResponse.json(
-                { error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.`, code: "email_not_configured" },
-                { status: 503 }
-            );
+            return reply({ error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.`, code: "email_not_configured" }, 503);
         }
 
         // Build premium styled email HTML
@@ -232,13 +244,16 @@ export async function POST(request: Request) {
 </body>
 </html>`;
 
-        // Create Nodemailer transporter
+        // Short timeouts: if Gmail is slow the visitor gets the email hand-off instead of a hung request.
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
                 user: process.env.GMAIL_USER,
                 pass: process.env.GMAIL_APP_PASSWORD,
             },
+            connectionTimeout: 8_000,
+            greetingTimeout: 8_000,
+            socketTimeout: 12_000,
         });
 
         // Send the email
@@ -254,15 +269,9 @@ export async function POST(request: Request) {
         // No personal details in logs.
         console.log("[contact] Enquiry sent.");
 
-        return NextResponse.json(
-            { success: true, message: "Message sent successfully" },
-            { status: 200 }
-        );
+        return reply({ success: true, message: "Message sent successfully" }, 200);
     } catch (error) {
         console.error("[contact] Failed to send:", error instanceof Error ? error.message : "unknown error");
-        return NextResponse.json(
-            { error: "Failed to send message. Please try again." },
-            { status: 500 }
-        );
+        return reply({ error: "Failed to send message. Please try again." }, 500);
     }
 }

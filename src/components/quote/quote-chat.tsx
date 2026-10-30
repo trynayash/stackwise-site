@@ -190,10 +190,11 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
           ? (options[step] ?? (optionalSteps[step] ? [optionalSteps[step]!] : []))
           : suggestions;
 
-    // Keep the newest message in view, without moving the page around the chat.
+    // Keep the newest message in view: animated once the visitor has joined in, a plain jump while the
+    // greeting arrives (on a short landscape phone the second line would otherwise sit under the fold).
     useEffect(() => {
         const el = logRef.current;
-        if (el && interacted.current) el.scrollTo({ top: el.scrollHeight, behavior: reduced ? "auto" : "smooth" });
+        if (el) el.scrollTo({ top: el.scrollHeight, behavior: interacted.current && !reduced ? "smooth" : "auto" });
     }, [messages.length, typing, reduced]);
 
     // Reopening the drawer mid-conversation starts at the latest message.
@@ -329,7 +330,7 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                 <div className="mx-auto w-full max-w-[720px]">
                     {chips.length > 0 && (
                         // One swipeable row on phones and short screens, so the options never crowd out the conversation.
-                        <div className="scrollbar-hide -mx-3 mb-3 flex gap-2 overflow-x-auto px-3 sm:tall:mx-0 sm:tall:flex-wrap sm:tall:overflow-visible sm:tall:px-0">
+                        <div data-lenis-prevent className="scrollbar-hide -mx-3 mb-3 flex gap-2 overflow-x-auto px-3 sm:tall:mx-0 sm:tall:flex-wrap sm:tall:overflow-visible sm:tall:px-0">
                             {chips.map((c) => (
                                 <button
                                     key={c}
