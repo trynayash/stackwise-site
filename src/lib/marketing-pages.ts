@@ -91,7 +91,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         summary: "LLM features, RAG over your data and AI agents.",
         seo: {
             title: "AI Development Services",
-            description: "AI development services: LLM features, RAG over your own documents and AI agents built into your product with OpenAI, Anthropic or open-source models.",
+            description: "AI development services: LLM features, RAG over your own documents and AI agents built into your product with leading commercial or open-source models.",
         },
         badge: "AI Engineering",
         titleTop: "AI features that",
@@ -100,7 +100,7 @@ export const marketingPages: Record<string, MarketingPageData> = {
         icon: AiBrain01Icon,
         facts: [{ label: "Typical timeline", value: "Scoped after discovery" }, { label: "Starting at", value: "Custom quote" }, quoteFact, ownershipFact],
         features: [
-            { icon: AiBrain01Icon, title: "LLM integration", description: "Custom prompting layers and integrations with OpenAI, Anthropic and open-source models." },
+            { icon: AiBrain01Icon, title: "LLM integration", description: "Custom prompting layers and integrations with leading commercial and open-source models." },
             { icon: AiNetworkIcon, title: "Agentic workflows", description: "Agents that run multi-step tasks and call your tools and APIs, with guardrails and logging." },
             { icon: DatabaseIcon, title: "Vector search & RAG", description: "Retrieval-augmented generation with pgvector, Pinecone or Milvus, so answers come from your own documents." },
             { icon: WorkflowSquare01Icon, title: "Document pipelines", description: "Classification, semantic search, summaries and extraction over unstructured text and email." },
@@ -109,10 +109,10 @@ export const marketingPages: Record<string, MarketingPageData> = {
         ],
         idealFor: ["Products adding AI search, chat or copilots", "Teams drowning in documents, tickets or email", "Operations that repeat the same judgement calls daily"],
         deliverables: ["Use-case & data review", "Model and provider selection", "RAG pipeline / vector store", "Agent tools & guardrails", "Evaluation set & monitoring", "Cost and latency report"],
-        stack: ["OpenAI", "Anthropic", "pgvector", "Pinecone", "Milvus", "Python", "TypeScript", "PyTorch", "TensorFlow"],
+        stack: ["LLM APIs", "pgvector", "Pinecone", "Milvus", "Python", "TypeScript", "PyTorch", "TensorFlow"],
         work: ["startupdeck", "limityourapi"],
         faqs: [
-            { q: "Which AI models do you work with?", a: "OpenAI, Anthropic and open-source models. We choose based on quality, cost, latency and where your data is allowed to go, and we can switch providers later without a rewrite." },
+            { q: "Which AI models do you work with?", a: "Leading commercial and open-source models. We choose based on quality, cost, latency and where your data is allowed to go, and we can switch providers later without a rewrite." },
             { q: "Can AI use our private documents securely?", a: "Yes. With retrieval-augmented generation your documents stay in your own database or vector store. Access rules are enforced before anything reaches the model, and we can keep everything inside your cloud." },
             { q: "Can you add AI to our existing product?", a: "Yes. Most AI work plugs into an existing codebase through your current APIs and database. We start by finding the one or two features where AI saves the most time." },
         ],
