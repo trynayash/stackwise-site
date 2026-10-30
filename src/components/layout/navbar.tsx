@@ -9,6 +9,7 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/interactive";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { useNavLink, useSectionNav } from "@/hooks/use-section-nav";
 import { servicePages, solutionPages, technologyPages, type MarketingPageData } from "@/lib/marketing-pages";
@@ -40,11 +41,25 @@ function MenuLink({ page, onNavigate }: { page: MarketingPageData; onNavigate: (
     );
 }
 
+/** Soft pill that slides between the top-level links as the mouse moves across them. */
+function NavPill() {
+    return (
+        <motion.span
+            layoutId="nav-pill"
+            aria-hidden
+            className="absolute inset-0 -z-10 rounded-full bg-white/[0.08]"
+            transition={{ type: "spring", stiffness: 380, damping: 32 }}
+        />
+    );
+}
+
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    // Which top-level link the sliding highlight sits behind (desktop hover).
+    const [hovered, setHovered] = useState<string | null>(null);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
@@ -117,8 +132,9 @@ export function Navbar() {
                             <Logo size="md" />
                         </Link>
 
-                        <ul className="hidden lg:flex items-center gap-1">
-                            <li>
+                        <ul className="hidden lg:flex items-center gap-1" onMouseLeave={() => setHovered(null)}>
+                            <li className="relative isolate" onMouseEnter={() => setHovered("services")}>
+                                {hovered === "services" && <NavPill />}
                                 <button
                                     type="button"
                                     onMouseEnter={openMenu}
@@ -135,7 +151,8 @@ export function Navbar() {
                                 </button>
                             </li>
                             {siteConfig.navItems.map((item) => (
-                                <li key={item.title}>
+                                <li key={item.title} className="relative isolate" onMouseEnter={() => setHovered(item.title)}>
+                                    {hovered === item.title && <NavPill />}
                                     <Link
                                         {...navLink(item)}
                                         onMouseEnter={scheduleClose}
@@ -155,9 +172,11 @@ export function Navbar() {
                             >
                                 Contact
                             </Link>
-                            <Button size="sm" onClick={openInquiry} arrow="right" className="hidden sm:inline-flex">
-                                Get a quote
-                            </Button>
+                            <Magnetic strength={0.25} className="hidden sm:inline-block">
+                                <Button size="sm" onClick={openInquiry} arrow="right">
+                                    Get a quote
+                                </Button>
+                            </Magnetic>
                             <button
                                 onClick={() => setIsMobileNavOpen(true)}
                                 className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white transition-colors hover:bg-white/[0.12]"

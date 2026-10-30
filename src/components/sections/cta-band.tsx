@@ -5,6 +5,7 @@ import { Mail01Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/interactive";
 import { Icon } from "@/components/ui/icon";
 import { siteConfig } from "@/config/site";
 import type { QuotePreset } from "@/lib/quote";
@@ -37,9 +38,11 @@ export function CtaBand({
                             <h2 className="mt-3 text-[2.25rem] font-semibold leading-[1.04] tracking-[-0.04em] sm:text-5xl md:text-6xl text-balance">{title}</h2>
                             <p className="mt-5 max-w-xl text-base leading-relaxed text-black/70 md:text-lg">{subtitle}</p>
                             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                                <Button variant="dark" size="lg" arrow="right" onClick={() => openInquiry(preset)}>
-                                    Get a free quote
-                                </Button>
+                                <Magnetic>
+                                    <Button variant="dark" size="lg" arrow="right" onClick={() => openInquiry(preset)}>
+                                        Get a free quote
+                                    </Button>
+                                </Magnetic>
                                 <a
                                     href={`mailto:${siteConfig.emails.inbound}`}
                                     className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-black/10 px-7 text-base font-semibold transition-colors hover:bg-black/15"

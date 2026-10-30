@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUp01Icon, Github01Icon, Mail01Icon, NewTwitterIcon } from "@hugeicons/core-free-icons";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
+import { Magnetic } from "@/components/ui/interactive";
 import { useNavLink } from "@/hooks/use-section-nav";
 import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
 import { siteConfig } from "@/config/site";
@@ -50,16 +51,17 @@ export function Footer() {
                                 { label: "Yash Suthar on GitHub", href: siteConfig.links.github, icon: Github01Icon },
                                 { label: "Email StackWise", href: `mailto:${siteConfig.emails.inbound}`, icon: Mail01Icon },
                             ].map((s) => (
-                                <a
-                                    key={s.label}
-                                    href={s.href}
-                                    aria-label={s.label}
-                                    target={s.href.startsWith("http") ? "_blank" : undefined}
-                                    rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors hover:bg-accent hover:text-black"
-                                >
-                                    <Icon icon={s.icon} size={18} />
-                                </a>
+                                <Magnetic key={s.label} strength={0.4}>
+                                    <a
+                                        href={s.href}
+                                        aria-label={s.label}
+                                        target={s.href.startsWith("http") ? "_blank" : undefined}
+                                        rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                        className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors hover:bg-accent hover:text-black"
+                                    >
+                                        <Icon icon={s.icon} size={18} />
+                                    </a>
+                                </Magnetic>
                             ))}
                         </div>
                     </div>

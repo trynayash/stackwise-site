@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/hero";
 import { Marquee } from "@/components/sections/marquee";
 import { Portfolio } from "@/components/sections/portfolio";
 import { Services } from "@/components/sections/services";
+import { StackLoop } from "@/components/sections/stack-loop";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { Pricing } from "@/components/sections/pricing";
 import { About } from "@/components/sections/about";
@@ -19,6 +20,7 @@ export default function Home() {
             <Marquee />
             <Portfolio />
             <Services />
+            <StackLoop />
             <ProcessTimeline />
             <Pricing />
             <About />

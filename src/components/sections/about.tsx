@@ -4,6 +4,7 @@ import { ArrowRight01Icon, ArrowUpRight01Icon, Github01Icon, Globe02Icon, Locati
 import { Icon } from "@/components/ui/icon";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { CountUp, ScrollLitText } from "@/components/ui/scroll-effects";
+import { Tilt } from "@/components/ui/interactive";
 import { proofPoints } from "@/lib/proof";
 import { siteConfig } from "@/config/site";
 
@@ -29,15 +30,17 @@ export function ProofGrid() {
                 const cls = "group flex h-full flex-col rounded-3xl bg-surface p-7 transition-colors hover:bg-surface-2";
                 return (
                     <StaggerItem key={p.label} className="h-full">
-                        {external ? (
-                            <a href={p.link.href} target="_blank" rel="noopener noreferrer" className={cls}>
-                                {inner}
-                            </a>
-                        ) : (
-                            <Link href={p.link.href} className={cls}>
-                                {inner}
-                            </Link>
-                        )}
+                        <Tilt className="h-full" max={6}>
+                            {external ? (
+                                <a href={p.link.href} target="_blank" rel="noopener noreferrer" className={cls}>
+                                    {inner}
+                                </a>
+                            ) : (
+                                <Link href={p.link.href} className={cls}>
+                                    {inner}
+                                </Link>
+                            )}
+                        </Tilt>
                     </StaggerItem>
                 );
             })}

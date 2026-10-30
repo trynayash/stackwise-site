@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { useInquiry } from "@/components/providers/inquiry-context";
+import { Tilt } from "@/components/ui/interactive";
 
 const steps = [
     {
@@ -54,30 +55,32 @@ export function ProcessTimeline() {
                 <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     {steps.map((step) => (
                         <StaggerItem key={step.week} className="h-full">
-                            <div className="flex h-full flex-col rounded-3xl bg-surface p-7 transition-[transform,background-color] duration-300 hover:-translate-y-1 hover:bg-surface-2">
-                                <div className="flex items-center justify-between">
-                                    <motion.span
-                                        initial={{ scale: 0.5, rotate: -20 }}
-                                        whileInView={{ scale: 1, rotate: 0 }}
-                                        viewport={{ once: true, margin: "-40px" }}
-                                        transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.15 }}
-                                        className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-black"
-                                    >
-                                        <Icon icon={step.icon} size={22} />
-                                    </motion.span>
-                                    <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">{step.week}</span>
+                            <Tilt className="h-full" max={6}>
+                                <div className="flex h-full flex-col rounded-3xl bg-surface p-7 transition-colors duration-300 hover:bg-surface-2">
+                                    <div className="flex items-center justify-between">
+                                        <motion.span
+                                            initial={{ scale: 0.5, rotate: -20 }}
+                                            whileInView={{ scale: 1, rotate: 0 }}
+                                            viewport={{ once: true, margin: "-40px" }}
+                                            transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.15 }}
+                                            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-black"
+                                        >
+                                            <Icon icon={step.icon} size={22} />
+                                        </motion.span>
+                                        <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">{step.week}</span>
+                                    </div>
+                                    <h3 className="mt-8 text-2xl font-semibold tracking-tight text-white">{step.title}</h3>
+                                    <p className="mt-3 text-[15px] leading-relaxed text-white/60">{step.description}</p>
+                                    <ul className="mt-auto space-y-2.5 pt-7">
+                                        {step.deliverables.map((d) => (
+                                            <li key={d} className="flex items-start gap-2.5 text-sm text-white/75">
+                                                <Icon icon={Tick02Icon} size={16} strokeWidth={2} className="mt-0.5 flex-shrink-0 text-accent" />
+                                                {d}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <h3 className="mt-8 text-2xl font-semibold tracking-tight text-white">{step.title}</h3>
-                                <p className="mt-3 text-[15px] leading-relaxed text-white/60">{step.description}</p>
-                                <ul className="mt-auto space-y-2.5 pt-7">
-                                    {step.deliverables.map((d) => (
-                                        <li key={d} className="flex items-start gap-2.5 text-sm text-white/75">
-                                            <Icon icon={Tick02Icon} size={16} strokeWidth={2} className="mt-0.5 flex-shrink-0 text-accent" />
-                                            {d}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            </Tilt>
                         </StaggerItem>
                     ))}
                 </Stagger>

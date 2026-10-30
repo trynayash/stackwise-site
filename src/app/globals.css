@@ -285,6 +285,23 @@ html.lenis body {
   animation-delay: var(--d, 0ms);
 }
 
+/* Circular "Get a free quote" badge: slow constant spin, plus a faster one that runs only on hover. */
+.badge-spin {
+  animation: spin 22s linear infinite;
+}
+
+.badge-spin-fast {
+  animation: spin 4s linear infinite paused;
+}
+
+.group:hover .badge-spin-fast {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes riseWord {
   from { opacity: 0.35; transform: translateY(0.4em) rotate(3deg); }
   to { opacity: 1; transform: none; }

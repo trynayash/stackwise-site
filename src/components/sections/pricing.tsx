@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { CountUp } from "@/components/ui/scroll-effects";
+import { Tilt } from "@/components/ui/interactive";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -29,44 +30,46 @@ export function Pricing() {
                         const hi = plan.highlight;
                         return (
                             <StaggerItem key={plan.title} className="h-full">
-                                <div
-                                    className={cn(
-                                        "flex h-full flex-col rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1 md:p-9",
-                                        hi ? "bg-accent text-black" : "bg-surface text-white"
-                                    )}
-                                >
-                                    <div className="flex items-center justify-between gap-4">
-                                        <h3 className="text-xl font-semibold">{plan.title}</h3>
-                                        {hi && <span className="rounded-full bg-black px-3 py-1 text-xs font-semibold text-accent">Most popular</span>}
-                                    </div>
-                                    <p className={cn("mt-3 text-[15px] leading-relaxed", hi ? "text-black/70" : "text-white/60")}>{plan.description}</p>
-
-                                    <p className="mt-8 flex items-baseline gap-2">
-                                        {plan.price !== "Custom" && <span className={cn("text-sm", hi ? "text-black/60" : "text-white/55")}>from</span>}
-                                        <span className="text-[2.75rem] font-semibold leading-none tracking-[-0.04em] md:text-5xl">
-                                            {plan.price === "Custom" ? "Custom" : <CountUp value={plan.price.replace("+", "")} duration={1.6} />}
-                                        </span>
-                                    </p>
-
-                                    <ul className="mt-8 space-y-3.5">
-                                        {plan.features.map((feature) => (
-                                            <li key={feature} className={cn("flex items-start gap-3 text-[15px]", hi ? "text-black/80" : "text-white/75")}>
-                                                <Icon icon={Tick02Icon} size={18} strokeWidth={2} className={cn("mt-0.5 flex-shrink-0", hi ? "text-black" : "text-accent")} />
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    <Button
-                                        onClick={() => openInquiry({ plan: plan.title })}
-                                        variant={hi ? "dark" : "secondary"}
-                                        size="lg"
-                                        arrow="right"
-                                        className="mt-10 w-full"
+                                <Tilt className="h-full" max={5}>
+                                    <div
+                                        className={cn(
+                                            "flex h-full flex-col rounded-3xl p-8 md:p-9",
+                                            hi ? "bg-accent text-black" : "bg-surface text-white"
+                                        )}
                                     >
-                                        {plan.price === "Custom" ? "Talk to us" : "Get a quote"}
-                                    </Button>
-                                </div>
+                                        <div className="flex items-center justify-between gap-4">
+                                            <h3 className="text-xl font-semibold">{plan.title}</h3>
+                                            {hi && <span className="rounded-full bg-black px-3 py-1 text-xs font-semibold text-accent">Most popular</span>}
+                                        </div>
+                                        <p className={cn("mt-3 text-[15px] leading-relaxed", hi ? "text-black/70" : "text-white/60")}>{plan.description}</p>
+
+                                        <p className="mt-8 flex items-baseline gap-2">
+                                            {plan.price !== "Custom" && <span className={cn("text-sm", hi ? "text-black/60" : "text-white/55")}>from</span>}
+                                            <span className="text-[2.75rem] font-semibold leading-none tracking-[-0.04em] md:text-5xl">
+                                                {plan.price === "Custom" ? "Custom" : <CountUp value={plan.price.replace("+", "")} duration={1.6} />}
+                                            </span>
+                                        </p>
+
+                                        <ul className="mt-8 space-y-3.5">
+                                            {plan.features.map((feature) => (
+                                                <li key={feature} className={cn("flex items-start gap-3 text-[15px]", hi ? "text-black/80" : "text-white/75")}>
+                                                    <Icon icon={Tick02Icon} size={18} strokeWidth={2} className={cn("mt-0.5 flex-shrink-0", hi ? "text-black" : "text-accent")} />
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <Button
+                                            onClick={() => openInquiry({ plan: plan.title })}
+                                            variant={hi ? "dark" : "secondary"}
+                                            size="lg"
+                                            arrow="right"
+                                            className="mt-10 w-full"
+                                        >
+                                            {plan.price === "Custom" ? "Talk to us" : "Get a quote"}
+                                        </Button>
+                                    </div>
+                                </Tilt>
                             </StaggerItem>
                         );
                     })}

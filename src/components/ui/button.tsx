@@ -7,14 +7,18 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "ghost" | "dark";
 type Size = "sm" | "md" | "lg";
 
+/*
+ * Hover: a second colour slides up from the bottom (the ::before layer, kept behind the label by `isolate`),
+ * the label rolls to an identical copy and the arrow swaps out and back in. Pressing shrinks it slightly.
+ */
 const base =
-    "btn-roll group/btn relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-2";
+    "btn-roll group/btn relative isolate inline-flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-full font-semibold transition-[color,transform] duration-300 ease-out cursor-pointer active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-2 before:absolute before:inset-0 before:-z-10 before:translate-y-full before:rounded-full before:transition-transform before:duration-500 before:ease-[cubic-bezier(0.16,1,0.3,1)] hover:before:translate-y-0";
 
 const variants: Record<Variant, string> = {
-    primary: "bg-accent text-black hover:bg-accent-hover",
-    secondary: "bg-white/[0.08] text-white hover:bg-white/[0.14]",
-    ghost: "text-white/70 hover:text-white",
-    dark: "bg-black text-white hover:bg-neutral-800",
+    primary: "bg-accent text-black before:bg-white",
+    secondary: "bg-white/[0.08] text-white before:bg-accent hover:text-black",
+    ghost: "text-white/70 hover:text-white before:hidden",
+    dark: "bg-black text-white before:bg-white hover:text-black",
 };
 
 const sizes: Record<Size, string> = {
@@ -25,17 +29,18 @@ const sizes: Record<Size, string> = {
 
 type Arrow = "right" | "up-right" | false;
 
+/** The arrow leaves on hover while an identical one slides in behind it. */
 function ArrowMark({ arrow }: { arrow: Arrow }) {
     if (!arrow) return null;
+    const icon = arrow === "up-right" ? ArrowUpRight01Icon : ArrowRight01Icon;
+    const out = arrow === "up-right" ? "group-hover/btn:translate-x-full group-hover/btn:-translate-y-full" : "group-hover/btn:translate-x-full";
+    const back = arrow === "up-right" ? "-translate-x-full translate-y-full" : "-translate-x-full";
+    const ease = "transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
     return (
-        <Icon
-            icon={arrow === "up-right" ? ArrowUpRight01Icon : ArrowRight01Icon}
-            size={18}
-            className={cn(
-                "transition-transform duration-200",
-                arrow === "up-right" ? "group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" : "group-hover/btn:translate-x-0.5"
-            )}
-        />
+        <span aria-hidden className="relative inline-flex h-[18px] w-[18px] overflow-hidden">
+            <Icon icon={icon} size={18} className={cn("absolute inset-0", ease, out)} />
+            <Icon icon={icon} size={18} className={cn("absolute inset-0 group-hover/btn:translate-x-0 group-hover/btn:translate-y-0", ease, back)} />
+        </span>
     );
 }
 

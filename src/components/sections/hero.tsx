@@ -8,6 +8,7 @@ import { ProjectDeck } from "@/components/sections/project-deck";
 import { Enter } from "@/components/ui/enter";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { CircularBadge, Magnetic } from "@/components/ui/interactive";
 import { allWork } from "@/lib/more-work";
 import { siteConfig } from "@/config/site";
 
@@ -90,13 +91,17 @@ export function Hero() {
                         </Enter>
 
                         <Enter delay={0.35} className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                            <Button size="lg" arrow="right" onClick={openInquiry}>
-                                Get a free quote
-                            </Button>
-                            <ButtonLink href={`mailto:${siteConfig.emails.inbound}`} variant="secondary" size="lg">
-                                <Icon icon={Mail01Icon} size={18} />
-                                Email us
-                            </ButtonLink>
+                            <Magnetic className="w-full sm:w-auto">
+                                <Button size="lg" arrow="right" onClick={openInquiry} className="w-full sm:w-auto">
+                                    Get a free quote
+                                </Button>
+                            </Magnetic>
+                            <Magnetic className="w-full sm:w-auto">
+                                <ButtonLink href={`mailto:${siteConfig.emails.inbound}`} variant="secondary" size="lg" className="w-full sm:w-auto">
+                                    <Icon icon={Mail01Icon} size={18} />
+                                    Email us
+                                </ButtonLink>
+                            </Magnetic>
                         </Enter>
 
                         <Enter as="ul" delay={0.45} className="mt-8 flex flex-col gap-x-6 gap-y-2.5 text-sm text-white/65 sm:flex-row sm:flex-wrap">
@@ -109,8 +114,9 @@ export function Hero() {
                         </Enter>
                     </motion.div>
 
-                    <motion.div style={{ y: deckY, rotate: deckRotate }} className="lg:col-span-6">
+                    <motion.div style={{ y: deckY, rotate: deckRotate }} className="relative lg:col-span-6">
                         <ProjectDeck projects={allWork} />
+                        <CircularBadge text="Get a free quote" onClick={() => openInquiry()} className="absolute -left-6 top-[4%] z-20 hidden lg:flex" />
                     </motion.div>
                 </div>
             </div>
