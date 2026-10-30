@@ -25,7 +25,8 @@ export function navLinks() {
         technologies: technologyPages.map(pageLink),
         industries: industryPageList.map((p) => ({ path: p.path, label: p.navLabel })),
         locations: locationPageList.map((p) => ({ path: p.path, label: p.navLabel })),
-        guides: guides.map((g) => ({ path: g.path, label: g.seo.title })),
+        // The footer lists the first ten; the rest are one click away on /guides.
+        guides: guides.slice(0, 10).map((g) => ({ path: g.path, label: g.seo.title })),
     };
 }
 

@@ -10,6 +10,12 @@ import freelancerVsAgency from "@/lib/guides/freelancer-vs-agency-vs-studio";
 import multiTenant from "@/lib/guides/multi-tenant-saas-architecture";
 import stripeVsRazorpay from "@/lib/guides/stripe-vs-razorpay-for-saas";
 import nextjsVsWordpress from "@/lib/guides/nextjs-vs-wordpress";
+import aiChatbotCost from "@/lib/guides/ai-chatbot-development-cost";
+import mobileAppCost from "@/lib/guides/mobile-app-development-cost-india";
+import saasPricingModels from "@/lib/guides/saas-pricing-models";
+import hiringInMumbai from "@/lib/guides/hiring-a-software-company-in-mumbai";
+import contractChecklist from "@/lib/guides/software-development-contract-checklist";
+import customVsOffTheShelf from "@/lib/guides/custom-software-vs-off-the-shelf";
 
 export type { Guide };
 
@@ -18,8 +24,14 @@ export const guides: Guide[] = [
     saasCost,
     websiteCost,
     mvpCost,
+    aiChatbotCost,
+    mobileAppCost,
     saasTimeline,
+    saasPricingModels,
+    customVsOffTheShelf,
     chooseCompany,
+    hiringInMumbai,
+    contractChecklist,
     whiteLabel,
     outsourcing,
     freelancerVsAgency,
