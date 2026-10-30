@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { Marquee } from "@/components/sections/marquee";
 import { Portfolio } from "@/components/sections/portfolio";
 import { Services } from "@/components/sections/services";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
@@ -15,6 +16,7 @@ export default function Home() {
         <div className="flex flex-col">
             <JsonLd data={faqSchema(faqs)} />
             <Hero />
+            <Marquee />
             <Portfolio />
             <Services />
             <ProcessTimeline />

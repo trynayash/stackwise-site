@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight01Icon, ArrowUpRight01Icon, Github01Icon, Globe02Icon, Location01Icon, Mail01Icon, NewTwitterIcon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
-import { CountUp } from "@/components/ui/scroll-effects";
+import { CountUp, ScrollLitText } from "@/components/ui/scroll-effects";
 import { proofPoints } from "@/lib/proof";
 import { siteConfig } from "@/config/site";
 
@@ -74,10 +74,10 @@ export function About() {
                                 <Icon icon={Location01Icon} size={16} />
                                 {siteConfig.location.city}, {siteConfig.location.country}
                             </p>
-                            <p className="mt-7 text-lg leading-relaxed text-black/80">
-                                &ldquo;I started StackWise to build fast, well-made web products. I work on each project myself, from the architecture plan to
-                                the final performance check.&rdquo;
-                            </p>
+                            <ScrollLitText
+                                className="mt-7 text-xl font-medium leading-relaxed text-black md:text-2xl"
+                                text="“I started StackWise to build fast, well-made web products. I work on each project myself, from the architecture plan to the final performance check.”"
+                            />
                             <div className="mt-auto flex flex-wrap gap-2 pt-9">
                                 <a
                                     href={`mailto:${siteConfig.emails.inbound}`}

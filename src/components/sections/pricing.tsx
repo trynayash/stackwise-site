@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { useInquiry } from "@/components/providers/inquiry-context";
+import { CountUp } from "@/components/ui/scroll-effects";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -43,7 +44,7 @@ export function Pricing() {
                                     <p className="mt-8 flex items-baseline gap-2">
                                         {plan.price !== "Custom" && <span className={cn("text-sm", hi ? "text-black/60" : "text-white/55")}>from</span>}
                                         <span className="text-[2.75rem] font-semibold leading-none tracking-[-0.04em] md:text-5xl">
-                                            {plan.price === "Custom" ? "Custom" : plan.price.replace("+", "")}
+                                            {plan.price === "Custom" ? "Custom" : <CountUp value={plan.price.replace("+", "")} duration={1.6} />}
                                         </span>
                                     </p>
 

@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/motion-primitives";
@@ -40,6 +40,39 @@ export function Screenshot({ study, className, priority = false, sizes }: { stud
                 preload={priority}
             />
         </div>
+    );
+}
+
+/**
+ * Screenshot that wipes open the first time it scrolls into view, then drifts inside its frame as the
+ * page scrolls (a light parallax). A priority image skips the wipe so it paints straight away.
+ */
+function RevealImage({ study, className, sizes, priority = false }: { study: CaseStudy; className?: string; sizes: string; priority?: boolean }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const reduced = useReducedMotion();
+    const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+    const y = useTransform(scrollYProgress, [0, 1], reduced ? ["0%", "0%"] : ["-6%", "6%"]);
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={priority || reduced ? false : { clipPath: "inset(12% 12% 12% 12% round 24px)" }}
+            whileInView={{ clipPath: "inset(0% 0% 0% 0% round 24px)" }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            className={cn("relative overflow-hidden rounded-3xl bg-surface-2", className)}
+        >
+            <motion.div style={{ y }} className="absolute inset-x-0 -bottom-[7%] -top-[7%]">
+                <Image
+                    src={study.preview}
+                    alt={`${study.name}: ${study.tagline}`}
+                    fill
+                    sizes={sizes}
+                    preload={priority}
+                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+            </motion.div>
+        </motion.div>
     );
 }
 
@@ -83,7 +116,7 @@ export function WorkCard({ study, large = false, priority = false }: { study: Ca
         <CursorFollow label="View case study">
             <Link href={`/work/${study.slug}`} className="group block">
                 <div className="relative">
-                    <Screenshot
+                    <RevealImage
                         study={study}
                         priority={priority}
                         className={large ? "aspect-[16/10] md:aspect-[2/1]" : "aspect-[16/10]"}

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Location01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { ProjectDeck } from "@/components/sections/project-deck";
@@ -31,9 +31,9 @@ function RotatingWord() {
             <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                     key={things[i]}
-                    initial={{ y: "100%" }}
-                    animate={{ y: "0%" }}
-                    exit={{ y: "-100%" }}
+                    initial={{ y: "100%", rotate: 4 }}
+                    animate={{ y: "0%", rotate: 0 }}
+                    exit={{ y: "-100%", rotate: -4 }}
                     transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                     className="inline-block whitespace-nowrap text-accent"
                 >
@@ -44,14 +44,29 @@ function RotatingWord() {
     );
 }
 
+/** One headline word that rises into place; see .rise-word in globals.css. */
+function Rise({ children, delay }: { children: React.ReactNode; delay: number }) {
+    return (
+        <span className="rise-word" style={{ ["--d" as string]: `${delay}ms` } as React.CSSProperties}>
+            {children}
+        </span>
+    );
+}
+
 export function Hero() {
     const { openInquiry } = useInquiry();
+    const ref = useRef<HTMLElement>(null);
+    // As the hero scrolls away, the deck drifts up and tilts back while the copy sinks a little.
+    const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+    const deckY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+    const deckRotate = useTransform(scrollYProgress, [0, 1], [0, -4]);
+    const copyY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
     return (
-        <section id="hero" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24" aria-label="Introduction">
+        <section ref={ref} id="hero" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24" aria-label="Introduction">
             <div className="container mx-auto px-5 sm:px-6">
                 <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-8">
-                    <div className="flex flex-col items-start lg:col-span-6">
+                    <motion.div style={{ y: copyY }} className="flex flex-col items-start lg:col-span-6">
                         <Enter className="mb-7 inline-flex items-center gap-2 rounded-full bg-white/[0.07] px-4 py-2 text-[13px] font-medium text-white/80">
                             <Icon icon={Location01Icon} size={15} className="text-accent" />
                             Software studio in {siteConfig.location.city}
@@ -59,13 +74,13 @@ export function Hero() {
 
                         <h1 className="text-[2.75rem] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl md:text-7xl xl:text-[5.4rem]">
                             <span className="sr-only">Let&apos;s build your SaaS product, website, AI assistant, MVP, internal tool or mobile app.</span>
-                            {/* No entrance animation: the headline is the page's largest paint (LCP), and Chrome
-                                ignores text that animates in until it next repaints. The rotating word supplies the motion. */}
                             <span aria-hidden className="block">
-                                Let&apos;s build your
+                                <Rise delay={0}>Let&apos;s</Rise> <Rise delay={70}>build</Rise> <Rise delay={140}>your</Rise>
                             </span>
                             <span aria-hidden className="block">
-                                <RotatingWord />
+                                <Rise delay={240}>
+                                    <RotatingWord />
+                                </Rise>
                             </span>
                         </h1>
 
@@ -92,11 +107,11 @@ export function Hero() {
                                 </li>
                             ))}
                         </Enter>
-                    </div>
+                    </motion.div>
 
-                    <div className="lg:col-span-6">
+                    <motion.div style={{ y: deckY, rotate: deckRotate }} className="lg:col-span-6">
                         <ProjectDeck projects={allWork} />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

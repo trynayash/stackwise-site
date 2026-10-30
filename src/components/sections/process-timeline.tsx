@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { CloudUploadIcon, CodeIcon, PenTool03Icon, Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
@@ -55,9 +56,15 @@ export function ProcessTimeline() {
                         <StaggerItem key={step.week} className="h-full">
                             <div className="flex h-full flex-col rounded-3xl bg-surface p-7 transition-[transform,background-color] duration-300 hover:-translate-y-1 hover:bg-surface-2">
                                 <div className="flex items-center justify-between">
-                                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-black">
+                                    <motion.span
+                                        initial={{ scale: 0.5, rotate: -20 }}
+                                        whileInView={{ scale: 1, rotate: 0 }}
+                                        viewport={{ once: true, margin: "-40px" }}
+                                        transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.15 }}
+                                        className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-black"
+                                    >
                                         <Icon icon={step.icon} size={22} />
-                                    </span>
+                                    </motion.span>
                                     <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">{step.week}</span>
                                 </div>
                                 <h3 className="mt-8 text-2xl font-semibold tracking-tight text-white">{step.title}</h3>

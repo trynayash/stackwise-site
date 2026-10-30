@@ -100,15 +100,15 @@ export function WordReveal({
             role="text"
             initial="hidden"
             {...trigger}
-            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: delay } } }}
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: delay } } }}
         >
             {words.map((word, i) => (
                 <span key={`${word}-${i}`} aria-hidden="true" className="inline-block overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]">
                     <motion.span
                         className={cn("inline-block will-change-transform", wordClassName)}
                         variants={{
-                            hidden: { y: "105%" },
-                            show: { y: "0%", transition: { duration: 0.8, ease: EASE_OUT } },
+                            hidden: { y: "110%", rotate: 6 },
+                            show: { y: "0%", rotate: 0, transition: { duration: 0.9, ease: EASE_OUT } },
                         }}
                     >
                         {word}
