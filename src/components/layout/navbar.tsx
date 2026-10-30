@@ -48,7 +48,7 @@ function NavPill() {
         <motion.span
             layoutId="nav-pill"
             aria-hidden
-            className="absolute inset-0 -z-10 rounded-full bg-white/[0.08]"
+            className="absolute inset-0 -z-10 rounded-full bg-[var(--nav-pill)]"
             transition={{ type: "spring", stiffness: 380, damping: 32 }}
         />
     );
@@ -57,6 +57,8 @@ function NavPill() {
 export function Navbar() {
     const { industries, services, solutions, technologies } = useSiteLinks();
     const [isScrolled, setIsScrolled] = useState(false);
+    // True while the bar sits over a light section (one marked data-nav-light), so its text turns dark.
+    const [overLight, setOverLight] = useState(false);
     const [hidden, setHidden] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -74,6 +76,8 @@ export function Navbar() {
         const handleScroll = () => {
             const y = window.scrollY;
             setIsScrolled(y > 16);
+            const light = document.querySelector("[data-nav-light]");
+            setOverLight(!!light && light.getBoundingClientRect().bottom > 72);
             // Tuck the bar away while reading down the page; bring it back on any scroll up.
             if (Math.abs(y - lastY) > 6) {
                 setHidden(y > lastY && y > 480);
@@ -118,13 +122,15 @@ export function Navbar() {
     const closeMenu = useCallback(() => setMenuOpen(false), []);
 
     const solid = isScrolled || menuOpen;
+    const light = overLight && !menuOpen;
 
     return (
         <>
             <header
                 className={cn(
                     "fixed top-0 left-0 right-0 z-50 transition-[background-color,transform] duration-300 ease-out",
-                    solid ? "bg-canvas/85 backdrop-blur-xl" : "bg-transparent",
+                    solid ? (light ? "bg-paper/85 backdrop-blur-xl" : "bg-canvas/85 backdrop-blur-xl") : "bg-transparent",
+                    light ? "text-ink [--nav-fg:#0b0b0b] [--nav-muted:rgb(11_11_11/0.65)] [--nav-pill:rgb(11_11_11/0.06)] [--logo-accent:#0b0b0b] [--logo-accent-hover:#5c8a00]" : "text-white [--nav-fg:#fff] [--nav-muted:rgb(255_255_255/0.7)] [--nav-pill:rgb(255_255_255/0.08)]",
                     hidden && !menuOpen && "-translate-y-full"
                 )}
             >
@@ -145,7 +151,7 @@ export function Navbar() {
                                     aria-controls="services-menu"
                                     className={cn(
                                         "inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors cursor-pointer",
-                                        menuOpen ? "bg-white/[0.06] text-white" : "text-white/70 hover:text-white"
+                                        menuOpen ? "bg-[var(--nav-pill)] text-[var(--nav-fg)]" : "text-[var(--nav-muted)] hover:text-[var(--nav-fg)]"
                                     )}
                                 >
                                     Services
@@ -158,7 +164,7 @@ export function Navbar() {
                                     <Link
                                         {...navLink(item)}
                                         onMouseEnter={scheduleClose}
-                                        className="inline-flex h-10 items-center rounded-full px-4 text-sm font-medium text-white/70 transition-colors hover:text-white"
+                                        className="inline-flex h-10 items-center rounded-full px-4 text-sm font-medium text-[var(--nav-muted)] transition-colors hover:text-[var(--nav-fg)]"
                                     >
                                         {item.title}
                                     </Link>
@@ -170,7 +176,7 @@ export function Navbar() {
                             <Link
                                 href="/#contact"
                                 onClick={goToSection("contact")}
-                                className="hidden lg:inline-flex h-10 items-center px-4 text-sm font-medium text-white/70 transition-colors hover:text-white"
+                                className="hidden lg:inline-flex h-10 items-center px-4 text-sm font-medium text-[var(--nav-muted)] transition-colors hover:text-[var(--nav-fg)]"
                             >
                                 Contact
                             </Link>
@@ -181,7 +187,7 @@ export function Navbar() {
                             </Magnetic>
                             <button
                                 onClick={() => setIsMobileNavOpen(true)}
-                                className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-white transition-colors hover:bg-white/[0.12]"
+                                className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full bg-[var(--nav-pill)] text-[var(--nav-fg)] transition-colors"
                                 aria-label="Open menu"
                             >
                                 <Icon icon={Menu01Icon} size={20} />

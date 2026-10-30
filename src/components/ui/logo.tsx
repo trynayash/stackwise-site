@@ -17,14 +17,14 @@ export function Logo({ className, size = "md" }: LogoProps) {
     return (
         <span
             className={cn(
-                "tracking-tight text-white group-hover:text-[#C8FF00] transition-colors duration-300 select-none",
+                "tracking-tight group-hover:text-[#C8FF00] transition-colors duration-300 select-none",
                 sizeClasses[size],
                 className
             )}
             style={{ fontFamily: "var(--font-oughter), sans-serif" }}
         >
             STACK
-            <span className="text-[#C8FF00] group-hover:text-white transition-colors duration-300">
+            <span className="text-[var(--logo-accent,#C8FF00)] group-hover:text-[var(--logo-accent-hover,#fff)] transition-colors duration-300">
                 WISE
             </span>
         </span>
