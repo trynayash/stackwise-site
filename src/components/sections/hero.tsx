@@ -9,7 +9,7 @@ import { Enter } from "@/components/ui/enter";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { CircularBadge, Magnetic } from "@/components/ui/interactive";
-import { allWork } from "@/lib/more-work";
+import type { WorkSummary } from "@/lib/case-studies";
 import { siteConfig } from "@/config/site";
 
 const things = ["SaaS product.", "website.", "AI assistant.", "MVP.", "internal tool.", "mobile app."];
@@ -54,7 +54,8 @@ function Rise({ children, delay }: { children: React.ReactNode; delay: number })
     );
 }
 
-export function Hero() {
+/** `projects` come from the server as summaries, so the case-study write-ups never ship to the browser. */
+export function Hero({ projects }: { projects: WorkSummary[] }) {
     const { openInquiry } = useInquiry();
     const ref = useRef<HTMLElement>(null);
     // As the hero scrolls away, the deck drifts up and tilts back while the copy sinks a little.
@@ -115,7 +116,7 @@ export function Hero() {
                     </motion.div>
 
                     <motion.div style={{ y: deckY, rotate: deckRotate }} className="relative lg:col-span-6">
-                        <ProjectDeck projects={allWork} />
+                        <ProjectDeck projects={projects} />
                         <CircularBadge text="Get a free quote" onClick={() => openInquiry()} className="absolute -left-6 top-[4%] z-20 hidden lg:flex" />
                     </motion.div>
                 </div>

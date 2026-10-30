@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/interactive";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { useNavLink, useSectionNav } from "@/hooks/use-section-nav";
-import { servicePages, solutionPages, technologyPages, type MarketingPageData } from "@/lib/marketing-pages";
+import type { PageLink } from "@/lib/all-pages";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,7 @@ function MenuHeading({ title, href, linkLabel, onNavigate }: { title: string; hr
     );
 }
 
-function MenuLink({ page, onNavigate }: { page: MarketingPageData; onNavigate: () => void }) {
+function MenuLink({ page, onNavigate }: { page: PageLink; onNavigate: () => void }) {
     return (
         <Link href={page.path} onClick={onNavigate} className="group -mx-2.5 flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-white/[0.04]">
             <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-white/[0.07] text-white/80 transition-colors group-hover:bg-accent group-hover:text-black">
@@ -55,7 +55,7 @@ function NavPill() {
 }
 
 export function Navbar() {
-    const { industries } = useSiteLinks();
+    const { industries, services, solutions, technologies } = useSiteLinks();
     const [isScrolled, setIsScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -205,15 +205,15 @@ export function Navbar() {
                                     <div className="col-span-6">
                                         <MenuHeading title="Services" href="/services" linkLabel="All services" onNavigate={closeMenu} />
                                         <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
-                                            {servicePages.map((p) => (
+                                            {services.map((p) => (
                                                 <MenuLink key={p.path} page={p} onNavigate={closeMenu} />
                                             ))}
                                         </div>
                                     </div>
                                     <div className="col-span-3 space-y-8">
                                         {[
-                                            { title: "Solutions", href: "/solutions", pages: solutionPages },
-                                            { title: "Technologies", href: "/technologies", pages: technologyPages },
+                                            { title: "Solutions", href: "/solutions", pages: solutions },
+                                            { title: "Technologies", href: "/technologies", pages: technologies },
                                         ].map((group) => (
                                             <div key={group.title}>
                                                 <MenuHeading title={group.title} href={group.href} linkLabel="All" onNavigate={closeMenu} />

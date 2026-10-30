@@ -1,5 +1,6 @@
 import React from "react";
 import { allWork } from "@/lib/more-work";
+import { toWorkSummary } from "@/lib/case-studies";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { siteConfig } from "@/config/site";
@@ -60,7 +61,7 @@ export default function WorkPage() {
             <section className="pb-8" aria-label="Case studies">
                 <div className="container mx-auto px-5 sm:px-6">
                     <h2 className="sr-only">All case studies</h2>
-                    <WorkGrid studies={allWork} priorityFirst />
+                    <WorkGrid studies={allWork.map(toWorkSummary)} priorityFirst />
                 </div>
             </section>
 

@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { answer, isQuestion, maskAbuse, matchOption, redactSensitive, screen, type AssistantAction } from "@/lib/assistant";
-import { budgetBelowStart, estimateFor, summarise, type QuoteAnswers, type QuotePreset } from "@/lib/quote";
+import { summarise, type QuoteAnswers, type QuotePreset } from "@/lib/quote";
+import { budgetBelowStart, estimateFor } from "@/lib/quote-estimate";
 import { siteConfig } from "@/config/site";
 import { track } from "@/lib/analytics";
 

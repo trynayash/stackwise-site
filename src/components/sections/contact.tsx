@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { Copy01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Eyebrow, Reveal } from "@/components/ui/motion-primitives";
-import { QuoteChat } from "@/components/quote/quote-chat";
-import { useQuoteChat } from "@/components/quote/use-quote-chat";
+import dynamic from "next/dynamic";
+import { useReached } from "@/components/ui/use-reached";
 import { siteConfig } from "@/config/site";
 
 const nextSteps = [
@@ -57,9 +57,39 @@ function EmailCard() {
     );
 }
 
+/** What the chat panel shows until the real chat loads: the same frame and greeting, so nothing shifts. */
+function ChatPlaceholder() {
+    return (
+        <div className="flex h-full flex-col bg-[#0d0d0d]" aria-hidden>
+            <div className="flex items-center gap-3 border-b border-white/[0.08] px-4 py-3 sm:px-5">
+                <span
+                    className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent text-base text-black"
+                    style={{ fontFamily: "var(--font-oughter), sans-serif" }}
+                >
+                    S
+                </span>
+                <div>
+                    <p className="text-[15px] font-semibold leading-tight text-white">StackWise assistant</p>
+                    <p className="mt-0.5 text-[13px] text-white/55">Instant answers</p>
+                </div>
+            </div>
+            <p className="px-4 py-6 text-[15px] leading-relaxed text-white/80 sm:px-6">
+                Hi, I&apos;m the StackWise assistant. Ask me anything about our services, pricing or process, or answer a few quick questions to get a quote.
+            </p>
+            <div className="mt-auto p-3 sm:p-5">
+                <div className="h-[98px] rounded-[22px] border border-white/[0.12] bg-[#161616]" />
+            </div>
+        </div>
+    );
+}
+
+// The chat and its answer engine load when the visitor scrolls near this section, not with the first page load.
+const InlineChat = dynamic(() => import("@/components/quote/inline-chat"), { ssr: false, loading: () => <ChatPlaceholder /> });
+
 /** Closing section: the quote chat inline, with email as an equal alternative. */
 export function Contact() {
-    const chat = useQuoteChat();
+    // Start loading the chat about a screen before it scrolls into view.
+    const [chatRef, chatNear] = useReached<HTMLDivElement>(-800);
 
     return (
         <section id="contact" className="relative py-20 md:py-28" aria-label="Contact">
@@ -91,8 +121,11 @@ export function Contact() {
                 </Reveal>
 
                 <Reveal delay={0.1} className="lg:col-span-7">
-                    <div className="flex h-[min(680px,calc(100svh-6rem))] min-h-[520px] flex-col overflow-hidden rounded-[28px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] md:h-[720px]">
-                        <QuoteChat chat={chat} className="h-full" />
+                    <div
+                        ref={chatRef}
+                        className="flex h-[min(680px,calc(100svh-6rem))] min-h-[520px] flex-col overflow-hidden rounded-[28px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] md:h-[720px]"
+                    >
+                        {chatNear ? <InlineChat /> : <ChatPlaceholder />}
                     </div>
                 </Reveal>
             </div>

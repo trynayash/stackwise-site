@@ -11,16 +11,19 @@ import { Contact } from "@/components/sections/contact";
 import { GuidesTeaser } from "@/components/sections/guides-teaser";
 import { JsonLd, faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
+import { allWork } from "@/lib/more-work";
+import { toWorkSummary } from "@/lib/case-studies";
+import { homeServices } from "@/lib/home-data";
 
 // Sections render on the server so the full page is in the HTML for search engines and link previews.
 export default function Home() {
     return (
         <div className="flex flex-col">
             <JsonLd data={faqSchema(faqs)} />
-            <Hero />
+            <Hero projects={allWork.map(toWorkSummary)} />
             <Marquee />
             <Portfolio />
-            <Services />
+            <Services {...homeServices()} />
             <StackLoop />
             <ProcessTimeline />
             <Pricing />

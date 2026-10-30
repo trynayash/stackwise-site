@@ -8,7 +8,7 @@ import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { useReached } from "@/components/ui/use-reached";
-import type { CaseStudy } from "@/lib/case-studies";
+import type { WorkSummary } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 
 /** Small text pill for a project's status ("Live", "Waitlist", "Open source"). */
@@ -28,7 +28,7 @@ export function StatusBadge({ status, className }: { status: string; className?:
 }
 
 /** Product screenshot in a rounded frame. */
-export function Screenshot({ study, className, priority = false, sizes }: { study: CaseStudy; className?: string; priority?: boolean; sizes?: string }) {
+export function Screenshot({ study, className, priority = false, sizes }: { study: WorkSummary; className?: string; priority?: boolean; sizes?: string }) {
     return (
         <div className={cn("relative overflow-hidden rounded-3xl bg-surface-2", className)}>
             <Image
@@ -48,7 +48,7 @@ export function Screenshot({ study, className, priority = false, sizes }: { stud
  * Screenshot that wipes open the first time it scrolls into view, then drifts inside its frame as the
  * page scrolls (a light parallax). A priority image skips the wipe so it paints straight away.
  */
-function RevealImage({ study, className, sizes, priority = false }: { study: CaseStudy; className?: string; sizes: string; priority?: boolean }) {
+function RevealImage({ study, className, sizes, priority = false }: { study: WorkSummary; className?: string; sizes: string; priority?: boolean }) {
     const [ref, reached] = useReached<HTMLDivElement>();
     const reduced = useReducedMotion();
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -111,7 +111,7 @@ export function CursorFollow({ children, label, className }: { children: React.R
 }
 
 /** Project card linking to its case study. `large` cards span the full row with a wider crop. */
-export function WorkCard({ study, large = false, priority = false }: { study: CaseStudy; large?: boolean; priority?: boolean }) {
+export function WorkCard({ study, large = false, priority = false }: { study: WorkSummary; large?: boolean; priority?: boolean }) {
     return (
         <CursorFollow label="View case study">
             <Link href={`/work/${study.slug}`} className="group block">
@@ -142,7 +142,7 @@ export function WorkCard({ study, large = false, priority = false }: { study: Ca
 }
 
 /** Work grid: every third project runs full width, the rest sit in pairs. */
-export function WorkGrid({ studies, priorityFirst = false }: { studies: CaseStudy[]; priorityFirst?: boolean }) {
+export function WorkGrid({ studies, priorityFirst = false }: { studies: WorkSummary[]; priorityFirst?: boolean }) {
     return (
         <div className="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2 md:gap-y-16">
             {studies.map((s, i) => {

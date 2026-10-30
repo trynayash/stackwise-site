@@ -9,7 +9,6 @@ import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { useNavLink } from "@/hooks/use-section-nav";
-import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -20,7 +19,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
-    const { industries } = useSiteLinks();
+    const { industries, services, solutions, technologies } = useSiteLinks();
     const [servicesOpen, setServicesOpen] = useState(false);
     const { openInquiry } = useInquiry();
     const navLink = useNavLink();
@@ -87,9 +86,9 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                             className="overflow-hidden"
                                         >
                                             {[
-                                                { label: "Services", href: "/services", pages: servicePages },
-                                                { label: "Solutions", href: "/solutions", pages: solutionPages },
-                                                { label: "Technologies", href: "/technologies", pages: technologyPages },
+                                                { label: "Services", href: "/services", pages: services },
+                                                { label: "Solutions", href: "/solutions", pages: solutions },
+                                                { label: "Technologies", href: "/technologies", pages: technologies },
                                                 {
                                                     label: "Industries",
                                                     href: "/industries",

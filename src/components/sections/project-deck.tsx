@@ -6,7 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
-import type { CaseStudy } from "@/lib/case-studies";
+import type { WorkSummary } from "@/lib/case-studies";
 
 // Where each card sits by its distance from the front of the deck.
 const STACK = [
@@ -21,7 +21,7 @@ const HIDDEN = { x: "15%", y: "-38%", scale: 0.76, rotate: 11, opacity: 0 };
  * Hero visual: a deck of real project screenshots that tilts toward the mouse and deals the next card every few seconds.
  * The front card links to its case study.
  */
-export function ProjectDeck({ projects }: { projects: CaseStudy[] }) {
+export function ProjectDeck({ projects }: { projects: WorkSummary[] }) {
     const n = projects.length;
     const [active, setActive] = useState(0);
     const [paused, setPaused] = useState(false);

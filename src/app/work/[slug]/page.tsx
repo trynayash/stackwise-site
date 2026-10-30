@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ArrowRight01Icon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
-import { displayDomain, type CaseStudySection } from "@/lib/case-studies";
+import { displayDomain, toWorkSummary, type CaseStudySection } from "@/lib/case-studies";
 import { allWork, workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -142,7 +142,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <section className="pb-12 md:pb-16" aria-label={`${study.name} on ${displayDomain(study)}`}>
                 <div className="container mx-auto px-5 sm:px-6">
                     <Enter delay={0.2} className="mx-auto max-w-6xl">
-                        <Screenshot study={study} priority className="aspect-[16/10]" />
+                        <Screenshot study={toWorkSummary(study)} priority className="aspect-[16/10]" />
                     </Enter>
                 </div>
             </section>

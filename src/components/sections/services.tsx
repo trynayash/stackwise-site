@@ -8,22 +8,13 @@ import { ArrowRight01Icon, ArrowUpRight01Icon, Tick02Icon } from "@hugeicons/cor
 import { Icon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { marketingPages, servicePages, solutionPages, type MarketingPageData } from "@/lib/marketing-pages";
-import { workBySlug } from "@/lib/more-work";
-import { presetForPage } from "@/lib/quote";
+import type { ServiceCard, ServiceLink } from "@/lib/home-data";
 import { cn } from "@/lib/utils";
 
-const core = ["saas-development", "ai-development", "custom-software", "web-development"].map((slug) => marketingPages[slug]);
-const others = [...servicePages.filter((p) => !core.includes(p)), ...solutionPages];
-
-const fact = (page: MarketingPageData, label: string) => page.facts.find((f) => f.label === label)?.value;
-
 /** Details for the selected service: a real project it produced, price, timeline and what's included. */
-function ServicePanel({ page }: { page: MarketingPageData }) {
+function ServicePanel({ page }: { page: ServiceCard }) {
     const { openInquiry } = useInquiry();
-    const study = workBySlug[page.work[0]];
-    const price = fact(page, "Starting at");
-    const timeline = fact(page, "Typical timeline");
+    const { study, price, timeline } = page;
 
     return (
         <div>
@@ -54,7 +45,7 @@ function ServicePanel({ page }: { page: MarketingPageData }) {
             </div>
 
             <ul className="mt-7 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
-                {page.deliverables.slice(0, 6).map((d) => (
+                {page.deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-2.5 text-[15px] text-ink/80">
                         <Icon icon={Tick02Icon} size={18} strokeWidth={2} className="mt-0.5 flex-shrink-0 text-ink" />
                         {d}
@@ -65,7 +56,7 @@ function ServicePanel({ page }: { page: MarketingPageData }) {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <button
                     type="button"
-                    onClick={() => openInquiry(presetForPage(page.slug, page.navLabel))}
+                    onClick={() => openInquiry(page.preset)}
                     className="inline-flex h-14 cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-8 text-base font-semibold text-white transition-colors hover:bg-black"
                 >
                     Get a quote for this
@@ -84,7 +75,7 @@ function ServicePanel({ page }: { page: MarketingPageData }) {
  * What we build, on a light panel: pick a service on the left, see a project it produced,
  * its starting price and what's included on the right (inline on phones).
  */
-export function Services() {
+export function Services({ core, others }: { core: ServiceCard[]; others: ServiceLink[] }) {
     const [active, setActive] = useState(0);
 
     return (

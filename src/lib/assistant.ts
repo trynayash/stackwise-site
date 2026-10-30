@@ -1,7 +1,8 @@
 import { faqs } from "@/lib/faqs";
 import { marketingPages } from "@/lib/marketing-pages";
 import { allWork } from "@/lib/more-work";
-import { estimateFor, quoteBudgets, quoteServices, quoteStages, quoteTimelines } from "@/lib/quote";
+import { quoteBudgets, quoteServices, quoteStages, quoteTimelines } from "@/lib/quote";
+import { estimateFor } from "@/lib/quote-estimate";
 import { siteConfig } from "@/config/site";
 import { approxUsd } from "@/lib/pricing";
 

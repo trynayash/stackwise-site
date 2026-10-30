@@ -319,6 +319,11 @@ export const caseStudyBySlug = Object.fromEntries(
 export const caseStudySlugs = caseStudies.map((c) => c.slug);
 
 /** Hostname shown in screenshot frames, e.g. "limityourapi.tech". */
+/** The fields cards and the hero deck show. Client components take these, not the full write-ups. */
+export type WorkSummary = Pick<CaseStudy, "slug" | "name" | "kind" | "status" | "tagline" | "preview">;
+
+export const toWorkSummary = ({ slug, name, kind, status, tagline, preview }: WorkSummary): WorkSummary => ({ slug, name, kind, status, tagline, preview });
+
 export function displayDomain(study: CaseStudy) {
   return study.liveUrl ? new URL(study.liveUrl).hostname.replace(/^www\./, "") : `${study.slug}.dev`;
 }

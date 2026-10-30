@@ -1,5 +1,5 @@
 import React from "react";
-import { caseStudies } from "@/lib/case-studies";
+import { caseStudies, toWorkSummary } from "@/lib/case-studies";
 import { allWork } from "@/lib/more-work";
 import { ButtonLink } from "@/components/ui/button";
 import { SectionHeader } from "@/components/ui/motion-primitives";
@@ -20,7 +20,7 @@ export function Portfolio() {
                         </ButtonLink>
                     }
                 />
-                <WorkGrid studies={caseStudies} />
+                <WorkGrid studies={caseStudies.map(toWorkSummary)} />
             </div>
         </section>
     );

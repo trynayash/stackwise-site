@@ -14,6 +14,7 @@ import { QuoteButton } from "@/components/marketing/quote-button";
 import { marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
 import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { workBySlug } from "@/lib/more-work";
+import { toWorkSummary } from "@/lib/case-studies";
 import { constructMetadata } from "@/lib/seo";
 import { presetForPage } from "@/lib/quote";
 import { siteConfig } from "@/config/site";
@@ -209,7 +210,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                         <Stagger className="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2">
                             {work.map((study) => (
                                 <StaggerItem key={study.slug}>
-                                    <WorkCard study={study} />
+                                    <WorkCard study={toWorkSummary(study)} />
                                 </StaggerItem>
                             ))}
                         </Stagger>

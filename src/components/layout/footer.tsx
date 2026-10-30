@@ -7,7 +7,6 @@ import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Magnetic } from "@/components/ui/interactive";
 import { useNavLink } from "@/hooks/use-section-nav";
-import { servicePages, solutionPages, technologyPages } from "@/lib/marketing-pages";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 
@@ -26,7 +25,7 @@ function Column({ title, href, children }: { title: string; href?: string; child
 
 export function Footer() {
     const navLink = useNavLink();
-    const { industries, locations, guides } = useSiteLinks();
+    const { services, solutions, technologies, industries, locations, guides } = useSiteLinks();
 
     return (
         <footer className="relative overflow-hidden rounded-t-[2rem] bg-surface md:rounded-t-[3rem]" role="contentinfo">
@@ -70,7 +69,7 @@ export function Footer() {
 
                     <div className="lg:col-span-3">
                         <Column title="Services" href="/services">
-                            {servicePages.map((p) => (
+                            {services.map((p) => (
                                 <li key={p.path}>
                                     <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
                                 </li>
@@ -80,14 +79,14 @@ export function Footer() {
 
                     <div className="space-y-10 lg:col-span-3">
                         <Column title="Solutions" href="/solutions">
-                            {solutionPages.map((p) => (
+                            {solutions.map((p) => (
                                 <li key={p.path}>
                                     <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
                                 </li>
                             ))}
                         </Column>
                         <Column title="Technologies" href="/technologies">
-                            {technologyPages.map((p) => (
+                            {technologies.map((p) => (
                                 <li key={p.path}>
                                     <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
                                 </li>
