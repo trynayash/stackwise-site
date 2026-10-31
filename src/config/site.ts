@@ -24,8 +24,8 @@ export const siteConfig = {
         portfolio: "https://yashsuthar.dev",
         orcid: "https://orcid.org/0009-0004-6775-1113",
         devto: "https://dev.to/trynayash",
-        /** Calendly booking page. Empty until it's set, and every "Book a call" button hides itself meanwhile. */
-        calendly: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
+        /** Calendly booking page behind every "Book a call" button; an empty NEXT_PUBLIC_CALENDLY_URL hides them. */
+        calendly: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/yashsuthar-dev/intro-call-with-yash",
     },
     /** Primary navigation. `id` scrolls to a home-page section; `href` links to a page. */
     navItems: [
