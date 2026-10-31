@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { siteConfig } from "@/config/site";
 import { redactSensitive } from "@/lib/assistant";
+import { enquiryConfirmation, enquiryNotification, type EmailMessage } from "@/lib/email";
 
 const MAX_BODY_BYTES = 20_000;
 const RESEND_API = "https://api.resend.com/emails";
@@ -35,11 +36,6 @@ function isAllowedOrigin(origin: string | null): boolean {
     } catch {
         return false;
     }
-}
-
-/** Visitor text is inserted into the notification email, so it must never be read as HTML. */
-function escapeHtml(value: string): string {
-    return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
 // Zod Schema to validate contact form submissions
@@ -134,8 +130,6 @@ export async function POST(request: Request) {
         // The chat already strips card, ID and password details; repeat it here for requests that skip the chat.
         const scrub = (v: string) => redactSensitive(v).text;
         const raw = { ...result.data, name: scrub(result.data.name), projectType: scrub(result.data.projectType), details: scrub(result.data.details) };
-        const [name, email, projectType, timeline, budget, details] = [raw.name, raw.email, raw.projectType, raw.timeline, raw.budget, raw.details].map(escapeHtml);
-        const phone = raw.phone ? escapeHtml(raw.phone) : undefined;
 
         // 3. Delivery is through Resend; without a key the chat offers the email hand-off instead.
         const apiKey = process.env.RESEND_API_KEY;
@@ -146,141 +140,27 @@ export async function POST(request: Request) {
         // The sender must be on a domain verified in Resend. Only the studio sees it: visitors get no copy.
         const from = process.env.MAIL_FROM || "StackWise <onboarding@resend.dev>";
 
-        // Build premium styled email HTML
-        const emailHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEW INQUIRY // STACKWISE</title>
-    <style>
-        body { margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background-color: #000000; color: #ffffff; -webkit-font-smoothing: antialiased; }
-        .wrapper { width: 100%; table-layout: fixed; background-color: #000000; padding: 40px 20px; box-sizing: border-box; }
-        .container { max-width: 650px; margin: 0 auto; background-color: #000000; border: 1px solid #333333; }
-        .header { padding: 30px 40px; border-bottom: 4px solid #C8FF00; background: #0a0a0a; text-align: left; }
-        .logo { font-size: 24px; font-weight: 900; letter-spacing: -1px; color: #ffffff; margin: 0 0 4px 0; text-transform: uppercase; }
-        .logo span { color: #C8FF00; }
-        .tagline { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 11px; color: #C8FF00; letter-spacing: 2px; text-transform: uppercase; margin: 0; }
-        .content { padding: 40px; }
-        .row { margin-bottom: 30px; border-left: 2px solid #222222; padding-left: 16px; transition: border-left-color 0.2s ease; }
-        .row:hover { border-left-color: #C8FF00; }
-        .row:last-child { margin-bottom: 0; }
-        .label { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 11px; font-weight: 600; color: #888888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
-        .value { font-size: 16px; color: #ffffff; line-height: 1.6; font-weight: 400; }
-        .value a { color: #C8FF00; text-decoration: none; border-bottom: 1px solid rgba(200,255,0,0.3); padding-bottom: 1px; }
-        .value a:hover { border-bottom-color: #C8FF00; }
-        .actions { padding: 0 40px 40px; }
-        .btn { display: inline-block; padding: 16px 32px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 13px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; margin-right: 12px; margin-bottom: 12px; transition: all 0.2s; }
-        .btn-primary { background-color: #C8FF00; color: #000000; border: 1px solid #C8FF00; }
-        .btn-primary:hover { background-color: #a3d100; border-color: #a3d100; }
-        .btn-secondary { background-color: transparent; color: #ffffff; border: 1px solid #444444; }
-        .btn-secondary:hover { border-color: #ffffff; }
-        .footer { padding: 30px 40px; background-color: #0a0a0a; border-top: 1px solid #222222; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: 1px; }
-        
-        @media only screen and (max-width: 600px) {
-            .wrapper { padding: 20px 0; }
-            .container { border-left: none; border-right: none; }
-            .header, .content, .actions, .footer { padding-left: 20px; padding-right: 20px; }
-            .btn { display: block; margin: 0 0 12px 0; width: 100%; box-sizing: border-box; text-align: center; }
-        }
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="container">
-            <div class="header">
-                <h1 class="logo">STACK<span>WISE</span></h1>
-                <p class="tagline">INBOUND INQUIRY</p>
-            </div>
-            
-            <div class="content">
-                <div class="row">
-                    <div class="label">CLIENT_NAME</div>
-                    <div class="value">${name}</div>
-                </div>
-                
-                <div class="row">
-                    <div class="label">EMAIL_ADDRESS</div>
-                    <div class="value"><a href="mailto:${email}">${email}</a></div>
-                </div>
-                
-                ${phone ? `
-                <div class="row">
-                    <div class="label">PHONE_NUMBER</div>
-                    <div class="value">${phone}</div>
-                </div>
-                ` : ''}
+        const enquiry = { name: raw.name, email: raw.email, phone: raw.phone, projectType: raw.projectType, timeline: raw.timeline, budget: raw.budget, details: raw.details };
+        const send = (to: string, replyTo: string, message: EmailMessage) =>
+            fetch(RESEND_API, {
+                method: "POST",
+                headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ from, to: [to], reply_to: replyTo, subject: message.subject, html: message.html, text: message.text }),
+                // A short timeout: if Resend is slow the visitor gets the email hand-off instead of a hung request.
+                signal: AbortSignal.timeout(10_000),
+            });
 
-                <div class="row">
-                    <div class="label">PROJECT_TYPE</div>
-                    <div class="value">${projectType}</div>
-                </div>
-
-                <div class="row">
-                    <div class="label">TIMELINE_EXPECTATION</div>
-                    <div class="value">${timeline}</div>
-                </div>
-                
-                <div class="row">
-                    <div class="label">BUDGET_QUALIFICATION</div>
-                    <div class="value">${budget}</div>
-                </div>
-                
-                <div class="row">
-                    <div class="label">PROJECT_SPECIFICATIONS</div>
-                    <div class="value" style="white-space: pre-wrap;">${details}</div>
-                </div>
-            </div>
-            
-            <div class="actions">
-                <a href="mailto:${email}" class="btn btn-primary">REPLY DIRECTLY</a>
-                ${phone ? `<a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn btn-secondary">INITIATE WHATSAPP</a>` : ''}
-            </div>
-
-            <div class="footer">
-                TRANSMISSION TIMESTAMP // ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'long' }).toUpperCase()}<br>
-                SECURE LEAD SYSTEM
-            </div>
-        </div>
-    </div>
-</body>
-</html>`;
-
-        // Plain-text twin of the HTML, for clients that prefer it and for spam filters that score on it.
-        const emailText = [
-            `New enquiry from ${raw.name}`,
-            `Email: ${raw.email}`,
-            raw.phone ? `Phone: ${raw.phone}` : null,
-            `Project: ${raw.projectType}`,
-            `Timeline: ${raw.timeline}`,
-            `Budget: ${raw.budget}`,
-            "",
-            raw.details,
-        ]
-            .filter((line) => line !== null)
-            .join("\n");
-
-        // A short timeout: if Resend is slow the visitor gets the email hand-off instead of a hung request.
-        const sent = await fetch(RESEND_API, {
-            method: "POST",
-            headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                from,
-                to: [siteConfig.emails.inbound],
-                reply_to: raw.email,
-                // Subject lines are plain text: use the raw values with line breaks removed.
-                subject: `[INQUIRY] ${raw.name.toUpperCase()} — ${raw.projectType}`.replace(/[\r\n]+/g, " ").slice(0, 160),
-                html: emailHtml,
-                text: emailText,
-            }),
-            signal: AbortSignal.timeout(10_000),
-        });
-        if (!sent.ok) {
+        // The studio's copy is the one that counts; the visitor's confirmation is sent alongside, best effort.
+        const [toStudio, toVisitor] = await Promise.allSettled([
+            send(siteConfig.emails.inbound, raw.email, enquiryNotification(enquiry)),
+            send(raw.email, siteConfig.emails.inbound, enquiryConfirmation(enquiry)),
+        ]);
+        if (toStudio.status !== "fulfilled" || !toStudio.value.ok) {
             // Resend's own message can name the account or domain; log the status only.
-            console.error("[contact] Resend rejected the email:", sent.status);
+            console.error("[contact] Resend rejected the enquiry:", toStudio.status === "fulfilled" ? toStudio.value.status : "no response");
             return reply({ error: "Failed to send message. Please try again." }, 502);
         }
+        if (toVisitor.status !== "fulfilled" || !toVisitor.value.ok) console.warn("[contact] Confirmation to the visitor was not sent.");
 
         // No personal details in logs.
         console.log("[contact] Enquiry sent.");

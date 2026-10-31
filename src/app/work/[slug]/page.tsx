@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { ArrowRight01Icon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { displayDomain, toWorkSummary, type CaseStudySection } from "@/lib/case-studies";
 import { allWork, workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { Icon } from "@/components/ui/icon";
-import { Card } from "@/components/ui/card";
+import { ArrowBubble, Card } from "@/components/ui/card";
+import { Tilt } from "@/components/ui/interactive";
 import { Eyebrow, Reveal, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
 import { CountUp } from "@/components/ui/scroll-effects";
@@ -152,13 +153,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <div className="container mx-auto px-5 sm:px-6">
                     <dl className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {study.metrics.map((m) => (
-                            <div key={m.label} className="rounded-3xl bg-surface p-7">
-                                <dt className="text-sm text-white/55">{m.label}</dt>
-                                <dd className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
-                                    <CountUp value={m.value} />
-                                </dd>
-                                <dd className="mt-2 text-sm text-white/55">{m.note}</dd>
-                            </div>
+                            <Tilt key={m.label} max={5} className="h-full">
+                                <div className="h-full rounded-3xl bg-surface p-7 transition-colors duration-300 hover:bg-surface-2">
+                                    <dt className="text-sm text-white/55">{m.label}</dt>
+                                    <dd className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                                        <CountUp value={m.value} />
+                                    </dd>
+                                    <dd className="mt-2 text-sm text-white/55">{m.note}</dd>
+                                </div>
+                            </Tilt>
                         ))}
                     </dl>
                 </div>
@@ -222,16 +225,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <section className="pb-12 md:pb-16" aria-label="Next case study">
                 <div className="container mx-auto px-5 sm:px-6">
                     <Link href={`/work/${next.slug}`} className="group block">
-                        <Card interactive className="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between md:p-8">
-                            <div>
+                        <Card interactive className="flex flex-col gap-6 p-5 md:flex-row md:items-center md:p-6">
+                            {/* A glimpse of the next product, so the row reads as a card and not a footer link. */}
+                            <Screenshot study={toWorkSummary(next)} sizes="(min-width: 768px) 224px, 100vw" className="aspect-[16/10] w-full flex-shrink-0 rounded-2xl md:w-56" />
+                            <div className="min-w-0 flex-1 md:px-2">
                                 <p className="text-sm text-white/55">Next case study</p>
                                 <p className="mt-2 text-2xl font-semibold tracking-tight text-white md:text-3xl">
                                     {next.name} <span className="text-white/55">{next.tagline}</span>
                                 </p>
                             </div>
-                            <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
-                                <Icon icon={ArrowRight01Icon} size={20} />
-                            </span>
+                            <ArrowBubble className="self-end md:self-center" />
                         </Card>
                     </Link>
                 </div>
