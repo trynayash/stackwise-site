@@ -83,8 +83,11 @@ const sections: LegalSection[] = [
                         <strong>Vercel</strong> hosts the website and serves it from locations near you. Request logs pass through its systems.
                     </li>
                     <li>
-                        <strong>Google</strong> delivers enquiry emails to our inbox (Gmail) and, only if analytics is switched on, provides Google
-                        Analytics (see <Link href="#analytics-and-cookies">Analytics and cookies</Link>).
+                        <strong>Resend</strong> delivers enquiry notifications from the site to our inbox.
+                    </li>
+                    <li>
+                        <strong>Google</strong> hosts that inbox (Gmail) and, only if analytics is switched on, provides Google Analytics (see{" "}
+                        <Link href="#analytics-and-cookies">Analytics and cookies</Link>).
                     </li>
                 </ul>
                 <p>

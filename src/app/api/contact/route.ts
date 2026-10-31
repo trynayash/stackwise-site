@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
 import { z } from "zod";
 import { siteConfig } from "@/config/site";
 import { redactSensitive } from "@/lib/assistant";
 
 const MAX_BODY_BYTES = 20_000;
+const RESEND_API = "https://api.resend.com/emails";
 
 /** JSON reply that no browser or CDN may cache. */
 function reply(body: Record<string, unknown>, status: number) {
@@ -137,11 +137,14 @@ export async function POST(request: Request) {
         const [name, email, projectType, timeline, budget, details] = [raw.name, raw.email, raw.projectType, raw.timeline, raw.budget, raw.details].map(escapeHtml);
         const phone = raw.phone ? escapeHtml(raw.phone) : undefined;
 
-        // 3. SMTP Production Credentials Check
-        if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-            console.error("❌ STACKWISE SMTP SERVICE: Missing GMAIL_USER or GMAIL_APP_PASSWORD environment variables.");
+        // 3. Delivery is through Resend; without a key the chat offers the email hand-off instead.
+        const apiKey = process.env.RESEND_API_KEY;
+        if (!apiKey) {
+            console.error("[contact] RESEND_API_KEY is not set.");
             return reply({ error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.`, code: "email_not_configured" }, 503);
         }
+        // The sender must be on a domain verified in Resend. Only the studio sees it: visitors get no copy.
+        const from = process.env.MAIL_FROM || "StackWise <onboarding@resend.dev>";
 
         // Build premium styled email HTML
         const emailHtml = `
@@ -244,27 +247,40 @@ export async function POST(request: Request) {
 </body>
 </html>`;
 
-        // Short timeouts: if Gmail is slow the visitor gets the email hand-off instead of a hung request.
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_APP_PASSWORD,
-            },
-            connectionTimeout: 8_000,
-            greetingTimeout: 8_000,
-            socketTimeout: 12_000,
-        });
+        // Plain-text twin of the HTML, for clients that prefer it and for spam filters that score on it.
+        const emailText = [
+            `New enquiry from ${raw.name}`,
+            `Email: ${raw.email}`,
+            raw.phone ? `Phone: ${raw.phone}` : null,
+            `Project: ${raw.projectType}`,
+            `Timeline: ${raw.timeline}`,
+            `Budget: ${raw.budget}`,
+            "",
+            raw.details,
+        ]
+            .filter((line) => line !== null)
+            .join("\n");
 
-        // Send the email
-        await transporter.sendMail({
-            from: `"StackWise Leads" <${process.env.GMAIL_USER}>`,
-            to: siteConfig.emails.inbound,
-            replyTo: raw.email,
-            // Subject lines are plain text: use the raw values with line breaks removed.
-            subject: `[INQUIRY] ${raw.name.toUpperCase()} — ${raw.projectType}`.replace(/[\r\n]+/g, " ").slice(0, 160),
-            html: emailHtml,
+        // A short timeout: if Resend is slow the visitor gets the email hand-off instead of a hung request.
+        const sent = await fetch(RESEND_API, {
+            method: "POST",
+            headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                from,
+                to: [siteConfig.emails.inbound],
+                reply_to: raw.email,
+                // Subject lines are plain text: use the raw values with line breaks removed.
+                subject: `[INQUIRY] ${raw.name.toUpperCase()} — ${raw.projectType}`.replace(/[\r\n]+/g, " ").slice(0, 160),
+                html: emailHtml,
+                text: emailText,
+            }),
+            signal: AbortSignal.timeout(10_000),
         });
+        if (!sent.ok) {
+            // Resend's own message can name the account or domain; log the status only.
+            console.error("[contact] Resend rejected the email:", sent.status);
+            return reply({ error: "Failed to send message. Please try again." }, 502);
+        }
 
         // No personal details in logs.
         console.log("[contact] Enquiry sent.");
