@@ -13,6 +13,7 @@ import { Enter } from "@/components/ui/enter";
 import { CtaBand } from "@/components/sections/cta-band";
 import { WorkCard } from "@/components/work/work-card";
 import { QuoteButton } from "@/components/marketing/quote-button";
+import { BookCallLink } from "@/components/ui/book-call";
 import { marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
 import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { workBySlug } from "@/lib/more-work";
@@ -103,10 +104,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                             </Enter>
                             <Enter delay={0.35} className="mt-10 flex flex-col gap-3 sm:flex-row">
                                 <QuoteButton preset={preset} />
-                                <ButtonLink href={`mailto:${siteConfig.emails.inbound}`} variant="secondary" size="lg">
-                                    <Icon icon={Mail01Icon} size={18} />
-                                    Email us
-                                </ButtonLink>
+                                <BookCallLink source="page-hero" />
                             </Enter>
                         </div>
 
@@ -130,7 +128,14 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                             </div>
                                         ))}
                                 </dl>
-                                <p className="mt-6 text-sm text-white/55">Free consultation. We reply within 24–48 hours.</p>
+                                <p className="mt-6 text-sm text-white/55">
+                                    Prefer email?{" "}
+                                    <a href={`mailto:${siteConfig.emails.inbound}`} className="inline-flex items-center gap-1 font-medium text-white hover:text-accent">
+                                        <Icon icon={Mail01Icon} size={14} />
+                                        {siteConfig.emails.inbound}
+                                    </a>
+                                    . We reply within 24–48 hours.
+                                </p>
                             </div>
                         </Enter>
                     </div>

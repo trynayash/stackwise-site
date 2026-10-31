@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowDown01Icon, ArrowRight01Icon, Menu01Icon, Mail01Icon } from "@hugeicons/core-free-icons";
+import { ArrowDown01Icon, ArrowRight01Icon, Calendar03Icon, Menu01Icon, Mail01Icon } from "@hugeicons/core-free-icons";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
@@ -15,6 +15,7 @@ import { useNavLink, useSectionNav } from "@/hooks/use-section-nav";
 import type { PageLink } from "@/lib/all-pages";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
+import { bookCallUrl } from "@/lib/booking";
 import { cn } from "@/lib/utils";
 
 function MenuHeading({ title, href, linkLabel, onNavigate }: { title: string; href: string; linkLabel: string; onNavigate: () => void }) {
@@ -179,6 +180,17 @@ export function Navbar() {
                         </ul>
 
                         <div className="flex items-center gap-2">
+                            {bookCallUrl("navbar") && (
+                                <a
+                                    href={bookCallUrl("navbar")}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hidden xl:inline-flex h-10 items-center gap-1.5 px-4 text-sm font-medium text-[var(--nav-muted)] transition-colors hover:text-[var(--nav-fg)]"
+                                >
+                                    <Icon icon={Calendar03Icon} size={16} />
+                                    Book a call
+                                </a>
+                            )}
                             <Link
                                 href="/#contact"
                                 onClick={goToSection("contact")}
@@ -266,8 +278,8 @@ export function Navbar() {
                                                     }}
                                                 >
                                                     {/* The card is narrow below xl, where the full label would be cut off. */}
-                                                    <span className="xl:hidden">Free call</span>
-                                                    <span className="hidden xl:inline">Free consultation</span>
+                                                    <span className="xl:hidden">Get a quote</span>
+                                                    <span className="hidden xl:inline">Get a free quote</span>
                                                 </Button>
                                                 <a
                                                     href={`mailto:${siteConfig.emails.inbound}`}

@@ -4,6 +4,7 @@ import { allWork } from "@/lib/more-work";
 import { quoteBudgets, quoteServices, quoteStages, quoteTimelines } from "@/lib/quote";
 import { estimateFor } from "@/lib/quote-estimate";
 import { siteConfig } from "@/config/site";
+import { bookCallUrl } from "@/lib/booking";
 import { approxUsd } from "@/lib/pricing";
 
 /**
@@ -26,6 +27,9 @@ export type AssistantAction = { kind: "email"; label?: string; subject?: string;
 export type AssistantReply = { text: string; actions?: AssistantAction[]; blocked?: boolean; unanswered?: boolean };
 
 const EMAIL = siteConfig.emails.inbound;
+const BOOK_URL = bookCallUrl("chat");
+/** "Book a call" action, only when a booking page is configured. */
+const bookAction = (): AssistantAction[] => (BOOK_URL ? [{ kind: "link", label: "Book a call", href: BOOK_URL }] : []);
 
 const INVISIBLE = /[\u00AD\u200B-\u200F\u202A-\u202E\u2060-\u2064\uFEFF]/g;
 
@@ -209,7 +213,8 @@ const UNSAFE_OUTPUT = /\b(claude|anthropic|openai|chat\s?gpt|gemini|copilot|syst
 export function safeReply(reply: AssistantReply): AssistantReply {
     const texts = [reply.text, ...(reply.actions ?? []).map((a) => a.label ?? "")];
     if (texts.some((t) => UNSAFE_OUTPUT.test(t))) return refusal;
-    const actions = reply.actions?.filter((a) => a.kind === "email" || (a.href.startsWith("/") && !a.href.startsWith("//")));
+    // Links stay on this site, with one exception: the booking page configured for the studio.
+    const actions = reply.actions?.filter((a) => a.kind === "email" || (a.href.startsWith("/") && !a.href.startsWith("//")) || (BOOK_URL !== "" && a.href === BOOK_URL));
     return { ...reply, actions };
 }
 
@@ -426,8 +431,18 @@ const intents: Intent[] = [
         answer: () => ({ text: faq("How do you communicate") }),
     },
     {
+        weight: 1.2,
+        patterns: [/\b(book|schedule|set ?up|arrange|fix|plan)\s+(a\s+|an\s+)?(quick\s+|short\s+|intro\s+)?(call|meeting|demo|slot|chat|time)\b|\b(calendly|book a call|hop on a call|jump on a call|get on a call|zoom|google meet|meet (up|online))\b|\bwhen can we (talk|speak|meet)\b/],
+        answer: () => ({
+            text: BOOK_URL
+                ? "Pick a time that suits you and Yash will talk it through with you. Calls are free, with no commitment, and you get a written quote afterwards."
+                : `Email ${EMAIL} with a couple of times that suit you and Yash will set up a call. Calls are free, with no commitment.`,
+            actions: [...bookAction(), { kind: "email", label: "Email us", subject: "Call about a project" }],
+        }),
+    },
+    {
         patterns: [/\b(free|consultation|consult|discovery call|no commitment|first call)\b/],
-        answer: () => ({ text: "Yes, the first consultation is free and there's no commitment. After it you get a written quote and a timeline." }),
+        answer: () => ({ text: "Yes, the first consultation is free and there's no commitment. After it you get a written quote and a timeline.", actions: bookAction() }),
     },
     {
         patterns: [/\b(process|how (do you|does it|does this) work|steps|methodology|approach|get started|(how|where) (do|can|should) (i|we) start|next steps?|onboarding)\b/],
@@ -478,7 +493,7 @@ const intents: Intent[] = [
         patterns: [/\b(contact|e-?mail|mail|phone|call you|whatsapp|reach|talk to|speak to|number|get in touch)\b/],
         answer: () => ({
             text: `Email us at ${EMAIL}, or finish the quick questions here and Yash will reply within 24–48 hours. You can add a WhatsApp number in the chat if you'd prefer a reply there.`,
-            actions: [{ kind: "email", label: "Email us" }],
+            actions: [{ kind: "email", label: "Email us" }, ...bookAction()],
         }),
     },
     {

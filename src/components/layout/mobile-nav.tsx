@@ -7,6 +7,7 @@ import { Add01Icon, Cancel01Icon, Mail01Icon, Building03Icon } from "@hugeicons/
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
+import { BookCallLink } from "@/components/ui/book-call";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { useNavLink } from "@/hooks/use-section-nav";
 import { useSiteLinks } from "@/components/providers/site-links";
@@ -141,6 +142,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                         >
                             Get a free quote
                         </Button>
+                        <BookCallLink source="menu" variant="secondary" size="lg" className="w-full short:hidden" />
                         <a href={`mailto:${siteConfig.emails.inbound}`} className="flex min-h-11 flex-shrink-0 items-center justify-center gap-2 text-sm text-white/55">
                             <Icon icon={Mail01Icon} size={16} />
                             {siteConfig.emails.inbound}

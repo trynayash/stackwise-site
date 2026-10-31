@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Copy01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { Calendar03Icon, Copy01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Eyebrow, Reveal } from "@/components/ui/motion-primitives";
 import dynamic from "next/dynamic";
 import { useReached } from "@/components/ui/use-reached";
 import { siteConfig } from "@/config/site";
+import { bookCallUrl } from "@/lib/booking";
 
 const nextSteps = [
     { title: "Tell us about the project", text: "In the chat or by email. It takes about two minutes." },
@@ -30,7 +31,7 @@ function EmailCard() {
 
     return (
         <div className="rounded-3xl bg-surface p-6 md:p-7">
-            <p className="text-sm font-medium text-white/55">Prefer email?</p>
+            <p className="text-sm font-medium text-white/55">{bookCallUrl("contact") ? "Prefer email or a call?" : "Prefer email?"}</p>
             <a href={`mailto:${email}`} className="mt-1 block break-words py-2 text-xl font-semibold text-white hover:underline underline-offset-4 md:text-2xl">
                 {/* On narrow screens the address breaks before the @, never mid-word. */}
                 {email.split("@")[0]}
@@ -52,6 +53,17 @@ function EmailCard() {
                     <Icon icon={copied ? Tick02Icon : Copy01Icon} size={17} />
                     <span aria-live="polite">{copied ? "Copied" : "Copy address"}</span>
                 </button>
+                {bookCallUrl("contact") && (
+                    <a
+                        href={bookCallUrl("contact")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-11 items-center gap-2 rounded-full bg-white/[0.06] px-5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.12]"
+                    >
+                        <Icon icon={Calendar03Icon} size={17} />
+                        Book a call
+                    </a>
+                )}
             </div>
         </div>
     );

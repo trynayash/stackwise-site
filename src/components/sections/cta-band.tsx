@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { Calendar03Icon, Mail01Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { Reveal } from "@/components/ui/motion-primitives";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/interactive";
 import { Icon } from "@/components/ui/icon";
 import { siteConfig } from "@/config/site";
+import { bookCallUrl } from "@/lib/booking";
 import type { QuotePreset } from "@/lib/quote";
 
 const nextSteps = [
@@ -43,6 +44,17 @@ export function CtaBand({
                                         Get a free quote
                                     </Button>
                                 </Magnetic>
+                                {bookCallUrl("cta-band") && (
+                                    <a
+                                        href={bookCallUrl("cta-band")}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-black/10 px-7 text-base font-semibold transition-colors hover:bg-black/15"
+                                    >
+                                        <Icon icon={Calendar03Icon} size={18} />
+                                        Book a call
+                                    </a>
+                                )}
                                 <a
                                     href={`mailto:${siteConfig.emails.inbound}`}
                                     className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-black/10 px-7 text-base font-semibold transition-colors hover:bg-black/15"

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUp01Icon, Github01Icon, Mail01Icon, NewTwitterIcon } from "@hugeicons/core-free-icons";
+import { ArrowUp01Icon, Calendar03Icon, Github01Icon, Mail01Icon, NewTwitterIcon } from "@hugeicons/core-free-icons";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Magnetic } from "@/components/ui/interactive";
@@ -10,6 +10,7 @@ import { useNavLink } from "@/hooks/use-section-nav";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
 import { scrollToTarget } from "@/lib/scroll";
+import { bookCallUrl } from "@/lib/booking";
 
 const linkClass = "link-draw text-sm text-white/55 hover:text-white";
 
@@ -47,6 +48,17 @@ export function Footer() {
                             <Icon icon={Mail01Icon} size={17} />
                             {siteConfig.emails.inbound}
                         </a>
+                        {bookCallUrl("footer") && (
+                            <a
+                                href={bookCallUrl("footer")}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex min-h-11 items-center gap-2 text-[15px] font-semibold text-white hover:text-accent"
+                            >
+                                <Icon icon={Calendar03Icon} size={17} />
+                                Book a call
+                            </a>
+                        )}
                         <div className="mt-6 flex items-center gap-2">
                             {[
                                 { label: "Yash Suthar on X", href: siteConfig.links.twitter, icon: NewTwitterIcon },

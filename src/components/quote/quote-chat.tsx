@@ -3,7 +3,7 @@
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight01Icon, ArrowUp02Icon, Cancel01Icon, CheckmarkCircle02Icon, Mail01Icon, PencilEdit02Icon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, ArrowUpRight01Icon, ArrowUp02Icon, Cancel01Icon, CheckmarkCircle02Icon, Mail01Icon, PencilEdit02Icon, RefreshIcon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { siteConfig } from "@/config/site";
 import { quoteBudgets, quoteMailto, quoteServices, quoteStages, quoteTimelines, type QuoteAnswers, type QuotePreset } from "@/lib/quote";
@@ -62,11 +62,13 @@ function Actions({ actions, answers, preset, onNavigate }: { actions: AssistantA
                     <Link
                         key={a.href}
                         href={a.href}
-                        onClick={onNavigate}
+                        onClick={a.href.startsWith("http") ? undefined : onNavigate}
+                        target={a.href.startsWith("http") ? "_blank" : undefined}
+                        rel={a.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         className="inline-flex h-9 items-center gap-1.5 rounded-full border border-white/15 px-4 text-sm font-medium text-white transition-colors hover:border-white/30 hover:bg-white/[0.04]"
                     >
                         {a.label}
-                        <Icon icon={ArrowRight01Icon} size={15} />
+                        <Icon icon={a.href.startsWith("http") ? ArrowUpRight01Icon : ArrowRight01Icon} size={15} />
                     </Link>
                 )
             )}
