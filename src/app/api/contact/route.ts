@@ -259,7 +259,7 @@ export async function POST(request: Request) {
         // Send the email
         await transporter.sendMail({
             from: `"StackWise Leads" <${process.env.GMAIL_USER}>`,
-            to: "yashrsuthar90@gmail.com",
+            to: siteConfig.emails.inbound,
             replyTo: raw.email,
             // Subject lines are plain text: use the raw values with line breaks removed.
             subject: `[INQUIRY] ${raw.name.toUpperCase()} — ${raw.projectType}`.replace(/[\r\n]+/g, " ").slice(0, 160),
