@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { Clock01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
+import { ArrowBubble } from "@/components/ui/card";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
@@ -88,9 +89,7 @@ export default function GuidesPage() {
                                                         <Icon icon={Clock01Icon} size={15} />
                                                         {readingMinutes(g)} min read
                                                     </span>
-                                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
-                                                        <Icon icon={ArrowUpRight01Icon} size={18} />
-                                                    </span>
+                                                    <ArrowBubble size="sm" />
                                                 </div>
                                                 <h3 className="mt-6 text-xl font-semibold leading-snug tracking-tight text-white text-balance">{g.title}</h3>
                                                 <p className="mt-3 text-[15px] leading-relaxed text-white/60">{g.summary}</p>

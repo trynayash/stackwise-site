@@ -1,8 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight01Icon, ArrowUpRight01Icon, Mail01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, CloudUploadIcon, CodeIcon, Mail01Icon, PenTool03Icon, Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { Card, IconTile } from "@/components/ui/card";
+import { RelatedCard } from "@/components/ui/related-card";
+import { Tilt } from "@/components/ui/interactive";
 import { Icon } from "@/components/ui/icon";
 import { ButtonLink } from "@/components/ui/button";
 import { FaqList } from "@/components/ui/faq-list";
@@ -28,6 +30,9 @@ export function marketingMetadata(page: MarketingPageData): Metadata {
         ogKicker: page.badge,
     });
 }
+
+// One icon per step of marketingProcess, the same four the home page uses.
+const processIcons = [Search01Icon, PenTool03Icon, CodeIcon, CloudUploadIcon];
 
 export function Breadcrumbs({ items }: { items: { name: string; href?: string }[] }) {
     return (
@@ -139,13 +144,15 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                     <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {page.features.map((feat) => (
                             <StaggerItem key={feat.title} className="h-full">
-                                <Card interactive className="h-full p-7 md:p-8">
-                                    <IconTile>
-                                        <Icon icon={feat.icon} size={20} />
-                                    </IconTile>
-                                    <h3 className="mt-7 text-lg font-semibold text-white">{feat.title}</h3>
-                                    <p className="mt-2 text-[15px] leading-relaxed text-white/60">{feat.description}</p>
-                                </Card>
+                                <Tilt max={5} className="h-full">
+                                    <Card interactive className="h-full p-7 md:p-8">
+                                        <IconTile size="lg">
+                                            <Icon icon={feat.icon} size={24} />
+                                        </IconTile>
+                                        <h3 className="mt-7 text-xl font-semibold tracking-tight text-white">{feat.title}</h3>
+                                        <p className="mt-2.5 text-[15px] leading-relaxed text-white/65">{feat.description}</p>
+                                    </Card>
+                                </Tilt>
                             </StaggerItem>
                         ))}
                     </Stagger>
@@ -225,11 +232,18 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                     <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                         {marketingProcess.map((s, i) => (
                             <StaggerItem key={s.step} className="h-full">
-                                <Card className="h-full p-7">
-                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-black">{i + 1}</span>
-                                    <h3 className="mt-7 text-lg font-semibold text-white">{s.title}</h3>
-                                    <p className="mt-2 text-[15px] leading-relaxed text-white/60">{s.text}</p>
-                                </Card>
+                                <Tilt max={6} className="h-full">
+                                    <Card interactive className="h-full p-7">
+                                        <div className="flex items-center justify-between">
+                                            <IconTile size="md">
+                                                <Icon icon={processIcons[i] ?? Search01Icon} size={22} />
+                                            </IconTile>
+                                            <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">Step {i + 1}</span>
+                                        </div>
+                                        <h3 className="mt-7 text-xl font-semibold tracking-tight text-white">{s.title}</h3>
+                                        <p className="mt-2.5 text-[15px] leading-relaxed text-white/65">{s.text}</p>
+                                    </Card>
+                                </Tilt>
                             </StaggerItem>
                         ))}
                     </Stagger>
@@ -258,22 +272,8 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                     </Reveal>
                     <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {related.map((r) => (
-                            <StaggerItem key={r.path}>
-                                <Link href={r.path} className="block h-full">
-                                    <Card interactive className="flex h-full flex-col p-6">
-                                        <div className="flex items-start justify-between">
-                                            <IconTile>
-                                                <Icon icon={r.icon} size={20} />
-                                            </IconTile>
-                                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
-                                                <Icon icon={ArrowUpRight01Icon} size={18} />
-                                            </span>
-                                        </div>
-                                        <p className="mt-8 text-xs font-medium uppercase tracking-wider text-white/45">{r.kind}</p>
-                                        <h3 className="mt-1.5 text-lg font-semibold text-white">{r.title}</h3>
-                                        <p className="mt-1.5 text-sm leading-relaxed text-white/55">{r.summary}</p>
-                                    </Card>
-                                </Link>
+                            <StaggerItem key={r.path} className="h-full">
+                                <RelatedCard link={r} />
                             </StaggerItem>
                         ))}
                     </Stagger>

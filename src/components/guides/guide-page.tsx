@@ -1,8 +1,7 @@
 import React from "react";
-import Link from "next/link";
-import { ArrowUpRight01Icon, Calendar03Icon, Clock01Icon, Tick02Icon, UserIcon } from "@hugeicons/core-free-icons";
+import { Calendar03Icon, Clock01Icon, Tick02Icon, UserIcon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
-import { Card, IconTile } from "@/components/ui/card";
+import { RelatedCard } from "@/components/ui/related-card";
 import { FaqList } from "@/components/ui/faq-list";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
@@ -93,26 +92,6 @@ function Block({ block }: { block: GuideBlock }) {
                 </aside>
             );
     }
-}
-
-function RelatedCard({ link }: { link: SiteLink }) {
-    return (
-        <Link href={link.path} className="group block h-full">
-            <Card interactive className="flex h-full flex-col p-6">
-                <div className="flex items-start justify-between">
-                    <IconTile>
-                        <Icon icon={link.icon} size={20} />
-                    </IconTile>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
-                        <Icon icon={ArrowUpRight01Icon} size={18} />
-                    </span>
-                </div>
-                <p className="mt-8 text-xs font-medium uppercase tracking-wider text-white/45">{link.kind}</p>
-                <h3 className="mt-1.5 text-lg font-semibold text-white">{link.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-white/55">{link.summary}</p>
-            </Card>
-        </Link>
-    );
 }
 
 /** A guide: the short answer first, then takeaways, the full write-up with a contents list, FAQs and related pages. */

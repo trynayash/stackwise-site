@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
-import { IconTile } from "@/components/ui/card";
+import { ArrowBubble, IconTile } from "@/components/ui/card";
+import { Tilt } from "@/components/ui/interactive";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
@@ -65,34 +66,39 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                 <div className="container mx-auto px-5 sm:px-6">
                     <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         {pages.map((p) => {
-                            const price = p.facts.find((f) => f.label === "Starting at")?.value;
+                            const fact = (label: string) => p.facts.find((f) => f.label === label)?.value;
+                            // "₹34,999 (about US$400)" shows just the rupee figure here; the page itself has the conversion.
+                            const price = fact("Starting at")?.replace(/\s*\(.*\)$/, "");
+                            const timeline = fact("Typical timeline");
                             return (
                                 <StaggerItem key={p.path} className="h-full">
-                                    <Link
-                                        href={p.path}
-                                        className="group flex h-full flex-col rounded-3xl bg-surface p-7 transition-[transform,background-color] duration-300 hover:-translate-y-1 hover:bg-surface-2 md:p-8"
-                                    >
-                                        <div className="flex items-start justify-between gap-4">
-                                            <IconTile>
-                                                <Icon icon={p.icon} size={20} />
-                                            </IconTile>
-                                            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition-colors group-hover:bg-accent group-hover:text-black">
-                                                <Icon icon={ArrowUpRight01Icon} size={20} />
-                                            </span>
-                                        </div>
-                                        <h2 className="mt-7 text-2xl font-semibold tracking-tight text-white md:text-3xl">{p.navLabel}</h2>
-                                        <p className="mt-3 text-[15px] leading-relaxed text-white/60">{p.seo.description}</p>
-                                        <div className="mt-auto flex flex-wrap gap-2 pt-6">
-                                            {price && (
-                                                <span className="rounded-full bg-accent px-3.5 py-1.5 text-sm font-semibold text-black">
-                                                    {price === "Custom quote" ? price : `From ${price}`}
-                                                </span>
-                                            )}
-                                            {p.features.slice(0, 3).map((f) => (
-                                                <span key={f.title} className="rounded-full bg-white/[0.06] px-3.5 py-1.5 text-sm text-white/70">{f.title}</span>
-                                            ))}
-                                        </div>
-                                    </Link>
+                                    <Tilt max={4} className="h-full">
+                                        <Link
+                                            href={p.path}
+                                            className="group flex h-full flex-col rounded-3xl bg-surface p-7 transition-colors duration-300 hover:bg-surface-2 md:p-8"
+                                        >
+                                            <div className="flex items-start justify-between gap-4">
+                                                <IconTile size="lg">
+                                                    <Icon icon={p.icon} size={24} />
+                                                </IconTile>
+                                                <ArrowBubble />
+                                            </div>
+                                            <h2 className="mt-7 text-2xl font-semibold tracking-tight text-white md:text-3xl">{p.navLabel}</h2>
+                                            <p className="mt-3 text-[15px] leading-relaxed text-white/60">{p.seo.description}</p>
+                                            <ul className="mt-6 mb-7 space-y-2.5">
+                                                {p.features.slice(0, 3).map((f) => (
+                                                    <li key={f.title} className="flex items-center gap-2.5 text-[15px] text-white/75">
+                                                        <Icon icon={Tick02Icon} size={16} strokeWidth={2} className="flex-shrink-0 text-accent" />
+                                                        {f.title}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            <div className="mt-auto flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-white/10 pt-5">
+                                                <span className="text-base font-semibold text-white">{price === "Custom quote" || !price ? "Custom quote" : `From ${price}`}</span>
+                                                {timeline && <span className="text-sm text-white/55">{timeline}</span>}
+                                            </div>
+                                        </Link>
+                                    </Tilt>
                                 </StaggerItem>
                             );
                         })}
