@@ -115,7 +115,7 @@ const corePages: Record<string, MarketingPageData> = {
         idealFor: ["Teams running the business on spreadsheets", "Companies outgrowing generic SaaS tools", "Operations stitched together with copy-paste"],
         deliverables: ["Workflow mapping session", "Data model & permissions", "Web app or internal portal", "Integrations with your tools", "Training & documentation", "Support period after launch"],
         stack: ["Next.js", "TypeScript", "Node.js", "Go", "PostgreSQL", "MongoDB", "Docker", "AWS"],
-        work: ["scopeci", "limityourapi"],
+        work: ["omenterprise", "scopeci"],
         faqs: [
             { q: "Why custom software instead of an off-the-shelf tool?", a: "Off-the-shelf tools are great until your process doesn't fit them. Custom software matches how your team already works, removes per-seat fees and connects all your data in one place." },
             { q: "Can it connect to the tools we already use?", a: "Yes. We integrate with your existing tools through their APIs: accounting, CRM, payments, email, spreadsheets, so data flows automatically instead of being re-typed." },
@@ -152,7 +152,7 @@ const corePages: Record<string, MarketingPageData> = {
         idealFor: ["Brands moving off WordPress or page builders", "Companies whose site isn't generating leads", "Launches that need to make a strong first impression"],
         deliverables: ["Sitemap & content plan", "Custom design in Figma", "Next.js build with CMS", "Technical SEO setup", "Analytics & conversion tracking", "Performance & accessibility pass"],
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Headless CMS", "Shopify", "Vercel"],
-        work: ["stackwise", "codefusionai"],
+        work: ["omenterprise", "stackwise"],
         faqs: [
             { q: "How long does a website take?", a: "A marketing website usually takes 2–3 weeks. E-commerce stores take 4–6 weeks. You'll get an exact timeline once we've agreed the pages and features." },
             { q: "Will my site be SEO-friendly?", a: "Yes. Pages are server-rendered with clean semantic HTML, sitemaps, metadata, structured data and fast load times: the technical foundations search engines look for." },
@@ -263,7 +263,7 @@ const corePages: Record<string, MarketingPageData> = {
         idealFor: ["Teams re-typing data between tools", "Businesses running on shared spreadsheets", "Managers waiting on manual weekly reports"],
         deliverables: ["Process & bottleneck audit", "Automation plan with priorities", "Integrations & scheduled jobs", "Live dashboards", "Role-based portals", "Monitoring & alerts"],
         stack: ["Node.js", "Go", "PostgreSQL", "Slack API", "Airtable", "Webflow", "AWS"],
-        work: ["scopeci", "limityourapi"],
+        work: ["omenterprise", "scopeci"],
         faqs: [
             { q: "What kind of processes can you automate?", a: "Anything repetitive and rule-based: data entry between tools, approvals, invoices, reports, reminders and syncing records. Show us the spreadsheet and we'll show you what can go." },
             { q: "Do we have to replace the tools we use now?", a: "Usually not. We connect your existing tools through their APIs and automate the work between them. We only suggest replacing something when it's clearly holding you back." },
@@ -488,7 +488,7 @@ const corePages: Record<string, MarketingPageData> = {
         idealFor: ["Marketing sites that need to rank and convert", "SaaS products that need a fast, SEO-friendly front end", "Teams moving off WordPress or page builders"],
         deliverables: ["Next.js App Router codebase", "Technical SEO setup", "CMS integration", "Analytics & tracking", "Vercel deployment", "Handoff docs"],
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
-        work: ["stackwise", "codefusionai"],
+        work: ["omenterprise", "stackwise"],
         faqs: [
             { q: "Why Next.js?", a: "It renders pages on the server, so search engines and link previews see real content, and it stays fast on real devices. It's also widely used, so hiring for it later is easy." },
             { q: "Can you migrate our site to Next.js?", a: "Yes. We rebuild the pages, keep your URLs (or redirect them) so search rankings carry over, and connect a CMS so your team can keep editing." },

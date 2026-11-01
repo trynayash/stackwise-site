@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
-import { testimonials } from "@/lib/testimonials";
+import { publishedTestimonials as testimonials } from "@/lib/testimonials";
 
 const initials = (name: string) =>
     name

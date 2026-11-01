@@ -11,6 +11,22 @@ export type Testimonial = {
     link?: string;
     /** Optional case study slug this project relates to. */
     work?: string;
+    /** Shown only once the client has confirmed the wording. */
+    published: boolean;
 };
 
-export const testimonials: Testimonial[] = [];
+export const testimonials: Testimonial[] = [
+    {
+        // Draft wording, written from the project; goes live once Kishan has confirmed or corrected it.
+        quote: "Our counter runs on this now. Prices, bills and the catalogue come from one place, and I can approve a discount from my phone without being in the shop.",
+        name: "Kishan Suthar",
+        role: "Owner",
+        company: "OM ENTERPRISE, Naswadi",
+        link: "https://omenterprise-n.vercel.app",
+        work: "omenterprise",
+        published: false,
+    },
+];
+
+/** The quotes that are cleared to show. */
+export const publishedTestimonials = testimonials.filter((t) => t.published);

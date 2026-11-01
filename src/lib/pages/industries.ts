@@ -381,7 +381,7 @@ export const industryPages: Record<string, MarketingPageData> = {
             "Support period after launch",
         ],
         stack: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "Redis", "Razorpay", "Stripe", "Vercel", "Figma"],
-        work: [],
+        work: ["omenterprise"],
         faqs: [
             {
                 q: "How much does an e-commerce website cost in India?",

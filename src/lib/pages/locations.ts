@@ -169,7 +169,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             "Code, docs and account access at handover",
         ],
         stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Redis", "BullMQ", "Razorpay", "AWS", "React Native"],
-        work: ["startupdeck", "limityourapi"],
+        work: ["omenterprise", "startupdeck"],
         faqs: [
             {
                 q: "What does SaaS development cost in India?",
