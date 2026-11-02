@@ -1,0 +1,50 @@
+import React from "react";
+import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
+import { Hook } from "./scenes/Hook";
+import { Complexity } from "./scenes/Complexity";
+import { Reveal } from "./scenes/Reveal";
+import { Showcase } from "./scenes/Showcase";
+import { Process } from "./scenes/Process";
+import { Promise as PromiseScene } from "./scenes/Promise";
+import { Outro } from "./scenes/Outro";
+import { OVERLAP, scenes } from "./lib/timeline";
+import { color } from "./lib/theme";
+import "./lib/fonts";
+
+export type FilmProps = {
+  /** Mix in public/audio/voiceover.mp3 (recorded separately; see VOICEOVER.md). */
+  voiceover: boolean;
+  /** Mix in the synthesized music bed and effects from public/audio. */
+  sound: boolean;
+};
+
+const order = ["hook", "complexity", "reveal", "showcase", "process", "promise", "outro"] as const;
+const components = { hook: Hook, complexity: Complexity, reveal: Reveal, showcase: Showcase, process: Process, promise: PromiseScene, outro: Outro };
+
+/**
+ * One film, two formats: the composition size decides the layout (see lib/layout.ts). Scenes are stacked
+ * in order, each one extended by OVERLAP frames under the next so its successor's wipe covers it cleanly.
+ */
+export const Film: React.FC<FilmProps> = ({ voiceover, sound }) => {
+  return (
+    <AbsoluteFill style={{ background: color.canvas }}>
+      {order.map((key, i) => {
+        const s = scenes[key];
+        const C = components[key];
+        const last = i === order.length - 1;
+        return (
+          <Sequence key={key} from={s.from} durationInFrames={s.to - s.from + (last ? 0 : OVERLAP)} layout="none">
+            <C />
+          </Sequence>
+        );
+      })}
+      {sound && (
+        <>
+          <Audio src={staticFile("audio/bed.wav")} volume={0.9} />
+          <Audio src={staticFile("audio/sfx.wav")} volume={1} />
+        </>
+      )}
+      {voiceover && <Audio src={staticFile("audio/voiceover.mp3")} volume={1} />}
+    </AbsoluteFill>
+  );
+};
