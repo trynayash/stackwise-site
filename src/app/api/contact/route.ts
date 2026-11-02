@@ -63,6 +63,30 @@ function pruneRateMap(now: number) {
     if (rateLimitMap.size > MAX_TRACKED) rateLimitMap.clear();
 }
 
+// The visitor's confirmation goes to whatever address was typed, and the Origin header is easy to fake outside a
+// browser. So each address gets at most one confirmation a day, and each instance sends at most a few an hour;
+// past either cap the enquiry still reaches the studio, only the courtesy copy is skipped.
+const confirmedAt = new Map<string, number>();
+const CONFIRM_ADDRESS_WINDOW = 24 * 60 * 60 * 1000;
+const CONFIRM_HOURLY_CAP = 20;
+let confirmWindowStart = 0;
+let confirmCount = 0;
+
+function mayConfirm(email: string): boolean {
+    const now = Date.now();
+    for (const [key, at] of confirmedAt) if (now - at > CONFIRM_ADDRESS_WINDOW) confirmedAt.delete(key);
+    if (confirmedAt.size > MAX_TRACKED) confirmedAt.clear();
+    if (now - confirmWindowStart > WINDOW) {
+        confirmWindowStart = now;
+        confirmCount = 0;
+    }
+    const key = email.trim().toLowerCase();
+    if (confirmedAt.has(key) || confirmCount >= CONFIRM_HOURLY_CAP) return false;
+    confirmedAt.set(key, now);
+    confirmCount += 1;
+    return true;
+}
+
 function isRateLimited(ip: string): boolean {
     const now = Date.now();
     pruneRateMap(now);
@@ -137,7 +161,7 @@ export async function POST(request: Request) {
             console.error("[contact] RESEND_API_KEY is not set.");
             return reply({ error: `Inquiry system currently offline. Please email ${siteConfig.emails.inbound} directly.`, code: "email_not_configured" }, 503);
         }
-        // The sender must be on a domain verified in Resend. Only the studio sees it: visitors get no copy.
+        // The sender must be on a domain verified in Resend.
         const from = process.env.MAIL_FROM || "StackWise <onboarding@resend.dev>";
 
         const enquiry = { name: raw.name, email: raw.email, phone: raw.phone, projectType: raw.projectType, timeline: raw.timeline, budget: raw.budget, details: raw.details };
@@ -150,17 +174,19 @@ export async function POST(request: Request) {
                 signal: AbortSignal.timeout(10_000),
             });
 
-        // The studio's copy is the one that counts; the visitor's confirmation is sent alongside, best effort.
+        // The studio's copy is the one that counts; the visitor's confirmation is sent alongside, best effort and capped.
+        const confirm = mayConfirm(raw.email);
         const [toStudio, toVisitor] = await Promise.allSettled([
             send(siteConfig.emails.inbound, raw.email, enquiryNotification(enquiry)),
-            send(raw.email, siteConfig.emails.inbound, enquiryConfirmation(enquiry)),
+            confirm ? send(raw.email, siteConfig.emails.inbound, enquiryConfirmation(enquiry)) : Promise.resolve(null),
         ]);
         if (toStudio.status !== "fulfilled" || !toStudio.value.ok) {
             // Resend's own message can name the account or domain; log the status only.
             console.error("[contact] Resend rejected the enquiry:", toStudio.status === "fulfilled" ? toStudio.value.status : "no response");
             return reply({ error: "Failed to send message. Please try again." }, 502);
         }
-        if (toVisitor.status !== "fulfilled" || !toVisitor.value.ok) console.warn("[contact] Confirmation to the visitor was not sent.");
+        if (!confirm) console.warn("[contact] Confirmation skipped: cap reached for this address or this hour.");
+        else if (toVisitor.status !== "fulfilled" || !toVisitor.value?.ok) console.warn("[contact] Confirmation to the visitor was not sent.");
 
         // No personal details in logs.
         console.log("[contact] Enquiry sent.");

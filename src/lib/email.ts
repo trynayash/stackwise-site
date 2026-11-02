@@ -29,6 +29,16 @@ const font = `'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', He
 
 const firstName = (name: string) => name.trim().split(/\s+/)[0] || name;
 
+/**
+ * The first name for the visitor's confirmation, or null when it doesn't look like a name. That email goes to
+ * whatever address was typed into the form, so it repeats nothing else the visitor wrote: otherwise anyone could
+ * use the form to send their own text, links included, to a stranger from the studio's domain.
+ */
+export function greetingName(name: string): string | null {
+    const first = name.trim().split(/\s+/)[0] ?? "";
+    return /^\p{L}[\p{L}\p{M}'’-]{0,29}$/u.test(first) ? first : null;
+}
+
 const whenIst = () => new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" }) + " IST";
 
 /** One row of label and value in the details table. */
@@ -113,10 +123,13 @@ export function enquiryNotification(e: Enquiry): EmailMessage {
     return { subject: `[INQUIRY] ${e.name.toUpperCase()} — ${e.projectType}`.replace(/[\r\n]+/g, " ").slice(0, 160), html, text };
 }
 
-/** The visitor's confirmation: what they sent, what happens next, and the two fastest ways to continue. */
-export function enquiryConfirmation(e: Enquiry): EmailMessage {
-    const first = firstName(e.name);
-    const h = { first: escapeHtml(first), projectType: escapeHtml(e.projectType), timeline: escapeHtml(e.timeline), budget: escapeHtml(e.budget), details: escapeHtml(e.details) };
+/**
+ * The visitor's confirmation: what happens next and the two fastest ways to continue. It carries no text the
+ * visitor typed beyond a first name that passes greetingName(); their full message stays in the studio's copy.
+ */
+export function enquiryConfirmation(e: Pick<Enquiry, "name">): EmailMessage {
+    const first = greetingName(e.name);
+    const thanks = first ? `Thanks, ${first}.` : "Thanks for getting in touch.";
     const book = bookCallUrl("email");
     const steps = [
         "Yash reads your message himself; there is no sales team in between.",
@@ -124,19 +137,12 @@ export function enquiryConfirmation(e: Enquiry): EmailMessage {
         "A free call if it helps, then a written quote. Nothing is binding until you sign.",
     ];
     const html = layout({
-        title: `Thanks, ${h.first}. Yash will reply within 24–48 hours.`,
-        intro: "Your message reached the StackWise inbox. Here is what happens next, and a copy of what you sent.",
+        title: `${escapeHtml(thanks)} Yash will reply within 24–48 hours.`,
+        intro: "Your message reached the StackWise inbox. Here is what happens next.",
         body: `
       <ol style="margin:22px 0 0;padding-left:22px;font-size:15px;line-height:1.65;color:#0b0b0b;">
         ${steps.map((s) => `<li style="margin-bottom:8px;">${s}</li>`).join("")}
       </ol>
-      <p style="margin:26px 0 6px;font-size:13px;color:#6b6b66;">What you sent</p>
-      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;">
-        ${row("Project", h.projectType)}
-        ${row("Timeline", h.timeline)}
-        ${row("Budget", h.budget)}
-      </table>
-      <div style="white-space:pre-wrap;font-size:15px;line-height:1.65;color:#0b0b0b;background:#f7f6f2;border-radius:12px;padding:16px 18px;margin-top:12px;">${h.details}</div>
       <div style="margin-top:26px;">
         ${book ? button(book, "Book a call") : ""}
         ${button(`mailto:${siteConfig.emails.inbound}`, "Reply to Yash", book ? "light" : "dark")}
@@ -144,17 +150,10 @@ export function enquiryConfirmation(e: Enquiry): EmailMessage {
         footer: `StackWise, a software studio in ${siteConfig.location.city}. <a href="${siteConfig.url}" style="color:#6b6b66;">${site}</a><br>You are receiving this because you sent an enquiry on our website. Replying to this email reaches Yash directly.`,
     });
     const text = [
-        `Thanks, ${first}. Yash will reply within 24–48 hours.`,
+        `${thanks} Yash will reply within 24–48 hours.`,
         "",
         "What happens next:",
         ...steps.map((s, i) => `${i + 1}. ${s}`),
-        "",
-        "What you sent:",
-        `Project: ${e.projectType}`,
-        `Timeline: ${e.timeline}`,
-        `Budget: ${e.budget}`,
-        "",
-        e.details,
         "",
         book ? `Book a call: ${book}` : null,
         `Reply to Yash: ${siteConfig.emails.inbound}`,
@@ -164,5 +163,5 @@ export function enquiryConfirmation(e: Enquiry): EmailMessage {
     ]
         .filter((line) => line !== null)
         .join("\n");
-    return { subject: `Got it, ${first}: Yash will reply within 24–48 hours`, html, text };
+    return { subject: first ? `Got it, ${first}: Yash will reply within 24–48 hours` : "Got it: Yash will reply within 24–48 hours", html, text };
 }
