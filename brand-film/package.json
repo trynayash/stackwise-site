@@ -8,7 +8,7 @@
     "render:vertical": "remotion render src/index.ts Vertical out/stackwise-brand-film-9x16.mp4",
     "render:horizontal": "remotion render src/index.ts Horizontal out/stackwise-brand-film-16x9.mp4",
     "stills": "remotion still src/index.ts Vertical out/poster-9x16.png --frame=1300 && remotion still src/index.ts Horizontal out/thumbnail-16x9.png --frame=500",
-    "audio": "python3 -I tools/make-audio.py",
+    "audio": "python3 -I tools/make-audio.py && python3 -I tools/make-music.py",
     "typecheck": "tsc -p tsconfig.json",
     "voice": "python3 -I tools/make-voice.py --model models --voice af_heart"
   },

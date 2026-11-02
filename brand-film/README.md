@@ -39,7 +39,7 @@ npx remotion render src/index.ts Vertical out/silent-9x16.mp4 --props='{"voiceov
 | `public/projects/` | The site's real project screenshots |
 | `public/site/` | Screens of this website, captured locally with `tools/shoot-site.mjs` |
 | `public/fonts/` | Space Grotesk (OFL) and Oughter, as the site ships them |
-| `public/audio/` | Generated bed and effects stems (`tools/make-audio.py`) and the generated voiceover (`tools/make-voice.py`) |
+| `public/audio/` | Composed music (`tools/make-music.py`), effects (`tools/make-audio.py`) and the generated voiceover (`tools/make-voice.py`) |
 | `out/` | Renders, poster, thumbnail and review contact sheets |
 
 ## Changing the cut
@@ -47,4 +47,4 @@ npx remotion render src/index.ts Vertical out/silent-9x16.mp4 --props='{"voiceov
 - Move a scene: edit `src/lib/timeline.ts`. Scenes read their own local frame, so nothing else changes.
 - Re-time a word hit: each scene passes `at` and `markAt` (frames) to `Words`.
 - Replace a screenshot: drop a 1600×1000 WebP in `public/projects/` with the same name.
-- Re-cue sound: frame numbers in `tools/make-audio.py`, then `python3 -I tools/make-audio.py`.
+- Re-cue sound: frame numbers in `tools/make-audio.py`, bars in `tools/make-music.py`, then `npm run audio`.

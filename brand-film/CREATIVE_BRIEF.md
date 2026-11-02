@@ -81,7 +81,7 @@ The film borrows from the HowDo reference only its storytelling shape: a quiet h
 | `SHOT_LIST.md` | Every shot, its asset, layout per format and transition |
 | `SOUND_DESIGN.md` | Music, effects and mix plan, with every cue's frame |
 | `src/` | Remotion source (scenes, components, tokens, timeline) |
-| `tools/make-audio.py` | Generates the bed and effects stems in `public/audio` |
+| `tools/make-music.py`, `tools/make-audio.py`, `tools/make-voice.py` | Generate the music, effects and voice stems in `public/audio` |
 | `out/stackwise-brand-film-9x16.mp4` | Final vertical render |
 | `out/stackwise-brand-film-16x9.mp4` | Final horizontal render |
 | `out/poster-9x16.png`, `out/thumbnail-16x9.png` | Poster frame and thumbnail |
@@ -90,5 +90,5 @@ The film borrows from the HowDo reference only its storytelling shape: a quiet h
 ## 7. What is not finished here, and the next step
 
 - **Voiceover.** The renders carry a generated voice: Kokoro, an open-weights text-to-speech model (Apache-2.0), voice `af_heart`, produced by `tools/make-voice.py` and cut to the frames in `VOICEOVER.md`. It is clean and natural, but a human read will still carry more warmth. To replace it, record the script, align it to the same frames and save it over `public/audio/voiceover.wav`; the compositions mix in whatever that file holds.
-- **Music.** The bed and effects are synthesized (`tools/make-audio.py`) so the cut has rhythm and the cue sheet is exact. For release, replace `public/audio/bed.wav` with a licensed track that matches the tempo map in `SOUND_DESIGN.md`, or keep the generated bed if it sits well under the voice.
+- **Music.** The track is composed and synthesized in `tools/make-music.py`: 120 BPM melodic tech on the film's bar grid, with the drop on the brand reveal, a breakdown under the promises and an impact on the wordmark, ducked under the voice. It is licence-free by construction. If a licensed track is preferred, `SOUND_DESIGN.md` gives the shape to match.
 - **Colour and loudness finishing** in DaVinci Resolve: the renders are flat sRGB, and the full mix (voice at −16 LUFS over the bed and effects) is measured in `SOUND_DESIGN.md` along with the platform loudness targets.
