@@ -19,11 +19,10 @@ Remotion downloads its own headless Chromium on first use. In an environment tha
 
 ## Voiceover
 
-The voice is not in the render yet (no speech route was available where this was built). Record or generate it from `VOICEOVER.md`, save it as `public/audio/voiceover.mp3`, and render with:
+`public/audio/voiceover.wav` is generated with Kokoro (open-weights text-to-speech) by `tools/make-voice.py`, cut to the frames in `VOICEOVER.md`, and mixed in by default. To try another voice or swap in a human recording, see `VOICEOVER.md`. A render without the voice:
 
 ```bash
-npx remotion render src/index.ts Vertical out/stackwise-brand-film-9x16.mp4 --props='{"voiceover":true,"sound":true}'
-npx remotion render src/index.ts Horizontal out/stackwise-brand-film-16x9.mp4 --props='{"voiceover":true,"sound":true}'
+npx remotion render src/index.ts Vertical out/silent-9x16.mp4 --props='{"voiceover":false,"sound":true}'
 ```
 
 ## Where things are
@@ -40,7 +39,7 @@ npx remotion render src/index.ts Horizontal out/stackwise-brand-film-16x9.mp4 --
 | `public/projects/` | The site's real project screenshots |
 | `public/site/` | Screens of this website, captured locally with `tools/shoot-site.mjs` |
 | `public/fonts/` | Space Grotesk (OFL) and Oughter, as the site ships them |
-| `public/audio/` | Generated bed and effects stems (`tools/make-audio.py`); the voiceover goes here too |
+| `public/audio/` | Generated bed and effects stems (`tools/make-audio.py`) and the generated voiceover (`tools/make-voice.py`) |
 | `out/` | Renders, poster, thumbnail and review contact sheets |
 
 ## Changing the cut

@@ -13,7 +13,8 @@ const facts = [
   { lines: ["100% code", "ownership."], wide: ["100% code ownership."], mark: "100%", note: "The code and IP are yours" },
 ];
 
-const STEP = 54;
+/** Scene-local frames at which each statement starts: cut to the three voice lines (34.2 s, 37.5 s, 38.7 s). */
+const AT = [8, 106, 140];
 
 /**
  * 34–40 s. Back on paper. Three statements, each landing with the next sentence of the voice, each with its
@@ -34,8 +35,8 @@ export const Promise: React.FC = () => {
         </Eyebrow>
       </div>
       {facts.map((f, i) => {
-        const at = 16 + i * STEP;
-        const dim = i < facts.length - 1 ? 1 - 0.55 * ease(frame, at + STEP, 16, inOut) : 1;
+        const at = AT[i];
+        const dim = i < facts.length - 1 ? 1 - 0.55 * ease(frame, AT[i + 1], 16, inOut) : 1;
         return (
           <div key={f.mark} style={{ position: "absolute", left: L.gutter, right: L.gutter, top: top + i * blockH, opacity: dim }}>
             <Words lines={L.portrait ? f.lines : f.wide} text="" at={at} stagger={3} size={size} color={color.ink} mark={f.mark} markAt={at + 22} />

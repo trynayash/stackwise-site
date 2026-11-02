@@ -89,6 +89,6 @@ The film borrows from the HowDo reference only its storytelling shape: a quiet h
 
 ## 7. What is not finished here, and the next step
 
-- **Voiceover.** No text-to-speech or recording route exists in this environment (the speech hosts are blocked by the network policy and no offline engine is installed). The script is cut to frames in `VOICEOVER.md`. Record it or generate it, save it as `brand-film/public/audio/voiceover.mp3`, and render with `--props='{"voiceover":true,"sound":true}'`. The compositions already mix it in.
+- **Voiceover.** The renders carry a generated voice: Kokoro, an open-weights text-to-speech model (Apache-2.0), voice `af_heart`, produced by `tools/make-voice.py` and cut to the frames in `VOICEOVER.md`. It is clean and natural, but a human read will still carry more warmth. To replace it, record the script, align it to the same frames and save it over `public/audio/voiceover.wav`; the compositions mix in whatever that file holds.
 - **Music.** The bed and effects are synthesized (`tools/make-audio.py`) so the cut has rhythm and the cue sheet is exact. For release, replace `public/audio/bed.wav` with a licensed track that matches the tempo map in `SOUND_DESIGN.md`, or keep the generated bed if it sits well under the voice.
-- **Colour and loudness finishing** in DaVinci Resolve: the renders are flat sRGB and the stems leave headroom for a −16 LUFS voice; final loudness targets per platform are in `SOUND_DESIGN.md`.
+- **Colour and loudness finishing** in DaVinci Resolve: the renders are flat sRGB, and the full mix (voice at −16 LUFS over the bed and effects) is measured in `SOUND_DESIGN.md` along with the platform loudness targets.

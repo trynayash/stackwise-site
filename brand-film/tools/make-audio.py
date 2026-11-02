@@ -141,7 +141,7 @@ for i in range(4): tick(f2s(810 + 22 + i * 38), 0.3, 2200)
 whoosh(f2s(810), 0.5, 0.25, rise=False)
 # Scene 6: the paper panel, three statements.
 whoosh(f2s(1020), 0.5, 0.3)
-for i in range(3): tick(f2s(1020 + 16 + i * 54 + 22), 0.28, 2000)
+for fr in (8, 106, 140): tick(f2s(1020 + fr + 22), 0.28, 2000)
 # Scene 7: final hit under the wordmark, a tick on the button.
 whoosh(f2s(1200), 0.45, 0.3)
 sub_hit(f2s(1230), 0.7, 44.0)

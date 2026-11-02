@@ -3,7 +3,7 @@ import { Composition } from "remotion";
 import { Film, type FilmProps } from "./Film";
 import { DURATION, FPS } from "./lib/timeline";
 
-const defaultProps: FilmProps = { voiceover: false, sound: true };
+const defaultProps: FilmProps = { voiceover: true, sound: true };
 
 export const Root: React.FC = () => (
   <>

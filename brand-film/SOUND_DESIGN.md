@@ -6,7 +6,7 @@ Three layers: a music bed, spot effects, and the voice. The bed and effects are 
 
 | Layer | File | Peak | Role |
 |---|---|---|---|
-| Voice | `public/audio/voiceover.mp3` | −3 dBFS, about −16 LUFS integrated | Leads. Nothing else may mask 1–4 kHz while it speaks. |
+| Voice | `public/audio/voiceover.wav` | −1.5 dBTP, −16 LUFS integrated (as generated) | Leads. Nothing else may mask 1–4 kHz while it speaks. |
 | Effects | `public/audio/sfx.wav` | −5 dBFS | Punctuation only. Each cue is under 0.6 s except the riser. |
 | Bed | `public/audio/bed.wav` | −9 dBFS, mixed at 0.9 | Low, warm, felt more than heard. Ducks under the voice by shape, not by compressor. |
 
@@ -41,14 +41,14 @@ Frames at 30 fps. "Tick" is a 45 ms band-passed noise click; "whoosh" a 0.4–0.
 | 810 | 27.0 | whoosh (falling) | Process wipe |
 | 832, 870, 908, 946 | 27.7–31.5 | tick (2.2 kHz) | Rule reaching Plan, Design, Build, Launch |
 | 1020 | 34.0 | whoosh | Paper wipe |
-| 1058, 1112, 1166 | 35.3–38.9 | tick (2 kHz) | Each marker drawing |
+| 1050, 1148, 1182 | 35.0–39.4 | tick (2 kHz) | Each marker drawing |
 | 1200 | 40.0 | whoosh | Final wipe |
 | 1230 | 41.0 | sub hit (44 Hz) | Wordmark |
 | 1258 | 41.9 | tick | Button |
 
 ## Voice treatment
 
-High-pass at 80 Hz, gentle de-ess, 2–3 dB of compression at a 3:1 ratio, no reverb. If the bed and voice fight at 100–200 Hz, cut the bed 2 dB there rather than the voice.
+The generated track already has a high-pass at 80 Hz and loudness normalization to −16 LUFS (`tools/make-voice.py`). For a human recording add a gentle de-ess and 2–3 dB of compression at a 3:1 ratio, no reverb. If the bed and voice fight at 100–200 Hz, cut the bed 2 dB there rather than the voice.
 
 ## Regenerating the stems
 

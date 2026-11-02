@@ -100,9 +100,9 @@ Voice: "From the first conversation and design to engineering and launch, we sta
 |---|---|---|
 | Wipe | 1020–1042 | Paper wipes down over the canvas. |
 | Eyebrow | 1030 | "WHAT YOU GET, EVERY PROJECT" |
-| 1 | 1036 | "Direct with the engineer." marker on "the engineer." at 1058; note "NO ACCOUNT MANAGERS, NO HAND-OFFS" |
-| 2 | 1090 | "Clear, fixed pricing." marker on "fixed" at 1112; note "A WRITTEN QUOTE BEFORE WORK STARTS" |
-| 3 | 1144 | "100% code ownership." marker on "100%" at 1166; note "THE CODE AND IP ARE YOURS" |
+| 1 | 1028 | "Direct with the engineer." marker on "the engineer." at 1050; note "NO ACCOUNT MANAGERS, NO HAND-OFFS" |
+| 2 | 1126 | "Clear, fixed pricing." marker on "fixed" at 1148; note "A WRITTEN QUOTE BEFORE WORK STARTS" |
+| 3 | 1160 | "100% code ownership." marker on "100%" at 1182; note "THE CODE AND IP ARE YOURS" |
 
 Earlier statements dim to 45% as the next lands, so the three read as one stacked promise.
 
