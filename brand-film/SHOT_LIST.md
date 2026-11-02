@@ -39,9 +39,9 @@ Layout constants (`src/lib/layout.ts`):
 | 5.2–5.5 | 832 / 870 / 908 / 946 | Process | 01 Plan, 02 Design, 03 Build, 04 Launch with one line each | text | rows 200 px tall, title 68 px | four columns, title 72 px | Fade + slide 26 f, light up 14 f |
 | 5.6 | 956–1038 | Process | Footer "Weekly call and a live staging link throughout" | text | bottom 340 | bottom 96 | Fade |
 | 6.0 | 1020–1218 | Promise | Paper panel, eyebrow "What you get, every project" | text | | | Wipe from top, 22 f |
-| 6.1 | 1028 | Promise | "Direct with the engineer." + note | text | 88 px, 2 lines, y 576 | 96 px, 1 line, y 259 | Word rise, marker +22 f, dims to 45% at next |
-| 6.2 | 1126 | Promise | "Clear, fixed pricing." + note | text | y 783 | y 408 | same |
-| 6.3 | 1160 | Promise | "100% code ownership." + note | text | y 990 | y 557 | same, stays full |
+| 6.1 | 1028 | Promise | "Direct with the engineer." + note | text | 88 px, 2 lines, y 518 | 96 px, 1 line, y 259 | Word rise, marker +22 f, dims to 45% at next |
+| 6.2 | 1126 | Promise | "Clear, fixed pricing." + note | text | y 760 | y 408 | same |
+| 6.3 | 1160 | Promise | "100% code ownership." + note | text | y 1002 | y 557 | same, stays full |
 | 7.0 | 1200–1320 | Outro | Dark panel | none | | | Wipe up, 20 f |
 | 7.1 | 1210 | Outro | "Your next product, built right from day one." marker on "built right" | text | 84 px, 3 lines, left | 92 px, 2 lines, centred | Word rise, marker at 1244 |
 | 7.2 | 1230 | Outro | Wordmark with accent rule | Oughter text | 132 px | 150 px | Clip-mask + rule draw |

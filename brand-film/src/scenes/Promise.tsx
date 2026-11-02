@@ -24,8 +24,8 @@ export const Promise: React.FC = () => {
   const frame = useCurrentFrame();
   const L = useLayout();
   const size = L.portrait ? 88 : 108;
-  const blockH = L.portrait ? size * 2.35 : size * 1.55;
-  const top = L.portrait ? L.height * 0.3 : L.height * 0.24;
+  const blockH = L.portrait ? size * 2.75 : size * 1.55;
+  const top = L.portrait ? L.height * 0.27 : L.height * 0.24;
 
   return (
     <Wipe background={color.paper} from="top" dur={22}>
