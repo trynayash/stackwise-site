@@ -2,7 +2,7 @@
 
 A 44-second motion-design film for StackWise, built programmatically with [Remotion](https://www.remotion.dev) from the website's own identity and real product screenshots. This folder is self-contained: it has its own `package.json` and does not take part in the website build.
 
-Read first: `CREATIVE_BRIEF.md`, then `STORYBOARD.md`, `SHOT_LIST.md`, `VOICEOVER.md` and `SOUND_DESIGN.md`.
+Read first: `CREATIVE_BRIEF.md`, then `STORYBOARD.md`, `SHOT_LIST.md`, `VOICEOVER.md` and `SOUND_DESIGN.md`. Posts and outreach emails to go out with the film are in `LAUNCH_COPY.md`.
 
 ## Render
 
