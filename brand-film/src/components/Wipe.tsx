@@ -1,10 +1,10 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { ease } from "../lib/motion";
+import { ease, inOut, lerp } from "../lib/motion";
 
 /**
- * Scene container that enters with a full-bleed wipe (the whole scene is clipped, so copy and background move
- * as one surface, the way the site's panels do). `from` is the wipe direction.
+ * Scene container that enters as a panel pushed in from one edge (background and copy move as one surface, like
+ * the site's panels).
  */
 export const Wipe: React.FC<{
   children: React.ReactNode;
@@ -13,15 +13,27 @@ export const Wipe: React.FC<{
   dur?: number;
   from?: "bottom" | "top" | "left" | "right" | "none";
   style?: React.CSSProperties;
-}> = ({ children, background, at = 0, dur = 22, from = "bottom", style }) => {
+}> = ({ children, background, at = 0, dur = 24, from = "bottom", style }) => {
   const frame = useCurrentFrame();
-  const t = from === "none" ? 1 : ease(frame, at, dur);
-  const p = (1 - t) * 100;
-  const clip =
-    from === "bottom" ? `inset(${p}% 0 0 0)` : from === "top" ? `inset(0 0 ${p}% 0)` : from === "left" ? `inset(0 ${p}% 0 0)` : from === "right" ? `inset(0 0 0 ${p}%)` : "none";
+  const t = from === "none" ? 1 : ease(frame, at, dur, inOut);
+  const p = lerp(t, 100, 0);
+  const transform =
+    from === "bottom" ? `translateY(${p}%)` : from === "top" ? `translateY(${-p}%)` : from === "left" ? `translateX(${-p}%)` : from === "right" ? `translateX(${p}%)` : "none";
   return (
-    <AbsoluteFill style={{ background, clipPath: clip, ...style }}>
+    <AbsoluteFill style={{ background, transform, ...style }}>
       {children}
     </AbsoluteFill>
   );
+};
+
+/**
+ * Wraps a scene's content so that, during the frames it is being covered by the next panel, it travels the
+ * same way as that panel at a third of the speed and dims a little: a push, with nothing behind it ever exposed.
+ */
+export const Outgoing: React.FC<{ children: React.ReactNode; length: number; overlap: number; next: "bottom" | "top" | "left" | "right" }> = ({ children, length, overlap, next }) => {
+  const frame = useCurrentFrame();
+  const t = ease(frame, length - overlap, overlap, inOut);
+  const d = lerp(t, 0, 33);
+  const transform = next === "bottom" ? `translateY(${-d}%)` : next === "top" ? `translateY(${d}%)` : next === "right" ? `translateX(${-d}%)` : `translateX(${d}%)`;
+  return <AbsoluteFill style={{ transform, filter: `brightness(${lerp(t, 1, 0.88)})` }}>{children}</AbsoluteFill>;
 };

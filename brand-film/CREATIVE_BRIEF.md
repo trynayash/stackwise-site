@@ -58,10 +58,10 @@ The film borrows from the HowDo reference only its storytelling shape: a quiet h
 ## 4. Visual direction
 
 - **Two surfaces, one accent.** Paper opens and closes the "human" moments (the idea, the promise). Dark canvas carries the work. The accent appears as a drawn marker behind the one phrase the voice is landing on, as the brand bar, and as the final button.
-- **Typography is the picture.** Space Grotesk at 84–124 px, tight tracking, words rising from behind a clip in build order (the site's `.rise-word`). Mono eyebrows anchor every scene with a fact.
-- **Real interfaces in a plain browser frame.** The same light chrome, mono domain and deep soft shadow as the site's hero stage. Pages pan slowly inside the frame. Nothing is retouched.
-- **Camera.** A 2–3% drift per scene so static layouts breathe, and a slow pan inside each browser frame. No 3D, no parallax stacks.
-- **Transitions.** Full-bleed clip wipes in the direction the story moves (up into the work, right through the products, left into the process, down into the promise). The one "hero" transition is the six-layer pile collapsing into the accent bar that underlines the wordmark.
+- **Typography is the picture.** Space Grotesk at 84–150 px, tight tracking, set at weight 500 with the key phrase one step bolder, so every line has a point of emphasis before any colour arrives. Words rise from behind a clip in build order with a short fade (the site's `.rise-word`); the opening phrase "an idea." is typed under a caret, because the film is about writing an idea down. The wordmark rises letter by letter with a small overshoot. Mono eyebrows anchor every scene with a fact.
+- **Real interfaces in a plain browser frame.** The same light chrome, mono domain and deep soft shadow as the site's hero stage, resting at a slight angle in perspective and turning to face the camera as each one arrives. The StackWise page is a full-page capture and scrolls inside its frame. Each project carries one line of its own facts from the case study. Nothing is retouched.
+- **Camera.** A 2–3% eased drift per scene so static layouts breathe, and a slow push inside each browser frame. Perspective is used once, for the device frames; no 3D objects, no parallax stacks.
+- **Transitions.** Panel pushes in the direction the story moves (up into the work, right through the products, left into the process, down into the promise, up into the end card): the covered scene travels with the incoming panel at a third of its speed, so nothing behind it is ever exposed. The one "hero" transition is the six-layer pile collapsing into the accent bar that underlines the wordmark.
 - **Never:** glow, gradients, blur, glassmorphism, floating code, 3D objects, template particle effects, invented dashboards, invented numbers.
 
 ## 5. Safe areas and legibility

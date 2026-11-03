@@ -4,20 +4,24 @@ import { color, font, mediaShadow } from "../lib/theme";
 
 /**
  * A plain browser frame around a real screenshot, the same device the site's hero stage uses: light chrome,
- * the domain in mono, three dots, a soft deep shadow. The frame is 16:10 like the screenshots, so nothing is cropped.
+ * the domain in mono, three dots, a soft deep shadow. The frame is 16:10; a taller page (aspect > 0.625) can
+ * scroll inside it with `pan` (pixels of page moved up), and `zoom` pushes in very slowly from the top edge.
  */
 export const Browser: React.FC<{
   src: string;
   domain: string;
   width: number;
-  /** 0 → 1: the page zooms in very slowly (1 → 1.045) from its top edge, the film's "camera". */
+  /** Page height / width of the screenshot. Default 0.625 (1600×1000). */
+  aspect?: number;
+  pan?: number;
   zoom?: number;
   style?: React.CSSProperties;
-}> = ({ src, domain, width, zoom = 0, style }) => {
+}> = ({ src, domain, width, aspect = 0.625, pan = 0, zoom = 0, style }) => {
   const bar = Math.round(width * 0.045);
   const radius = Math.round(width * 0.018);
-  const imgHeight = Math.round(width * 0.625);
-  const height = bar + imgHeight;
+  const viewH = Math.round(width * 0.625);
+  const imgH = Math.round(width * aspect);
+  const height = bar + viewH;
   return (
     <div
       style={{
@@ -53,10 +57,17 @@ export const Browser: React.FC<{
         </span>
         <span style={{ marginLeft: bar * 0.3 }}>{domain}</span>
       </div>
-      <div style={{ position: "relative", height: height - bar, overflow: "hidden" }}>
+      <div style={{ position: "relative", height: viewH, overflow: "hidden" }}>
         <Img
           src={staticFile(src)}
-          style={{ display: "block", width, height: imgHeight, objectFit: "cover", transform: `scale(${1 + zoom * 0.045})`, transformOrigin: "50% 0%" }}
+          style={{
+            display: "block",
+            width,
+            height: imgH,
+            objectFit: "cover",
+            transform: `translateY(${-Math.min(pan, Math.max(0, imgH - viewH))}px) scale(${1 + zoom * 0.04})`,
+            transformOrigin: "50% 0%",
+          }}
         />
       </div>
     </div>

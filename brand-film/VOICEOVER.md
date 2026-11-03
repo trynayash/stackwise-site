@@ -30,7 +30,7 @@ Total spoken: about 98 words in 38 seconds of speech across 44 seconds, which le
 
 ## The generated track
 
-`public/audio/voiceover.wav` is in the renders. It was generated with Kokoro (open-weights text-to-speech, Apache-2.0) through `kokoro-onnx`, voice `af_heart`, by `tools/make-voice.py`: each line is synthesized on its own, trimmed, placed at its frame from the table above, high-passed at 80 Hz and loudness-normalized to −16 LUFS. Lines that would overrun their slot are re-synthesized slightly faster instead of being cut (only line 8 needed this, at 1.05×). "SaaS" is sent to the engine as "sass" so it is said as a word.
+`public/audio/voiceover.wav` is in the renders. It was generated with Kokoro (open-weights text-to-speech, Apache-2.0) through `kokoro-onnx`, voice `af_heart`, by `tools/make-voice.py`: each line is synthesized on its own at 0.97× pace (a calmer read), trimmed, placed at its frame from the table above, then run through a broadcast chain: high-pass at 80 Hz, a little warmth at 180 Hz, presence at 3 kHz, a gentle de-ess around 7.5 kHz, 3:1 compression, and loudness normalization to −16 LUFS with a −1.5 dBTP ceiling. Lines that would overrun their slot are re-synthesized slightly faster instead of being cut (only line 8 needed this, at 1.05×). "SaaS" is sent to the engine as "sass" so it is said as a word.
 
 To regenerate, or try another voice (`am_michael`, `bm_george`, `bf_emma`, …):
 

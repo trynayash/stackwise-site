@@ -35,7 +35,7 @@ LINES = [
 ap = argparse.ArgumentParser()
 ap.add_argument("--model", required=True)
 ap.add_argument("--voice", default="af_heart")
-ap.add_argument("--speed", type=float, default=1.0)
+ap.add_argument("--speed", type=float, default=0.97)
 ap.add_argument("--out", default="public/audio/voiceover.wav")
 ap.add_argument("--lines-dir", default=None, help="Also write each line as its own WAV here")
 args = ap.parse_args()
@@ -85,7 +85,17 @@ os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
 with tempfile.TemporaryDirectory() as td:
     raw = os.path.join(td, "raw.wav")
     sf.write(raw, track, SR)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", "highpass=f=80,loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", str(SR), "-ac", "1", args.out], check=True)
+    # Broadcast-style chain: high-pass, a gentle de-ess (dynamic dip at 6-9 kHz), presence lift at 3 kHz, warmth
+    # at 180 Hz, 3:1 compression, then loudness normalization to -16 LUFS with a -1.5 dBTP ceiling.
+    chain = ",".join([
+        "highpass=f=80",
+        "equalizer=f=180:t=q:w=1.2:g=1.5",
+        "equalizer=f=3000:t=q:w=1.0:g=2",
+        "equalizer=f=7500:t=q:w=1.4:g=-2.5",
+        "acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=2",
+        "loudnorm=I=-16:TP=-1.5:LRA=9",
+    ])
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", chain, "-ar", str(SR), "-ac", "1", args.out], check=True)
 
 print(json.dumps(report, indent=1))
 print("wrote", args.out, "voice", args.voice)

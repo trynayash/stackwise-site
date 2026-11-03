@@ -1,9 +1,9 @@
 import React from "react";
-import { useCurrentFrame } from "remotion";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { Eyebrow, Words } from "../components/Type";
 import { Wipe } from "../components/Wipe";
 import { color, font } from "../lib/theme";
-import { ease, inOut } from "../lib/motion";
+import { drift, ease, inOut } from "../lib/motion";
 import { useLayout } from "../lib/layout";
 
 /** The three facts from the site's hero trust strip, timed to the three voiceover sentences. */
@@ -28,24 +28,26 @@ export const Promise: React.FC = () => {
   const top = L.portrait ? L.height * 0.27 : L.height * 0.24;
 
   return (
-    <Wipe background={color.paper} from="top" dur={22}>
-      <div style={{ position: "absolute", left: L.gutter, top: L.safeTop + (L.portrait ? 120 : 40) }}>
-        <Eyebrow tone="dark" at={10} size={L.eyebrow}>
-          What you get, every project
-        </Eyebrow>
-      </div>
-      {facts.map((f, i) => {
-        const at = AT[i];
-        const dim = i < facts.length - 1 ? 1 - 0.55 * ease(frame, AT[i + 1], 16, inOut) : 1;
-        return (
-          <div key={f.mark} style={{ position: "absolute", left: L.gutter, right: L.gutter, top: top + i * blockH, opacity: dim }}>
-            <Words lines={L.portrait ? f.lines : f.wide} text="" at={at} stagger={3} size={size} color={color.ink} mark={f.mark} markAt={at + 22} />
-            <div style={{ marginTop: L.portrait ? 12 : 10, fontFamily: font.mono, fontSize: L.portrait ? 21 : 22, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(11,11,11,0.55)", opacity: ease(frame, at + 18, 20) }}>
-              {f.note}
+    <Wipe background={color.paper} from="top" dur={24}>
+      <AbsoluteFill style={{ transform: `scale(${drift(frame, 198, 1, 1.025)})`, transformOrigin: "30% 50%" }}>
+        <div style={{ position: "absolute", left: L.gutter, top: L.safeTop + (L.portrait ? 120 : 40) }}>
+          <Eyebrow tone="dark" at={10} size={L.eyebrow}>
+            What you get, every project
+          </Eyebrow>
+        </div>
+        {facts.map((f, i) => {
+          const at = AT[i];
+          const dim = i < facts.length - 1 ? 1 - 0.55 * ease(frame, AT[i + 1], 16, inOut) : 1;
+          return (
+            <div key={f.mark} style={{ position: "absolute", left: L.gutter, right: L.gutter, top: top + i * blockH, opacity: dim }}>
+              <Words lines={L.portrait ? f.lines : f.wide} at={at} stagger={3} size={size} color={color.ink} mark={f.mark} markAt={at + 22} />
+              <div style={{ marginTop: L.portrait ? 12 : 10, fontFamily: font.mono, fontSize: L.portrait ? 21 : 22, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(11,11,11,0.55)", opacity: ease(frame, at + 18, 20) }}>
+                {f.note}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </AbsoluteFill>
     </Wipe>
   );
 };

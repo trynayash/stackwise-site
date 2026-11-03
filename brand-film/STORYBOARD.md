@@ -13,8 +13,9 @@ Voice lines are abbreviated here; the full cut is in `VOICEOVER.md`.
 |---|---|---|
 | Open | 0 | Flat paper (`#f2f1ec`). A black text caret blinks at the headline position: an empty page. |
 | Eyebrow | 6 | "INDEPENDENT SOFTWARE STUDIO, MUMBAI" fades up, mono, tracked. |
-| Headline | 30–108 | "Every great digital product starts with an idea." Words rise from behind a clip, 3 frames apart, 24-frame settle. 9:16 sets it on four lines, 16:9 on three. |
-| Marker | 92–112 | The accent marker draws left-to-right behind "an idea." as the voice says it. |
+| Headline | 32–100 | "Every great digital product starts with" rises word by word, 3 frames apart, 26-frame settle. 9:16 sets it on four lines, 16:9 on three. |
+| Typing | 78–108 | "an idea." is typed letter by letter under the caret, one step bolder than the rest of the line. |
+| Marker | 116–138 | The accent marker draws left-to-right behind "an idea." as the voice lands on it. |
 | Footer | 60 | Hairline rule, "stackwise.yashsuthar.dev" left, "BRAND FILM / 2026" right. |
 | Camera | 0–150 | 2.5% slow push, anchored left of centre. |
 
@@ -44,7 +45,7 @@ Voice: "But turning that idea into something people actually use takes more than
 |---|---|---|
 | Collapse | 330–356 | The six cards compress into one thin bar at the centre line. At 348 it turns accent lime. |
 | Travel | 356–380 | The bar resizes to the wordmark's width and takes its place as an underline. |
-| Wordmark | 374–408 | "STACKWISE" unmasks left to right above the bar, Oughter, "WISE" in the accent. The sub hit lands here. |
+| Wordmark | 376–412 | "STACKWISE" rises above the bar letter by letter, 2 frames apart with a small overshoot, Oughter, "WISE" in the accent. The impact lands at 330; the letters follow. |
 | Eyebrow | 392 | "INDEPENDENT SOFTWARE STUDIO, MUMBAI" under the bar. |
 | Lift | 426–456 | Wordmark, bar and eyebrow lift to the upper third. |
 | Line | 442–520 | "Your idea. Engineered into a product." rises in; marker on "Engineered" at 480. |
@@ -57,7 +58,7 @@ Voice: "That's where StackWise comes in." (then a hold for the line)
 ## Scene 4: The work
 **0:17–0:27 (frames 510–810)** · `src/scenes/Showcase.tsx` · Dark
 
-Five real screens, two seconds each, inside the site's browser frame (light chrome, mono domain, deep soft shadow). Each slides in from the right with a 1.5° settle, pans slowly up its page, and carries its category as the headline with the project's own name, kind and status.
+Five real screens, two seconds each, inside the site's browser frame (light chrome, mono domain, deep soft shadow), resting at a slight angle in perspective. Each glides in from the right and turns to face the camera, pushes in very slowly, and carries its category as the headline with the project's own name, kind, status and one line of facts from its case study. The StackWise screen is a full-page capture that scrolls inside the frame.
 
 | Beat | Frame | Category | Project | Status |
 |---|---|---|---|---|

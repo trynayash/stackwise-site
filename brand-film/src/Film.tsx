@@ -7,6 +7,7 @@ import { Showcase } from "./scenes/Showcase";
 import { Process } from "./scenes/Process";
 import { Promise as PromiseScene } from "./scenes/Promise";
 import { Outro } from "./scenes/Outro";
+import { Outgoing } from "./components/Wipe";
 import { OVERLAP, scenes } from "./lib/timeline";
 import { color } from "./lib/theme";
 import "./lib/fonts";
@@ -20,10 +21,19 @@ export type FilmProps = {
 
 const order = ["hook", "complexity", "reveal", "showcase", "process", "promise", "outro"] as const;
 const components = { hook: Hook, complexity: Complexity, reveal: Reveal, showcase: Showcase, process: Process, promise: PromiseScene, outro: Outro };
+/** The edge the next scene's panel comes from; the reveal grows out of the pile, so the complexity scene stays put. */
+const nextFrom: Partial<Record<(typeof order)[number], "bottom" | "top" | "left" | "right">> = {
+  hook: "bottom",
+  reveal: "right",
+  showcase: "left",
+  process: "top",
+  promise: "bottom",
+};
 
 /**
  * One film, two formats: the composition size decides the layout (see lib/layout.ts). Scenes are stacked
- * in order, each one extended by OVERLAP frames under the next so its successor's wipe covers it cleanly.
+ * in order, each one extended by OVERLAP frames under the next so its successor's panel covers it; during
+ * those frames the covered scene is pushed along with it at a third of the speed and dims slightly.
  */
 export const Film: React.FC<FilmProps> = ({ voiceover, sound }) => {
   return (
@@ -32,16 +42,23 @@ export const Film: React.FC<FilmProps> = ({ voiceover, sound }) => {
         const s = scenes[key];
         const C = components[key];
         const last = i === order.length - 1;
+        const length = s.to - s.from + (last ? 0 : OVERLAP);
         return (
-          <Sequence key={key} from={s.from} durationInFrames={s.to - s.from + (last ? 0 : OVERLAP)} layout="none">
-            <C />
+          <Sequence key={key} from={s.from} durationInFrames={length} layout="none">
+            {nextFrom[key] ? (
+              <Outgoing length={length} overlap={OVERLAP} next={nextFrom[key]!}>
+                <C />
+              </Outgoing>
+            ) : (
+              <C />
+            )}
           </Sequence>
         );
       })}
       {sound && (
         <>
           <Audio src={staticFile("audio/music.wav")} volume={1} />
-          <Audio src={staticFile("audio/sfx.wav")} volume={0.7} />
+          <Audio src={staticFile("audio/sfx.wav")} volume={0.55} />
         </>
       )}
       {voiceover && <Audio src={staticFile("audio/voiceover.wav")} volume={1} />}
