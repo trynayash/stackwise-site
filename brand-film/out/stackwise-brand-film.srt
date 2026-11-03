@@ -1,0 +1,58 @@
+1
+00:00:01,000 --> 00:00:03,733
+Every great digital product starts with
+an idea.
+
+2
+00:00:05,400 --> 00:00:07,867
+But turning that idea into something
+people actually use takes more than
+
+3
+00:00:07,867 --> 00:00:10,333
+just code.
+
+4
+00:00:11,600 --> 00:00:13,333
+That's where StackWise comes in.
+
+5
+00:00:17,200 --> 00:00:21,300
+From SaaS platforms and AI-powered
+applications to websites and custom
+
+6
+00:00:21,300 --> 00:00:25,400
+software, we design, build and ship
+digital products.
+
+7
+00:00:27,400 --> 00:00:30,200
+From the first conversation and design to
+engineering and launch, we stay
+
+8
+00:00:30,200 --> 00:00:33,000
+with you through every step.
+
+9
+00:00:34,200 --> 00:00:37,200
+Work directly with the engineer building
+your product.
+
+10
+00:00:37,533 --> 00:00:38,600
+Know what you're paying.
+
+11
+00:00:38,667 --> 00:00:39,800
+Own what we build.
+
+12
+00:00:40,400 --> 00:00:42,200
+Have an idea? Let's build it.
+
+13
+00:00:42,600 --> 00:00:43,600
+StackWise.
+

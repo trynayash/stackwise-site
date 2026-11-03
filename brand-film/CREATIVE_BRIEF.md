@@ -85,6 +85,7 @@ The film borrows from the HowDo reference only its storytelling shape: a quiet h
 | `out/stackwise-brand-film-9x16.mp4` | Final vertical render |
 | `out/stackwise-brand-film-16x9.mp4` | Final horizontal render |
 | `out/poster-9x16.png`, `out/thumbnail-16x9.png` | Poster frame and thumbnail |
+| `out/stackwise-brand-film.srt`, `.vtt` | Sidecar captions, cut to the voice |
 | `out/contact-sheet-*.png` | One frame per second of each render, for review |
 
 ## 7. What is not finished here, and the next step

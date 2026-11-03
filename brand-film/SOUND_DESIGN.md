@@ -10,7 +10,7 @@ Three layers: music, spot effects and the voice. The music is composed and synth
 | Music | `public/audio/music.wav` | −4 dBTP, about −18 LUFS integrated (as generated, voice-ducked) | The energy. Pumps with the kick, sits down 7 dB under the voice. |
 | Effects | `public/audio/sfx.wav` | −5 dBFS, mixed at 0.7 | Punctuation only: ticks on word hits, whooshes on wipes. The riser and impacts live in the music. |
 
-As rendered, the full mix measures −14.9 LUFS integrated with a −1.4 dBFS peak (ffmpeg `ebur128`). Final loudness: −14 LUFS integrated for Instagram, YouTube and LinkedIn; −16 LUFS for a website autoplay version; true peak −1 dBTP. Do the final measure and limiter pass in DaVinci Resolve (Fairlight) after the voice is in.
+As rendered, the full mix measures −15.0 LUFS integrated with a −0.8 dBFS sample peak (ffmpeg `ebur128`). Final loudness: −14 LUFS integrated for Instagram, YouTube and LinkedIn; −16 LUFS for a website autoplay version; true peak −1 dBTP. Do the final measure and limiter pass in DaVinci Resolve (Fairlight) after the voice is in.
 
 ## Music
 
@@ -29,7 +29,7 @@ Composed and synthesized by `tools/make-music.py` in the register of product-lau
 | 19.5–20 | 40–41 s | Lift | Short riser |
 | 20–21.5 | 41–44 s | End card | Impact (sub boom and crash) on the wordmark, Am pad and bass ring out, fade complete by 43.4 s |
 
-**Mix inside the track.** A synthetic 1.6-second reverb on a send (pads, arp, a little drums), a dotted-eighth ping-pong delay on the arpeggio, soft limiting, −4 dBTP peak. The voice ducks the music by up to 7 dB with a 20 ms attack and 350 ms release, baked into `music.wav` from `voiceover.wav`, so regenerate the music after changing the voice.
+**Mix inside the track.** A synthetic 1.6-second reverb on a send (pads, arp, a little drums), a dotted-eighth ping-pong delay on the arpeggio, soft limiting, −4 dBTP peak. The voice ducks the music by up to 7 dB with a 20 ms attack and 350 ms release, and and while it speaks the parts that live in the speech band step back further: claps 8 dB, the pluck arpeggio 7 dB, hats and shaker 6 dB, the pad's filter closes, and the 1–4 kHz band dips 5 dB more (a dynamic EQ). The kick and bass keep the groove while consonants stay clear. Both are baked into `music.wav` from `voiceover.wav`, so regenerate the music after changing the voice. Measured in the render, the voice sits 12 dB or more above the music in the 1–4 kHz speech band on every line (checked with `ffmpeg` and a band-pass RMS per line).
 
 **Swapping in a licensed track.** Match the shape above: a lift into 11.0 s, a steady groove through 27–34 s, a breakdown under 34–40 s, and a hit at 41.0 s. 120 BPM keeps the step timing (each process step is 38 frames, 1.27 s) on the grid.
 
@@ -59,6 +59,10 @@ Frames at 30 fps. "Tick" is a 45 ms band-passed noise click; "whoosh" a 0.4–0.
 ## Voice treatment
 
 The generated track already has a high-pass at 80 Hz and loudness normalization to −16 LUFS (`tools/make-voice.py`). For a human recording add a gentle de-ess and 2–3 dB of compression at a 3:1 ratio, no reverb. If the bed and voice fight at 100–200 Hz, cut the bed 2 dB there rather than the voice.
+
+## Captions
+
+`tools/make-captions.py` writes `out/stackwise-brand-film.srt` and `.vtt` from the same frame marks as the voice, for platforms that autoplay muted. Upload the SRT alongside the MP4 on X, LinkedIn and YouTube rather than burning it in; the typography already carries the key lines.
 
 ## Regenerating the stems
 

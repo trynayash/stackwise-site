@@ -12,6 +12,7 @@ npm install
 npm run render:vertical     # out/stackwise-brand-film-9x16.mp4  (1080×1920, 30 fps)
 npm run render:horizontal   # out/stackwise-brand-film-16x9.mp4  (1920×1080, 30 fps)
 npm run stills              # out/poster-9x16.png and out/thumbnail-16x9.png
+npm run captions            # out/stackwise-brand-film.srt and .vtt
 npm run studio              # Remotion Studio, to scrub and tweak
 ```
 
@@ -40,7 +41,7 @@ npx remotion render src/index.ts Vertical out/silent-9x16.mp4 --props='{"voiceov
 | `public/site/` | Screens of this website, captured locally with `tools/shoot-site.mjs` |
 | `public/fonts/` | Space Grotesk (OFL) and Oughter, as the site ships them |
 | `public/audio/` | Composed music (`tools/make-music.py`), effects (`tools/make-audio.py`) and the generated voiceover (`tools/make-voice.py`) |
-| `out/` | Renders, poster, thumbnail and review contact sheets |
+| `out/` | Renders, poster, thumbnail, captions (`.srt`, `.vtt`) and review contact sheets |
 
 ## Changing the cut
 

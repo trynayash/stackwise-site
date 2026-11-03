@@ -9,7 +9,9 @@ Bar grid: bar 0 starts at 1.0 s (the first spoken word), one bar = 2.0 s. So the
 the pile becomes the brand bar), the showcase at bar 8 (17 s), the process at bar 13 (27 s), the breakdown at
 bar 16.5 (34 s) and the final impact at bar 20 (41.0 s, the wordmark). Chords cycle Am, F, C, G, one per bar.
 
-The voice (public/audio/voiceover.wav) ducks the music by up to -7 dB while it speaks.
+The voice (public/audio/voiceover.wav) ducks the whole music by up to -7 dB while it speaks; the pluck arpeggio
+ducks a further -7 dB, claps -8 dB, hats and shaker -6 dB, the pad's filter closes, and the 1-4 kHz band dips -5 dB
+(dynamic EQ), so the kick and bass keep the groove while the words stay clear.
 
   python3 -I tools/make-music.py [--out public/audio/music.wav] [--voice public/audio/voiceover.wav]
 """
@@ -31,6 +33,10 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--out", default="public/audio/music.wav")
 ap.add_argument("--voice", default="public/audio/voiceover.wav")
 ap.add_argument("--duck-db", type=float, default=7.0)
+ap.add_argument("--duck-band-db", type=float, default=5.0, help="Extra dip of the 1-4 kHz band under the voice (dynamic EQ)")
+ap.add_argument("--duck-arp-db", type=float, default=7.0, help="Extra dip of the pluck arpeggio under the voice")
+ap.add_argument("--duck-claps-db", type=float, default=8.0, help="Extra dip of the claps under the voice")
+ap.add_argument("--duck-hats-db", type=float, default=6.0, help="Extra dip of hats and shaker under the voice")
 args = ap.parse_args()
 
 def bar(b): return T0 + b * BAR
@@ -77,6 +83,8 @@ def in_sec(b, s): return s[0] <= b < s[1]
 
 # ---------------------------------------------------------------- drums
 drums = np.zeros((N, 2))
+hats = np.zeros((N, 2))  # hats and shaker on their own bus so they can duck under the voice
+claps = np.zeros((N, 2))  # claps too: they sit squarely in the speech band
 kick_times = []
 
 def kick(t, vel=1.0):
@@ -94,7 +102,7 @@ def hat(t, vel=0.5, open_=False):
     d = 0.32 if open_ else 0.045
     n = int(d * SR)
     x = hp(rng.standard_normal(n), 7500, 4) * np.exp(-np.arange(n) / SR * (7 / d))
-    add(drums, t, x, 0.22 * vel, pan=0.25)
+    add(hats, t, x, 0.22 * vel, pan=0.25)
 
 def clap(t, vel=1.0):
     n = int(0.22 * SR)
@@ -103,12 +111,12 @@ def clap(t, vel=1.0):
         i = int(off * SR); m = n - i
         x[i:] += bp(rng.standard_normal(m), 900, 4500) * np.exp(-np.arange(m) / SR * (18 if k < 3 else 9)) * (0.6 if k < 3 else 1)
     x += bp(rng.standard_normal(n), 180, 260) * np.exp(-np.arange(n) / SR * 30) * 0.5  # body
-    add(drums, t, x, 0.55 * vel)
+    add(claps, t, x, 0.5 * vel)
 
 def shaker(t, vel=0.4):
     n = int(0.06 * SR)
     x = bp(rng.standard_normal(n), 4000, 11000) * env_ad(n, 0.012, 0.04, 4)
-    add(drums, t, x, 0.16 * vel, pan=-0.3)
+    add(hats, t, x, 0.16 * vel, pan=-0.3)
 
 b = 0.0
 while b < LAST_BAR:
@@ -201,8 +209,7 @@ pad_bright = np.stack([lp(pad_dry[:, 0], 3800), lp(pad_dry[:, 1], 3800)], 1)
 tt = np.arange(N) / SR
 bright = np.interp(tt, [0, bar(2.5), bar(5) - 0.05, bar(5), bar(16.5), bar(17), bar(19.5), bar(20), bar(21.5)],
                    [0.05, 0.1, 0.95, 1.0, 1.0, 0.35, 0.8, 1.0, 1.0])
-pad = pad_dark * (1 - bright[:, None]) + pad_bright * bright[:, None]
-pad = np.stack([hp(pad[:, 0], 140), hp(pad[:, 1], 140)], 1)
+# (the pad is filtered and sidechained once the voice envelope is known, below)
 
 # ---------------------------------------------------------------- pluck arpeggio
 arp = np.zeros((N, 2))
@@ -283,23 +290,10 @@ for k in kick_times:
 # Final impact pumps too
 i = int(bar(20) * SR); m = min(int(0.6 * SR), N - i)
 sc[i:i + m] = np.minimum(sc[i:i + m], 1 - 0.8 * np.exp(-np.arange(m) / SR * 5))
-bass *= sc[:, None]; pad *= (0.45 + 0.55 * sc)[:, None]; arp *= (0.55 + 0.45 * sc)[:, None]
+bass *= sc[:, None]; arp *= (0.55 + 0.45 * sc)[:, None]
 
-# ---------------------------------------------------------------- reverb send
-ir_n = int(1.6 * SR)
-ir = rng.standard_normal((ir_n, 2)) * np.exp(-np.arange(ir_n) / SR * 3.2)[:, None]
-ir = np.stack([lp(ir[:, 0], 4500), lp(ir[:, 1], 4500)], 1)
-ir /= np.sqrt(np.sum(ir ** 2, axis=0))
-send = pad * 0.5 + arp * 0.35 + drums * 0.15 + fx * 0.3
-wet = np.stack([fftconvolve(send[:, c], ir[:, c])[:N] for c in range(2)], 1) * 0.5
-
-# ---------------------------------------------------------------- mix
-mix = drums * 1.0 + bass * 1.0 + pad * 1.0 + arp * 1.0 + fx * 1.0 + wet
-# Section gain: a little lower during the break and the groove under the voice.
-gain = np.interp(tt, [0, bar(2.5), bar(5), bar(16.5), bar(17), bar(19.5), bar(20), bar(21.2), bar(21.5), DUR],
-                 [0.8, 0.85, 1.0, 1.0, 0.75, 0.9, 1.0, 1.0, 0.0, 0.0])
-mix *= gain[:, None]
-# Ducking under the voice.
+# ---------------------------------------------------------------- voice envelope (for ducking)
+duck = np.zeros(N)
 if args.voice and os.path.exists(args.voice):
     v, vsr = sf.read(args.voice)
     if v.ndim > 1: v = v.mean(1)
@@ -310,14 +304,52 @@ if args.voice and os.path.exists(args.voice):
     win = int(0.05 * SR)
     rms = np.sqrt(np.convolve(v ** 2, np.ones(win) / win, mode="same"))
     pres = np.clip((20 * np.log10(rms + 1e-9) + 40) / 15, 0, 1)  # -40 dBFS → 0, -25 dBFS → 1
-    # Fast attack, slow release.
-    duck = np.zeros(N); d = 0.0
+    d = 0.0
     att, rel = np.exp(-1 / (0.02 * SR)), np.exp(-1 / (0.35 * SR))
     for i in range(N):
         d = pres[i] + (d - pres[i]) * (att if pres[i] > d else rel)
         duck[i] = d
+bright_v = bright * (1 - 0.75 * duck)  # pad filter closes under the voice
+# The parts that live in the speech band step back most while the voice speaks.
+arp *= (10 ** (-args.duck_arp_db * duck / 20))[:, None]
+hats *= (10 ** (-args.duck_hats_db * duck / 20))[:, None]
+claps *= (10 ** (-args.duck_claps_db * duck / 20))[:, None]
+# The pad closes its filter while the voice speaks (bright → dark), which is where most of its presence lives.
+pad = pad_dark * (1 - bright_v[:, None]) + pad_bright * bright_v[:, None]
+pad = np.stack([hp(pad[:, 0], 140), hp(pad[:, 1], 140)], 1)
+pad *= (0.45 + 0.55 * sc)[:, None]
+
+# ---------------------------------------------------------------- reverb send
+ir_n = int(1.6 * SR)
+ir = rng.standard_normal((ir_n, 2)) * np.exp(-np.arange(ir_n) / SR * 3.2)[:, None]
+ir = np.stack([lp(ir[:, 0], 4500), lp(ir[:, 1], 4500)], 1)
+ir /= np.sqrt(np.sum(ir ** 2, axis=0))
+send = pad * 0.5 + arp * 0.35 + drums * 0.15 + claps * 0.25 + hats * 0.1 + fx * 0.3
+wet = np.stack([fftconvolve(send[:, c], ir[:, c])[:N] for c in range(2)], 1) * 0.5
+
+# ---------------------------------------------------------------- mix
+mix = drums * 1.0 + claps * 1.0 + hats * 1.0 + bass * 1.0 + pad * 1.0 + arp * 1.0 + fx * 1.0 + wet
+# Section gain: a little lower during the break and the groove under the voice.
+gain = np.interp(tt, [0, bar(2.5), bar(5), bar(16.5), bar(17), bar(19.5), bar(20), bar(21.2), bar(21.5), DUR],
+                 [0.8, 0.85, 1.0, 1.0, 0.75, 0.9, 1.0, 1.0, 0.0, 0.0])
+mix *= gain[:, None]
+# Ducking under the voice: the whole mix, plus an extra dip of the speech band.
+if duck.any():
     mix *= (10 ** (-args.duck_db * duck / 20))[:, None]
-    print("ducked under voice: max", round(args.duck_db, 1), "dB")
+    # Dynamic EQ: the speech band (1-4 kHz) dips further while the voice is present, so plucks and hats never
+    # sit on top of consonants. The rest of the spectrum keeps the groove.
+    band = np.stack([bp(mix[:, c], 1000, 4000) for c in range(2)], 1)
+    mix = (mix - band) + band * (10 ** (-args.duck_band_db * duck / 20))[:, None]
+    print("ducked under voice: max", round(args.duck_db, 1), "dB, plus", round(args.duck_band_db, 1), "dB in the speech band")
+
+# Diagnostics: what occupies the speech band while the voice speaks (17-25 s, the showcase).
+if os.environ.get("MUSIC_DIAG"):
+    g = (10 ** (-args.duck_db * duck / 20))[:, None]
+    seg = slice(int(17.2 * SR), int(25.4 * SR))
+    for name, bus in (("drums", drums), ("claps", claps), ("hats", hats), ("bass", bass), ("pad", pad), ("arp", arp), ("fx", fx), ("wet", wet)):
+        x = (bus * gain[:, None] * g)[seg].mean(1)
+        xb = bp(x, 1000, 4000)
+        print(f"  {name:6s} band 1-4k {20*np.log10(np.sqrt(np.mean(xb**2))+1e-9):6.1f} dB   full {20*np.log10(np.sqrt(np.mean(x**2))+1e-9):6.1f} dB")
 
 # Soft limit and normalize to about -4 dBTP; loudness is set in the mix by Film.tsx.
 mix = np.tanh(mix / (np.max(np.abs(mix)) * 0.8) * 1.2) / 1.2
