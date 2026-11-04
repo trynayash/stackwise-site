@@ -5,6 +5,7 @@ import { RelatedCard } from "@/components/ui/related-card";
 import { FaqList } from "@/components/ui/faq-list";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
+import { ReadingProgress } from "@/components/ui/reading-progress";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -101,6 +102,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
 
     return (
         <div className="relative">
+            <ReadingProgress />
             <JsonLd
                 data={[
                     articleSchema({

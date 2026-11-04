@@ -19,6 +19,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { Screenshot, StatusBadge } from "@/components/work/work-card";
 import { ArchitectureDiagram } from "@/components/work/architecture-diagram";
 import { CaseStudyToc } from "@/components/work/case-study-toc";
+import { ReadingProgress } from "@/components/ui/reading-progress";
 import { siteConfig } from "@/config/site";
 
 interface PageProps {
@@ -71,6 +72,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
     return (
         <div className="relative">
+            <ReadingProgress />
             <JsonLd
                 data={[
                     breadcrumbSchema([
