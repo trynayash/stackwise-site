@@ -130,6 +130,10 @@ export function Navbar() {
 
     const solid = isScrolled || menuOpen;
     const light = overLight && !menuOpen;
+    // The page the visitor is on: its link reads at full strength and carries aria-current. Section links
+    // (Process, About, FAQ) point into the home page, so only page links can be current.
+    const isCurrent = (href?: string) => !!href && href !== "/" && (pathname === href || pathname.startsWith(href + "/"));
+    const servicesCurrent = ["/services", "/solutions", "/technologies", "/industries"].some((p) => pathname.startsWith(p));
 
     return (
         <>
@@ -158,7 +162,7 @@ export function Navbar() {
                                     aria-controls="services-menu"
                                     className={cn(
                                         "inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors cursor-pointer",
-                                        menuOpen ? "bg-[var(--nav-pill)] text-[var(--nav-fg)]" : "text-[var(--nav-muted)] hover:text-[var(--nav-fg)]"
+                                        menuOpen ? "bg-[var(--nav-pill)] text-[var(--nav-fg)]" : servicesCurrent ? "text-[var(--nav-fg)]" : "text-[var(--nav-muted)] hover:text-[var(--nav-fg)]"
                                     )}
                                 >
                                     Services
@@ -171,7 +175,11 @@ export function Navbar() {
                                     <Link
                                         {...navLink(item)}
                                         onMouseEnter={scheduleClose}
-                                        className="inline-flex h-10 items-center rounded-full px-4 text-sm font-medium text-[var(--nav-muted)] transition-colors hover:text-[var(--nav-fg)]"
+                                        aria-current={isCurrent(item.href) ? "page" : undefined}
+                                        className={cn(
+                                            "inline-flex h-10 items-center rounded-full px-4 text-sm font-medium transition-colors hover:text-[var(--nav-fg)]",
+                                            isCurrent(item.href) ? "text-[var(--nav-fg)]" : "text-[var(--nav-muted)]"
+                                        )}
                                     >
                                         {item.title}
                                     </Link>

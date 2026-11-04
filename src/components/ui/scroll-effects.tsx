@@ -64,7 +64,7 @@ export function ScrollLitText({ text, className }: { text: string; className?: s
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 55%"] });
     const words = text.split(" ");
     return (
-        <p ref={ref} className={className}>
+        <p ref={ref} className={cn("relative", className)}>
             {words.map((w, i) => (
                 <LitWord key={`${w}-${i}`} word={w} progress={scrollYProgress} range={[i / words.length, (i + 1) / words.length]} still={still} />
             ))}

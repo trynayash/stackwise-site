@@ -108,7 +108,7 @@ export function Pricing({ standalone = false }: { standalone?: boolean }) {
                         <button
                             type="button"
                             onClick={() => openInquiry({ topic: "a monthly retainer or a technical review" })}
-                            className="cursor-pointer font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-accent"
+                            className="inline-flex min-h-11 cursor-pointer items-center font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-accent"
                         >
                             Ask us about it
                         </button>

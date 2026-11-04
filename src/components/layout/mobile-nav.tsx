@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { BookCallLink } from "@/components/ui/book-call";
 import { useInquiry } from "@/components/providers/inquiry-context";
+import { usePathname } from "next/navigation";
 import { useNavLink } from "@/hooks/use-section-nav";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
@@ -25,6 +26,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     const [servicesOpen, setServicesOpen] = useState(false);
     const { openInquiry } = useInquiry();
     const navLink = useNavLink();
+    const pathname = usePathname();
+    const isCurrent = (href?: string) => !!href && href !== "/" && (pathname === href || pathname.startsWith(href + "/"));
 
     useEffect(() => {
         if (!isOpen) return;
@@ -121,7 +124,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                 <li key={item.title}>
                                     <Link
                                         {...navLink(item, onClose)}
-                                        className="block py-4 text-2xl font-semibold tracking-tight text-white short:py-2.5 short:text-xl"
+                                        aria-current={isCurrent(item.href) ? "page" : undefined}
+                                        className={cn("block py-4 text-2xl font-semibold tracking-tight short:py-2.5 short:text-xl", isCurrent(item.href) ? "text-accent" : "text-white")}
                                     >
                                         {item.title}
                                     </Link>

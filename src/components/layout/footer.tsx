@@ -12,15 +12,16 @@ import { siteConfig } from "@/config/site";
 import { scrollToTarget } from "@/lib/scroll";
 import { bookCallUrl } from "@/lib/booking";
 
-const linkClass = "link-draw text-sm text-white/55 hover:text-white";
+// Each link is a 40px-tall tap target on phones, with room for titles that wrap; the underline only spans the text.
+const linkClass = "inline-flex min-h-10 items-center py-1.5 text-sm text-white/55 transition-colors hover:text-white [&>span]:link-draw";
 
 function Column({ title, href, children }: { title: string; href?: string; children: React.ReactNode }) {
     return (
         <div>
-            <h3 className="mb-5 text-sm font-semibold text-white">
-                {href ? <Link href={href} className="hover:text-white transition-colors">{title}</Link> : title}
+            <h3 className="mb-3 text-sm font-semibold text-white">
+                {href ? <Link href={href} className="inline-flex min-h-10 items-center transition-colors hover:text-accent">{title}</Link> : <span className="inline-flex min-h-10 items-center">{title}</span>}
             </h3>
-            <ul className="space-y-3">{children}</ul>
+            <ul className="space-y-0.5">{children}</ul>
         </div>
     );
 }
@@ -84,7 +85,7 @@ export function Footer() {
                         <Column title="Services" href="/services">
                             {services.map((p) => (
                                 <li key={p.path}>
-                                    <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
+                                    <Link href={p.path} className={linkClass}><span>{p.navLabel}</span></Link>
                                 </li>
                             ))}
                         </Column>
@@ -94,14 +95,14 @@ export function Footer() {
                         <Column title="Solutions" href="/solutions">
                             {solutions.map((p) => (
                                 <li key={p.path}>
-                                    <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
+                                    <Link href={p.path} className={linkClass}><span>{p.navLabel}</span></Link>
                                 </li>
                             ))}
                         </Column>
                         <Column title="Technologies" href="/technologies">
                             {technologies.map((p) => (
                                 <li key={p.path}>
-                                    <Link href={p.path} className={linkClass}>{p.navLabel}</Link>
+                                    <Link href={p.path} className={linkClass}><span>{p.navLabel}</span></Link>
                                 </li>
                             ))}
                         </Column>
@@ -112,7 +113,7 @@ export function Footer() {
                             {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", id: "contact" }].map((item) => (
                                 <li key={item.title}>
                                     <Link {...navLink(item)} className={linkClass}>
-                                        {item.title}
+                                        <span>{item.title}</span>
                                     </Link>
                                 </li>
                             ))}
@@ -126,7 +127,7 @@ export function Footer() {
                         <Column title="Industries" href="/industries">
                             {industries.map((l) => (
                                 <li key={l.path}>
-                                    <Link href={l.path} className={linkClass}>{l.label}</Link>
+                                    <Link href={l.path} className={linkClass}><span>{l.label}</span></Link>
                                 </li>
                             ))}
                         </Column>
@@ -135,7 +136,7 @@ export function Footer() {
                         <Column title="Where we work" href="/locations">
                             {locations.map((l) => (
                                 <li key={l.path}>
-                                    <Link href={l.path} className={linkClass}>{l.label}</Link>
+                                    <Link href={l.path} className={linkClass}><span>{l.label}</span></Link>
                                 </li>
                             ))}
                         </Column>
@@ -144,7 +145,7 @@ export function Footer() {
                         <Column title="Guides" href="/guides">
                             {guides.map((l) => (
                                 <li key={l.path}>
-                                    <Link href={l.path} className={linkClass}>{l.label}</Link>
+                                    <Link href={l.path} className={linkClass}><span>{l.label}</span></Link>
                                 </li>
                             ))}
                         </Column>

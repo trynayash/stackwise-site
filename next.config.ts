@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 // Vercel's preview toolbar (comments, feedback) loads from vercel.live on preview deployments only.
 const preview = process.env.VERCEL_ENV === "preview";
+// React's development build uses eval for its debugging tools (call stacks, fast refresh); production never does.
+const dev = process.env.NODE_ENV === "development";
 
 /**
  * Content Security Policy. Next.js inlines its hydration scripts and the font/animation styles, so inline
@@ -10,7 +12,7 @@ const preview = process.env.VERCEL_ENV === "preview";
  */
 const csp = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com${preview ? " https://vercel.live" : ""}`,
+    `script-src 'self' 'unsafe-inline'${dev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://*.google-analytics.com${preview ? " https://vercel.live" : ""}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://www.googletagmanager.com https://*.google-analytics.com",
     "font-src 'self' data:",
