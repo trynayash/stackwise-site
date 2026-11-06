@@ -1,3 +1,4 @@
+import type { Viewport } from "next";
 import { Hero } from "@/components/sections/hero";
 import { Marquee } from "@/components/sections/marquee";
 import { Portfolio } from "@/components/sections/portfolio";
@@ -15,6 +16,10 @@ import { faqs } from "@/lib/faqs";
 import { allWork } from "@/lib/more-work";
 import { toWorkSummary } from "@/lib/case-studies";
 import { homeServices } from "@/lib/home-data";
+
+// The page opens on the light hero, so phone browsers tint their bars to match from the first paint; the navbar
+// switches it back to the dark canvas once the hero scrolls away.
+export const viewport: Viewport = { themeColor: "#f2f1ec" };
 
 // The two products framed in the hero.
 const heroWork = allWork.slice(0, 2);

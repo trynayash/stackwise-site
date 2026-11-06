@@ -2,7 +2,7 @@
 
 The website for StackWise, a software studio in Mumbai. It is a single-page marketing site with service pages, a portfolio with project write-ups, pricing, an FAQ and a contact form.
 
-Live site: https://stackwise-site.vercel.app (Vercel project `stackwise-site`; every push to `main` deploys to production)
+Live site: https://stackwise.yashsuthar.dev (Vercel project `stackwise-site`; every push to `main` deploys to production, and `stackwise-site.vercel.app` redirects there)
 
 ## What is in it
 
