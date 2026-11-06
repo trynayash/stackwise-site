@@ -26,6 +26,7 @@ export type AssistantAction = { kind: "email"; label?: string; subject?: string;
 
 export type AssistantReply = { text: string; actions?: AssistantAction[]; blocked?: boolean; unanswered?: boolean };
 
+const EMAIL = siteConfig.emails.inbound;
 const BOOK_URL = bookCallUrl("chat");
 /** "Book a call" action, only when a booking page is configured. */
 const bookAction = (): AssistantAction[] => (BOOK_URL ? [{ kind: "link", label: "Book a call", href: BOOK_URL }] : []);
@@ -435,7 +436,7 @@ const intents: Intent[] = [
         answer: () => ({
             text: BOOK_URL
                 ? "Pick a time that suits you and we'll talk it through with you. Calls are free, with no commitment, and you get a written quote afterwards."
-                : "Email us a couple of times that suit you and we'll set up a call. Calls are free, with no commitment.",
+                : `Email ${EMAIL} with a couple of times that suit you and we'll set up a call. Calls are free, with no commitment.`,
             actions: [...bookAction(), { kind: "email", label: "Email us", subject: "Call about a project" }],
         }),
     },
@@ -491,7 +492,7 @@ const intents: Intent[] = [
         weight: 0.4,
         patterns: [/\b(contact|e-?mail|mail|phone|call you|whatsapp|reach|talk to|speak to|number|get in touch)\b/],
         answer: () => ({
-            text: `Email us with the button below, or finish the quick questions here and our team will reply within 24–48 hours. You can add a WhatsApp number in the chat if you'd prefer a reply there.`,
+            text: `Email us at ${EMAIL}, or finish the quick questions here and our team will reply within 24–48 hours. You can add a WhatsApp number in the chat if you'd prefer a reply there.`,
             actions: [{ kind: "email", label: "Email us" }, ...bookAction()],
         }),
     },

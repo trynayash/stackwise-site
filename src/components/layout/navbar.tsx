@@ -320,7 +320,7 @@ export function Navbar() {
                                                     className="flex items-center justify-center gap-2 text-xs font-medium text-black/70 hover:text-black"
                                                 >
                                                     <Icon icon={Mail01Icon} size={14} />
-                                                    Email the team
+                                                    {siteConfig.emails.inbound}
                                                 </a>
                                             </div>
                                         </div>

@@ -16,7 +16,7 @@ export const siteConfig = {
     author: "Yash Suthar",
     emails: {
         /** The one inbox that receives everything: enquiries, legal and privacy questions. */
-        inbound: "yashsuthar.dev@gmail.com",
+        inbound: "stackwiseind@gmail.com",
     },
     links: {
         twitter: "https://x.com/YashVibes1",
