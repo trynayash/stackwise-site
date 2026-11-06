@@ -132,7 +132,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                     Prefer email?{" "}
                                     <a href={`mailto:${siteConfig.emails.inbound}`} className="inline-flex items-center gap-1 font-medium text-white hover:text-accent">
                                         <Icon icon={Mail01Icon} size={14} />
-                                        {siteConfig.emails.inbound}
+                                        Email the team
                                     </a>
                                     . We reply within 24–48 hours.
                                 </p>

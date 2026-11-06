@@ -32,11 +32,7 @@ function EmailCard() {
     return (
         <div className="rounded-3xl bg-surface p-6 md:p-7">
             <p className="text-sm font-medium text-white/55">{bookCallUrl("contact") ? "Prefer email or a call?" : "Prefer email?"}</p>
-            <a href={`mailto:${email}`} className="mt-1 block break-words py-2 text-xl font-semibold text-white hover:underline underline-offset-4 md:text-2xl">
-                {/* On narrow screens the address breaks before the @, never mid-word. */}
-                {email.split("@")[0]}
-                <wbr />@{email.split("@")[1]}
-            </a>
+            <p className="mt-1 py-2 text-xl font-semibold text-white md:text-2xl">Our team replies within 24–48 hours.</p>
             <div className="mt-5 flex flex-wrap gap-2">
                 <a
                     href={`mailto:${email}?subject=${encodeURIComponent("New project enquiry")}`}
@@ -51,7 +47,7 @@ function EmailCard() {
                     className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full bg-white/[0.06] px-5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.12]"
                 >
                     <Icon icon={copied ? Tick02Icon : Copy01Icon} size={17} />
-                    <span aria-live="polite">{copied ? "Copied" : "Copy address"}</span>
+                    <span aria-live="polite">{copied ? "Copied" : "Copy email address"}</span>
                 </button>
                 {bookCallUrl("contact") && (
                     <a

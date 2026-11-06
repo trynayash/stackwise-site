@@ -46,7 +46,11 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
                         Something went wrong loading the site.
                     </h1>
                     <p style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,0.65)", margin: "20px 0 0", maxWidth: 520 }}>
-                        Reload to try again. If it keeps happening, email {siteConfig.emails.inbound}.
+                        Reload to try again. If it keeps happening,{" "}
+                        <a href={`mailto:${siteConfig.emails.inbound}`} style={{ color: "#fff" }}>
+                            email the team
+                        </a>
+                        .
                     </p>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 36 }}>
                         <button type="button" onClick={reset} style={{ ...button, background: "#C8FF00", color: "#000" }}>

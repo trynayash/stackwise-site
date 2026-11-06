@@ -145,7 +145,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                         <BookCallLink source="menu" variant="secondary" size="lg" className="w-full short:hidden" />
                         <a href={`mailto:${siteConfig.emails.inbound}`} className="flex min-h-11 flex-shrink-0 items-center justify-center gap-2 text-sm text-white/55">
                             <Icon icon={Mail01Icon} size={16} />
-                            {siteConfig.emails.inbound}
+                            Email the team
                         </a>
                     </div>
                 </motion.div>

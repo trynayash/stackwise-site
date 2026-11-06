@@ -46,7 +46,7 @@ export function Footer() {
                             className="mt-3 inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-white hover:text-accent"
                         >
                             <Icon icon={Mail01Icon} size={17} />
-                            {siteConfig.emails.inbound}
+                            Email the team
                         </a>
                         {bookCallUrl("footer") && (
                             <a

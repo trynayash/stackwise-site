@@ -143,7 +143,7 @@ export function LegalPage({
                                 <p className="mt-2 text-[15px] leading-relaxed text-white/60">Email our team directly. Replies within 24–48 hours on working days.</p>
                                 <ButtonLink href={`mailto:${email}`} variant="secondary" size="md" arrow={false} className="mt-6 self-start">
                                     <Icon icon={Mail01Icon} size={18} />
-                                    {email}
+                                    Email the team
                                 </ButtonLink>
                             </div>
                             <Link href={other.path} className="group flex flex-col rounded-3xl bg-surface p-6 transition-colors hover:bg-surface-2 md:p-7">

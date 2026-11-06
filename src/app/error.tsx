@@ -22,7 +22,11 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
                     This page hit an error. <span className="text-accent">The rest of the site is fine.</span>
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-white/60">
-                    Try the page again. If it keeps happening, email {siteConfig.emails.inbound} and mention what you were doing.
+                    Try the page again. If it keeps happening,{" "}
+                    <a href={`mailto:${siteConfig.emails.inbound}`} className="font-medium text-white underline underline-offset-4 hover:text-accent">
+                        email the team
+                    </a>{" "}
+                    and mention what you were doing.
                 </p>
                 <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                     <Button size="lg" arrow="right" onClick={reset}>
