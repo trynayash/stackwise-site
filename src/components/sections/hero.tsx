@@ -71,8 +71,8 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
                         </h1>
 
                         <Enter as="p" delay={0.25} className="mt-7 max-w-md text-lg leading-relaxed text-ink/70 text-pretty md:text-xl">
-                            SaaS products, AI features and websites, built by a team you work with directly. Clear pricing, full code ownership, no agency
-                            runaround.
+                            SaaS products, AI features and websites, built by a team you work with directly, in about half the usual agency time. Clear
+                            pricing, full code ownership, no runaround.
                         </Enter>
 
                         <Enter delay={0.35} className="mt-9 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-6">

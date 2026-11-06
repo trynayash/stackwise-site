@@ -9,6 +9,7 @@ import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/mot
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { Tilt } from "@/components/ui/interactive";
 import { useReached } from "@/components/ui/use-reached";
+import { SpeedComparison } from "@/components/sections/speed-comparison";
 
 const steps = [
     {
@@ -66,7 +67,7 @@ export function ProcessTimeline() {
                 <SectionHeader
                     eyebrow="How it works"
                     title="Four steps from first call to launch."
-                    description="Websites usually go live in 2–3 weeks, MVPs in 4–8 and SaaS products in 8–12. Every project follows the same four steps, with a weekly call and a live staging link throughout."
+                    description="Websites usually go live in 2–3 weeks, MVPs in 4–8 and SaaS products in 8–12, about half the time a typical agency quotes. Every project follows the same four steps, with a weekly call and a live staging link throughout."
                 />
 
                 <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -93,6 +94,10 @@ export function ProcessTimeline() {
                         </StaggerItem>
                     ))}
                 </Stagger>
+
+                <Reveal className="mt-6">
+                    <SpeedComparison />
+                </Reveal>
 
                 <Reveal className="mt-6 flex flex-col gap-5 rounded-3xl bg-surface p-7 sm:flex-row sm:items-center sm:justify-between md:px-9">
                     <div>

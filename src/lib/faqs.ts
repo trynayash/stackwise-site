@@ -19,7 +19,7 @@ export const faqs: Faq[] = [
     },
     {
         q: "What's the typical project timeline?",
-        a: "Simple websites take 2–3 weeks, online stores 4–6 weeks, MVPs 4–8 weeks and full SaaS products 8–12 weeks. You get a detailed timeline after the free consultation call, before you commit to anything.",
+        a: "Simple websites take 2–3 weeks, online stores 4–6 weeks, MVPs 4–8 weeks and full SaaS products 8–12 weeks. That is about half the time agencies typically quote: commonly 6–12 weeks for a website, 8–16 for an MVP and 3–6 months for a SaaS product. You get a detailed timeline after the free consultation call, before you commit to anything.",
     },
     {
         q: "How do you communicate during the project?",

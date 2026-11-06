@@ -12,6 +12,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { Pricing } from "@/components/sections/pricing";
 import { marketingPageList } from "@/lib/marketing-pages";
 import { approxUsd, planComparison, priceFactors, priceReasons, pricingFaqs } from "@/lib/pricing";
+import { SpeedComparison } from "@/components/sections/speed-comparison";
 import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { JsonLd, breadcrumbSchema, faqSchema, rupees } from "@/lib/schema";
 import { constructMetadata } from "@/lib/seo";
@@ -218,6 +219,16 @@ export default function PricingPage() {
                             </StaggerItem>
                         ))}
                     </Stagger>
+                </div>
+            </section>
+
+            {/* ─── Faster than a typical agency ─── */}
+            <section className="relative py-16 md:py-24" aria-label="How long it takes">
+                <div className="container mx-auto px-5 sm:px-6">
+                    <SectionHeader eyebrow="Timelines" title="Lower prices, and live sooner too." />
+                    <Reveal>
+                        <SpeedComparison />
+                    </Reveal>
                 </div>
             </section>
 
