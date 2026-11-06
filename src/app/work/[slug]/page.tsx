@@ -6,7 +6,7 @@ import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { displayDomain, toWorkSummary, type CaseStudySection } from "@/lib/case-studies";
 import { allWork, workBySlug } from "@/lib/more-work";
 import { constructMetadata } from "@/lib/seo";
-import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, orgId } from "@/lib/schema";
 import { Icon } from "@/components/ui/icon";
 import { ArrowBubble, Card } from "@/components/ui/card";
 import { Tilt } from "@/components/ui/interactive";
@@ -86,7 +86,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         description: study.metaDescription,
                         image: `${siteConfig.url}${study.preview}`,
                         url: `${siteConfig.url}/work/${study.slug}`,
-                        creator: { "@type": "Person", name: siteConfig.author },
+                        creator: { "@type": "Organization", "@id": orgId, name: siteConfig.name, url: siteConfig.url },
                         keywords: study.stack.join(", "),
                         ...(study.liveUrl ? { sameAs: study.liveUrl } : {}),
                     },
@@ -109,6 +109,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         </div>
                         <Enter delay={0.2} className="lg:col-span-4">
                             <dl className="space-y-1 rounded-3xl bg-surface p-3">
+                                <div className="flex items-baseline justify-between gap-4 px-4 py-3">
+                                    <dt className="text-sm text-white/50">Built by</dt>
+                                    <dd className="text-[15px] font-medium text-white">
+                                        <Link href="/#about" className="hover:text-accent">
+                                            The {siteConfig.name} team
+                                        </Link>
+                                    </dd>
+                                </div>
                                 <div className="flex items-baseline justify-between gap-4 px-4 py-3">
                                     <dt className="text-sm text-white/50">Status</dt>
                                     <dd className="text-[15px] font-medium text-white">{study.status}</dd>
@@ -213,7 +221,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                         <Reveal className="flex flex-col items-start gap-4 rounded-3xl bg-surface p-6 sm:flex-row sm:items-center sm:justify-between md:p-7">
                             <div>
                                 <p className="text-base font-semibold text-white">Building something similar?</p>
-                                <p className="mt-1 text-sm text-white/55">We can walk you through how this was built on a free call.</p>
+                                <p className="mt-1 text-sm text-white/55">Our team can walk you through how we built this on a free call.</p>
                             </div>
                             <QuoteButton label="Start a similar project" size="md" />
                         </Reveal>

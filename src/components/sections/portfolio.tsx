@@ -13,7 +13,7 @@ export function Portfolio() {
                 <SectionHeader
                     eyebrow="Our work"
                     title="Products we've built and shipped."
-                    description="Real products that people use, each with a write-up of how it was built. Have a look before you get in touch."
+                    description="Real products that people use, each built by our team and written up so you can see how. Have a look before you get in touch."
                     action={
                         <ButtonLink href="/work" variant="secondary" arrow="right">
                             See all {allWork.length} projects

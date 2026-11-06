@@ -41,7 +41,7 @@ export function llmsIndex() {
         "## Guides",
         ...guides.map((g) => `- [${g.title}](${url}${g.path}): ${plainText(g.answer)}`),
         "",
-        "## Case studies",
+        "## Case studies (each built by the StackWise team)",
         ...allWork.map((w) => `- [${w.name}](${url}/work/${w.slug}) (${w.kind}, ${w.status}): ${w.tagline}`),
         "",
         "## FAQ",
@@ -53,7 +53,6 @@ export function llmsIndex() {
         "## Contact",
         `- Email: ${siteConfig.emails.inbound}`,
         `- Website: ${url}`,
-        `- Founder: ${siteConfig.links.portfolio}`,
         "",
     ].join("\n");
 }
@@ -106,7 +105,7 @@ export function llmsFull() {
         "# Guides",
         "",
         ...guides.flatMap(guideText),
-        "# Case studies",
+        "# Case studies (each built by the StackWise team)",
         ...allWork.map((w) => `- ${w.name} (${url}/work/${w.slug}), ${w.kind}, ${w.status}: ${w.tagline}`),
         "",
         "# General FAQ",

@@ -3,8 +3,8 @@ import { caseStudies, type CaseStudy } from "@/lib/case-studies";
 const section = (title: string, body: string) => ({ title, body, hint: "" });
 
 /**
- * Smaller projects shown under "More work". The three featured studies come from the
- * yashsuthar.dev portfolio (src/lib/case-studies.ts); these are StackWise-only.
+ * Smaller projects shown under "More work"; the three featured studies live in src/lib/case-studies.ts.
+ * Every project is credited to the StackWise team.
  */
 export const moreWork: CaseStudy[] = [
     {
@@ -21,7 +21,7 @@ export const moreWork: CaseStudy[] = [
             "CodeFusionAI: a learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.",
         overview: section(
             "Overview",
-            "CodeFusionAI is a learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking."
+            "CodeFusionAI is a learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.\n\nThe StackWise team designed and built it end to end: the editor, the tip engine, sign-in, the course catalog and the database security rules."
         ),
         problem: section(
             "Problem",
@@ -61,7 +61,7 @@ export const moreWork: CaseStudy[] = [
             "PromptP: a web app that turns a short prompt into a longer, structured prompt using role-based templates for writers, designers, developers and marketers.",
         overview: section(
             "Overview",
-            "PromptP is a web app that turns a short prompt into a longer, structured prompt using role-based templates for writers, designers, developers and marketers."
+            "PromptP is a web app that turns a short prompt into a longer, structured prompt using role-based templates for writers, designers, developers and marketers.\n\nThe StackWise team designed and built it, from the enhancement engine and API to the usage dashboard, and released the code as open source."
         ),
         problem: section(
             "Problem",
@@ -99,7 +99,7 @@ export const moreWork: CaseStudy[] = [
             "How the StackWise website is built: Next.js 16 App Router, server-rendered pages, a lazy-loaded 3D hero, scroll-driven motion, structured data and a validated inquiry flow.",
         overview: section(
             "Overview",
-            "StackWise's own website: a Next.js App Router site with server-rendered marketing pages, an interactive 3D hero, scroll-driven motion and a two-step project inquiry flow.\n\nIt is built with the same standards as client work, and the full source is public."
+            "StackWise's own website: a Next.js App Router site with server-rendered marketing pages, an interactive 3D hero, scroll-driven motion and a two-step project inquiry flow.\n\nOur team designed and built it to the same standards as client work, and the full source is public."
         ),
         problem: section(
             "Problem",
@@ -151,7 +151,7 @@ export const omEnterprise: CaseStudy = {
         "OM ENTERPRISE case study: one system for a building-materials shop in Naswadi, Gujarat. A public catalogue of 357 products with an enquiry list, a counter POS with server-side pricing and UPI QR payments, GST-correct A4 bills, an owner's phone app for approvals, and a PostgreSQL database that protects its own history.",
     overview: section(
         "Overview",
-        "OM ENTERPRISE sells paints, water tanks, bathware, CPVC, PVC, UPVC and SWR pipes and fittings, and plumbing accessories from a counter on Bodeli Road in Naswadi, Chhota Udaipur district, Gujarat.\n\nStackWise built the shop one connected system: a public website where customers browse 357 products across 8 categories and 9 brands and send an enquiry list as an order request; a point of sale where counter staff complete a sale with prices calculated on the server; an admin dashboard for products, pricing, approvals, payments, bills, customers, staff and reports; and a phone app for the owner to approve discounts and see the day's money from anywhere. All of it reads one price list in one PostgreSQL database."
+        "OM ENTERPRISE sells paints, water tanks, bathware, CPVC, PVC, UPVC and SWR pipes and fittings, and plumbing accessories from a counter on Bodeli Road in Naswadi, Chhota Udaipur district, Gujarat.\n\nThe StackWise team built the shop one connected system: a public website where customers browse 357 products across 8 categories and 9 brands and send an enquiry list as an order request; a point of sale where counter staff complete a sale with prices calculated on the server; an admin dashboard for products, pricing, approvals, payments, bills, customers, staff and reports; and a phone app for the owner to approve discounts and see the day's money from anywhere. All of it reads one price list in one PostgreSQL database."
     ),
     problem: section(
         "Problem",

@@ -26,7 +26,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "Mumbai, India",
         titleTop: "Software and SaaS development,",
         titleAccent: "built in Mumbai.",
-        intro: "StackWise is a software development company in Mumbai, founded by Yash Suthar. Our team builds SaaS products, web apps and fast Next.js websites for Mumbai businesses and startups. You work directly with the engineers who write your code, and we can meet in person in Mumbai by arrangement.",
+        intro: "StackWise is a software development company in Mumbai. Our team builds SaaS products, web apps and fast Next.js websites for Mumbai businesses and startups. You work directly with the engineers who write your code, and we can meet in person in Mumbai by arrangement.",
         icon: Location01Icon,
         facts: [{ label: "Starting at", value: "₹34,999" }, { label: "Time zone", value: "IST, same as you" }, quoteFact, ownershipFact],
         features: [

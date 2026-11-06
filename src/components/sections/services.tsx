@@ -29,7 +29,7 @@ function ServicePanel({ page }: { page: ServiceCard }) {
                         className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                     <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/75 px-3.5 py-2 text-[13px] font-medium text-white backdrop-blur">
-                        Built by us: {study.name}
+                        Built by our team: {study.name}
                         <Icon icon={ArrowUpRight01Icon} size={15} />
                     </span>
                 </Link>

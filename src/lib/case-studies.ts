@@ -1,6 +1,6 @@
 /**
- * Project content copied from the yashsuthar.dev portfolio (src/config/case-studies.ts),
- * so both sites describe the work the same way. Update it there first, then copy it here.
+ * The featured case studies. They started as a copy of the yashsuthar.dev portfolio (src/config/case-studies.ts),
+ * but here every project is credited to the StackWise team and written as "we", so keep that voice when syncing.
  */
 
 const projectLinks = {
@@ -88,12 +88,12 @@ export const caseStudies: CaseStudy[] = [
       "LimitYourAPI: an API rate limiting SaaS built end to end with Go, Redis Lua scripts, PostgreSQL and React, with SDKs for Node.js, Go and Python, CI in GitHub Actions and a Terraform setup for AWS.",
     overview: section(
       "Overview",
-      "One paragraph: what it is, who it's for, your role.",
-      "LimitYourAPI is an API rate limiting and usage metering SaaS. Developers add it to their API with an SDK or a REST call, then manage keys, limits and usage in a dashboard.\n\nI built it end to end: the Go API and Redis Lua limiters, the React dashboard, SDKs for Node.js, Go and Python, a Cloudflare Workers edge limiter, the CI pipeline, and a Terraform setup for AWS that is not deployed yet (the API runs on Render)."
+      "One paragraph: what it is, who it's for, what the team did.",
+      "LimitYourAPI is an API rate limiting and usage metering SaaS. Developers add it to their API with an SDK or a REST call, then manage keys, limits and usage in a dashboard.\n\nThe StackWise team built it end to end: the Go API and Redis Lua limiters, the React dashboard, SDKs for Node.js, Go and Python, a Cloudflare Workers edge limiter, the CI pipeline, and a Terraform setup for AWS that is not deployed yet (the API runs on Render)."
     ),
     problem: section(
       "Problem",
-      "What broke or what pain existed before you built this?",
+      "What broke or what pain existed before the team built this?",
       "Most API rate limiting implementations either become inconsistent under concurrency or depend heavily on infrastructure-specific edge products.\n\nA lot of existing tooling lacks application-level context, flexible quota control, or developer-friendly integration flows.\n\nThe goal was a product with predictable behavior under load, low operational overhead, and a clean SDK and dashboard experience."
     ),
     constraints: section(
@@ -171,7 +171,7 @@ export const caseStudies: CaseStudy[] = [
     overview: section(
       "Overview",
       "What it is and who it's for.",
-      "ScopeCI is a tool we are building for software agencies that do fixed-price client work. It is meant to check each pull request against what the client signed, so unapproved work is caught before it ships.\n\nWe are building it end to end as our own product. It is in development: the evaluator and the GitHub and Linear integrations are built and tested but not yet running on real repositories, and the public site is a waitlist."
+      "ScopeCI is a tool we are building for software agencies that do fixed-price client work. It is meant to check each pull request against what the client signed, so unapproved work is caught before it ships.\n\nThe StackWise team is building it end to end as one of our own products. It is in development: the evaluator and the GitHub and Linear integrations are built and tested but not yet running on real repositories, and the public site is a waitlist."
     ),
     problem: section(
       "Problem",
@@ -243,8 +243,8 @@ export const caseStudies: CaseStudy[] = [
       "StartupDeckAI: a full-stack AI SaaS. React and TypeScript front end, an Express API on PostgreSQL, a deterministic scoring engine, and 3,400+ automated tests in CI.",
     overview: section(
       "Overview",
-      "What the product does and your ownership.",
-      "StartupDeckAI is an AI platform that turns a startup idea into market analysis, competitor intelligence, a scored GO / PIVOT / KILL verdict, and a pitch deck.\n\nI built it end to end: the React front end, the API and data model, the analysis engine, the background jobs, payments, and the CI/CD pipeline."
+      "What the product does and what the team owned.",
+      "StartupDeckAI is an AI platform that turns a startup idea into market analysis, competitor intelligence, a scored GO / PIVOT / KILL verdict, and a pitch deck.\n\nThe StackWise team built it end to end: the React front end, the API and data model, the analysis engine, the background jobs, payments, and the CI/CD pipeline."
     ),
     problem: section(
       "Problem",

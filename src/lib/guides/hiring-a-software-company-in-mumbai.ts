@@ -150,7 +150,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "StackWise is a small studio in Mumbai, founded by Yash Suthar. The team that scopes your project is the team that builds it, and in-person meetings can be arranged for kickoff, a design review or handover. See [StackWise in Mumbai](/locations/mumbai) for how local projects run.",
+                    text: "StackWise is a small studio in Mumbai. The team that scopes your project is the team that builds it, and in-person meetings can be arranged for kickoff, a design review or handover. See [StackWise in Mumbai](/locations/mumbai) for how local projects run.",
                 },
             ],
         },

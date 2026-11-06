@@ -1,7 +1,8 @@
 import { siteConfig } from "@/config/site";
 import type { Faq } from "@/lib/faqs";
 
-const orgId = `${siteConfig.url}/#organization`;
+/** The studio's Organization @id, shared by every page that credits StackWise. */
+export const orgId = `${siteConfig.url}/#organization`;
 
 export function faqSchema(faqs: Faq[]) {
     return {

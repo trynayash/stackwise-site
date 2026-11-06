@@ -13,7 +13,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 
 export const metadata = constructMetadata({
     title: "Case Studies — SaaS, AI & Web Projects",
-    description: "Case studies of SaaS, AI and web products built by StackWise: LimitYourAPI, ScopeCI, StartupDeckAI, CodeFusionAI, PromptP and more.",
+    description: "Case studies of SaaS, AI and web products built by the StackWise team: LimitYourAPI, ScopeCI, StartupDeckAI, CodeFusionAI, PromptP and more.",
     canonical: "/work",
     ogKicker: "Work",
 });
@@ -51,8 +51,8 @@ export default function WorkPage() {
                     </h1>
                     <Enter delay={0.25}>
                         <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/60">
-                            Real products that people use. Each case study covers the problem, the architecture and the trade-offs, so you can judge the
-                            engineering as well as the screenshots.
+                            Real products that people use, every one planned, designed and built by the StackWise team. Each case study covers the
+                            problem, the architecture and the trade-offs, so you can judge the engineering as well as the screenshots.
                         </p>
                     </Enter>
                 </div>
