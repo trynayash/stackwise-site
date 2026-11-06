@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight01Icon, ArrowUpRight01Icon, CloudUploadIcon, CodeIcon, Github01Icon, Location01Icon, Mail01Icon, PenTool03Icon, Search01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, ArrowUpRight01Icon, CloudUploadIcon, CodeIcon, Location01Icon, Mail01Icon, PenTool03Icon, Search01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { CountUp, ScrollLitText } from "@/components/ui/scroll-effects";
@@ -98,16 +98,6 @@ export function About() {
                                 >
                                     <Icon icon={Mail01Icon} size={18} />
                                     Email the team
-                                </a>
-                                <a
-                                    href={siteConfig.links.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Our code on GitHub"
-                                    title="Our code on GitHub"
-                                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/10 transition-colors hover:bg-black/20"
-                                >
-                                    <Icon icon={Github01Icon} size={18} />
                                 </a>
                             </div>
                         </div>

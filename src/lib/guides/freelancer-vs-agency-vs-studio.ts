@@ -26,7 +26,7 @@ const guide: Guide = {
             blocks: [
                 {
                     type: "p",
-                    text: "A **freelancer** is one independent developer. An **agency** is a larger company with sales, account managers, project managers, designers and developers, usually spread across many clients. A **studio** is a small, senior team, sometimes one lead engineer with a few specialists, that takes on fewer projects and builds them directly.",
+                    text: "A **freelancer** is one independent developer. An **agency** is a larger company with sales, account managers, project managers, designers and developers, usually spread across many clients. A **studio** is a small, senior team of engineers and specialists that takes on fewer projects and builds them directly.",
                 },
                 {
                     type: "table",
@@ -82,7 +82,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "The trade-offs are real too. A small studio takes on fewer projects at a time, so you may wait for a start date, and it cannot staff ten workstreams at once. Ask how they document their work and what happens if the lead engineer is unavailable.",
+                    text: "The trade-offs are real too. A small studio takes on fewer projects at a time, so you may wait for a start date, and it cannot staff ten workstreams at once. Ask how they document their work and who covers if someone on the team is unavailable.",
                 },
                 {
                     type: "p",
@@ -133,7 +133,7 @@ const guide: Guide = {
         },
         {
             q: "How do I know if a small studio can handle my project?",
-            a: "Ask to see live products they built, and ask the lead engineer to walk you through the architecture of one. Check that their stack fits your project, that they work from a written scope with weekly demos, and how they handle support after launch. A short paid discovery phase is a low-risk way to find out.",
+            a: "Ask to see live products they built, and ask one of their engineers to walk you through the architecture of one. Check that their stack fits your project, that they work from a written scope with weekly demos, and how they handle support after launch. A short paid discovery phase is a low-risk way to find out.",
         },
     ],
     keywords: [

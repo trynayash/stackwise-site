@@ -32,10 +32,10 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  creator: siteConfig.author,
+  creator: siteConfig.name,
   publisher: siteConfig.name,
   category: "technology",
-  authors: [{ name: siteConfig.author, url: siteConfig.links.portfolio }],
+  authors: [{ name: `The ${siteConfig.name} team`, url: siteConfig.url }],
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
@@ -61,7 +61,6 @@ export const metadata: Metadata = {
     title: siteConfig.homeTitle,
     description: siteConfig.description,
     images: ["/og"],
-    creator: "@YashVibes1",
   },
   robots: {
     index: true,

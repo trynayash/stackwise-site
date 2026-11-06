@@ -61,7 +61,7 @@ export function Footer() {
                         )}
                         <div className="mt-6 flex items-center gap-2">
                             {[
-                                { label: "Our code on GitHub", href: siteConfig.links.github, icon: Github01Icon },
+                                { label: "This site's code on GitHub", href: "https://github.com/trynayash/stackwise-site", icon: Github01Icon },
                                 { label: "Email StackWise", href: `mailto:${siteConfig.emails.inbound}`, icon: Mail01Icon },
                             ].map((s) => (
                                 <Magnetic key={s.label} strength={0.4}>

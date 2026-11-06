@@ -43,9 +43,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 const paragraphs = (body: string) => body.split("\n\n");
 
-/** "https://www.startupdeck.in/docs/" → "startupdeck.in/docs" */
+/** "https://www.startupdeck.in/docs/" → "startupdeck.in/docs"; a GitHub repository shows just its name. */
 const shortUrl = (href: string) => {
     const u = new URL(href);
+    if (u.hostname === "github.com") return u.pathname.split("/").filter(Boolean).slice(1).join("/") || "GitHub";
     return `${u.hostname.replace(/^www\./, "")}${u.pathname.replace(/\/$/, "")}`;
 };
 

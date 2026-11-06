@@ -10,7 +10,7 @@ The working reference is the StackWise repo: `github.com/trynayash/stackwise-sit
 
 > You are upgrading the frontend of my portfolio, **yashsuthar.dev**. The portfolio's content, SEO, metadata, structured data and FAQs are already right and must stay exactly as they are. Your job is the UI/UX only: layouts, sections, components, buttons, motion and responsiveness.
 >
-> Bring it up to the standard of my studio site, StackWise (https://stackwise.yashsuthar.dev, repo `trynayash/stackwise-site`). Read `docs/frontend-playbook.md` in that repo first and follow it as the design spec.
+> Bring it up to the standard of the StackWise studio site (https://stackwise.yashsuthar.dev, repo `trynayash/stackwise-site`). Read `docs/frontend-playbook.md` in that repo first and follow it as the design spec.
 >
 > 1. **Audit first.** Read the portfolio codebase: stack, routes, sections, existing components (it already has a `Roll` text effect), brand colours and fonts. Take screenshots of every page at 390px and 1280px. Write a short plan mapping each portfolio section to a StackWise pattern from section 6 of the playbook. Wait for my OK before building.
 > 2. **Keep the portfolio's identity.** Keep its logo, name, copy, accent colour and fonts. If they're already close, map StackWise's design tokens onto them. Don't rename sections or invent content: no fake numbers, testimonials, clients or awards.

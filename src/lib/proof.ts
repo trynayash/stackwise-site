@@ -32,6 +32,6 @@ export const proofPoints: ProofPoint[] = [
         value: "Public",
         label: "Code on GitHub",
         text: "Read the code behind ScopeCI and the LimitYourAPI SDKs before you decide to work with us.",
-        link: { label: "Visit GitHub", href: "https://github.com/trynayash" },
+        link: { label: "Read the ScopeCI code", href: "https://github.com/trynayash/scopecihq" },
     },
 ];

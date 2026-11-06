@@ -63,7 +63,6 @@ export function constructMetadata({
             title: `${title} | ${siteConfig.name}`,
             description,
             images: [imageUrl],
-            creator: "@YashVibes1",
         },
         robots: noIndex
             ? {
