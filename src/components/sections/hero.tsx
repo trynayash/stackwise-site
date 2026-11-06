@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight01Icon, CodeIcon, Invoice01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
+import { ArrowUpRight01Icon, Clock01Icon, CodeIcon, Invoice01Icon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { HeroStage } from "@/components/sections/hero-stage";
 import type { WorkSummary } from "@/lib/case-studies";
@@ -16,9 +16,9 @@ import { siteConfig } from "@/config/site";
 const [starter, product] = siteConfig.pricing;
 
 const trust = [
+    { icon: Invoice01Icon, text: "Fixed price and timeline" },
+    { icon: Clock01Icon, text: "Live in weeks, not months" },
     { icon: CodeIcon, text: "100% code ownership" },
-    { icon: Invoice01Icon, text: "Fixed quote up front" },
-    { icon: UserGroupIcon, text: "Direct with our team" },
 ];
 
 const stack = ["Next.js", "React", "TypeScript", "Node.js", "Go", "PostgreSQL"];
@@ -51,28 +51,28 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
             <div className="container mx-auto px-5 sm:px-6">
                 <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
                     <motion.div style={{ y: copyY }} className="flex flex-col items-start max-lg:transform-none! lg:col-span-6 lg:pt-8">
-                        <Enter as="p" className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">
-                            Independent software studio, {siteConfig.location.city}
+                        {/* The page's H1 carries the search phrase; the big headline below is the visual hook. */}
+                        <Enter as="h1" className="font-mono text-xs uppercase leading-relaxed tracking-[0.2em] text-ink/70">
+                            Affordable software development company in {siteConfig.location.city}
                         </Enter>
 
-                        <h1 className="mt-7 text-[clamp(2.25rem,9.4vw,4.25rem)] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-[clamp(3.25rem,6.6vw,4.75rem)] md:mt-8 lg:text-[4rem] xl:text-[4.5rem]">
-                            <span className="sr-only">Your next product, built right from day one.</span>
-                            <span aria-hidden className="block">
+                        <p className="mt-7 text-[clamp(2.25rem,9.4vw,4.25rem)] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-[clamp(3.25rem,6.6vw,4.75rem)] md:mt-8 lg:text-[4rem] xl:text-[4.5rem]">
+                            <span className="block">
                                 <Rise delay={0}>Your</Rise> <Rise delay={60}>next</Rise> <Rise delay={120}>product.</Rise>
                             </span>
-                            <span aria-hidden className="block">
+                            <span className="block">
                                 <Rise delay={220}>
                                     <span className="rounded-[0.22em] bg-accent px-[0.12em] -mx-[0.12em] [box-decoration-break:clone]">Built right,</span>
                                 </Rise>
                             </span>
-                            <span aria-hidden className="block">
+                            <span className="block">
                                 <Rise delay={300}>from</Rise> <Rise delay={340}>day</Rise> <Rise delay={380}>one.</Rise>
                             </span>
-                        </h1>
+                        </p>
 
                         <Enter as="p" delay={0.25} className="mt-7 max-w-md text-lg leading-relaxed text-ink/70 text-pretty md:text-xl">
-                            SaaS products, AI features and websites, built by a team you work with directly, in about half the usual agency time. Clear
-                            pricing, full code ownership, no runaround.
+                            SaaS products, web apps, AI features and websites at fixed prices, live in about half the usual agency time. Built by a team
+                            you work with directly, and you own the code.
                         </Enter>
 
                         <Enter delay={0.35} className="mt-9 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-6">

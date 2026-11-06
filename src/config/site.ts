@@ -2,16 +2,16 @@ export const siteConfig = {
     name: "StackWise",
     tagline: "Engineering Digital Growth",
     description:
-        "StackWise is a Mumbai SaaS and software development company building SaaS products, AI features, web apps and fast Next.js websites. You own the code.",
+        "Affordable software development company in Mumbai: SaaS, web apps, AI and websites from ₹19,999, live in weeks at fixed prices. You own the code.",
     /** Home page <title>; every other page uses "Page title | StackWise". */
-    homeTitle: "SaaS & Software Development Company in Mumbai | StackWise",
+    homeTitle: "Affordable Software Development Company in Mumbai | StackWise",
     /**
-     * Canonical site URL. Vercel fills in the production domain at build time; NEXT_PUBLIC_SITE_URL
-     * overrides it, and the fallback keeps local builds on the real address.
+     * Canonical site URL for canonicals, the sitemap and structured data. Set explicitly rather than taken from
+     * Vercel's production URL, which is the shortest attached domain and would change if another one were added.
      */
-    url:
-        process.env.NEXT_PUBLIC_SITE_URL ??
-        (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://stackwise.yashsuthar.dev"),
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://stackwise.yashsuthar.dev",
+    /** Date the page copy last changed (YYYY-MM-DD); the sitemap reports it. Guides carry their own dates. */
+    contentUpdated: "2026-11-06",
     location: { city: "Mumbai", region: "Maharashtra", country: "India", countryCode: "IN" },
     author: "Yash Suthar",
     emails: {

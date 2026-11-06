@@ -6,10 +6,9 @@ Live site: https://stackwise.yashsuthar.dev (Vercel project `stackwise-site`; ev
 
 ## What is in it
 
-- Home page sections in `src/components/sections/` (3D hero, services, selected work, capabilities, process, comparison, pricing, principles, team, technology, FAQ, CTA, contact)
+- Home page sections in `src/components/sections/` (hero with product screenshots, selected work, testimonials, services, process with the timeline comparison, pricing, how we compare, team, FAQ, guides, contact)
 - Shared UI in `src/components/ui/`: `Button`/`ButtonLink`, `Card`, `Icon` (Hugeicons), form fields, FAQ accordion and motion helpers. Colours are tokens in `src/app/globals.css` (`bg-canvas`, `bg-surface`, `border-line`, `text-accent`, …)
 - Desktop navigation with a Services mega menu, and a full-screen mobile menu
-- Interactive 3D hero model in `src/components/three/` (three.js via React Three Fiber, lazy-loaded, with a CSS fallback for reduced motion or no WebGL)
 - Service and solution pages under `src/app/services/` and `src/app/solutions/`, all rendered by one template (`src/components/marketing/`) from the content in `src/lib/marketing-pages.ts`
 - Generated social-share images at `/og?title=...&kicker=...`, and JSON-LD (Organization, Service, FAQ, Breadcrumb) via `src/lib/schema.tsx`
 - Case studies at `/work` and `/work/[slug]`. The three featured ones come from `src/lib/case-studies.ts`. That file started as a copy of the yashsuthar.dev portfolio (`src/config/case-studies.ts`), but here the write-ups speak in the studio's voice ("we"), so keep that when syncing changes across; smaller projects live in `src/lib/more-work.ts`; screenshots are in `public/projects/`
@@ -21,7 +20,7 @@ Live site: https://stackwise.yashsuthar.dev (Vercel project `stackwise-site`; ev
 
 ## Tech stack
 
-Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion, GSAP, three.js / React Three Fiber, Hugeicons, Zod.
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion, Lenis, Hugeicons, Zod.
 
 ## Run it locally
 

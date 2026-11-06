@@ -13,6 +13,7 @@ import { Pricing } from "@/components/sections/pricing";
 import { marketingPageList } from "@/lib/marketing-pages";
 import { approxUsd, planComparison, priceFactors, priceReasons, pricingFaqs } from "@/lib/pricing";
 import { SpeedComparison } from "@/components/sections/speed-comparison";
+import { CompetitorComparison } from "@/components/sections/competitor-comparison";
 import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { JsonLd, breadcrumbSchema, faqSchema, rupees } from "@/lib/schema";
 import { constructMetadata } from "@/lib/seo";
@@ -21,7 +22,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata = constructMetadata({
     title: "Pricing: SaaS, Web App & Website Development",
-    description: "Websites from ₹19,999 and SaaS products from ₹59,999, with a fixed written quote before work starts. Compare plans and see starting prices for every service.",
+    description: "Websites from ₹19,999 and SaaS products from ₹59,999, live in weeks at a fixed, written price. Compare plans and starting prices for every service.",
     canonical: "/pricing",
     ogKicker: "Pricing",
 });
@@ -196,6 +197,20 @@ export default function PricingPage() {
                                 </li>
                             ))}
                         </ul>
+                    </Reveal>
+                </div>
+            </section>
+
+            {/* ─── Against the alternatives ─── */}
+            <section className="relative py-16 md:py-24" aria-label="How StackWise compares">
+                <div className="container mx-auto px-5 sm:px-6">
+                    <SectionHeader
+                        eyebrow="How we compare"
+                        title="Freelancer prices. Agency reliability. Faster than both."
+                        description="What a freelancer, an agency and a large IT firm typically offer, next to StackWise."
+                    />
+                    <Reveal>
+                        <CompetitorComparison />
                     </Reveal>
                 </div>
             </section>

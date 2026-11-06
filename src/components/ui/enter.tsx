@@ -15,7 +15,7 @@ export function Enter({
     /** Delay in seconds. */
     delay?: number;
     className?: string;
-    as?: "div" | "p" | "ul" | "span";
+    as?: "div" | "p" | "ul" | "span" | "h1";
 }) {
     return (
         <Tag className={cn("enter-fade", className)} style={{ ["--d" as string]: `${Math.round(delay * 1000)}ms` } as React.CSSProperties}>

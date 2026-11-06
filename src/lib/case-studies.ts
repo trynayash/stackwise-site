@@ -85,7 +85,7 @@ export const caseStudies: CaseStudy[] = [
     liveUrl: projectLinks.limityourapi.live,
     repoUrl: projectLinks.limityourapi.repo,
     metaDescription:
-      "LimitYourAPI: an API rate limiting SaaS built end to end with Go, Redis Lua scripts, PostgreSQL and React, with SDKs for Node.js, Go and Python, CI in GitHub Actions and a Terraform setup for AWS.",
+      "LimitYourAPI case study: an API rate limiting SaaS built with Go, Redis Lua scripts, PostgreSQL and React, with Node.js, Go and Python SDKs.",
     overview: section(
       "Overview",
       "One paragraph: what it is, who it's for, what the team did.",
@@ -167,7 +167,7 @@ export const caseStudies: CaseStudy[] = [
     liveUrl: projectLinks.scopeci.live,
     repoUrl: projectLinks.scopeci.repo,
     metaDescription:
-      "ScopeCI is a GitHub App for software agencies, in development, that checks each pull request against the client contract's approved scope. The public site is a waitlist.",
+      "ScopeCI case study: a GitHub App for software agencies, in development, that checks each pull request against the scope the client signed.",
     overview: section(
       "Overview",
       "What it is and who it's for.",
@@ -240,7 +240,7 @@ export const caseStudies: CaseStudy[] = [
     preview: projectLinks.startupdeck.preview,
     liveUrl: projectLinks.startupdeck.live,
     metaDescription:
-      "StartupDeckAI: a full-stack AI SaaS. React and TypeScript front end, an Express API on PostgreSQL, a deterministic scoring engine, and 3,400+ automated tests in CI.",
+      "StartupDeckAI case study: a full-stack AI SaaS with a React front end, an Express API on PostgreSQL, a deterministic scoring engine and 3,400+ tests.",
     overview: section(
       "Overview",
       "What the product does and what the team owned.",

@@ -15,6 +15,7 @@ import { WorkCard } from "@/components/work/work-card";
 import { QuoteButton } from "@/components/marketing/quote-button";
 import { BookCallLink } from "@/components/ui/book-call";
 import { marketingProcess, type MarketingPageData } from "@/lib/marketing-pages";
+import { pageFaqs } from "@/lib/pages/shared";
 import { resolveLink, type SiteLink } from "@/lib/site-links";
 import { workBySlug } from "@/lib/more-work";
 import { toWorkSummary } from "@/lib/case-studies";
@@ -80,7 +81,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                         { name: page.kind, path: hubPath },
                         { name: page.navLabel, path: page.path },
                     ]),
-                    faqSchema(page.faqs),
+                    faqSchema(pageFaqs(page)),
                 ]}
             />
 
@@ -145,7 +146,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
             {/* ─── What's included ─── */}
             <section className="relative py-16 md:py-24" aria-labelledby="included">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <SectionHeader eyebrow="What's included" title="Everything you need, built properly." />
+                    <SectionHeader eyebrow="What's included" title={`${page.serviceType}: what's included.`} />
                     <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {page.features.map((feat) => (
                             <StaggerItem key={feat.title} className="h-full">
@@ -264,7 +265,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                         <QuoteButton label="Ask a question" preset={preset} size="md" variant="secondary" className="mt-6" />
                     </Reveal>
                     <Reveal delay={0.08} className="lg:col-span-8">
-                        <FaqList faqs={page.faqs} />
+                        <FaqList faqs={pageFaqs(page)} />
                     </Reveal>
                 </div>
             </section>

@@ -6,7 +6,9 @@ import { guides } from "@/lib/guides";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const siteUrl = siteConfig.url;
-    const lastModified = new Date();
+    // When page content last changed. A fixed date, not the build time: a sitemap that claims every page changed on
+    // every deploy teaches search engines to ignore its dates. Bump it when you change page copy.
+    const lastModified = new Date(`${siteConfig.contentUpdated}T00:00:00Z`);
 
     const entry = (
         path: string,

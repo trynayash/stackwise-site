@@ -195,6 +195,7 @@ const guide: Guide = {
         "website cost in rupees",
     ],
     related: [
+        "/pricing",
         "/services/web-development",
         "/locations/mumbai",
         "/industries/ecommerce",

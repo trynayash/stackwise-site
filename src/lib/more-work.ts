@@ -18,7 +18,7 @@ export const moreWork: CaseStudy[] = [
         liveUrl: "https://codefusionai.vercel.app",
         repoUrl: "https://github.com/trynayash/CodeFusionAI",
         metaDescription:
-            "CodeFusionAI: a learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.",
+            "CodeFusionAI case study: a learning web app with a Monaco code editor, Supabase sign-in, saved snippets, rule-based code tips and a course catalog.",
         overview: section(
             "Overview",
             "CodeFusionAI is a learning web app with a Monaco code editor, Supabase accounts, saved snippets, rule-based code tips and a course catalog with progress tracking.\n\nThe StackWise team designed and built it end to end: the editor, the tip engine, sign-in, the course catalog and the database security rules."
@@ -91,15 +91,15 @@ export const moreWork: CaseStudy[] = [
         kind: "Studio website",
         tagline: "The website you're looking at.",
         status: "Live",
-        stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "three.js", "Zod"],
+        stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Zod"],
         preview: "/projects/stackwise.webp",
         liveUrl: "https://stackwise.yashsuthar.dev",
         repoUrl: "https://github.com/trynayash/stackwise-site",
         metaDescription:
-            "How the StackWise website is built: Next.js 16 App Router, server-rendered pages, a lazy-loaded 3D hero, scroll-driven motion, structured data and a validated inquiry flow.",
+            "How the StackWise website is built: Next.js 16 App Router, server-rendered pages, scroll-driven motion, structured data and a validated enquiry flow.",
         overview: section(
             "Overview",
-            "StackWise's own website: a Next.js App Router site with server-rendered marketing pages, an interactive 3D hero, scroll-driven motion and a two-step project inquiry flow.\n\nOur team designed and built it to the same standards as client work, and the full source is public."
+            "StackWise's own website: a Next.js App Router site with server-rendered marketing pages, a hero framing real product screenshots, scroll-driven motion and a two-step project inquiry flow.\n\nOur team designed and built it to the same standards as client work, and the full source is public."
         ),
         problem: section(
             "Problem",
@@ -111,14 +111,14 @@ export const moreWork: CaseStudy[] = [
         ),
         highlights: [
             "Next.js App Router with server-rendered pages, generated metadata, a sitemap and per-page social images",
-            "Interactive three.js hero that loads after the page is idle, with a CSS fallback for reduced motion",
+            "Hero that frames real product screenshots, with CSS-only entrance motion so the first paint needs no JavaScript",
             "Scroll-driven motion with Framer Motion: pinned case-study showcase, scroll-lit text and stacking cards",
             "Contact API validated with Zod, with a honeypot and a rate limit",
             "Security headers set in middleware: CSP, HSTS and frame options",
         ],
         tradeoffs: section(
             "Tradeoffs",
-            "Motion is there to guide attention, not to decorate, so every effect has a reduced-motion version and the 3D scene never delays first paint."
+            "Motion is there to guide attention, not to decorate, so every effect has a reduced-motion version and nothing heavy loads before the first paint."
         ),
         metrics: [
             { label: "Framework", value: "Next.js 16", note: "App Router, server-rendered pages" },
@@ -148,7 +148,7 @@ export const omEnterprise: CaseStudy = {
     liveUrl: "https://omenterprise-n.vercel.app",
     repoUrl: "https://github.com/trynayash/om-enterprise",
     metaDescription:
-        "OM ENTERPRISE case study: one system for a building-materials shop in Naswadi, Gujarat. A public catalogue of 357 products with an enquiry list, a counter POS with server-side pricing and UPI QR payments, GST-correct A4 bills, an owner's phone app for approvals, and a PostgreSQL database that protects its own history.",
+        "OM ENTERPRISE case study: catalogue, counter POS, GST-correct bills and an owner's phone app for a building-materials shop in Naswadi, Gujarat.",
     overview: section(
         "Overview",
         "OM ENTERPRISE sells paints, water tanks, bathware, CPVC, PVC, UPVC and SWR pipes and fittings, and plumbing accessories from a counter on Bodeli Road in Naswadi, Chhota Udaipur district, Gujarat.\n\nThe StackWise team built the shop one connected system: a public website where customers browse 357 products across 8 categories and 9 brands and send an enquiry list as an order request; a point of sale where counter staff complete a sale with prices calculated on the server; an admin dashboard for products, pricing, approvals, payments, bills, customers, staff and reports; and a phone app for the owner to approve discounts and see the day's money from anywhere. All of it reads one price list in one PostgreSQL database."

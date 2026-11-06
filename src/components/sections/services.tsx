@@ -165,9 +165,10 @@ export function Services({ core, others }: { core: ServiceCard[]; others: Servic
                     </div>
 
                     <Reveal className="mt-16 md:mt-20">
-                        <p className="text-[15px] font-semibold text-ink">We also do</p>
+                        <p className="text-[15px] font-semibold text-ink">All our services</p>
+                        {/* Plain links to every service, the four above included: the tabs are buttons, which crawlers don't follow. */}
                         <ul className="mt-4 flex flex-wrap gap-2">
-                            {others.map((p) => (
+                            {[...core.map(({ path, navLabel, icon }) => ({ path, navLabel, icon })), ...others].map((p) => (
                                 <li key={p.path}>
                                     <Link
                                         href={p.path}

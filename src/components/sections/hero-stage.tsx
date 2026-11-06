@@ -10,7 +10,8 @@ import type { WorkSummary } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 
 /** A product screenshot in a thin browser frame: the site's address above, nothing else. */
-function Frame({ study, sizes, className }: { study: WorkSummary; sizes: string; className?: string }) {
+/** `preload` marks the front screenshot, the largest thing on screen at load, so it is fetched early. */
+function Frame({ study, sizes, className, preload = false }: { study: WorkSummary; sizes: string; className?: string; preload?: boolean }) {
     return (
         <div className={cn("overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.35)] ring-1 ring-ink/10", className)}>
             <p className="truncate px-2.5 pb-1.5 pt-1 font-mono text-xs text-ink/70">{study.domain}</p>
@@ -20,6 +21,7 @@ function Frame({ study, sizes, className }: { study: WorkSummary; sizes: string;
                 width={1600}
                 height={1000}
                 sizes={sizes}
+                preload={preload}
                 className="aspect-[16/10] w-full rounded-xl object-cover object-top"
             />
         </div>
@@ -46,7 +48,7 @@ export function HeroStage({ projects, className }: { projects: WorkSummary[]; cl
                 <Tilt max={4}>
                     {/* Same destination as the caption card, which is the link keyboards and screen readers use. */}
                     <Link href={`/work/${front.slug}`} tabIndex={-1} aria-hidden className="block">
-                        <Frame study={front} sizes="(min-width: 1024px) 580px, 90vw" />
+                        <Frame study={front} sizes="(min-width: 1024px) 580px, 90vw" preload />
                     </Link>
                 </Tilt>
             </div>

@@ -1,6 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { allPageList } from "@/lib/all-pages";
 import type { MarketingPageData } from "@/lib/marketing-pages";
+import { pageFaqs } from "@/lib/pages/shared";
 import { guides, type Guide } from "@/lib/guides";
 import { plainText } from "@/lib/guides/text";
 import { allWork } from "@/lib/more-work";
@@ -24,7 +25,8 @@ function intro() {
         "",
         `${siteConfig.name} is a software studio in ${siteConfig.location.city}, ${siteConfig.location.country}, founded by ${siteConfig.author}. ` +
             "Clients in India and abroad work directly with the team that builds their product. Every project is quoted in writing before work starts, " +
-            "includes support after launch, and ends with a full handover of the code and IP.",
+            "includes support after launch, and ends with a full handover of the code and IP. Typical timelines are 2–3 weeks for a website, " +
+            "4–6 weeks for an online store, 4–8 weeks for an MVP and 8–12 weeks for a SaaS product, about half what agencies commonly quote.",
         "",
         "## Pricing",
         ...siteConfig.pricing.map((p) => `- ${p.title}: ${p.price === "Custom" ? "custom quote" : `from ${p.price.replace("+", "")} (${approxUsd(p.price)})`}. ${p.description}`),
@@ -73,7 +75,7 @@ function pageText(p: MarketingPageData) {
         `Deliverables: ${p.deliverables.join("; ")}.`,
         `Typical stack: ${p.stack.join(", ")}.`,
         "",
-        ...p.faqs.flatMap((f) => [`Q: ${f.q}`, `A: ${f.a}`]),
+        ...pageFaqs(p).flatMap((f) => [`Q: ${f.q}`, `A: ${f.a}`]),
         "",
     ];
 }

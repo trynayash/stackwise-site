@@ -50,7 +50,11 @@ const nextConfig: NextConfig = {
         "/og": ["./src/app/og/*.ttf", "./src/fonts/Oughter.otf"],
     },
     async headers() {
-        return [{ source: "/(.*)", headers: securityHeaders }];
+        return [
+            { source: "/(.*)", headers: securityHeaders },
+            // The llms.txt files repeat every page as plain text for AI assistants; keep them out of search results.
+            { source: "/:file(llms.txt|llms-full.txt)", headers: [{ key: "X-Robots-Tag", value: "noindex" }] },
+        ];
     },
     async redirects() {
         return [

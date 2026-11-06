@@ -37,9 +37,6 @@ export const metadata: Metadata = {
   category: "technology",
   authors: [{ name: `The ${siteConfig.name} team`, url: siteConfig.url }],
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: siteConfig.homeTitle,
     description: siteConfig.description,

@@ -144,20 +144,33 @@ export function siteGraph({ services }: { services: { name: string; path: string
     return {
         "@context": "https://schema.org",
         "@graph": [
+            // One business entity: an Organization that is also a ProfessionalService (a LocalBusiness type), so search
+            // engines see a single "StackWise" with its prices and services rather than two differently named nodes.
             {
-                "@type": "Organization",
+                "@type": ["Organization", "ProfessionalService"],
                 "@id": orgId,
                 name,
                 url,
                 logo,
+                image: logo.url,
                 email: emails.inbound,
                 description: siteConfig.description,
                 slogan: siteConfig.tagline,
+                priceRange: "₹19,999 – ₹59,999+",
+                currenciesAccepted: "INR, USD",
                 address,
                 founder: { "@id": personId },
                 foundingLocation: { "@type": "Place", name: `${location.city}, ${location.country}` },
                 areaServed,
                 knowsAbout,
+                hasOfferCatalog: {
+                    "@type": "OfferCatalog",
+                    name: "Software development services",
+                    itemListElement: services.map((s) => ({
+                        "@type": "Offer",
+                        itemOffered: { "@type": "Service", name: s.name, url: `${url}${s.path}` },
+                    })),
+                },
             },
             {
                 "@type": "Person",
@@ -178,28 +191,6 @@ export function siteGraph({ services }: { services: { name: string; path: string
                 description: siteConfig.description,
                 inLanguage: "en-IN",
                 publisher: { "@id": orgId },
-            },
-            {
-                "@type": "ProfessionalService",
-                "@id": `${url}/#studio`,
-                name: `${name} Software Studio`,
-                url,
-                image: logo.url,
-                email: emails.inbound,
-                priceRange: "₹19,999 – ₹59,999+",
-                address,
-                areaServed,
-                knowsAbout,
-                founder: { "@id": personId },
-                parentOrganization: { "@id": orgId },
-                hasOfferCatalog: {
-                    "@type": "OfferCatalog",
-                    name: "Software development services",
-                    itemListElement: services.map((s) => ({
-                        "@type": "Offer",
-                        itemOffered: { "@type": "Service", name: s.name, url: `${url}${s.path}` },
-                    })),
-                },
             },
         ],
     };
