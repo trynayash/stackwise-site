@@ -1,66 +1,78 @@
-import React from "react";
-import { Tick02Icon } from "@hugeicons/core-free-icons";
-import { Icon } from "@/components/ui/icon";
 import { competitorColumns, competitorRows } from "@/lib/competitors";
 import { cn } from "@/lib/utils";
 
+/** The StackWise column is the only tinted one, and only from md up. */
+const highlight = "md:bg-white/[0.04]";
+
 /**
- * StackWise next to a freelancer, a typical agency and a large IT firm. One table: from md up it is a normal grid
- * with the StackWise column highlighted; on phones each row becomes a card (cells labelled with data-label) so
- * nothing scrolls sideways.
+ * Below md each row stacks: the option name sits in a fixed label column, so every value starts at the same edge.
+ * From md up it is a plain table with evenly sized columns.
  */
+const stacked =
+    "max-md:flex max-md:gap-4 max-md:px-0 max-md:py-2.5 max-md:before:w-[7rem] max-md:before:shrink-0 max-md:before:text-[14px] max-md:before:font-normal max-md:before:content-[attr(data-label)]";
+
+/** StackWise next to a freelancer, a typical agency and a large IT firm. */
 export function CompetitorComparison({ className }: { className?: string }) {
-    const cell = "max-md:flex max-md:justify-between max-md:gap-4 max-md:py-1.5 max-md:before:shrink-0 max-md:before:text-white/45 max-md:before:content-[attr(data-label)] md:px-5 md:py-4";
     return (
-        <div className={cn("rounded-3xl bg-surface p-4 md:p-3", className)}>
-            <table className="w-full border-collapse text-left max-md:block">
+        <div className={cn("rounded-3xl bg-surface px-5 py-2 md:px-8 md:py-4", className)}>
+            <table className="w-full table-fixed border-collapse text-left max-md:block">
                 <caption className="sr-only">StackWise compared with a freelancer, a typical agency and a large IT firm</caption>
+                <colgroup>
+                    <col className="md:w-[22%]" />
+                    {competitorColumns.map((c) => (
+                        <col key={c} className="md:w-[19%]" />
+                    ))}
+                    <col className="md:w-[21%]" />
+                </colgroup>
+
                 <thead className="max-md:hidden">
-                    <tr className="text-sm text-white/55">
-                        <th scope="col" className="px-5 py-4 font-medium">
-                            <span className="sr-only">What you get</span>
+                    <tr className="border-b border-white/[0.08] text-sm">
+                        <th scope="col" className="pb-4 pr-4 text-left font-normal text-white/40">
+                            <span className="sr-only">Compared on</span>
                         </th>
                         {competitorColumns.map((c) => (
-                            <th key={c} scope="col" className="px-5 py-4 font-medium">
+                            <th key={c} scope="col" className="px-4 pb-4 text-left font-normal text-white/50">
                                 {c}
                             </th>
                         ))}
-                        <th scope="col" className="rounded-t-2xl bg-accent px-5 py-4 font-semibold text-black">
+                        <th scope="col" className={cn("px-4 pb-4 text-left font-semibold text-accent", highlight)}>
                             StackWise
                         </th>
                     </tr>
                 </thead>
-                <tbody className="max-md:block max-md:space-y-3">
+
+                <tbody className="max-md:block">
                     {competitorRows.map((r, i) => (
-                        <tr key={r.label} className="max-md:block max-md:rounded-2xl max-md:bg-surface-2 max-md:p-4 md:border-t md:border-line">
-                            <th scope="row" className="text-[15px] font-semibold text-white max-md:block max-md:pb-2 md:px-5 md:py-4">
+                        <tr key={r.label} className={cn("max-md:block", i < competitorRows.length - 1 && "border-b border-white/[0.08]")}>
+                            <th scope="row" className="py-4 pr-4 text-left text-[15px] font-medium text-white max-md:block max-md:pb-1 max-md:pt-3.5">
                                 {r.label}
                             </th>
                             {r.others.map((v, j) => (
-                                <td key={competitorColumns[j]} data-label={competitorColumns[j]} className={cn(cell, "text-[15px] text-white/60 max-md:text-right")}>
-                                    {v}
+                                <td
+                                    key={competitorColumns[j]}
+                                    data-label={competitorColumns[j]}
+                                    className={cn("px-4 py-4 text-[15px] leading-snug text-white/55 max-md:before:text-white/40", stacked)}
+                                >
+                                    <span className="min-w-0">{v}</span>
                                 </td>
                             ))}
                             <td
                                 data-label="StackWise"
                                 className={cn(
-                                    cell,
-                                    "font-semibold text-black max-md:mt-2 max-md:rounded-xl max-md:bg-accent max-md:px-3 max-md:py-2.5 max-md:text-right max-md:before:text-black/60 md:bg-accent",
-                                    i === competitorRows.length - 1 && "md:rounded-b-2xl"
+                                    "px-4 py-4 text-[15px] font-semibold leading-snug text-white max-md:before:font-semibold max-md:before:text-accent",
+                                    highlight,
+                                    stacked
                                 )}
                             >
-                                <span className="inline-flex items-start gap-2 max-md:justify-end">
-                                    <Icon icon={Tick02Icon} size={17} strokeWidth={2.2} className="mt-0.5 flex-shrink-0 max-md:hidden" />
-                                    {r.stackwise}
-                                </span>
+                                <span className="min-w-0">{r.stackwise}</span>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <p className="px-1 pt-4 text-[13px] leading-relaxed text-white/45 md:px-5">
-                Typical patterns in the Indian market, not quotes from any particular company. Your StackWise quote states the exact price,
-                scope and dates.
+
+            <p className="mt-2 border-t border-white/[0.08] pt-4 text-[13px] leading-relaxed text-white/40 md:mt-1 md:pb-2">
+                Typical patterns in the Indian market, not quotes from named companies. Your StackWise quote states the exact price, scope and dates.
             </p>
         </div>
     );

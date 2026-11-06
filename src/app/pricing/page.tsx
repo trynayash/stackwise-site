@@ -206,8 +206,8 @@ export default function PricingPage() {
                 <div className="container mx-auto px-5 sm:px-6">
                     <SectionHeader
                         eyebrow="How we compare"
-                        title="Freelancer prices. Agency reliability. Faster than both."
-                        description="What a freelancer, an agency and a large IT firm typically offer, next to StackWise."
+                        title="StackWise next to the usual options."
+                        description="What a freelancer, a typical agency and a large IT firm usually offer, side by side."
                     />
                     <Reveal>
                         <CompetitorComparison />
@@ -240,7 +240,7 @@ export default function PricingPage() {
             {/* ─── Faster than a typical agency ─── */}
             <section className="relative py-16 md:py-24" aria-label="How long it takes">
                 <div className="container mx-auto px-5 sm:px-6">
-                    <SectionHeader eyebrow="Timelines" title="Lower prices, and live sooner too." />
+                    <SectionHeader eyebrow="Timelines" title="How long each project takes." />
                     <Reveal>
                         <SpeedComparison />
                     </Reveal>

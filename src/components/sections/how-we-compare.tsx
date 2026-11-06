@@ -9,8 +9,8 @@ export function HowWeCompare() {
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
                     eyebrow="How we compare"
-                    title="Freelancer prices. Agency reliability. Faster than both."
-                    description="What you typically get from a freelancer, an agency and a large IT firm, next to what you get from StackWise."
+                    title="StackWise next to the usual options."
+                    description="What a freelancer, a typical agency and a large IT firm usually offer, side by side."
                 />
                 <Reveal>
                     <CompetitorComparison />

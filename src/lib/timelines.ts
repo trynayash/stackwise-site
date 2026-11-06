@@ -22,7 +22,7 @@ export const timelineBenchmarks: TimelineBenchmark[] = [
 export const timelineScaleWeeks = 24;
 
 export const timelineNote =
-    "Typical agency ranges are the timelines commonly quoted in published web and software agency guides (2025–2026). Ours run from an agreed scope to launch, and your quote states your exact timeline.";
+    "Agency ranges are typical timelines from published agency guides (2025–2026). Your quote gives exact dates.";
 
 /** "2–3 weeks" */
 export const weeks = ([from, to]: [number, number]) => `${from}–${to} weeks`;
