@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { CloudUploadIcon, CodeIcon, PenTool03Icon, Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeader, Stagger, StaggerItem } from "@/components/ui/motion-primitives";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { Tilt } from "@/components/ui/interactive";
-import { IconTile } from "@/components/ui/card";
+import { GlassIcon } from "@/components/ui/glass-icon";
 import { SpeedComparison } from "@/components/sections/speed-comparison";
 
 const steps = [
@@ -16,28 +16,28 @@ const steps = [
         title: "Plan",
         description: "We learn your business, users and goals, then agree on scope, a technical plan and a timeline.",
         deliverables: ["Requirements and scope", "Technical plan", "Timeline and milestones"],
-        icon: Search01Icon,
+        glass: "search" as const,
     },
     {
         step: "Step 2",
         title: "Design",
         description: "Clickable Figma designs, so you see exactly what you're getting before any code is written.",
         deliverables: ["Wireframes for every screen", "Final visual design", "Clickable prototype"],
-        icon: PenTool03Icon,
+        glass: "pen" as const,
     },
     {
         step: "Step 3",
         title: "Build",
         description: "We build the front end, back end, database and integrations, and you follow along on a live staging link.",
         deliverables: ["Front end and APIs", "Login and payments", "Staging link and updates"],
-        icon: CodeIcon,
+        glass: "code" as const,
     },
     {
         step: "Step 4",
         title: "Launch",
         description: "Testing on every device, a speed and security pass, a final review with you, and launch.",
         deliverables: ["Device and browser testing", "Speed and security check", "Launch and handover"],
-        icon: CloudUploadIcon,
+        glass: "cloudUpload" as const,
     },
 ];
 
@@ -59,9 +59,7 @@ export function ProcessTimeline() {
                             <Tilt className="h-full" max={6}>
                                 <div className="flex h-full flex-col rounded-3xl bg-surface p-7 transition-colors duration-300 hover:bg-surface-2">
                                     <div className="flex items-center justify-between">
-                                        <IconTile size="md">
-                                            <Icon icon={step.icon} size={22} />
-                                        </IconTile>
+                                        <GlassIcon name={step.glass} size={56} />
                                         <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">{step.step}</span>
                                     </div>
                                     <h3 className="mt-8 text-2xl font-semibold tracking-tight text-white">{step.title}</h3>

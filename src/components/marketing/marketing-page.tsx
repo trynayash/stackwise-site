@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight01Icon, CloudUploadIcon, CodeIcon, Mail01Icon, PenTool03Icon, Search01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
-import { Card, IconTile } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import { FeatureIcon } from "@/components/ui/feature-icon";
 import { RelatedCard } from "@/components/ui/related-card";
 import { Tilt } from "@/components/ui/interactive";
 import { Icon } from "@/components/ui/icon";
@@ -152,9 +153,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                             <StaggerItem key={feat.title} className="h-full">
                                 <Tilt max={5} className="h-full">
                                     <Card interactive className="h-full p-7 md:p-8">
-                                        <IconTile size="lg">
-                                            <Icon icon={feat.icon} size={22} />
-                                        </IconTile>
+                                        <FeatureIcon icon={feat.icon} />
                                         <h3 className="mt-7 text-xl font-semibold tracking-tight text-white">{feat.title}</h3>
                                         <p className="mt-2.5 text-[15px] leading-relaxed text-white/65">{feat.description}</p>
                                     </Card>
@@ -239,9 +238,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                 <Tilt max={6} className="h-full">
                                     <Card interactive className="h-full p-7">
                                         <div className="flex items-center justify-between">
-                                            <IconTile size="md">
-                                                <Icon icon={processIcons[i] ?? Search01Icon} size={22} />
-                                            </IconTile>
+                                            <FeatureIcon icon={processIcons[i] ?? Search01Icon} size={56} />
                                             <span className="rounded-full bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/70">Step {i + 1}</span>
                                         </div>
                                         <h3 className="mt-7 text-xl font-semibold tracking-tight text-white">{s.title}</h3>

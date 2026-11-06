@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowBubble, Card, IconTile } from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
+import { ArrowBubble, Card } from "@/components/ui/card";
+import { FeatureIcon } from "@/components/ui/feature-icon";
 import type { SiteLink } from "@/lib/site-links";
 
 /** Link to another page of the site: its icon, what kind of page it is, the title and a one-line summary. */
@@ -10,9 +10,7 @@ export function RelatedCard({ link }: { link: SiteLink }) {
         <Link href={link.path} className="group block h-full">
             <Card interactive className="flex h-full flex-col p-6 md:p-7">
                 <div className="flex items-start justify-between">
-                    <IconTile>
-                        <Icon icon={link.icon} size={20} />
-                    </IconTile>
+                    <FeatureIcon icon={link.icon} size={52} />
                     <ArrowBubble size="sm" />
                 </div>
                 <p className="mt-8 font-mono text-xs uppercase tracking-[0.14em] text-white/55">{link.kind}</p>

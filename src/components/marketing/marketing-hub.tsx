@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
-import { ArrowBubble, IconTile } from "@/components/ui/card";
+import { ArrowBubble } from "@/components/ui/card";
+import { FeatureIcon } from "@/components/ui/feature-icon";
 import { Tilt } from "@/components/ui/interactive";
 import { Eyebrow, Reveal, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
@@ -78,9 +79,7 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                                             className="group flex h-full flex-col rounded-3xl bg-surface p-7 transition-colors duration-300 hover:bg-surface-2 md:p-8"
                                         >
                                             <div className="flex items-start justify-between gap-4">
-                                                <IconTile size="lg">
-                                                    <Icon icon={p.icon} size={22} />
-                                                </IconTile>
+                                                <FeatureIcon icon={p.icon} size={64} />
                                                 <ArrowBubble />
                                             </div>
                                             <h2 className="mt-7 text-2xl font-semibold tracking-tight text-white md:text-3xl">{p.navLabel}</h2>
