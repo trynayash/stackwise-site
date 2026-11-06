@@ -310,7 +310,8 @@ Source: `src/components/ui/scroll-effects.tsx`.
 
 ### 5.16 Small details that sell it
 - `.link-draw`: an underline that draws in from the left, using a background-size transition from 0% to 100% at 1px over 0.35s.
-- Icon tiles: `h-12 w-12 rounded-2xl` on `bg-accent text-black`, or on `bg-white/[0.06]`.
+- Icon tiles (`IconTile` in `src/components/ui/card.tsx`): a neutral tile, `bg-white/[0.05]` with a `ring-white/[0.08]` hairline and a white icon that turns accent on card hover. Never fill a tile with the accent: keep the accent for buttons, states and highlights.
+- Icons: concrete metaphors for what the card says (a stopwatch for speed to market, a gauge for performance, a key for ownership), never stock AI symbols such as brains, sparkles or glowing networks. Stroke width 1.5; 22px in tiles, 16–18px inline.
 - In process cards, the icon pops in with a spring (`scale .5 → 1, rotate -20 → 0`, stiffness 260, damping 14).
 - Chips: `rounded-full bg-surface px-4 py-2.5 text-sm`, each with a tick icon in the accent.
 
@@ -325,7 +326,7 @@ Source: `src/components/ui/scroll-effects.tsx`.
 | 3 | **Selected work** | Section header (eyebrow, H2 and a "See all" button on the right), then the work grid (every 3rd card full width) | Clip-path wipe, inner parallax, cursor label, staggered Reveal |
 | 4 | **What I do (paper panel)** | `mx-2 sm:mx-3 rounded-[2rem] md:rounded-[3rem] bg-paper text-ink`. Left 5 columns: a selectable list (big label, summary, round icon; the selected item gets `bg-white` and an accent icon). Right 7 columns: a sticky detail panel (screenshot, intro, chips, tick list, CTA). On mobile the details open under the selected item. Below: "Also" chips. | `AnimatePresence mode="wait"` panel swap (y 14 → 0, 0.3s); mobile accordion uses height auto |
 | 5 | **Stack loop** | One centred line of copy, then the logo strip | CSS marquee |
-| 6 | **Process / how I work** | 4 Tilt cards (`sm:grid-cols-2 lg:grid-cols-4`): accent icon tile, small week chip, title, text, tick list pushed to the bottom with `mt-auto`. Then a wide card with a question on the left and a button on the right. | Stagger, icon pop, tilt |
+| 6 | **Process / how I work** | 4 Tilt cards (`sm:grid-cols-2 lg:grid-cols-4`): neutral icon tile, small week chip, title, text, tick list pushed to the bottom with `mt-auto`. Then a wide card with a question on the left and a button on the right. | Stagger, icon pop, tilt |
 | 7 | **Proof / numbers** | Bento: an accent identity card (avatar initials, name, role, location, scroll-lit quote, link buttons) on 5 columns; a 2×2 grid of proof cards (big CountUp number, accent label, short text, link) on 7 columns | Count-ups, scroll-lit quote, tilt on the proof cards |
 | 8 | **Writing / research** | Cards or a list: title, outlet, date, round arrow | Stagger |
 | 9 | **CTA band** | A big accent card (`rounded-[2rem] md:rounded-[2.5rem] bg-accent text-black`): heading and buttons on 7 columns, a numbered "what happens next" list on 5 | Reveal; Magnetic CTA |

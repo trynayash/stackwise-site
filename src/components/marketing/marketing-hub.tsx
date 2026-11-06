@@ -79,7 +79,7 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                                         >
                                             <div className="flex items-start justify-between gap-4">
                                                 <IconTile size="lg">
-                                                    <Icon icon={p.icon} size={24} />
+                                                    <Icon icon={p.icon} size={22} />
                                                 </IconTile>
                                                 <ArrowBubble />
                                             </div>

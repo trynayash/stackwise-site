@@ -153,7 +153,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                                 <Tilt max={5} className="h-full">
                                     <Card interactive className="h-full p-7 md:p-8">
                                         <IconTile size="lg">
-                                            <Icon icon={feat.icon} size={24} />
+                                            <Icon icon={feat.icon} size={22} />
                                         </IconTile>
                                         <h3 className="mt-7 text-xl font-semibold tracking-tight text-white">{feat.title}</h3>
                                         <p className="mt-2.5 text-[15px] leading-relaxed text-white/65">{feat.description}</p>
@@ -174,9 +174,7 @@ export function MarketingPage({ page }: { page: MarketingPageData }) {
                             <ul className="mt-8 space-y-5">
                                 {page.idealFor.map((item) => (
                                     <li key={item} className="flex items-start gap-4 text-lg leading-snug text-white">
-                                        <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-accent text-black">
-                                            <Icon icon={Tick02Icon} size={14} strokeWidth={2} />
-                                        </span>
+                                        <Icon icon={Tick02Icon} size={20} className="mt-0.5 flex-shrink-0 text-accent" />
                                         {item}
                                     </li>
                                 ))}

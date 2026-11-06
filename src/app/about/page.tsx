@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight01Icon, Clock01Icon, CodeIcon, Invoice01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, Clock01Icon, Invoice01Icon, Key01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
-import { Card } from "@/components/ui/card";
+import { Card, IconTile } from "@/components/ui/card";
 import { Eyebrow, Reveal, SectionHeader, Stagger, StaggerItem, WordReveal } from "@/components/ui/motion-primitives";
 import { Enter } from "@/components/ui/enter";
 import { Breadcrumbs } from "@/components/marketing/marketing-page";
@@ -42,7 +42,7 @@ const promises = [
         text: "The team that scopes your project designs, builds and launches it, so nothing is lost in hand-offs.",
     },
     {
-        icon: CodeIcon,
+        icon: Key01Icon,
         title: "You own everything",
         text: "The code, designs, documentation and every account are yours at handover. No licences and no lock-in.",
     },
@@ -96,9 +96,9 @@ export default function AboutPage() {
                         {promises.map((p) => (
                             <StaggerItem key={p.title} className="h-full">
                                 <Card className="h-full p-7">
-                                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-black">
-                                        <Icon icon={p.icon} size={20} />
-                                    </span>
+                                    <IconTile size="md">
+                                        <Icon icon={p.icon} size={22} />
+                                    </IconTile>
                                     <h2 className="mt-7 text-lg font-semibold text-white">{p.title}</h2>
                                     <p className="mt-2 text-[15px] leading-relaxed text-white/60">{p.text}</p>
                                 </Card>

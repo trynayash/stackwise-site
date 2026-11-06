@@ -2,7 +2,7 @@ import {
     Agreement01Icon, Building03Icon, Building05Icon, Calendar03Icon, Chatting01Icon, City01Icon, Clock01Icon,
     Clock02Icon, CloudServerIcon, CreditCardIcon, EarthIcon, Globe02Icon, Hospital01Icon, Invoice01Icon, Key01Icon,
     Location01Icon, LockIcon, MapPinIcon, MapsLocation01Icon, MeetingRoomIcon, Message01Icon, ServerStack01Icon,
-    Shield01Icon, Sun03Icon, Time04Icon, TranslateIcon, UserGroupIcon,
+    Shield01Icon, Sun03Icon, Time04Icon, TimeZoneIcon, TranslateIcon, UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { ownershipFact, quoteFact, type MarketingPageData } from "@/lib/pages/shared";
 
@@ -148,7 +148,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         icon: MapsLocation01Icon,
         facts: [{ label: "Starting at", value: "₹19,999" }, { label: "Time zone", value: "IST, one zone nationwide" }, quoteFact, ownershipFact],
         features: [
-            { icon: Calendar03Icon, title: "Fully remote, one time zone", description: "India runs on a single time zone, so whether you are in Bengaluru, Delhi NCR, Pune or Kochi there is nothing to coordinate. Discovery, demos and the weekly call happen on video, and Slack, Discord or email cover the days between." },
+            { icon: TimeZoneIcon, title: "Fully remote, one time zone", description: "India runs on a single time zone, so whether you are in Bengaluru, Delhi NCR, Pune or Kochi there is nothing to coordinate. Discovery, demos and the weekly call happen on video, and Slack, Discord or email cover the days between." },
             { icon: LockIcon, title: "Built with the DPDP Act in mind", description: "Consent and notice flows, data tagged by purpose, and admin tools to correct or erase a person's records, designed around the Digital Personal Data Protection Act, 2023. Final compliance sign-off sits with you and your advisers." },
             { icon: ServerStack01Icon, title: "Data stays in India", description: "Hosting in AWS ap-south-1 keeps databases and backups inside the country, which matters if RBI's rule that payment system data be stored in India applies to your business." },
             { icon: CreditCardIcon, title: "Razorpay, UPI and mandates", description: "Razorpay checkout with UPI, cards, netbanking and recurring mandates for subscriptions. Hosted payment fields keep raw card numbers off your servers, which keeps PCI DSS scope small." },

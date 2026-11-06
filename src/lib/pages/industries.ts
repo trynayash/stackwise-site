@@ -1,10 +1,10 @@
 import {
-    AiBrain01Icon, Analytics01Icon, Appointment01Icon, Audit01Icon, Audit02Icon, BankIcon, BookOpen01Icon, Building03Icon,
-    Calendar03Icon, ChartIncreaseIcon, CodeIcon, ConnectIcon, CreditCardIcon, DashboardSquare01Icon, DatabaseIcon,
-    DeliveryBox01Icon, DeliveryTracking01Icon, Exchange01Icon, FlashIcon, GraduationScrollIcon, Home01Icon, Hospital01Icon,
-    Layers01Icon, LockIcon, MapsLocation01Icon, Notification01Icon, PackageIcon, Route01Icon, Search01Icon, ShieldUserIcon,
-    ShoppingCart01Icon, SmartPhone01Icon, Table01Icon, TruckDeliveryIcon, UserAccountIcon, UserGroupIcon,
-    UserIdVerificationIcon, UserMultipleIcon, WarehouseIcon,
+    Analytics01Icon, Appointment01Icon, Audit01Icon, Audit02Icon, BankIcon, BookOpen01Icon, BubbleChatQuestionIcon,
+    Building03Icon, Calendar03Icon, ChartIncreaseIcon, CodeIcon, ConnectIcon, CreditCardIcon, DashboardSpeed02Icon,
+    DashboardSquare01Icon, DatabaseIcon, DeliveryBox01Icon, DeliveryTracking01Icon, Exchange01Icon,
+    GraduationScrollIcon, Home01Icon, Hospital01Icon, Layers01Icon, LockIcon, MapsLocation01Icon, Notification01Icon,
+    PackageIcon, Route01Icon, Search01Icon, ShieldUserIcon, ShoppingCart01Icon, SmartPhone01Icon, Table01Icon,
+    TruckDeliveryIcon, UserAccountIcon, UserGroupIcon, UserIdVerificationIcon, UserMultipleIcon, WarehouseIcon,
 } from "@hugeicons/core-free-icons";
 import { ownershipFact, quoteFact, type MarketingPageData } from "@/lib/pages/shared";
 
@@ -257,7 +257,7 @@ export const industryPages: Record<string, MarketingPageData> = {
             { icon: ChartIncreaseIcon, title: "Progress tracking", description: "Lesson completion, quiz scores, streaks and certificates, stored per learner and visible to both the learner and their instructor." },
             { icon: CreditCardIcon, title: "Subscriptions and course sales", description: "One-time course purchases, monthly plans and coupon codes through Razorpay or Stripe, tied to exactly what each learner can open." },
             { icon: UserMultipleIcon, title: "Cohort and admin dashboards", description: "Enroll batches, schedule live sessions, spot learners falling behind and export reports for each cohort." },
-            { icon: AiBrain01Icon, title: "AI tutoring features", description: "Hints, code explanations and answers drawn from your own course material, using leading commercial or open-source models, with per-learner usage caps." },
+            { icon: BubbleChatQuestionIcon, title: "AI tutoring features", description: "Hints, code explanations and answers drawn from your own course material, using leading commercial or open-source models, with per-learner usage caps." },
         ],
         idealFor: [
             "Coaching institutes and trainers moving courses online",
@@ -360,7 +360,7 @@ export const industryPages: Record<string, MarketingPageData> = {
         icon: ShoppingCart01Icon,
         facts: [{ label: "Typical timeline", value: "4–6 weeks" }, { label: "Starting at", value: "₹19,999" }, quoteFact, ownershipFact],
         features: [
-            { icon: FlashIcon, title: "Fast Next.js storefronts", description: "Server-rendered product and category pages, optimized images and lean scripts, so shoppers on mobile data see products before they give up." },
+            { icon: DashboardSpeed02Icon, title: "Fast Next.js storefronts", description: "Server-rendered product and category pages, optimized images and lean scripts, so shoppers on mobile data see products before they give up." },
             { icon: Layers01Icon, title: "Headless commerce", description: "Keep your current commerce backend for products and orders and put a custom Next.js front end on top, or run the whole store on PostgreSQL." },
             { icon: CreditCardIcon, title: "Razorpay and Stripe checkout", description: "UPI, cards, netbanking and wallets through Razorpay for India, Stripe for international cards, with orders confirmed only by verified webhooks." },
             { icon: PackageIcon, title: "Inventory and order dashboards", description: "Stock per SKU and variant, order status from paid to delivered, returns and refunds, and low-stock alerts for your team." },
