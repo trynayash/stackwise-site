@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUp01Icon, Calendar03Icon, Github01Icon, Mail01Icon, NewTwitterIcon } from "@hugeicons/core-free-icons";
+import { ArrowUp01Icon, Calendar03Icon, Github01Icon, Mail01Icon } from "@hugeicons/core-free-icons";
 import { Logo } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
 import { Magnetic } from "@/components/ui/interactive";
@@ -61,7 +61,6 @@ export function Footer() {
                         )}
                         <div className="mt-6 flex items-center gap-2">
                             {[
-                                { label: "StackWise updates on X", href: siteConfig.links.twitter, icon: NewTwitterIcon },
                                 { label: "Our code on GitHub", href: siteConfig.links.github, icon: Github01Icon },
                                 { label: "Email StackWise", href: `mailto:${siteConfig.emails.inbound}`, icon: Mail01Icon },
                             ].map((s) => (
