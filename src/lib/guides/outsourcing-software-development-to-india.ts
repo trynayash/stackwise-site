@@ -17,7 +17,7 @@ const guide: Guide = {
         "IST is UTC+5:30 with no daylight saving, so the gap to India shifts by an hour when your clocks change.",
         "Put an NDA, IP assignment and written scope in place before work starts, and keep the code in your own accounts.",
         "Judge quality by working software on a staging URL every week, not by status reports.",
-        "Lower cost is real, but direct access to the engineer and continuity matter more than the hourly rate.",
+        "Lower cost is real, but direct access to the engineers and continuity matter more than the hourly rate.",
     ],
     sections: [
         {
@@ -80,7 +80,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "The biggest communication problem in outsourcing is rarely language or time zones. It is layers. When your messages pass from a salesperson to a project manager to a developer, details get lost. Ask who will write the code and whether you can talk to them directly. At StackWise, the person who scopes your project is the person who builds it.",
+                    text: "The biggest communication problem in outsourcing is rarely language or time zones. It is layers. When your messages pass from a salesperson to a project manager to a developer, details get lost. Ask who will write the code and whether you can talk to them directly. At StackWise, the team that scopes your project is the team that builds it.",
                 },
             ],
         },

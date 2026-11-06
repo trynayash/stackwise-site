@@ -22,8 +22,8 @@ function intro() {
         "",
         `> ${siteConfig.description}`,
         "",
-        `${siteConfig.name} is a software studio in ${siteConfig.location.city}, ${siteConfig.location.country}, run by ${siteConfig.author}, founder and lead engineer. ` +
-            "Clients in India and abroad work directly with the engineer who builds their product. Every project is quoted in writing before work starts, " +
+        `${siteConfig.name} is a software studio in ${siteConfig.location.city}, ${siteConfig.location.country}, founded by ${siteConfig.author}. ` +
+            "Clients in India and abroad work directly with the team that builds their product. Every project is quoted in writing before work starts, " +
             "includes support after launch, and ends with a full handover of the code and IP.",
         "",
         "## Pricing",

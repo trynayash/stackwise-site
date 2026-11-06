@@ -69,11 +69,11 @@ export function questionFor(step: Step, a: QuoteAnswers): string {
         case "name":
             return "Thanks! What's your name?";
         case "email":
-            return `Nice to meet you, ${firstName(a.name)}. Which email should Yash send the quote to?`;
+            return `Nice to meet you, ${firstName(a.name)}. Which email should we send the quote to?`;
         case "phone":
             return "Would you like a reply on WhatsApp too? Add your number, or skip this.";
         case "review":
-            return "Here's your summary. Send it over and Yash will reply within 24–48 hours on working days.";
+            return "Here's your summary. Send it over and our team will reply within 24–48 hours on working days.";
     }
 }
 
@@ -88,11 +88,11 @@ function greeting(preset?: QuotePreset): string {
 function followUp(step: AnswerKey, a: QuoteAnswers): Omit<BotMessage, "id" | "from"> | null {
     if (step === "service") {
         if (a.service && estimateFor(a.service)) return { text: `Here's where ${a.service.toLowerCase()} projects usually start:`, card: { kind: "estimate", service: a.service } };
-        return { text: "No problem. Describe it in a moment and Yash will suggest the simplest way to build it." };
+        return { text: "No problem. Describe it in a moment and we'll suggest the simplest way to build it." };
     }
     if (step === "budget") {
-        if (a.budget === "Not sure yet") return { text: "That's fine. Yash will suggest a sensible range once he knows a bit more." };
-        if (budgetBelowStart(a.service, a.budget)) return { text: "Thanks. That's under our usual starting price for this, but a smaller first version might fit. Yash will suggest options." };
+        if (a.budget === "Not sure yet") return { text: "That's fine. We'll suggest a sensible range once we know a bit more." };
+        if (budgetBelowStart(a.service, a.budget)) return { text: "Thanks. That's under our usual starting price for this, but a smaller first version might fit. We'll suggest options." };
     }
     return null;
 }
@@ -219,7 +219,7 @@ export function useQuoteChat(preset?: QuotePreset) {
 
             if (step === "details") {
                 if (isQuestion(text) && text.length < 120) return answerQuestion(text);
-                if (text.length < 10) return setState((prev) => ({ ...prev, error: "A sentence or two helps Yash quote accurately." }));
+                if (text.length < 10) return setState((prev) => ({ ...prev, error: "A sentence or two helps us quote accurately." }));
                 return commit("details", text, text);
             }
             if (step === "name") {
@@ -311,7 +311,7 @@ export function useQuoteChat(preset?: QuotePreset) {
                 respond(
                     [
                         bot({
-                            text: `Last step, ${firstName(answers.name)}: tap below to send your details by email. Everything is already filled in, and Yash replies within 24–48 hours on working days.`,
+                            text: `Last step, ${firstName(answers.name)}: tap below to send your details by email. Everything is already filled in, and our team replies within 24–48 hours on working days.`,
                             actions: [{ kind: "email", label: "Send by email", subject: "quote" }],
                         }),
                     ],
@@ -321,7 +321,7 @@ export function useQuoteChat(preset?: QuotePreset) {
             }
             if (!res.ok) throw new Error("not sent");
             track("quote_sent", { service: answers.service ?? "unknown" });
-            respond([bot({ text: `Sent. Thanks, ${firstName(answers.name)}! Yash will reply to ${answers.email} within 24–48 hours on working days. Ask me anything else in the meantime.` })], { status: "sent" });
+            respond([bot({ text: `Sent. Thanks, ${firstName(answers.name)}! Our team will reply to ${answers.email} within 24–48 hours on working days. Ask me anything else in the meantime.` })], { status: "sent" });
         } catch {
             track("quote_send_failed");
             respond(

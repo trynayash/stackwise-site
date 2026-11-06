@@ -19,7 +19,7 @@ const sections: LegalSection[] = [
         body: (
             <>
                 <p>
-                    StackWise is a software studio in Mumbai, India, run by Yash Suthar. We design and build SaaS products, AI features, custom
+                    StackWise is a software studio in Mumbai, India, founded by Yash Suthar. We design and build SaaS products, AI features, custom
                     software and websites for clients in India and abroad. &quot;We&quot;, &quot;our&quot; and &quot;us&quot; in these terms mean
                     StackWise.
                 </p>

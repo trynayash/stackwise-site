@@ -26,11 +26,11 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "Mumbai, India",
         titleTop: "Software and SaaS development,",
         titleAccent: "built in Mumbai.",
-        intro: "StackWise is a software development company in Mumbai, run by founder and lead engineer Yash Suthar. We build SaaS products, web apps and fast Next.js websites for Mumbai businesses and startups. You work directly with the engineer who writes your code, and we can meet in person in Mumbai by arrangement.",
+        intro: "StackWise is a software development company in Mumbai, founded by Yash Suthar. Our team builds SaaS products, web apps and fast Next.js websites for Mumbai businesses and startups. You work directly with the engineers who write your code, and we can meet in person in Mumbai by arrangement.",
         icon: Location01Icon,
         facts: [{ label: "Starting at", value: "₹34,999" }, { label: "Time zone", value: "IST, same as you" }, quoteFact, ownershipFact],
         features: [
-            { icon: MeetingRoomIcon, title: "Meet in person by arrangement", description: "Kickoffs, design reviews or handover can happen face to face in Mumbai when it helps. Between meetings, you message the engineer on Slack, Discord or email and join a weekly call." },
+            { icon: MeetingRoomIcon, title: "Meet in person by arrangement", description: "Kickoffs, design reviews or handover can happen face to face in Mumbai when it helps. Between meetings, you message the team on Slack, Discord or email and join a weekly call." },
             { icon: Clock01Icon, title: "No time difference", description: "We share your clock, so a question raised in the morning can be talked through the same afternoon. Demos and calls are booked at times that suit your team, not squeezed into an overlap window." },
             { icon: Shield01Icon, title: "Designed for the DPDP Act", description: "Consent capture, privacy notices and tools to export or erase a user's data, designed with India's Digital Personal Data Protection Act, 2023 in mind. You and your legal adviser sign off on compliance." },
             { icon: CloudServerIcon, title: "Hosted in AWS Mumbai", description: "Databases, file storage and backups can run in AWS ap-south-1, the Mumbai region, so pages load quickly for local users and your data stays in India." },
@@ -144,7 +144,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "Across India",
         titleTop: "SaaS and software development",
         titleAccent: "for teams across India.",
-        intro: "StackWise is a Mumbai studio that builds SaaS products and custom software for companies anywhere in India, working remotely. The software handles what Indian products need: Razorpay and UPI payments, GST-ready invoices and data hosted in AWS Mumbai. Prices are listed in rupees, and the engineer who scopes your project is the one who builds it.",
+        intro: "StackWise is a Mumbai studio that builds SaaS products and custom software for companies anywhere in India, working remotely. The software handles what Indian products need: Razorpay and UPI payments, GST-ready invoices and data hosted in AWS Mumbai. Prices are listed in rupees, and the team that scopes your project is the team that builds it.",
         icon: MapsLocation01Icon,
         facts: [{ label: "Starting at", value: "₹34,999" }, { label: "Time zone", value: "IST, one zone nationwide" }, quoteFact, ownershipFact],
         features: [
@@ -189,7 +189,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             },
             {
                 q: "Can I hire developers in India through StackWise?",
-                a: "StackWise works on projects rather than placing individual developers on your payroll. You hire the studio to scope, design, build and launch a product, and you talk to the engineer writing the code throughout. After launch, an optional monthly maintenance retainer keeps StackWise working on fixes and new features.",
+                a: "StackWise works on projects rather than placing individual developers on your payroll. You hire the studio to scope, design, build and launch a product, and you talk to the engineers writing the code throughout. After launch, an optional monthly maintenance retainer keeps StackWise working on fixes and new features.",
             },
             {
                 q: "Who owns the code once it is built?",
@@ -262,7 +262,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "For US teams",
         titleTop: "Offshore SaaS development",
         titleAccent: "for US startups and businesses.",
-        intro: "From Mumbai, StackWise designs and builds SaaS products, MVPs and internal software for American founders and companies. We work remotely, with no US office and no sales layer: you deal with the lead engineer, and calls fall where the Indian evening meets the US morning. Starting prices are set in rupees, about US$400 for a website and about US$1,050 for a SaaS product.",
+        intro: "From Mumbai, StackWise designs and builds SaaS products, MVPs and internal software for American founders and companies. We work remotely, with no US office and no sales layer: you deal with the team building your product, and calls fall where the Indian evening meets the US morning. Starting prices are set in rupees, about US$400 for a website and about US$1,050 for a SaaS product.",
         icon: EarthIcon,
         facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "IST is 9.5–10.5 hours ahead of ET" }, quoteFact, ownershipFact],
         features: [
@@ -274,7 +274,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             { icon: Chatting01Icon, title: "Async by default", description: "Questions and updates go through Slack, Discord or email, so progress from the Indian day is there to read when you log on. A weekly call and a live staging URL let you check the build yourself." },
         ],
         idealFor: [
-            "US founders who want to work with the engineer directly, not an account manager",
+            "US founders who want to work with the engineering team directly, not an account manager",
             "Seed-stage startups that need an MVP without burning runway",
             "Health and edtech products that need HIPAA, FERPA or COPPA in the design from day one",
         ],
@@ -311,7 +311,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             },
             {
                 q: "How do we communicate with a team in India?",
-                a: "You talk directly with the engineer building your product on Slack, Discord or email, plus a weekly call scheduled in the overlap hours. A live staging URL shows progress between calls. New enquiries get a reply within 24–48 hours, and the first consultation call is free.",
+                a: "You talk directly with the team building your product on Slack, Discord or email, plus a weekly call scheduled in the overlap hours. A live staging URL shows progress between calls. New enquiries get a reply within 24–48 hours, and the first consultation call is free.",
             },
         ],
         cta: { title: "Plan your US product with us", text: "Send a short description of the product and your timeline. We'll reply within 24–48 hours to set up a call that works in Eastern or Pacific time." },
@@ -537,7 +537,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             },
             {
                 q: "Do you have an office in Dubai?",
-                a: "No. StackWise is based in Mumbai and works with UAE clients remotely over video calls, Slack, Discord and email. You deal directly with Yash Suthar, the founder and lead engineer, rather than a local sales office, and you can follow the build on a live staging URL between weekly calls.",
+                a: "No. StackWise is based in Mumbai and works with UAE clients remotely over video calls, Slack, Discord and email. You deal directly with the team building your product, rather than a local sales office, and you can follow the build on a live staging URL between weekly calls.",
             },
         ],
         cta: { title: "Plan your UAE app", text: "Share what you want to build and whether it needs Arabic. Expect a reply within 24–48 hours." },
@@ -605,7 +605,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "For Australian teams",
         titleTop: "Offshore software development",
         titleAccent: "for Australian startups.",
-        intro: "StackWise is a Mumbai software studio that builds SaaS products, web apps and websites for Australian founders, remotely. The Indian morning falls in your afternoon, data can live in AWS Sydney, and the product is designed with the Privacy Act 1988 in mind. You work with the engineer who builds it, not a project coordinator.",
+        intro: "StackWise is a Mumbai software studio that builds SaaS products, web apps and websites for Australian founders, remotely. The Indian morning falls in your afternoon, data can live in AWS Sydney, and the product is designed with the Privacy Act 1988 in mind. You work with the team who builds it, not a project coordinator.",
         icon: Sun03Icon,
         facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "Sydney is 4.5–5.5 hours ahead of IST" }, quoteFact, ownershipFact],
         features: [
@@ -614,7 +614,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             { icon: CloudServerIcon, title: "Hosted in AWS Sydney", description: "Production runs in AWS ap-southeast-2, close to your users, and development uses test or de-identified data where possible." },
             { icon: CreditCardIcon, title: "Stripe in Australian dollars", description: "Stripe subscriptions and checkout in AUD, BECS Direct Debit for bank payments, and tax invoices that show GST and your ABN." },
             { icon: Key01Icon, title: "NDA and full IP transfer", description: "Commercial details stay under an NDA signed up front. On handover your company holds the repository, designs, documentation and every service login." },
-            { icon: UserGroupIcon, title: "A direct line to the engineer", description: "No account managers in between: you talk to the person writing the code on Slack, Discord or email, follow progress on a staging URL and join one weekly call." },
+            { icon: UserGroupIcon, title: "A direct line to the team", description: "No account managers in between: you talk to the people writing the code on Slack, Discord or email, follow progress on a staging URL and join one weekly call." },
         ],
         idealFor: [
             "Australian founders turning a validated idea into an MVP",
@@ -650,7 +650,7 @@ export const locationPages: Record<string, MarketingPageData> = {
             },
             {
                 q: "How do we stay in touch during the build?",
-                a: "Through the engineer, not a go-between. Day-to-day questions go on Slack, Discord or email, one weekly call happens during your afternoon, and the staging URL always shows the latest build. Before any of that, there is a free consultation call to talk through your idea.",
+                a: "Directly with the team, not a go-between. Day-to-day questions go on Slack, Discord or email, one weekly call happens during your afternoon, and the staging URL always shows the latest build. Before any of that, there is a free consultation call to talk through your idea.",
             },
         ],
         cta: { title: "Start your Australian build", text: "Tell us about your product and launch date. You'll hear back within 24–48 hours, with a call time proposed for your afternoon." },
@@ -717,7 +717,7 @@ export const locationPages: Record<string, MarketingPageData> = {
         badge: "For Canadian teams",
         titleTop: "Offshore software development",
         titleAccent: "for Canadian companies.",
-        intro: "StackWise builds SaaS products, AI features and custom software for Canadian startups and businesses, remotely from Mumbai. Data can stay in AWS Canada (Central), the design is built around PIPEDA's principles, and calls happen in your morning. From the first call to handover you talk to the engineer who writes the code.",
+        intro: "StackWise builds SaaS products, AI features and custom software for Canadian startups and businesses, remotely from Mumbai. Data can stay in AWS Canada (Central), the design is built around PIPEDA's principles, and calls happen in your morning. From the first call to handover you talk to the engineers who write the code.",
         icon: MapPinIcon,
         facts: [{ label: "Starting at", value: "₹34,999 (about US$400)" }, { label: "Time difference", value: "IST is 9.5–10.5 hours ahead of Toronto" }, quoteFact, ownershipFact],
         features: [

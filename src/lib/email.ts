@@ -132,12 +132,12 @@ export function enquiryConfirmation(e: Pick<Enquiry, "name">): EmailMessage {
     const thanks = first ? `Thanks, ${first}.` : "Thanks for getting in touch.";
     const book = bookCallUrl("email");
     const steps = [
-        "Yash reads your message himself; there is no sales team in between.",
+        "The team who would build your project reads your message; there is no sales layer in between.",
         "You get a reply within 24–48 hours on working days, with questions, a rough scope and a starting price.",
         "A free call if it helps, then a written quote. Nothing is binding until you sign.",
     ];
     const html = layout({
-        title: `${escapeHtml(thanks)} Yash will reply within 24–48 hours.`,
+        title: `${escapeHtml(thanks)} Our team will reply within 24–48 hours.`,
         intro: "Your message reached the StackWise inbox. Here is what happens next.",
         body: `
       <ol style="margin:22px 0 0;padding-left:22px;font-size:15px;line-height:1.65;color:#0b0b0b;">
@@ -145,23 +145,23 @@ export function enquiryConfirmation(e: Pick<Enquiry, "name">): EmailMessage {
       </ol>
       <div style="margin-top:26px;">
         ${book ? button(book, "Book a call") : ""}
-        ${button(`mailto:${siteConfig.emails.inbound}`, "Reply to Yash", book ? "light" : "dark")}
+        ${button(`mailto:${siteConfig.emails.inbound}`, "Reply to the team", book ? "light" : "dark")}
       </div>`,
-        footer: `StackWise, a software studio in ${siteConfig.location.city}. <a href="${siteConfig.url}" style="color:#6b6b66;">${site}</a><br>You are receiving this because you sent an enquiry on our website. Replying to this email reaches Yash directly.`,
+        footer: `StackWise, a software studio in ${siteConfig.location.city}. <a href="${siteConfig.url}" style="color:#6b6b66;">${site}</a><br>You are receiving this because you sent an enquiry on our website. Replying to this email reaches our team directly.`,
     });
     const text = [
-        `${thanks} Yash will reply within 24–48 hours.`,
+        `${thanks} Our team will reply within 24–48 hours.`,
         "",
         "What happens next:",
         ...steps.map((s, i) => `${i + 1}. ${s}`),
         "",
         book ? `Book a call: ${book}` : null,
-        `Reply to Yash: ${siteConfig.emails.inbound}`,
+        `Reply to the team: ${siteConfig.emails.inbound}`,
         "",
         `StackWise, ${siteConfig.location.city}. ${siteConfig.url}`,
         "You are receiving this because you sent an enquiry on our website.",
     ]
         .filter((line) => line !== null)
         .join("\n");
-    return { subject: first ? `Got it, ${first}: Yash will reply within 24–48 hours` : "Got it: Yash will reply within 24–48 hours", html, text };
+    return { subject: first ? `Got it, ${first}: our team will reply within 24–48 hours` : "Got it: our team will reply within 24–48 hours", html, text };
 }

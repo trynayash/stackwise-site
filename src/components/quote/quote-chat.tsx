@@ -134,7 +134,7 @@ function SummaryCard({ state, onSend, onNavigate }: { state: ChatState; onSend: 
                     ) : status === "sending" ? (
                         "Sending…"
                     ) : (
-                        "Send to Yash"
+                        "Send to our team"
                     )}
                 </button>
                 <a
@@ -245,7 +245,7 @@ export function QuoteChat({ chat, onClose, className }: { chat: QuoteChatControl
                 <div className="min-w-0 flex-1">
                     <p className="text-[15px] font-semibold leading-tight text-white">StackWise assistant</p>
                     <p className="mt-0.5 truncate text-[13px] text-white/55">
-                        Instant answers<span className="hidden sm:inline"> · Yash replies to every quote</span>
+                        Instant answers<span className="hidden sm:inline"> · Our team replies to every quote</span>
                     </p>
                 </div>
                 {/* Buttons sit flush against each other (each is a 40px target) so the title keeps its line. */}

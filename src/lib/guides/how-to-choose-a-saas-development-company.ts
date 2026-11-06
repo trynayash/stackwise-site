@@ -132,7 +132,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "StackWise is small on purpose: the person who scopes your project is the person who builds it, and you talk to the engineer, not a salesperson. Its live products, including LimitYourAPI and StartupDeckAI, are on the [work page](/work), and every project ends with the full repository, design files, documentation and account access handed to the client.",
+                    text: "StackWise is small on purpose: the team that scopes your project is the team that builds it, and you talk to the engineers, not a salesperson. Its live products, including LimitYourAPI and StartupDeckAI, are on the [work page](/work), and every project ends with the full repository, design files, documentation and account access handed to the client.",
                 },
             ],
         },

@@ -24,7 +24,7 @@ export const agenciesPage: MarketingPageData | null = {
     features: [
         { icon: FigmaIcon, title: "Figma to Next.js websites", description: "Your designers hand over Figma files; we build them in Next.js and TypeScript to match, responsive, quick to load and set up for SEO." },
         { icon: DashboardSquare01Icon, title: "Web apps and SaaS builds", description: "Client portals, dashboards and subscription products with sign-up, roles and Stripe or Razorpay billing, for clients who need more than a site." },
-        { icon: UserGroupIcon, title: "Overflow capacity", description: "Pass over the project your team has no room for. The engineer who scopes it is the one who builds it, working to your process and deadlines." },
+        { icon: UserGroupIcon, title: "Overflow capacity", description: "Pass over the project your team has no room for. The team that scopes it is the team that builds it, working to your process and deadlines." },
         { icon: IncognitoIcon, title: "Invisible by default", description: "The work ships under your agency's name with no StackWise branding. NDA signed on request, and no direct client contact unless you ask for it." },
         { icon: Wrench01Icon, title: "Client site maintenance", description: "Updates, fixes and small changes on the sites you already run for clients, through a monthly retainer quoted to fit your workload." },
         { icon: Key01Icon, title: "Clean handover", description: "Repository, design files, documentation and every account go to you or your client, ready for your team or ours to keep working on." },

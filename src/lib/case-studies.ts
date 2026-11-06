@@ -99,7 +99,7 @@ export const caseStudies: CaseStudy[] = [
     constraints: section(
       "Constraints",
       "Latency budget, consistency model, cost, team size, timeline.",
-      "The main engineering constraint was keeping every limit exact under concurrent load without adding a coordination layer.\n\nUsage logging could not slow the request path, so request logs are batched in memory and written to PostgreSQL in the background.\n\nAs a one-person product, it also had to be cheap to run and safe to change often, which is why every push runs the full CI."
+      "The main engineering constraint was keeping every limit exact under concurrent load without adding a coordination layer.\n\nUsage logging could not slow the request path, so request logs are batched in memory and written to PostgreSQL in the background.\n\nRun by a small team, it also had to be cheap to run and safe to change often, which is why every push runs the full CI."
     ),
     architecture: section(
       "Architecture",
@@ -146,9 +146,9 @@ export const caseStudies: CaseStudy[] = [
       { label: "SDKs", value: "Node.js, Go, Python", note: "Plus a Cloudflare Workers limiter" },
     ],
     lessons: section(
-      "What I'd do differently",
+      "What we'd do differently",
       "Honest retrospective — one or two bullets in prose.",
-      "Shipping a whole product alone taught me as much about the parts around the core as the core itself: the dashboard, SDK ergonomics, billing edge cases, and a deploy pipeline I can trust.\n\nIt also reinforced how much developer trust depends on documentation quality and stable behavior under failure conditions."
+      "Shipping a whole product end to end taught us as much about the parts around the core as the core itself: the dashboard, SDK ergonomics, billing edge cases, and a deploy pipeline we can trust.\n\nIt also reinforced how much developer trust depends on documentation quality and stable behavior under failure conditions."
     ),
     extraLinks: [
       { label: "Live site", href: projectLinks.limityourapi.live },
@@ -171,7 +171,7 @@ export const caseStudies: CaseStudy[] = [
     overview: section(
       "Overview",
       "What it is and who it's for.",
-      "ScopeCI is a tool I am building for software agencies that do fixed-price client work. It is meant to check each pull request against what the client signed, so unapproved work is caught before it ships.\n\nI am building it end to end as a founder and engineer. It is in development: the evaluator and the GitHub and Linear integrations are built and tested but not yet running on real repositories, and the public site is a waitlist."
+      "ScopeCI is a tool we are building for software agencies that do fixed-price client work. It is meant to check each pull request against what the client signed, so unapproved work is caught before it ships.\n\nWe are building it end to end as our own product. It is in development: the evaluator and the GitHub and Linear integrations are built and tested but not yet running on real repositories, and the public site is a waitlist."
     ),
     problem: section(
       "Problem",
@@ -213,7 +213,7 @@ export const caseStudies: CaseStudy[] = [
     tradeoffs: section(
       "Tradeoffs",
       "What was left out.",
-      "I prioritized the contract-to-code loop over general project management features.\n\nBroad PM tooling, time tracking, and invoicing breadth were intentionally deferred to keep the core model coherent."
+      "We prioritized the contract-to-code loop over general project management features.\n\nBroad PM tooling, time tracking, and invoicing breadth were intentionally deferred to keep the core model coherent."
     ),
     metrics: [
       { label: "Core loop", value: "Contract → Code", note: "Scope tied to delivery" },
@@ -221,7 +221,7 @@ export const caseStudies: CaseStudy[] = [
       { label: "Built for", value: "Agencies", note: "Multi-client delivery" },
     ],
     lessons: section(
-      "What I'd do differently",
+      "What we'd do differently",
       "Retrospective.",
       "Commercial tooling is mostly a domain-modeling problem. Getting contracts, scope changes, and deliverables to relate cleanly matters more than any individual integration."
     ),
@@ -301,7 +301,7 @@ export const caseStudies: CaseStudy[] = [
       { label: "Core flow", value: "Idea → Deck", note: "Analysis feeds the slides" },
     ],
     lessons: section(
-      "What I'd do differently",
+      "What we'd do differently",
       "What surprised you in production.",
       "Additive schema design paid off: pivoting the product from validation to pitch decks did not require a painful migration.\n\nIt also reinforced how SaaS complexity grows once auth, payments, background jobs, and SEO enter the picture, and why a strict CI gate pays for itself."
     ),

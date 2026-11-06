@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight01Icon, CodeIcon, Invoice01Icon, UserIcon } from "@hugeicons/core-free-icons";
+import { ArrowUpRight01Icon, CodeIcon, Invoice01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
 import { useInquiry } from "@/components/providers/inquiry-context";
 import { HeroStage } from "@/components/sections/hero-stage";
 import type { WorkSummary } from "@/lib/case-studies";
@@ -18,7 +18,7 @@ const [starter, product] = siteConfig.pricing;
 const trust = [
     { icon: CodeIcon, text: "100% code ownership" },
     { icon: Invoice01Icon, text: "Fixed quote up front" },
-    { icon: UserIcon, text: "Direct with the engineer" },
+    { icon: UserGroupIcon, text: "Direct with our team" },
 ];
 
 const stack = ["Next.js", "React", "TypeScript", "Node.js", "Go", "PostgreSQL"];
@@ -71,7 +71,7 @@ export function Hero({ projects }: { projects: WorkSummary[] }) {
                         </h1>
 
                         <Enter as="p" delay={0.25} className="mt-7 max-w-md text-lg leading-relaxed text-ink/70 text-pretty md:text-xl">
-                            SaaS products, AI features and websites, built directly with the engineer who ships them. Clear pricing, full code ownership, no agency
+                            SaaS products, AI features and websites, built by a team you work with directly. Clear pricing, full code ownership, no agency
                             runaround.
                         </Enter>
 

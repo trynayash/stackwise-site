@@ -15,7 +15,7 @@ export function faqSchema(faqs: Faq[]) {
     };
 }
 
-/** An article (used for guides), authored by the founder and published by the studio. */
+/** An article (used for guides), written and published by the studio team. */
 export function articleSchema({
     title,
     description,
@@ -49,7 +49,7 @@ export function articleSchema({
         inLanguage: "en-IN",
         articleSection: section,
         keywords: keywords.join(", "),
-        author: { "@type": "Person", "@id": `${siteConfig.url}/#founder`, name: siteConfig.author, url: siteConfig.links.portfolio },
+        author: { "@type": "Organization", "@id": orgId, name: siteConfig.name, url: siteConfig.url },
         publisher: { "@id": orgId },
         // The short answer and takeaways are the parts written to be read aloud or quoted by assistants.
         speakable: { "@type": "SpeakableSpecification", cssSelector: ["#short-answer", "#key-takeaways"] },
@@ -162,7 +162,7 @@ export function siteGraph({ services }: { services: { name: string; path: string
                 "@type": "Person",
                 "@id": personId,
                 name: author,
-                jobTitle: "Founder & Lead Engineer",
+                jobTitle: "Founder",
                 worksFor: { "@id": orgId },
                 url: links.portfolio,
                 address,

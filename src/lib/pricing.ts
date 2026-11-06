@@ -34,7 +34,7 @@ export const planComparison: { feature: string; values: [string, string, string]
 
 /** Why the prices sit below typical agency quotes, stated plainly. */
 export const priceReasons = [
-    { title: "No sales layer", text: "You talk to the engineer who scopes and builds your project. There are no account managers or hand-offs to pay for." },
+    { title: "No sales layer", text: "You talk to the team that scopes and builds your project. There are no account managers or hand-offs to pay for." },
     { title: "A small studio on purpose", text: "Low overheads and no bench of idle staff, so the quote covers the work on your project and little else." },
     { title: "A proven stack", text: "Next.js, TypeScript, Node.js and PostgreSQL, the same stack behind our own live products, so nothing is learned on your budget." },
     { title: "Fixed, written quotes", text: "No hourly billing. You agree a price for a defined scope before any work starts, so there are no surprise invoices." },
@@ -61,7 +61,7 @@ export const pricingFaqs: Faq[] = [
     },
     {
         q: "Why are your prices lower than most agencies?",
-        a: "You work directly with the engineer, with no sales team or account managers in between, and we build on a stack we already run in our own products. That keeps overheads low without cutting corners on code quality, testing or security.",
+        a: "You work directly with our team, with no sales staff or account managers in between, and we build on a stack we already run in our own products. That keeps overheads low without cutting corners on code quality, testing or security.",
     },
     {
         q: "What isn't included in the price?",

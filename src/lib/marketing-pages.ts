@@ -444,7 +444,7 @@ const corePages: Record<string, MarketingPageData> = {
             { icon: Activity01Icon, title: "Monitoring", description: "Uptime and error monitoring so problems are caught early." },
             { icon: FlashIcon, title: "Performance tuning", description: "Keep pages and APIs fast as usage grows." },
             { icon: Layers01Icon, title: "New features", description: "Ongoing improvements planned with you each month." },
-            { icon: UserGroupIcon, title: "Direct contact", description: "Talk directly with the engineer who knows your code." },
+            { icon: UserGroupIcon, title: "Direct contact", description: "Talk directly with the engineers who know your code." },
         ],
         idealFor: ["Products launched by StackWise", "Teams without an in-house developer", "Apps that need regular updates and fixes"],
         deliverables: ["Support period after launch", "Bug fixes & security patches", "Dependency updates", "Monitoring", "Monthly improvements", "Handoff docs if you go in-house"],
@@ -602,7 +602,7 @@ const corePages: Record<string, MarketingPageData> = {
         work: ["limityourapi"],
         faqs: [
             { q: "When is Go the right choice?", a: "When a service handles lots of concurrent requests and needs predictable latency: rate limiters, gateways, metering. For most product APIs, Node.js is simpler." },
-            { q: "How do you make sure it holds up under load?", a: "Shared state lives in atomic Redis scripts, and behaviour under concurrency is tested, not assumed. Yash has published a measured study of Redis rate limiters under concurrency." },
+            { q: "How do you make sure it holds up under load?", a: "Shared state lives in atomic Redis scripts, and behaviour under concurrency is tested, not assumed. We've published a measured study of Redis rate limiters under concurrency." },
             ownershipFaq,
         ],
         cta: { title: "Build a service that holds up under load", text: "Tell us about your traffic and what must never break. We'll design for it." },

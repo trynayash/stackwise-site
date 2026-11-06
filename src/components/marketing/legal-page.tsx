@@ -140,7 +140,7 @@ export function LegalPage({
                         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
                             <div className="flex flex-col rounded-3xl bg-surface p-6 md:p-7">
                                 <p className="text-lg font-semibold text-white">Questions about this page?</p>
-                                <p className="mt-2 text-[15px] leading-relaxed text-white/60">Email Yash directly. Replies within 24–48 hours on working days.</p>
+                                <p className="mt-2 text-[15px] leading-relaxed text-white/60">Email our team directly. Replies within 24–48 hours on working days.</p>
                                 <ButtonLink href={`mailto:${email}`} variant="secondary" size="md" arrow={false} className="mt-6 self-start">
                                     <Icon icon={Mail01Icon} size={18} />
                                     {email}

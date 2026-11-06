@@ -1,5 +1,6 @@
 import React from "react";
-import { Calendar03Icon, Clock01Icon, Tick02Icon, UserIcon } from "@hugeicons/core-free-icons";
+import Link from "next/link";
+import { Calendar03Icon, Clock01Icon, Tick02Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
 import { Icon } from "@/components/ui/icon";
 import { RelatedCard } from "@/components/ui/related-card";
 import { FaqList } from "@/components/ui/faq-list";
@@ -135,13 +136,10 @@ export function GuidePage({ guide }: { guide: Guide }) {
                         </h1>
                         <Enter delay={0.2} className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/60">
                             <span className="flex items-center gap-2">
-                                <Icon icon={UserIcon} size={16} className="text-accent" />
-                                <span>
-                                    <a href={siteConfig.links.portfolio} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-white">
-                                        {siteConfig.author}
-                                    </a>
-                                    , founder of {siteConfig.name}
-                                </span>
+                                <Icon icon={UserGroupIcon} size={16} className="text-accent" />
+                                <Link href="/#about" className="inline-flex min-h-11 items-center hover:text-white">
+                                    By the {siteConfig.name} team
+                                </Link>
                             </span>
                             <span className="flex items-center gap-2">
                                 <Icon icon={Calendar03Icon} size={16} className="text-accent" />

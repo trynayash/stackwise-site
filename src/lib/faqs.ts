@@ -23,7 +23,7 @@ export const faqs: Faq[] = [
     },
     {
         q: "How do you communicate during the project?",
-        a: "You talk directly to the engineer building your product, on Slack, Discord or email. There's a weekly call and a live staging link, so you can see progress as it happens.",
+        a: "You talk directly to the team building your product, on Slack, Discord or email. There's a weekly call and a live staging link, so you can see progress as it happens.",
     },
     {
         q: "What if the project scope changes mid-way?",

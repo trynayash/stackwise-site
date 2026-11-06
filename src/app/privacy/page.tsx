@@ -41,12 +41,12 @@ const sections: LegalSection[] = [
             <>
                 <ul>
                     <li>
-                        The chat is an automated assistant. It answers from information already published on this site, and Yash replies to every
-                        quote personally.
+                        The chat is an automated assistant. It answers from information already published on this site, and a person on our team
+                        replies to every quote.
                     </li>
                     <li>
                         The conversation runs in your browser and is held only in memory while the page is open. Nothing is sent to us until you
-                        press <strong>Send to Yash</strong>; your answers then travel over an encrypted connection and reach our inbox by email.
+                        press <strong>Send to our team</strong>; your answers then travel over an encrypted connection and reach our inbox by email.
                         If you choose to send by email instead, the message goes from your own email app.
                     </li>
                     <li>
@@ -77,7 +77,7 @@ const sections: LegalSection[] = [
         title: "Who sees it",
         body: (
             <>
-                <p>Yash reads your enquiry. A small number of service providers handle data on our behalf so the site can work:</p>
+                <p>Our team reads your enquiry. A small number of service providers handle data on our behalf so the site can work:</p>
                 <ul>
                     <li>
                         <strong>Vercel</strong> hosts the website and serves it from locations near you. Request logs pass through its systems.

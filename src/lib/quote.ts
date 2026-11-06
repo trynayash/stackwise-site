@@ -94,7 +94,7 @@ export function summarise(a: QuoteAnswers, preset?: QuotePreset): string {
 export function quoteMailto(a: QuoteAnswers, preset?: QuotePreset): string {
     const subject = `Project quote: ${a.service ?? preset?.topic ?? "new project"}`;
     const body = [
-        "Hi Yash,",
+        "Hi StackWise team,",
         "",
         "I'd like a quote for a project.",
         "",

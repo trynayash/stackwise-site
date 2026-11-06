@@ -80,7 +80,7 @@ const guide: Guide = {
                         "**Integration surprises.** Third-party APIs with thin documentation, sandbox limits or approval steps (payment gateway activation, partner API access, app store review) can block work for days.",
                         "**Late compliance questions.** Finding out mid-build that health, payment or children's data has special rules forces rework. Raise it in discovery; compliance sign-off sits with you and your advisers.",
                         "**Content arriving late.** Copy, pricing, legal pages and logos are often the last blockers before launch.",
-                        "**Hand-offs between people.** Context gets lost between salespeople, project managers and developers. At StackWise, the person who scopes the project is the person who builds it.",
+                        "**Hand-offs between people.** Context gets lost between salespeople, project managers and developers. At StackWise, the team that scopes the project is the team that builds it.",
                     ],
                 },
             ],

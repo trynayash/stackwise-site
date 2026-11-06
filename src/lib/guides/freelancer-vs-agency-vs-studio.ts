@@ -12,7 +12,7 @@ const guide: Guide = {
     },
     summary: "Cost, speed, continuity and accountability compared, with the honest trade-offs of each option.",
     answer:
-        "Hire a freelancer for a small, well-defined job you can manage yourself. Hire an agency when you need many specialists working in parallel and can pay for the coordination. Choose a small studio when you want one accountable team, direct access to the engineer who writes the code and a product built to keep evolving, usually at a cost between the other two.",
+        "Hire a freelancer for a small, well-defined job you can manage yourself. Hire an agency when you need many specialists working in parallel and can pay for the coordination. Choose a small studio when you want one accountable team, direct access to the engineers who write the code and a product built to keep evolving, usually at a cost between the other two.",
     takeaways: [
         "Freelancers are usually cheapest, but you become the project manager and the backup plan.",
         "Agencies bring more people and process, and more layers between you and the code.",
@@ -78,7 +78,7 @@ const guide: Guide = {
             blocks: [
                 {
                     type: "p",
-                    text: "A studio suits founders who want senior engineering without agency layers: an [MVP](/solutions/mvp-development), a SaaS product, an internal tool or an AI feature that will keep changing after launch. You talk to the engineer who designs the architecture and writes the code, so decisions are quick and context is not lost between people.",
+                    text: "A studio suits founders who want senior engineering without agency layers: an [MVP](/solutions/mvp-development), a SaaS product, an internal tool or an AI feature that will keep changing after launch. You talk to the engineers who design the architecture and write the code, so decisions are quick and context is not lost between people.",
                 },
                 {
                     type: "p",
@@ -86,7 +86,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "StackWise is small on purpose: the person who scopes a project is the person who builds it. You can see what that produces in the [StackWise portfolio](/work), including LimitYourAPI, a developer SaaS for API rate limiting built end to end, and StartupDeckAI, a full-stack AI SaaS.",
+                    text: "StackWise is small on purpose: the team that scopes a project is the team that builds it. You can see what that produces in the [StackWise portfolio](/work), including LimitYourAPI, a developer SaaS for API rate limiting built end to end, and StartupDeckAI, a full-stack AI SaaS.",
                 },
             ],
         },

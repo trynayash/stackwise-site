@@ -19,7 +19,7 @@ import { approxUsd } from "@/lib/pricing";
  *   2. Retrieval: answers come only from the intents below; anything unmatched gets a polite
  *      "not able to answer" with an email button.
  *   3. Output: safeReply() re-checks every reply before it is shown and only allows on-site links.
- *   4. Human hand-off: complaints, disputes and urgent problems go straight to Yash by email.
+ *   4. Human hand-off: complaints, disputes and urgent problems go straight to the team by email.
  */
 
 export type AssistantAction = { kind: "email"; label?: string; subject?: string; body?: string } | { kind: "link"; label: string; href: string };
@@ -159,8 +159,8 @@ export function screen(text: string, previous?: string): Screening {
             ok: false,
             kind: "handoff",
             reply: {
-                text: "That's one for a person, not a chat assistant. Please email Yash directly and he'll get back to you personally.",
-                actions: [{ kind: "email", label: "Email Yash", subject: "Needs a reply from Yash", body: text.trim() }],
+                text: "That's one for a person, not a chat assistant. Please email our team directly and someone will get back to you personally.",
+                actions: [{ kind: "email", label: "Email the team", subject: "Needs a reply from the team", body: text.trim() }],
             },
         };
     }
@@ -353,7 +353,7 @@ const intents: Intent[] = [
     {
         patterns: [/\b(who|what) are you\b/, /\bare you (a |an )?(bot|robot|human|real|person|ai|machine)\b/, /\b(am i )?(talking|chatting) (to|with)\b/],
         answer: () => ({
-            text: "I'm the StackWise assistant. I answer questions about our services, pricing and process, and pass your project details to Yash, who replies personally within 24–48 hours.",
+            text: "I'm the StackWise assistant. I answer questions about our services, pricing and process, and pass your project details to our team, who reply personally within 24–48 hours.",
         }),
     },
     {
@@ -435,8 +435,8 @@ const intents: Intent[] = [
         patterns: [/\b(book|schedule|set ?up|arrange|fix|plan)\s+(a\s+|an\s+)?(quick\s+|short\s+|intro\s+)?(call|meeting|demo|slot|chat|time)\b|\b(calendly|book a call|hop on a call|jump on a call|get on a call|zoom|google meet|meet (up|online))\b|\bwhen can we (talk|speak|meet)\b/],
         answer: () => ({
             text: BOOK_URL
-                ? "Pick a time that suits you and Yash will talk it through with you. Calls are free, with no commitment, and you get a written quote afterwards."
-                : `Email ${EMAIL} with a couple of times that suit you and Yash will set up a call. Calls are free, with no commitment.`,
+                ? "Pick a time that suits you and we'll talk it through with you. Calls are free, with no commitment, and you get a written quote afterwards."
+                : `Email ${EMAIL} with a couple of times that suit you and we'll set up a call. Calls are free, with no commitment.`,
             actions: [...bookAction(), { kind: "email", label: "Email us", subject: "Call about a project" }],
         }),
     },
@@ -472,8 +472,8 @@ const intents: Intent[] = [
     {
         patterns: [/\b(founder|who (runs|owns|leads|is behind|started|founded|made|built|created) stackwise|team|team size|how many (people|developers|engineers|employees)|yash|who will (work|build|code)|freelancer|agency|in[\s-]?house)\b/],
         answer: () => ({
-            text: `StackWise is run by ${siteConfig.author}, founder and lead engineer, based in ${siteConfig.location.city}. You work directly with him, from the first call to launch.`,
-            actions: [{ kind: "link", label: "About StackWise", href: "/#founder" }],
+            text: `StackWise is a software studio in ${siteConfig.location.city}, founded by ${siteConfig.author}. We're a small team on purpose: the people who scope your project are the people who design, build and launch it, and you work with us directly from the first call to launch.`,
+            actions: [{ kind: "link", label: "About StackWise", href: "/#about" }],
         }),
     },
     {
@@ -492,7 +492,7 @@ const intents: Intent[] = [
         weight: 0.4,
         patterns: [/\b(contact|e-?mail|mail|phone|call you|whatsapp|reach|talk to|speak to|number|get in touch)\b/],
         answer: () => ({
-            text: `Email us at ${EMAIL}, or finish the quick questions here and Yash will reply within 24–48 hours. You can add a WhatsApp number in the chat if you'd prefer a reply there.`,
+            text: `Email us at ${EMAIL}, or finish the quick questions here and our team will reply within 24–48 hours. You can add a WhatsApp number in the chat if you'd prefer a reply there.`,
             actions: [{ kind: "email", label: "Email us" }, ...bookAction()],
         }),
     },

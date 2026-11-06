@@ -88,8 +88,8 @@ export default function GuidesPage() {
           >
             <p className="max-w-2xl text-lg leading-relaxed text-white/60">
               What a SaaS product, MVP or website really costs, how long it
-              takes, and how to pick the right people to build it. Written by{" "}
-              {siteConfig.author}, who builds them for a living.
+              takes, and how to pick the right people to build it. Written by the{" "}
+              {siteConfig.name} team, who build them for a living.
             </p>
             <QuoteButton />
           </Enter>

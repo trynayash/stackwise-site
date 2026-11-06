@@ -218,7 +218,7 @@ export const omEnterprise: CaseStudy = {
         { label: "Tests", value: "157 passing", note: "51 unit, 72 on real PostgreSQL, 34 in the browser" },
     ],
     lessons: section(
-        "What I'd do differently",
+        "What we'd do differently",
         "Start with the import. Getting 357 products in from seven file formats and scanned pages took more care than any screen, and until the catalogue was real nothing else could be judged.\n\nThe bill mattered more to the owner than any dashboard. Matching the existing A4 layout exactly was the moment the system felt like his, and it should have come earlier.\n\nThe owner's phone app came last and should have come first. Approving a discount from wherever he is was the feature he used on day one."
     ),
     extraLinks: [
