@@ -473,7 +473,7 @@ const intents: Intent[] = [
         patterns: [/\b(founder|who (runs|owns|leads|is behind|started|founded|made|built|created) stackwise|team|team size|how many (people|developers|engineers|employees)|yash|who will (work|build|code)|freelancer|agency|in[\s-]?house)\b/],
         answer: () => ({
             text: `StackWise is a software studio in ${siteConfig.location.city}, founded by ${siteConfig.author}. We're a small team on purpose: the people who scope your project are the people who design, build and launch it, and you work with us directly from the first call to launch.`,
-            actions: [{ kind: "link", label: "About StackWise", href: "/#about" }],
+            actions: [{ kind: "link", label: "About StackWise", href: "/about" }],
         }),
     },
     {

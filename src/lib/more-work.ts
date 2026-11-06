@@ -95,6 +95,7 @@ export const moreWork: CaseStudy[] = [
         preview: "/projects/stackwise.webp",
         liveUrl: "https://stackwise.yashsuthar.dev",
         repoUrl: "https://github.com/trynayash/stackwise-site",
+        seoTitle: "Next.js Studio Website Case Study",
         metaDescription:
             "How the StackWise website is built: Next.js 16 App Router, server-rendered pages, scroll-driven motion, structured data and a validated enquiry flow.",
         overview: section(
@@ -147,6 +148,7 @@ export const omEnterprise: CaseStudy = {
     preview: "/projects/omenterprise.webp",
     liveUrl: "https://omenterprise-n.vercel.app",
     repoUrl: "https://github.com/trynayash/om-enterprise",
+    seoTitle: "OM ENTERPRISE: GST Billing Web App Case Study",
     metaDescription:
         "OM ENTERPRISE case study: catalogue, counter POS, GST-correct bills and an owner's phone app for a building-materials shop in Naswadi, Gujarat.",
     overview: section(

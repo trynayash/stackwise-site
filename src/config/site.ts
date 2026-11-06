@@ -32,7 +32,7 @@ export const siteConfig = {
         { title: "Work", href: "/work" },
         { title: "Process", id: "process" },
         { title: "Pricing", href: "/pricing" },
-        { title: "About", id: "about" },
+        { title: "About", href: "/about" },
         { title: "FAQ", id: "faq" },
     ],
     pricing: [

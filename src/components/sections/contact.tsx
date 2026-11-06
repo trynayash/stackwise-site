@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { useReached } from "@/components/ui/use-reached";
 import { siteConfig } from "@/config/site";
 import { bookCallUrl } from "@/lib/booking";
+import { cn } from "@/lib/utils";
 
 const nextSteps = [
     { title: "Tell us about the project", text: "In the chat or by email. It takes about two minutes." },
@@ -98,19 +99,22 @@ function ChatPlaceholder() {
 // The chat and its answer engine load when the visitor scrolls near this section, not with the first page load.
 const InlineChat = dynamic(() => import("@/components/quote/inline-chat"), { ssr: false, loading: () => <ChatPlaceholder /> });
 
-/** Closing section: the quote chat inline, with email as an equal alternative. */
-export function Contact() {
+/**
+ * Closing section: the quote chat inline, with email as an equal alternative. The contact page renders it as its main
+ * content, with the heading as the H1.
+ */
+export function Contact({ headingAs: Heading = "h2", className }: { headingAs?: "h1" | "h2"; className?: string } = {}) {
     // Start loading the chat about a screen before it scrolls into view.
     const [chatRef, chatNear] = useReached<HTMLDivElement>(-800);
 
     return (
-        <section id="contact" className="relative py-20 md:py-28" aria-label="Contact">
+        <section id="contact" className={cn("relative py-20 md:py-28", className)} aria-label="Contact">
             <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-12 lg:gap-12">
                 <Reveal className="lg:col-span-5">
                     <Eyebrow>Get a quote</Eyebrow>
-                    <h2 className="mt-4 text-[2.125rem] font-semibold leading-[1.06] tracking-[-0.04em] text-white sm:text-[2.75rem] md:text-[3.5rem] text-balance">
+                    <Heading className="mt-4 text-[2.125rem] font-semibold leading-[1.06] tracking-[-0.04em] text-white sm:text-[2.75rem] md:text-[3.5rem] text-balance">
                         Tell us what you&apos;re building.
-                    </h2>
+                    </Heading>
                     <p className="mt-5 text-base leading-relaxed text-white/60 md:text-lg">
                         Ask anything, or answer a few quick questions and you&apos;ll see a starting price straight away. Free, and no commitment.
                     </p>

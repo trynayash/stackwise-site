@@ -77,7 +77,12 @@ export function SpeedComparison({ className }: { className?: string }) {
                 </div>
             </div>
 
-            <p className="mt-5 text-[13px] leading-relaxed text-white/40">{timelineNote}</p>
+            <p className="mt-5 text-[13px] leading-relaxed text-white/40">
+                {timelineNote}{" "}
+                <Link href="/guides/how-long-to-build-a-website" className="text-white/60 underline underline-offset-2 hover:text-white">
+                    How build times break down
+                </Link>
+            </p>
         </div>
     );
 }

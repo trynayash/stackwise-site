@@ -11,6 +11,7 @@ Live site: https://stackwise.yashsuthar.dev (Vercel project `stackwise-site`; ev
 - Desktop navigation with a Services mega menu, and a full-screen mobile menu
 - Service and solution pages under `src/app/services/` and `src/app/solutions/`, all rendered by one template (`src/components/marketing/`) from the content in `src/lib/marketing-pages.ts`
 - Generated social-share images at `/og?title=...&kicker=...`, and JSON-LD (Organization, Service, FAQ, Breadcrumb) via `src/lib/schema.tsx`
+- About and contact pages at `/about` and `/contact` (the contact page reuses the home page's quote chat and email card)
 - Case studies at `/work` and `/work/[slug]`. The three featured ones come from `src/lib/case-studies.ts`. That file started as a copy of the yashsuthar.dev portfolio (`src/config/case-studies.ts`), but here the write-ups speak in the studio's voice ("we"), so keep that when syncing changes across; smaller projects live in `src/lib/more-work.ts`; screenshots are in `public/projects/`
 - A contact API at `src/app/api/contact/route.ts` that validates input with Zod and has a simple in-memory rate limit
 - Security headers (CSP, HSTS, frame options) set in `src/middleware.ts`

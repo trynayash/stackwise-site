@@ -117,7 +117,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                     )}
                                 </AnimatePresence>
                             </li>
-                            {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", id: "contact" }].map((item) => (
+                            {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", href: "/contact" }].map((item) => (
                                 <li key={item.title}>
                                     <Link
                                         {...navLink(item, onClose)}

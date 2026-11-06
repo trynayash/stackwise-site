@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
         entry("", 1.0, "weekly", allWork.map((w) => w.preview)),
         entry("/pricing", 0.95),
+        ...["/about", "/contact"].map((p) => entry(p, 0.7, "monthly")),
         ...["/services", "/solutions", "/technologies", "/industries", "/locations", "/guides"].map((p) => entry(p, 0.9)),
         entry("/work", 0.9, "weekly", allWork.map((w) => w.preview)),
         // Every service, solution, technology, industry and location page

@@ -137,7 +137,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
                         <Enter delay={0.2} className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/60">
                             <span className="flex items-center gap-2">
                                 <Icon icon={UserGroupIcon} size={16} className="text-accent" />
-                                <Link href="/#about" className="inline-flex min-h-11 items-center hover:text-white">
+                                <Link href="/about" className="inline-flex min-h-11 items-center hover:text-white">
                                     By the {siteConfig.name} team
                                 </Link>
                             </span>

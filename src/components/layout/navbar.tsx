@@ -11,7 +11,7 @@ import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/interactive";
 import { useInquiry } from "@/components/providers/inquiry-context";
-import { useNavLink, useSectionNav } from "@/hooks/use-section-nav";
+import { useNavLink } from "@/hooks/use-section-nav";
 import type { PageLink } from "@/lib/all-pages";
 import { useSiteLinks } from "@/components/providers/site-links";
 import { siteConfig } from "@/config/site";
@@ -84,7 +84,6 @@ export function Navbar() {
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const { openInquiry, isOpen: quoteOpen } = useInquiry();
-    const goToSection = useSectionNav();
     const navLink = useNavLink();
 
     useEffect(() => {
@@ -226,8 +225,7 @@ export function Navbar() {
                                 </a>
                             )}
                             <Link
-                                href="/#contact"
-                                onClick={goToSection("contact")}
+                                href="/contact"
                                 className="hidden lg:inline-flex h-10 items-center px-4 text-sm font-medium text-[var(--nav-muted)] transition-colors hover:text-[var(--nav-fg)]"
                             >
                                 Contact

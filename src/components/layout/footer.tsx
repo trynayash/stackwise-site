@@ -108,7 +108,7 @@ export function Footer() {
 
                     <div className="lg:col-span-2">
                         <Column title="Company">
-                            {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", id: "contact" }].map((item) => (
+                            {[...siteConfig.navItems, { title: "Guides", href: "/guides" }, { title: "Contact", href: "/contact" }].map((item) => (
                                 <li key={item.title}>
                                     <Link {...navLink(item)} className={linkClass}>
                                         {item.title}

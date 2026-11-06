@@ -3,6 +3,7 @@ import saasCost from "@/lib/guides/saas-development-cost-india";
 import websiteCost from "@/lib/guides/website-development-cost-india";
 import mvpCost from "@/lib/guides/mvp-development-cost";
 import saasTimeline from "@/lib/guides/how-long-to-build-a-saas";
+import websiteTimeline from "@/lib/guides/how-long-to-build-a-website";
 import chooseCompany from "@/lib/guides/how-to-choose-a-saas-development-company";
 import whiteLabel from "@/lib/guides/white-label-development-for-agencies";
 import outsourcing from "@/lib/guides/outsourcing-software-development-to-india";
@@ -26,6 +27,7 @@ export const guides: Guide[] = [
     mvpCost,
     aiChatbotCost,
     mobileAppCost,
+    websiteTimeline,
     saasTimeline,
     saasPricingModels,
     customVsOffTheShelf,

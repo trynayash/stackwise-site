@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const study = workBySlug[slug];
     if (!study) return {};
     return constructMetadata({
-        title: `${study.name} Case Study: ${study.kind}`,
+        title: study.seoTitle ?? `${study.name} Case Study: ${study.kind}`,
         description: study.metaDescription,
         canonical: `/work/${study.slug}`,
         ogKicker: "Case study",
@@ -113,7 +113,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                                 <div className="flex items-baseline justify-between gap-4 px-4 py-3">
                                     <dt className="text-sm text-white/50">Built by</dt>
                                     <dd className="text-[15px] font-medium text-white">
-                                        <Link href="/#about" className="hover:text-accent">
+                                        <Link href="/about" className="hover:text-accent">
                                             The {siteConfig.name} team
                                         </Link>
                                     </dd>

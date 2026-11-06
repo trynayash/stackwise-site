@@ -53,6 +53,8 @@ export type CaseStudy = {
   liveUrl?: string;
   repoUrl?: string;
   metaDescription: string;
+  /** Page title when "<name> Case Study: <kind>" would read badly, e.g. repeat the brand. */
+  seoTitle?: string;
   overview: CaseStudySection;
   problem: CaseStudySection;
   /* Optional (StackWise only): the smaller projects in src/lib/more-work.ts don't have these write-ups. */
