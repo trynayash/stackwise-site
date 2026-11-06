@@ -113,7 +113,7 @@ const guide: Guide = {
             blocks: [
                 {
                     type: "p",
-                    text: "StackWise's Product Build starts at ₹98,999 (about US$1,050) and includes sign-up, login and user dashboards, Stripe or Razorpay payments and subscriptions, Next.js and TypeScript, and 3 months of support. Every project gets a written quote before work starts.",
+                    text: "StackWise's Product Build starts at ₹59,999 (about US$650) and includes sign-up, login and user dashboards, Stripe or Razorpay payments and subscriptions, Next.js and TypeScript, and 3 months of support. Every project gets a written quote before work starts.",
                 },
                 {
                     type: "p",
@@ -198,7 +198,7 @@ const guide: Guide = {
         "/guides/multi-tenant-saas-architecture",
     ],
     published: "2026-10-31",
-    updated: "2026-10-31",
+    updated: "2026-11-06",
 };
 
 export default guide;

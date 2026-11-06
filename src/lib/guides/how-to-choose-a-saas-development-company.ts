@@ -206,7 +206,7 @@ const guide: Guide = {
         "/guides/outsourcing-software-development-to-india",
     ],
     published: "2026-10-30",
-    updated: "2026-10-30",
+    updated: "2026-11-06",
 };
 
 export default guide;

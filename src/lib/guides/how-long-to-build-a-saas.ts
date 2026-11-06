@@ -195,7 +195,7 @@ const guide: Guide = {
         "/guides/mvp-development-cost",
     ],
     published: "2026-10-30",
-    updated: "2026-10-30",
+    updated: "2026-11-06",
 };
 
 export default guide;

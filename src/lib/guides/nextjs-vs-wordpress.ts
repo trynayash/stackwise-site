@@ -129,7 +129,7 @@ const guide: Guide = {
                 },
                 {
                     type: "p",
-                    text: "A custom Next.js site costs more to build because a developer designs and codes it, but running costs are often low and routine maintenance is light. A StackWise Starter Build, a custom Next.js business website designed around your brand with SEO and speed tuning and one month of support, starts from ₹34,999 (about US$400). The [website development cost guide](/guides/website-development-cost-india) explains what drives the price.",
+                    text: "A custom Next.js site costs more to build because a developer designs and codes it, but running costs are often low and routine maintenance is light. A StackWise Starter Build, a custom Next.js business website designed around your brand with SEO and speed tuning and one month of support, starts from ₹19,999 (about US$200). The [website development cost guide](/guides/website-development-cost-india) explains what drives the price.",
                 },
             ],
         },
@@ -168,7 +168,7 @@ const guide: Guide = {
         },
         {
             q: "How much does it cost to move from WordPress to Next.js?",
-            a: "It depends on the number of pages and templates, whether content moves to a headless CMS, any custom features, and how many URLs need redirects. A small business site is a modest project; a content site with years of posts is a bigger migration. StackWise's Starter Build starts from ₹34,999 (about US$400), with a written quote first.",
+            a: "It depends on the number of pages and templates, whether content moves to a headless CMS, any custom features, and how many URLs need redirects. A small business site is a modest project; a content site with years of posts is a bigger migration. StackWise's Starter Build starts from ₹19,999 (about US$200), with a written quote first.",
         },
         {
             q: "Is Next.js more secure than WordPress?",
@@ -220,7 +220,7 @@ const guide: Guide = {
         "/guides/website-development-cost-india",
     ],
     published: "2026-10-30",
-    updated: "2026-10-30",
+    updated: "2026-11-06",
 };
 
 export default guide;

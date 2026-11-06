@@ -3,7 +3,7 @@ export type Faq = { q: string; a: string };
 export const faqs: Faq[] = [
     {
         q: "How much does a website or SaaS product cost?",
-        a: "Business websites start at ₹34,999 (about US$400), and SaaS products, web apps and dashboards at ₹98,999 (about US$1,050). AI systems and larger platforms are quoted after a free discovery call. Every project gets a fixed, written quote before work starts, with no hourly billing. The pricing page lists starting prices for every service.",
+        a: "Business websites start at ₹19,999 (about US$200), and SaaS products, web apps and dashboards at ₹59,999 (about US$650). AI systems and larger platforms are quoted after a free discovery call. Every project gets a fixed, written quote before work starts, with no hourly billing. The pricing page lists starting prices for every service.",
     },
     {
         q: "Who owns the code when it's done?",

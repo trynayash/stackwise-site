@@ -67,7 +67,7 @@ export function MarketingHub({ kind, title, accent, intro }: { kind: Kind; title
                     <Stagger className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         {pages.map((p) => {
                             const fact = (label: string) => p.facts.find((f) => f.label === label)?.value;
-                            // "₹34,999 (about US$400)" shows just the rupee figure here; the page itself has the conversion.
+                            // "₹19,999 (about US$200)" shows just the rupee figure here; the page itself has the conversion.
                             const price = fact("Starting at")?.replace(/\s*\(.*\)$/, "");
                             const timeline = fact("Typical timeline");
                             return (
