@@ -6,6 +6,10 @@ interface LogoProps {
     size?: "sm" | "md" | "lg" | "xl";
 }
 
+/**
+ * The STACKWISE wordmark. On hover the two halves swap colours. A parent can retheme it for light backgrounds
+ * with --logo-hover (STACK on hover), --logo-accent (WISE) and --logo-accent-hover (WISE on hover).
+ */
 export function Logo({ className, size = "md" }: LogoProps) {
     const sizeClasses = {
         sm: "text-base md:text-lg",
@@ -17,7 +21,7 @@ export function Logo({ className, size = "md" }: LogoProps) {
     return (
         <span
             className={cn(
-                "tracking-tight group-hover:text-[#C8FF00] transition-colors duration-300 select-none",
+                "tracking-tight group-hover:text-[var(--logo-hover,#C8FF00)] transition-colors duration-300 select-none",
                 sizeClasses[size],
                 className
             )}

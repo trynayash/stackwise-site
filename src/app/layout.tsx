@@ -16,13 +16,13 @@ const spaceGrotesk = localFont({
   display: "swap",
 });
 
-// Wordmark font: next/font preloads it, so the logo paints in its final face without a late swap. It only
-// sets "STACKWISE" and the "S" mark, so the web copy is cut down to capital letters (the full .otf stays for
-// the share image).
+// Wordmark font: next/font preloads it, and "block" keeps the logo hidden for the moment the 3 KB file takes to
+// arrive rather than drawing it in a fallback face and visibly swapping. It only sets "STACKWISE" and the "S"
+// mark, so the web copy is cut down to capital letters (the full .otf stays for the share image).
 const oughter = localFont({
   src: "../fonts/Oughter-Caps.woff2",
   variable: "--font-oughter",
-  display: "swap",
+  display: "block",
 });
 
 export const metadata: Metadata = {

@@ -43,6 +43,12 @@ function MenuLink({ page, onNavigate }: { page: PageLink; onNavigate: () => void
     );
 }
 
+/**
+ * Pages whose first section is light (marked data-nav-light). The bar starts in its dark-text state on these, so the
+ * server-rendered HTML is already right at first paint instead of flashing white text until JavaScript loads.
+ */
+const startsLight = (path: string) => path === "/";
+
 /** Soft pill that slides between the top-level links as the mouse moves across them. */
 function NavPill() {
     return (
@@ -57,9 +63,19 @@ function NavPill() {
 
 export function Navbar() {
     const { industries, services, solutions, technologies } = useSiteLinks();
+    const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     // True while the bar sits over a light section (one marked data-nav-light), so its text turns dark.
-    const [overLight, setOverLight] = useState(false);
+    const [overLight, setOverLight] = useState(() => startsLight(pathname));
+    // On a client-side navigation, reset to the new page's starting state in the same render, before it paints,
+    // and skip the colour fades for that frame so the text doesn't fade from white to black over a light hero.
+    const [lightFor, setLightFor] = useState(pathname);
+    const [instant, setInstant] = useState(false);
+    if (lightFor !== pathname) {
+        setLightFor(pathname);
+        setOverLight(startsLight(pathname));
+        setInstant(true);
+    }
     const [hidden, setHidden] = useState(false);
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -67,7 +83,6 @@ export function Navbar() {
     const [hovered, setHovered] = useState<string | null>(null);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
-    const pathname = usePathname();
     const { openInquiry, isOpen: quoteOpen } = useInquiry();
     const goToSection = useSectionNav();
     const navLink = useNavLink();
@@ -86,9 +101,27 @@ export function Navbar() {
             }
         };
         handleScroll();
+        // Check again once the new page has laid out (a navigation can land mid-page, e.g. on /#about).
+        const frame = requestAnimationFrame(handleScroll);
         window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+        return () => {
+            cancelAnimationFrame(frame);
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [pathname]);
+
+    // Turn the fades back on two frames later, once the new colours have painted.
+    useEffect(() => {
+        if (!instant) return;
+        let second = 0;
+        const first = requestAnimationFrame(() => {
+            second = requestAnimationFrame(() => setInstant(false));
+        });
+        return () => {
+            cancelAnimationFrame(first);
+            cancelAnimationFrame(second);
+        };
+    }, [instant]);
 
     // Close the menu on navigation, Escape and outside clicks.
     useEffect(() => {
@@ -137,8 +170,9 @@ export function Navbar() {
                 className={cn(
                     "fixed top-0 left-0 right-0 z-50 transition-[background-color,transform] duration-300 ease-out",
                     solid ? (light ? "bg-paper/85 backdrop-blur-xl" : "bg-canvas/85 backdrop-blur-xl") : "bg-transparent",
-                    light ? "text-ink [--nav-fg:#0b0b0b] [--nav-muted:rgb(11_11_11/0.65)] [--nav-pill:rgb(11_11_11/0.06)] [--logo-accent:#0b0b0b] [--logo-accent-hover:#5c8a00]" : "text-white [--nav-fg:#fff] [--nav-muted:rgb(255_255_255/0.7)] [--nav-pill:rgb(255_255_255/0.08)]",
-                    hidden && !menuOpen && "-translate-y-full"
+                    light ? "text-ink [--nav-fg:#0b0b0b] [--nav-muted:rgb(11_11_11/0.65)] [--nav-pill:rgb(11_11_11/0.06)] [--logo-hover:#5c8a00] [--logo-accent:#0b0b0b] [--logo-accent-hover:#0b0b0b]" : "text-white [--nav-fg:#fff] [--nav-muted:rgb(255_255_255/0.7)] [--nav-pill:rgb(255_255_255/0.08)]",
+                    hidden && !menuOpen && "-translate-y-full",
+                    instant && "[&_*]:transition-none!"
                 )}
             >
                 <div ref={menuRef} onMouseLeave={scheduleClose}>
