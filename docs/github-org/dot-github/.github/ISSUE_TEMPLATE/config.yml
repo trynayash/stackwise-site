@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Start a project with StackWise
+    url: https://stackwise.yashsuthar.dev/contact
+    about: For quotes, new projects and working with us, use the contact form instead of an issue.

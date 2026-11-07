@@ -1,0 +1,41 @@
+name: Bug report
+description: Something is broken or does not work as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. **Security issues should not be filed here**: see the security policy instead.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect to see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See the error
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: The release, package version or commit you are using.
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, operating system, Node.js / Go / Python version, as relevant.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste error messages or logs. Remove any secrets or personal data first.
+      render: shell
