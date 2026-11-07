@@ -4,6 +4,8 @@ The website for StackWise, a software studio in Mumbai. It is a single-page mark
 
 Live site: https://stackwise.yashsuthar.dev (Vercel project `stackwise-site`; every push to `main` deploys to production, and `stackwise-site.vercel.app` redirects there)
 
+GitHub organization: https://github.com/StackwiseInd. The site's footer and the Organization structured data link there, from `siteConfig.links.githubOrg` in `src/config/site.ts`. The org's profile README and default community files are kept in `docs/github-org/`.
+
 ## What is in it
 
 - Home page sections in `src/components/sections/` (hero with product screenshots, selected work, testimonials, services, process with the timeline comparison, pricing, how we compare, team, FAQ, guides, contact)

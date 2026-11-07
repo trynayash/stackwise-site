@@ -157,7 +157,7 @@ export function Footer() {
                             Terms
                         </Link>
                         <a
-                            href="https://github.com/trynayash/stackwise-site"
+                            href={siteConfig.links.githubOrg}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex min-h-11 items-center gap-1.5 px-3 transition-colors hover:text-white"

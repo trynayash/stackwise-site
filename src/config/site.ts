@@ -19,7 +19,10 @@ export const siteConfig = {
         inbound: "stackwiseind@gmail.com",
     },
     links: {
+        /** The studio's GitHub organization: the footer's GitHub link and the Organization's sameAs. */
+        githubOrg: "https://github.com/StackwiseInd",
         twitter: "https://x.com/YashVibes1",
+        /** The founder's personal GitHub profile, used only in the founder's Person structured data. */
         github: "https://github.com/trynayash",
         portfolio: "https://yashsuthar.dev",
         orcid: "https://orcid.org/0009-0004-6775-1113",

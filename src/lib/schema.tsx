@@ -168,6 +168,7 @@ export function siteGraph({ services }: { services: { name: string; path: string
                 },
                 address,
                 founder: { "@id": personId },
+                sameAs: [links.githubOrg],
                 foundingLocation: { "@type": "Place", name: `${location.city}, ${location.country}` },
                 areaServed,
                 knowsAbout,
