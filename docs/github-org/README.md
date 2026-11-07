@@ -4,6 +4,7 @@ The studio's GitHub organization is **https://github.com/StackwiseInd**. This fo
 
 | Path | What it is |
 | --- | --- |
+| `setup.sh` | Runs the setup below with the GitHub CLI: profile, security defaults, the `.github` repo, transfers and repo About panels |
 | `stackwise-avatar.png` | 1024×1024 profile picture: the site's mark, full-bleed on the brand black |
 | `dot-github/` | The contents of the public `StackwiseInd/.github` repository: the org profile README and default community files |
 | `dot-github/profile/README.md` | The README shown on the organization's profile page |
@@ -12,7 +13,13 @@ The studio's GitHub organization is **https://github.com/StackwiseInd**. This fo
 
 **Already done in this repo:** the footer's GitHub link and the Organization structured data point at the org (`siteConfig.links.githubOrg` in `src/config/site.ts`). The founder's Person structured data keeps the personal profile, `links.github`.
 
-The steps below need an org owner in a browser. GitHub has no API for most of them.
+**The quick way:** on your own computer, with the [GitHub CLI](https://cli.github.com) installed, run this from the repository root:
+
+```bash
+bash docs/github-org/setup.sh
+```
+
+It does steps 1–4 and the repository About panels below. It asks before each repository transfer, and you can re-run it safely. It then lists the four things GitHub only allows in a browser: the profile picture, the two-factor requirement, pins and reconnecting Vercel. The steps below are the same work done by hand.
 
 ---
 
