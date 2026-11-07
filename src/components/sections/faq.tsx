@@ -14,7 +14,7 @@ export function FAQ() {
     const { openInquiry } = useInquiry();
 
     return (
-        <section id="faq" className="relative py-20 md:py-28" aria-label="Frequently asked questions">
+        <section id="faq" className="relative py-16 md:py-28" aria-label="Frequently asked questions">
             <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-12 lg:gap-16">
                 <div className="lg:col-span-4">
                     <div className="lg:sticky lg:top-28">

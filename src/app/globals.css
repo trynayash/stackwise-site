@@ -63,6 +63,27 @@ section[id] {
     outline: 2px solid #C8FF00;
     outline-offset: 3px;
   }
+
+  /*
+   * Even line lengths everywhere: headings balance their lines, and body copy never leaves a single word
+   * stranded on the last line. Utilities (text-balance, text-pretty, text-wrap) still override these.
+   */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd,
+  dt,
+  blockquote,
+  figcaption,
+  summary {
+    text-wrap: pretty;
+  }
 }
 
 ::selection {

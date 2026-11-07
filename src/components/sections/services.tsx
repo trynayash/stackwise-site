@@ -19,23 +19,26 @@ function ServicePanel({ page }: { page: ServiceCard }) {
     return (
         <div>
             {study && (
-                <Link href={`/work/${study.slug}`} className="group relative block overflow-hidden rounded-3xl bg-ink">
-                    <Image
-                        src={study.preview}
-                        alt={`${study.name}: ${study.tagline}`}
-                        width={1600}
-                        height={1000}
-                        sizes="(min-width: 1024px) 640px, 100vw"
-                        className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                    />
-                    <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/75 px-3.5 py-2 text-[13px] font-medium text-white backdrop-blur">
+                // The credit sits under the screenshot, not on it, so nothing covers the product.
+                <Link href={`/work/${study.slug}`} className="group block">
+                    <span className="block overflow-hidden rounded-3xl bg-ink">
+                        <Image
+                            src={study.preview}
+                            alt={`${study.name}: ${study.tagline}`}
+                            width={1600}
+                            height={1000}
+                            sizes="(min-width: 1024px) 640px, 100vw"
+                            className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                        />
+                    </span>
+                    <span className="mt-3 inline-flex items-center gap-1.5 px-1 text-sm font-medium text-ink/60 transition-colors group-hover:text-ink">
                         Built by our team: {study.name}
                         <Icon icon={ArrowUpRight01Icon} size={15} />
                     </span>
                 </Link>
             )}
 
-            <p className="mt-7 text-lg leading-relaxed text-ink/75">{page.intro}</p>
+            <p className="mt-6 text-lg leading-relaxed text-ink/75">{page.intro}</p>
 
             <div className="mt-6 flex flex-wrap gap-2">
                 {price && (
@@ -114,7 +117,7 @@ export function Services({ core, others }: { core: ServiceCard[]; others: Servic
                                                 >
                                                     {page.navLabel}
                                                 </span>
-                                                <span className={cn("mt-1 block text-[15px]", selected ? "text-ink/75" : "text-ink/70")}>{page.summary}</span>
+                                                <span className={cn("mt-1 block text-[15px] text-pretty", selected ? "text-ink/75" : "text-ink/70")}>{page.summary}</span>
                                             </span>
                                             <span
                                                 className={cn(

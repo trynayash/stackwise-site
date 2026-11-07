@@ -31,7 +31,7 @@ function Item({ name, file, copy = false }: { name: string; file: string; copy?:
 export function StackLoop() {
     return (
         <section aria-label="Technologies we use" className="relative py-12 md:py-16">
-            <p className="container mx-auto mb-8 px-5 text-center text-[15px] text-white/55 sm:px-6">
+            <p className="container mx-auto mb-8 px-5 text-center text-[15px] text-white/55 text-balance sm:px-6">
                 Built with tools your next engineer will already know
             </p>
             <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">

@@ -23,7 +23,7 @@ export function Pricing({ standalone = false }: { standalone?: boolean }) {
     const { openInquiry } = useInquiry();
 
     return (
-        <section id="pricing" className="relative py-20 md:py-28" aria-label="Pricing">
+        <section id="pricing" className="relative py-16 md:py-28" aria-label="Pricing">
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
                     eyebrow={standalone ? "Plans" : "Pricing"}

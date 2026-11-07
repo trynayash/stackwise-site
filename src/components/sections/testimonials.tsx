@@ -92,7 +92,7 @@ export function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="relative py-20 md:py-28" aria-label="What clients say">
+    <section className="relative py-16 md:py-28" aria-label="What clients say">
       <div className="container mx-auto px-5 sm:px-6">
         <SectionHeader eyebrow="Clients" title="In their words." />
         {testimonials.length === 1 ? (

@@ -8,7 +8,7 @@ import { WorkGrid } from "@/components/work/work-card";
 /** Home page work section: the three featured case studies, then a link to the rest. */
 export function Portfolio() {
     return (
-        <section id="portfolio" className="relative py-20 md:py-28" aria-label="Selected work">
+        <section id="portfolio" className="relative py-16 md:py-28" aria-label="Selected work">
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
                     eyebrow="Our work"

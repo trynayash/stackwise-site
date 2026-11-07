@@ -113,7 +113,7 @@ section[id] { scroll-margin-top: 5.5rem; }
   - cards `rounded-3xl`
   - big panels `rounded-[2rem] md:rounded-[3rem]`
   - buttons, chips and badges `rounded-full`
-- Sections use `py-20 md:py-28`. The container is `container mx-auto px-5 sm:px-6`.
+- Sections use `py-16 md:py-28`. The container is `container mx-auto px-5 sm:px-6`.
 - Card padding is `p-7 md:p-8`; large cards use `p-8 md:p-10`.
 - The only shadow is a soft deep drop under floating media: `shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]` plus `ring-1 ring-white/10`.
 
@@ -263,7 +263,7 @@ Source: `src/components/work/work-card.tsx`.
 - **Reveal:** `clipPath: inset(12% 12% 12% 12% round 24px)` animates to `inset(0% 0% 0% 0% round 24px)` over 1.1s, triggered by `useReached`.
 - **Parallax:** the inner image wrapper is `absolute inset-x-0 -top-[7%] -bottom-[7%]`, with `y` following `useScroll` from `-6%` to `6%`. The image scales to 1.04 on card hover.
 - **Cursor label (`CursorFollow`):** a 96px accent circle reading "View case study". It follows the mouse on springs (stiffness 450, damping 38), scales from 0.2 to 1 on enter, and is mouse-only and desktop-only.
-- **Status badge:** `rounded-full px-3 py-1 text-xs font-semibold` in the corner. Use the accent for "Live", and `bg-black/70 backdrop-blur` otherwise.
+- **Status badge:** `rounded-full px-2.5 py-0.5 text-xs font-semibold`, next to the project name, never on the screenshot (it would cover the product's own logo or navigation). Use the accent for "Live", and `bg-white/[0.08] text-white/80` otherwise.
 - **Grid:** every third card spans the full row (`md:col-span-2`, aspect `16/10` on mobile, `2/1` on desktop); the others sit in pairs. Use `gap-y-14 md:gap-y-16`.
 - **Footer row:** name and tagline on the left; kind plus a round arrow on the right, turning accent on hover.
 
@@ -321,7 +321,7 @@ Source: `src/components/ui/scroll-effects.tsx`.
 
 | # | Section | Layout | Motion |
 |---|---|---|---|
-| 1 | **Hero (light panel)** | Full-bleed `bg-paper text-ink` section marked `data-nav-light` so the navbar switches to dark text over it. Mono uppercase eyebrow with a live dot ("Independent software studio · Mumbai"). Three-line H1 (`lg:text-[4rem] xl:text-[4.5rem]`, leading 0.98) with the key phrase in a marker highlight: `bg-accent px-[0.12em] -mx-[0.12em] rounded-[0.22em] [box-decoration-break:clone]`. Paragraph, a dark primary button plus an underlined "Explore our work" link, then a 3-column trust row divided by hairlines. Right column: a stage of two real product screenshots (`hero-stage.tsx`): the front one in a thin browser frame showing only the domain, tilting toward the cursor and linking to its case study; the second layered behind at a 3° rotation; a white caption card with the product name, kind and status. Frames stack in flow on phones and sit in a fixed box from `md`. A mono bottom strip carries starting prices and the stack. | `.rise-word` headline, CSS `Enter` for copy and each mockup window, scroll parallax (`visualY` 0 → -70, `copyY` 0 → 40) |
+| 1 | **Hero (light panel)** | Full-bleed `bg-paper text-ink` section marked `data-nav-light` so the navbar switches to dark text over it. A small sans H1 carries the search phrase. The display headline is three lines (`lg:text-[5rem] 2xl:text-[6rem]`, leading 0.98): "Your next product." in ink, then "Built right, from day one." in `text-ink/45`. From xl the subhead and the actions (dark primary button, outlined "Explore our work" button) sit on the right of a 12-column grid, bottom-aligned with the headline; below xl they stack. Then two real products side by side on the same grid (7 + 5, `hero-stage.tsx`): thin browser frames showing only the domain, the second cropped from the top-left to the first one's height, each with its name and kind underneath and linking to its case study; phones show the first only. Last, a row of four facts (starting prices, fixed written quote, code and IP) split by hairlines, 2 x 2 below lg. Nothing overlaps at any width. | `.rise-word` headline, CSS `Enter` for copy, frames and facts |
 | 2 | **Kinetic band** | Two full-bleed rows of big words (what Yash builds or works with) | Velocity marquee |
 | 3 | **Selected work** | Section header (eyebrow, H2 and a "See all" button on the right), then the work grid (every 3rd card full width) | Clip-path wipe, inner parallax, cursor label, staggered Reveal |
 | 4 | **What I do (paper panel)** | `mx-2 sm:mx-3 rounded-[2rem] md:rounded-[3rem] bg-paper text-ink`. Left 5 columns: a selectable list (big label, summary, round icon; the selected item gets `bg-white` and an accent icon). Right 7 columns: a sticky detail panel (screenshot, intro, chips, tick list, CTA). On mobile the details open under the selected item. Below: "Also" chips. | `AnimatePresence mode="wait"` panel swap (y 14 → 0, 0.3s); mobile accordion uses height auto |

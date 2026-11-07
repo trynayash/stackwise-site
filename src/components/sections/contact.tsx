@@ -38,10 +38,14 @@ function EmailCard() {
                 {email.split("@")[0]}
                 <wbr />@{email.split("@")[1]}
             </a>
-            <div className="mt-5 flex flex-wrap gap-2">
+            {/* Phones: one full-width button per row. From sm: the email button across the top, the other two side by side. */}
+            <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <a
                     href={`mailto:${email}?subject=${encodeURIComponent("New project enquiry")}`}
-                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-black transition-colors hover:bg-accent-hover"
+                    className={cn(
+                        "inline-flex h-11 items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-black transition-colors hover:bg-accent-hover",
+                        bookCallUrl("contact") && "sm:col-span-2"
+                    )}
                 >
                     <Icon icon={Mail01Icon} size={17} />
                     Write an email
@@ -49,7 +53,7 @@ function EmailCard() {
                 <button
                     type="button"
                     onClick={copy}
-                    className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full bg-white/[0.06] px-5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.12]"
+                    className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-white/[0.06] px-5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.12]"
                 >
                     <Icon icon={copied ? Tick02Icon : Copy01Icon} size={17} />
                     <span aria-live="polite">{copied ? "Copied" : "Copy address"}</span>
@@ -59,7 +63,7 @@ function EmailCard() {
                         href={bookCallUrl("contact")}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex h-11 items-center gap-2 rounded-full bg-white/[0.06] px-5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.12]"
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white/[0.06] px-5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.12]"
                     >
                         <Icon icon={Calendar03Icon} size={17} />
                         Book a call
@@ -108,7 +112,7 @@ export function Contact({ headingAs: Heading = "h2", className }: { headingAs?: 
     const [chatRef, chatNear] = useReached<HTMLDivElement>(-800);
 
     return (
-        <section id="contact" className={cn("relative py-20 md:py-28", className)} aria-label="Contact">
+        <section id="contact" className={cn("relative py-16 md:py-28", className)} aria-label="Contact">
             <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-12 lg:gap-12">
                 <Reveal className="lg:col-span-5">
                     <Eyebrow>Get a quote</Eyebrow>

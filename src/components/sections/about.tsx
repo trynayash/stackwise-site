@@ -59,7 +59,7 @@ const disciplines = [
 /** The team the client works with, plus the proof behind the claims. */
 export function About() {
     return (
-        <section id="about" className="relative py-20 md:py-28" aria-label="About StackWise">
+        <section id="about" className="relative py-16 md:py-28" aria-label="About StackWise">
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
                     eyebrow="Who you'll work with"

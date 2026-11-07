@@ -11,14 +11,14 @@ import { useReached } from "@/components/ui/use-reached";
 import type { WorkSummary } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 
-/** Small text pill for a project's status ("Live", "Waitlist", "Open source"). */
+/** Small text pill for a project's status ("Live", "Waitlist", "Open source"), for use on the dark canvas. */
 export function StatusBadge({ status, className }: { status: string; className?: string }) {
     const live = status.toLowerCase() === "live";
     return (
         <span
             className={cn(
-                "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold",
-                live ? "bg-accent text-black" : "bg-black/70 text-white backdrop-blur",
+                "inline-flex flex-shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-5",
+                live ? "bg-accent text-black" : "bg-white/[0.08] text-white/80",
                 className
             )}
         >
@@ -110,23 +110,26 @@ export function CursorFollow({ children, label, className }: { children: React.R
     );
 }
 
-/** Project card linking to its case study. `large` cards span the full row with a wider crop. */
+/**
+ * Project card linking to its case study. `large` cards span the full row with a wider crop. The status sits next
+ * to the name rather than on the screenshot, so it never covers the product's own logo or navigation.
+ */
 export function WorkCard({ study, large = false, priority = false }: { study: WorkSummary; large?: boolean; priority?: boolean }) {
     return (
         <CursorFollow label="View case study">
             <Link href={`/work/${study.slug}`} className="group block">
-                <div className="relative">
-                    <RevealImage
-                        study={study}
-                        priority={priority}
-                        className={large ? "aspect-[16/10] md:aspect-[2/1]" : "aspect-[16/10]"}
-                        sizes={large ? "(min-width: 1280px) 1240px, 100vw" : "(min-width: 768px) 50vw, 100vw"}
-                    />
-                    <StatusBadge status={study.status} className="absolute left-4 top-4 md:left-5 md:top-5" />
-                </div>
+                <RevealImage
+                    study={study}
+                    priority={priority}
+                    className={large ? "aspect-[16/10] md:aspect-[2/1]" : "aspect-[16/10]"}
+                    sizes={large ? "(min-width: 1280px) 1240px, 100vw" : "(min-width: 768px) 50vw, 100vw"}
+                />
                 <div className="mt-5 flex items-start justify-between gap-6">
                     <div className="min-w-0">
-                        <h3 className={cn("font-semibold tracking-[-0.03em] text-white", large ? "text-2xl md:text-4xl" : "text-xl md:text-2xl")}>{study.name}</h3>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                            <h3 className={cn("font-semibold tracking-[-0.03em] text-white", large ? "text-2xl md:text-4xl" : "text-xl md:text-2xl")}>{study.name}</h3>
+                            <StatusBadge status={study.status} />
+                        </div>
                         <p className="mt-1.5 text-[15px] text-white/60 md:text-base">{study.tagline}</p>
                     </div>
                     <span className="flex flex-shrink-0 items-center gap-3">

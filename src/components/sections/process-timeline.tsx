@@ -45,7 +45,7 @@ export function ProcessTimeline() {
     const { openInquiry } = useInquiry();
 
     return (
-        <section id="process" className="relative py-20 md:py-28" aria-label="How we work">
+        <section id="process" className="relative py-16 md:py-28" aria-label="How we work">
             <div className="container mx-auto px-5 sm:px-6">
                 <SectionHeader
                     eyebrow="How it works"
